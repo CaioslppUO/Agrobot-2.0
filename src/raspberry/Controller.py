@@ -11,6 +11,9 @@ from movement.Movement import Movement
 #Communication class
 cm = Comunication()
 
+#Movement class
+mv = Movement()
+
 #Message recieved from server
 msg = ''
 
@@ -25,7 +28,7 @@ powerBoardA          = 0
 powerBoardB          = 0
 
 #Control mode
-controlMode          = 0
+controlMode          = 'none'
 
 #Mission control
 compass              = 0
@@ -52,6 +55,8 @@ def setManualControl():
     limit       = int(msg[2])
     powerBoardA = int(msg[3])
     powerBoardB = int(msg[4])
+    mv.setValues(speed,steer,limit)
+    mv.move()
 
 #Set variables to use on mission control
 def setMissionControl():
@@ -66,21 +71,19 @@ def setControl(value):
     global speed;
     if(value == 'manual'):
         setManualControl()
-        #print('Speed: ' + str(speed))
-    elif(value == ''):
+    elif(value == 'mission'):
         setMissionControl()
-        #print('Speed: ' + str(speed))
     else:
-        print('Control mode not defined: ' + msg[5])
+        print('Control mode not defined: ' + str(value))
 
 #Main loop
 def mainLoop():
     global msg,cm;
     while True:
         msg = cm.getMsg()
+        controlMode = msg[0]
         if(msg):
-            print('Speed: ' + msg[0] + ' Steer: ' + msg[1] + ' Limit: ' + msg[2])
-            setControl(msg[5])
+            setControl(controlMode)
         else:
             print('No message recieved')
 
