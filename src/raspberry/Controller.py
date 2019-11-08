@@ -4,15 +4,20 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import sys
 import time
 import subprocess
+
 from comunication.Comunication import Comunication
 from complements.Sensors import Sensor
 from movement.Movement import Movement
+from complements.OutputMsgs import OutMsg
 
 #Communication class
 cm = Comunication()
 
 #Movement class
 mv = Movement()
+
+#OutMessages class
+ot = OutMsg()
 
 #Message recieved from server
 msg = ''
@@ -26,6 +31,8 @@ steer                = 0
 limit                = 0
 powerBoardA          = 0
 powerBoardB          = 0
+flagBoardA           = True
+flagBoardB           = True
 
 #Control mode
 controlMode          = 'none'
@@ -48,13 +55,39 @@ print('Server started')
 
 #Set variables to use on manual control
 def setManualControl():
-    global msg,speed,steer,limit,powerBoardA,powerBoardB,ss;
+    global msg,speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB;
     #print('Manual control')
     speed       = int(msg[0])
     steer       = int(msg[1])
     limit       = int(msg[2])
     powerBoardA = int(msg[3])
     powerBoardB = int(msg[4])
+    
+    if(flagBoardA == False and powerBoardA == 1):
+        flagBoardA = True
+        msgToBoardA = 'ON'
+    elif(flagBoardA == True and powerBoardA == 1):
+        flagBoardA = False
+        msgToBoardA = 'OFF'
+    else:
+        if(flagBoardA == False):
+            msgToBoardA = 'ON'
+        else:
+            msgToBoardA = 'OFF'
+    
+    if(flagBoardB == False and powerBoardB == 1):
+        flagBoardB = True
+        msgToBoardB = 'ON'
+    elif(flagBoardB == True and powerBoardB == 1):
+        flagBoardB = False
+        msgToBoardB = 'OFF'
+    else:
+        if(flagBoardB == False):
+            msgToBoardB = 'ON'
+        else:
+            msgToBoardB = 'OFF'
+    
+    ot.printManualOutput(str(speed),str(steer),str(limit),str(msgToBoardA),str(msgToBoardB))
     mv.setValues(speed,steer,limit)
     mv.move()
 
@@ -62,9 +95,9 @@ def setManualControl():
 def setMissionControl():
     global msg,compass,missionAngle,distanceBetwenPoints;
     print('Mision control')
-    compass              = float(msg[6])
-    missionAngle         = float(msg[7])
-    distanceBetwenPoints = float(msg[8])
+    #compass              = float(msg[6])
+    #missionAngle         = float(msg[7])
+    #distanceBetwenPoints = float(msg[8])
 
 #Set the control mode for the robot
 def setControl(value):
@@ -78,15 +111,17 @@ def setControl(value):
 
 #Main loop
 def mainLoop():
+    attenpts = 0
     global msg,cm;
     while True:
         msg = cm.getMsg()
-        controlMode = msg[0]
         if(msg):
+            controlMode = msg[5]
             setControl(controlMode)
         else:
-            print('No message recieved')
-
+            print('No message recieved. Attenpt: ' + str(attenpts))
+            attenpts = attenpts + 1
+            time.sleep(1)
 if __name__ == "__main__":
     try:
         mainLoop()

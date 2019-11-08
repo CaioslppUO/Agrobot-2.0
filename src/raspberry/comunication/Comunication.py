@@ -4,6 +4,7 @@ msg = ''
 
 #Web server
 request = None
+
 class Comunication(BaseHTTPRequestHandler):
     def __init__(self):
         self.msg = ''
