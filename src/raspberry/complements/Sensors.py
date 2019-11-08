@@ -2,8 +2,8 @@ from threading import Thread
 import time
 #import RPi.GPIO as GPIO
 
-#GPIO.setmode(GPIO.BOARD)
-#GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 
 sensor_A_trig = 11
 sensor_A_echo = 12
