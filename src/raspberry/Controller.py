@@ -31,8 +31,6 @@ steer                = 0
 limit                = 0
 powerBoardA          = 0
 powerBoardB          = 0
-flagBoardA           = True
-flagBoardB           = True
 
 #Control mode
 controlMode          = 'none'
@@ -62,32 +60,7 @@ def setManualControl():
     limit       = int(msg[2])
     powerBoardA = int(msg[3])
     powerBoardB = int(msg[4])
-    
-    if(flagBoardA == False and powerBoardA == 1):
-        flagBoardA = True
-        msgToBoardA = 'ON'
-    elif(flagBoardA == True and powerBoardA == 1):
-        flagBoardA = False
-        msgToBoardA = 'OFF'
-    else:
-        if(flagBoardA == False):
-            msgToBoardA = 'ON'
-        else:
-            msgToBoardA = 'OFF'
-    
-    if(flagBoardB == False and powerBoardB == 1):
-        flagBoardB = True
-        msgToBoardB = 'ON'
-    elif(flagBoardB == True and powerBoardB == 1):
-        flagBoardB = False
-        msgToBoardB = 'OFF'
-    else:
-        if(flagBoardB == False):
-            msgToBoardB = 'ON'
-        else:
-            msgToBoardB = 'OFF'
-    
-    ot.printManualOutput(str(speed),str(steer),str(limit),str(msgToBoardA),str(msgToBoardB))
+    ot.printManualOutput(str(speed),str(steer),str(limit))
     mv.setValues(speed,steer,limit)
     mv.move()
 
@@ -111,17 +84,18 @@ def setControl(value):
 
 #Main loop
 def mainLoop():
-    attenpts = 0
+    attempts = 0
     global msg,cm;
     while True:
         msg = cm.getMsg()
         if(msg):
             controlMode = msg[5]
             setControl(controlMode)
+            time.sleep(0.02)
         else:
-            print('No message recieved. Attenpt: ' + str(attenpts))
-            attenpts = attenpts + 1
-            time.sleep(1)
+            print('No message recieved. Attempt: ' + str(attempts))
+            attempts = attempts + 1
+            time.sleep(1.5)
 if __name__ == "__main__":
     try:
         mainLoop()
