@@ -2,7 +2,7 @@ import os
 
 class OutMsg:
     
-    def printManualOutput(self,speed,steer,limit,powerA,powerB):
+    def printManualOutput(self,speed,steer,limit):
         os.system("clear")
         print('\t\t\t       * Manual Mode *\n')
         print('\t\t\t\t-> Speed: ' + speed)
