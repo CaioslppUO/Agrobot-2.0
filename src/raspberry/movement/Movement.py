@@ -61,7 +61,7 @@ class Movement:
 
     #Send the commands to the arduino, using UART protocol
     def move(self):
-        if(self.enableSensors == False and self.sensor.frontCollision() or self.sensor.leftCollision() or self.sensor.rightCollision()):
+        if(self.enableSensors == True and self.sensor.frontCollision() or self.sensor.leftCollision() or self.sensor.rightCollision()):
             texto = '0000,0000,0000;'
             if(self.enableUart == True):
                 UART0.write(str.encode(texto))

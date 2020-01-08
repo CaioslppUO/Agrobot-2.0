@@ -9,19 +9,30 @@ from comunication.Comunication import Comunication
 from complements.Sensors import Sensor
 from movement.Movement import Movement
 from complements.OutputMsgs import OutMsg
+from movement.Controls import Controls
 
 #Communication class
 cm = Comunication()
 
 #Options to enable sensors and UART communication
-enableSensors = sys.argv[1]
-enableUart = sys.argv[2]
+if(sys.argv[1] == 'True'):
+    enableSensors = True
+else:
+    enableSensors = False
+    
+if(sys.argv[2] == 'True'):
+    enableUart = True
+else:
+    enableUart = False
 
 #0: Use PC ip, 1: Use robot ip
 ipToUse = sys.argv[3]
 
 #Movement class
 mv = Movement(enableSensors, enableUart)
+
+#Controls class
+ctr = Controls(enableSensors,enableUart)
 
 #OutMessages class
 ot = OutMsg()
@@ -86,7 +97,8 @@ def setMissionControl():
 def setControl(value):
     global speed;
     if(value == 'manual'):
-        setManualControl()
+        #setManualControl()
+        ctr.testInterface()
     elif(value == 'mission'):
         setMissionControl()
     else:
