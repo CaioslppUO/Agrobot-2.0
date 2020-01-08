@@ -14,7 +14,7 @@ from complements.OutputMsgs import OutMsg
 cm = Comunication()
 
 #Movement class
-mv = Movement()
+mv = Movement(False, False)
 
 #OutMessages class
 ot = OutMsg()
@@ -24,6 +24,7 @@ msg = ''
 
 #Web server ip get from computer
 serverIp = str(str(str(str(str(str(subprocess.check_output(['ifconfig'])).split('UP,BROADCAST,RUNNING,MULTICAST')[1]).split('inet')[1])).split('netmask')[0]).split(' ')[1])
+#serverIp = '192.168.1.2'
 
 #Manual control
 speed                = 0

@@ -20,7 +20,7 @@ class Comunication(BaseHTTPRequestHandler):
             request = self.requestline
             request = request[5 : int(len(request)-9)]
             #Geting speed,steer and limit
-            msg = str(request).split('U') #Message recieved from smartphone app
+            msg = str(request).split('.') #Message recieved from smartphone app
             return
 
     
