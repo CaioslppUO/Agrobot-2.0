@@ -13,8 +13,15 @@ from complements.OutputMsgs import OutMsg
 #Communication class
 cm = Comunication()
 
+#Options to enable sensors and UART communication
+enableSensors = sys.argv[1]
+enableUart = sys.argv[2]
+
+#0: Use PC ip, 1: Use robot ip
+ipToUse = sys.argv[3]
+
 #Movement class
-mv = Movement(False, False)
+mv = Movement(enableSensors, enableUart)
 
 #OutMessages class
 ot = OutMsg()
@@ -23,8 +30,10 @@ ot = OutMsg()
 msg = ''
 
 #Web server ip get from computer
-serverIp = str(str(str(str(str(str(subprocess.check_output(['ifconfig'])).split('UP,BROADCAST,RUNNING,MULTICAST')[1]).split('inet')[1])).split('netmask')[0]).split(' ')[1])
-#serverIp = '192.168.1.2'
+if(ipToUse == '0'):
+    serverIp = str(str(str(str(str(str(subprocess.check_output(['ifconfig'])).split('UP,BROADCAST,RUNNING,MULTICAST')[1]).split('inet')[1])).split('netmask')[0]).split(' ')[1])
+else:
+    serverIp = '192.168.1.2'
 
 #Manual control
 speed                = 0
