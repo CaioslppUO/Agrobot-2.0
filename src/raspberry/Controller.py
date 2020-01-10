@@ -12,7 +12,7 @@ from complements.OutputMsgs import OutMsg
 from movement.Controls import Controls
 
 #Communication class
-cm = Comunication()
+comunication = Comunication()
 
 #Options to enable sensors and UART communication
 if(sys.argv[1] == 'True'):
@@ -29,13 +29,13 @@ else:
 ipToUse = sys.argv[3]
 
 #Movement class
-mv = Movement(enableSensors, enableUart)
+movement = Movement(enableSensors, enableUart)
 
 #Controls class
-ctr = Controls(enableSensors,enableUart)
+control = Controls(enableSensors,enableUart)
 
 #OutMessages class
-ot = OutMsg()
+outputMsg = OutMsg()
 
 #Message recieved from server
 msg = ''
@@ -62,33 +62,34 @@ missionAngle         = 0
 distanceBetwenPoints = 0
 
 #distanceSensors
-sensorsCoefficiente  = 0 #Falta definir onde receber da msg
+sensorsCoefficiente  = 0
 
 #Web Server
 server_address_httpd = (serverIp,8080)
-httpd = HTTPServer(server_address_httpd, cm.RequestHandler_httpd)
+httpd = HTTPServer(server_address_httpd, comunication.RequestHandler_httpd)
 serverThread = Thread(target=httpd.serve_forever)
-serverThread.daemon = True
+serverThread.daemon = True #The server is closed when the program is closed
 serverThread.start()
 print('Server started')
 
 #Set variables to use on manual control
 def setManualControl():
     global msg,speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB;
-    #print('Manual control')
     speed       = int(msg[0])
     steer       = int(msg[1])
     limit       = int(msg[2])
     powerBoardA = int(msg[3])
     powerBoardB = int(msg[4])
-    ot.printManualOutput(str(speed),str(steer),str(limit))
-    mv.setValues(speed,steer,limit)
-    mv.move()
+    #Writing in the screen the actual values
+    outputMsg.printManualOutput(str(speed),str(steer),str(limit))
+    #Moving the robot
+    movement.setValues(speed,steer,limit)
+    movement.move()
 
 #Set variables to use on mission control
 def setMissionControl():
     global msg,compass,missionAngle,distanceBetwenPoints;
-    print('Mision control')
+    #print('Mision control')
     #compass              = float(msg[6])
     #missionAngle         = float(msg[7])
     #distanceBetwenPoints = float(msg[8])
@@ -100,17 +101,17 @@ def setControl(value):
         setManualControl()
     elif(value == 'mission'):
         setMissionControl()
-    elif(value == 'debug'):
-        ctr.testInterface()
+    elif(value == 'controlDebug'):
+        control.testInterface()
     else:
         print('Control mode not defined: ' + str(value))
 
 #Main loop
 def mainLoop():
     attempts = 0
-    global msg,cm;
+    global msg,comunication;
     while True:
-        msg = cm.getMsg()
+        msg = comunication.getMsg()
         if(msg):
             controlMode = msg[5]
             setControl(controlMode)
