@@ -97,10 +97,11 @@ def setMissionControl():
 def setControl(value):
     global speed;
     if(value == 'manual'):
-        #setManualControl()
-        ctr.testInterface()
+        setManualControl()
     elif(value == 'mission'):
         setMissionControl()
+    elif(value == 'debug'):
+        ctr.testInterface()
     else:
         print('Control mode not defined: ' + str(value))
 

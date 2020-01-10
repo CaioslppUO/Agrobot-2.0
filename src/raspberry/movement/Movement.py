@@ -12,7 +12,7 @@ def setUarts():
     global UART0;
     global UART1;
     UART0 = serial.Serial(
-        port='/dev/ttyUSB0',
+        port='/dev/ttyUSB_CONVERSOR-0',
         baudrate = 9600,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
@@ -22,7 +22,7 @@ def setUarts():
 
     #Setting UART 1
     UART1 = serial.Serial(
-        port='/dev/ttyUSB1',
+        port='/dev/ttyUSB_CONVERSOR-1',
         baudrate = 9600,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
