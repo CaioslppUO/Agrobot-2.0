@@ -1,6 +1,6 @@
 """
-    Version: 1.0.1
-    Date: 13/01/2020 , 20:39
+    Version: 1.0.2
+    Date: 13/01/2020 , 20:46
     Developers: Caio, Lucas, Levi
 """
 
@@ -62,11 +62,6 @@ powerBoardB          = 0
 #Control mode
 controlMode          = 'none'
 
-#Mission control
-compass              = 0
-missionAngle         = 0
-distanceBetwenPoints = 0
-
 #distanceSensors
 sensorsCoefficiente  = 0
 
@@ -92,21 +87,14 @@ def setManualControl():
     movement.setValues(speed,steer,limit)
     movement.move()
 
-#Set variables to use on mission control
-def setMissionControl():
-    global msg,compass,missionAngle,distanceBetwenPoints;
-    #print('Mision control')
-    #compass              = float(msg[6])
-    #missionAngle         = float(msg[7])
-    #distanceBetwenPoints = float(msg[8])
-
 #Set the control mode for the robot
 def setControl(value):
     global speed;
     if(value == 'manual'):
         setManualControl()
     elif(value == 'mission'):
-        setMissionControl()
+        #setMissionControl()
+        print('mission mode')
     else:
         print('Control mode not defined: ' + str(value))
 
@@ -124,6 +112,7 @@ def mainLoop():
             print('No message recieved. Attempt: ' + str(attempts))
             attempts = attempts + 1
             time.sleep(1.5)
+            
 if __name__ == "__main__":
     try:
         mainLoop()
