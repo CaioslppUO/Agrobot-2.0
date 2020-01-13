@@ -49,8 +49,9 @@ class Movement:
         self.limit = '0000'
         self.enableSensors = enableSensors #Change to enable or disable the sensors
         self.enableUart = enableUart #Change to enable or disable uart communication
+        self.uartAmount = 2
         if(self.enableUart == True):
-            setUarts(2)
+            setUarts(uartAmount)
         self.sensor = Sensor(enableSensors)
         
     #Recieve a numeric value and change it to Integer
@@ -76,8 +77,11 @@ class Movement:
         if(self.enableSensors == True and self.sensor.frontCollision() or self.sensor.leftCollision() or self.sensor.rightCollision()):
             texto = '0000,0000,0000;'
             if(self.enableUart == True):
-                UART0.write(str.encode(texto))
-                UART1.write(str.encode(texto))
+                if(self.uartAmount == 1):  
+                    UART0.write(str.encode(texto))
+                elif(self.uartAmount == 2):
+                    UART0.write(str.encode(texto))
+                    UART1.write(str.encode(texto))
             time.sleep(0.02)
         else:
             texto = self.speed
@@ -87,8 +91,11 @@ class Movement:
             texto += self.limit
             texto += ';'
             if(self.enableUart == True):
-                UART0.write(str.encode(texto))
-                UART1.write(str.encode(texto))
+                if(self.uartAmount == 1):  
+                    UART0.write(str.encode(texto))
+                elif(self.uartAmount == 2):
+                    UART0.write(str.encode(texto))
+                    UART1.write(str.encode(texto))
             time.sleep(0.02)
     
     
