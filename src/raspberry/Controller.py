@@ -1,6 +1,6 @@
 """
-    Version: 1.0.0
-    Date: 13/01/2020 , 16:36
+    Version: 1.0.1
+    Date: 13/01/2020 , 20:39
     Developers: Caio, Lucas, Levi
 """
 

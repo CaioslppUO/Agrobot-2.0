@@ -7,28 +7,40 @@ import time
 UART0 = 0
 UART1 = 0
 
-def setUarts():
-    #Setting UART 0
-    global UART0;
-    global UART1;
-    UART0 = serial.Serial(
-        port='/dev/ttyUSB_CONVERSOR-0',
-        baudrate = 9600,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        bytesize=serial.EIGHTBITS,
-        timeout=1
-    )
-
-    #Setting UART 1
-    UART1 = serial.Serial(
-        port='/dev/ttyUSB_CONVERSOR-1',
-        baudrate = 9600,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        bytesize=serial.EIGHTBITS,
-        timeout=1
-    )
+def setUarts(amount):
+    if(amount == 1): 
+        #Setting UART 0
+        global UART0;
+        global UART1;
+        UART0 = serial.Serial(
+            port='/dev/ttyUSB_CONVERSOR-0',
+            baudrate = 9600,
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            bytesize=serial.EIGHTBITS,
+            timeout=1
+        )
+    elif(amount == 2):
+        #Setting UART 0
+        global UART0;
+        global UART1;
+        UART0 = serial.Serial(
+            port='/dev/ttyUSB_CONVERSOR-0',
+            baudrate = 9600,
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            bytesize=serial.EIGHTBITS,
+            timeout=1
+        )
+        #Setting UART 1
+        UART1 = serial.Serial(
+            port='/dev/ttyUSB_CONVERSOR-1',
+            baudrate = 9600,
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            bytesize=serial.EIGHTBITS,
+            timeout=1
+        )
 
 class Movement:
     def __init__(self, enableSensors, enableUart):
@@ -38,7 +50,7 @@ class Movement:
         self.enableSensors = enableSensors #Change to enable or disable the sensors
         self.enableUart = enableUart #Change to enable or disable uart communication
         if(self.enableUart == True):
-            setUarts()
+            setUarts(2)
         self.sensor = Sensor(enableSensors)
         
     #Recieve a numeric value and change it to Integer
