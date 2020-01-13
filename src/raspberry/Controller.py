@@ -1,3 +1,9 @@
+"""
+    Version: 1.0.0
+    Date: 13/01/2020 , 16:36
+    Developers: Caio, Lucas, Levi
+"""
+
 import os
 from threading import Thread
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -99,6 +105,7 @@ def setControl(value):
     global speed;
     if(value == 'manual'):
         setManualControl()
+        #control.testInterface()
     elif(value == 'mission'):
         setMissionControl()
     elif(value == 'controlDebug'):

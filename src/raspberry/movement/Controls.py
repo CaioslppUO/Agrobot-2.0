@@ -110,7 +110,11 @@ class Controls:
     def rotate(self, angle):
         self.mv.setValues(0,53,100)
         self.mv.move()
-        if(angle < 120):
+        if(angle < 15):
+            time.sleep((angle/180)*3)
+        elif(angle < 30):
+            time.sleep((angle/180)*1.2)
+        elif(angle < 120):
             time.sleep((angle/180)*0.87)
         else:
             time.sleep((angle/180)*0.85)
