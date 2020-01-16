@@ -8,10 +8,10 @@ UART0 = 0
 UART1 = 0
 
 def setUarts(amount):
+    global UART0;
+    global UART1;
     if(amount == 1): 
         #Setting UART 0
-        global UART0;
-        global UART1;
         UART0 = serial.Serial(
             port='/dev/ttyUSB_CONVERSOR-0',
             baudrate = 9600,
@@ -22,8 +22,6 @@ def setUarts(amount):
         )
     elif(amount == 2):
         #Setting UART 0
-        global UART0;
-        global UART1;
         UART0 = serial.Serial(
             port='/dev/ttyUSB_CONVERSOR-0',
             baudrate = 9600,
@@ -51,7 +49,7 @@ class Movement:
         self.enableUart = enableUart #Change to enable or disable uart communication
         self.uartAmount = 2
         if(self.enableUart == True):
-            setUarts(uartAmount)
+            setUarts(self.uartAmount)
         self.sensor = Sensor(enableSensors)
         
     #Recieve a numeric value and change it to Integer

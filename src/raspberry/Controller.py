@@ -1,6 +1,6 @@
 """
-    Version: 1.0.2
-    Date: 13/01/2020 , 20:46
+    Version: 1.1.0
+    Date: 15/01/2020 , 18:00
     Developers: Caio, Lucas, Levi
 """
 
@@ -16,6 +16,7 @@ from complements.Sensors import Sensor
 from movement.Movement import Movement
 from complements.OutputMsgs import OutMsg
 from movement.Controls import Controls
+from complements.Relay import Relay
 
 #Communication class
 comunication = Comunication()
@@ -34,6 +35,12 @@ else:
 #0: Use PC ip, 1: Use robot ip
 ipToUse = sys.argv[3]
 
+#Option to enable relays
+if(sys.argv[4] == 'True'):
+    enableRelays = True
+else:
+    enableRelays = False
+
 #Movement class
 movement = Movement(enableSensors, enableUart)
 
@@ -42,6 +49,9 @@ control = Controls(enableSensors,enableUart)
 
 #OutMessages class
 outputMsg = OutMsg()
+
+#Relay class
+relays = Relay(enableRelays)
 
 #Message recieved from server
 msg = ''
@@ -75,14 +85,17 @@ print('Server started')
 
 #Set variables to use on manual control
 def setManualControl():
-    global msg,speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB;
+    global msg,speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB,relays;
     speed       = int(msg[0])
     steer       = int(msg[1])
     limit       = int(msg[2])
     powerBoardA = int(msg[3])
     powerBoardB = int(msg[4])
+    #Sending power signal to boards
+    relays.sendSignalToBoardOne(powerBoardA)
+    relays.sendSignalToBoardTwo(powerBoardB)
     #Writing in the screen the actual values
-    outputMsg.printManualOutput(str(speed),str(steer),str(limit))
+    outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB))
     #Moving the robot
     movement.setValues(speed,steer,limit)
     movement.move()
