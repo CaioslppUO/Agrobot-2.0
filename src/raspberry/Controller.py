@@ -1,6 +1,6 @@
 """
-    Version: 1.1.0
-    Date: 15/01/2020 , 18:00
+    Version: 1.5.0
+    Date: 20/01/2020 , 13:31
     Developers: Caio, Lucas, Levi
 """
 
@@ -58,9 +58,11 @@ msg = ''
 
 #Web server ip get from computer
 if(ipToUse == '0'):
-    serverIp = str(str(str(str(str(str(subprocess.check_output(['ifconfig'])).split('UP,BROADCAST,RUNNING,MULTICAST')[1]).split('inet')[1])).split('netmask')[0]).split(' ')[1])
+    serverIp = '179.106.209.124'
 else:
     serverIp = '192.168.1.2'
+    
+print('Server Ip:' + serverIp)
 
 #Manual control
 speed                = 0
@@ -68,6 +70,7 @@ steer                = 0
 limit                = 0
 powerBoardA          = 0
 powerBoardB          = 0
+pulverizer           = 0
 
 #Control mode
 controlMode          = 'none'
@@ -84,32 +87,18 @@ serverThread.start()
 print('Server started')
 
 #Set variables to use on manual control
-def setManualControl():
-    global msg,speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB,relays;
-    speed       = int(msg[0])
-    steer       = int(msg[1])
-    limit       = int(msg[2])
-    powerBoardA = int(msg[3])
-    powerBoardB = int(msg[4])
+def controlRobot(msg):
+    global speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB,relays,pulverizer;
+    speed,steer,limit,powerBoardA,powerBoardB,pulverizer = comunication.msgSeparator(msg,int(msg[0]))
     #Sending power signal to boards
     relays.sendSignalToBoardOne(powerBoardA)
     relays.sendSignalToBoardTwo(powerBoardB)
+    relays.sendSignalToPulverizer(pulverizer)
     #Writing in the screen the actual values
-    outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB))
+    outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB),str(pulverizer))
     #Moving the robot
     movement.setValues(speed,steer,limit)
     movement.move()
-
-#Set the control mode for the robot
-def setControl(value):
-    global speed;
-    if(value == 'manual'):
-        setManualControl()
-    elif(value == 'mission'):
-        #setMissionControl()
-        print('mission mode')
-    else:
-        print('Control mode not defined: ' + str(value))
 
 #Main loop
 def mainLoop():
@@ -118,9 +107,8 @@ def mainLoop():
     while True:
         msg = comunication.getMsg()
         if(msg):
-            controlMode = msg[5]
-            setControl(controlMode)
-            time.sleep(0.02)
+            controlRobot(msg)
+            time.sleep(0.1)
         else:
             print('No message recieved. Attempt: ' + str(attempts))
             attempts = attempts + 1

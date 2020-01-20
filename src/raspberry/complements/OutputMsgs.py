@@ -6,8 +6,9 @@ class OutMsg:
     def __init__(self):
         self.powerA = False
         self.powerB = False
+        self.pulverizer = False
     
-    def printManualOutput(self,speed,steer,limit,powerBoardA,powerBoardB):
+    def printManualOutput(self,speed,steer,limit,powerBoardA,powerBoardB,pulverizer):
         os.system("clear")
         print('\t\t\t       * Manual Mode *\n')
         print('\t\t\t\t-> Speed: ' + speed)
@@ -19,14 +20,22 @@ class OutMsg:
         if(powerBoardB == '1'):
             self.powerB = not self.powerB
             time.sleep(0.2)
+        if(pulverizer == '1'):
+            self.pulverizer = True
+        else:
+            self.pulverizer = False
         if(self.powerA == True):
             print('\t\t\t\t-> Placa A: Ligada')
         else:
             print('\t\t\t\t-> Placa A: Desligada')
         if(self.powerB == True):
-            print('\t\t\t\t-> Placa B: Ligada' + '\n')
+            print('\t\t\t\t-> Placa B: Ligada')
         else:
-            print('\t\t\t\t-> Placa B: Desligada' + '\n')
+            print('\t\t\t\t-> Placa B: Desligada')
+        if(self.pulverizer == True):
+            print('\t\t\t\t-> Pulverizador: Ligado' + '\n')
+        else:
+            print('\t\t\t\t-> Pulverizador: Desligado' + '\n')
             
         
     def printMissionOutput(self):
