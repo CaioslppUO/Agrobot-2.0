@@ -1,6 +1,6 @@
 """
-    Version: 1.5.0
-    Date: 20/01/2020 , 13:31
+    Version: 1.6.0
+    Date: 28/01/2020 , 20:39
     Developers: Caio, Lucas, Levi
 """
 
@@ -52,6 +52,7 @@ outputMsg = OutMsg()
 
 #Relay class
 relays = Relay(enableRelays)
+lastPulverizeSignal = 0
 
 #Message recieved from server
 msg = ''
@@ -88,7 +89,7 @@ print('Server started')
 
 #Set variables to use on manual control
 def controlRobot(msg):
-    global speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB,relays,pulverizer;
+    global speed,steer,limit,powerBoardA,powerBoardB,ss,ot,flagBoardA,flagBoardB,relays,pulverizer,lastPulverizeSignal;
     speed,steer,limit,powerBoardA,powerBoardB,pulverizer = comunication.msgSeparator(msg,int(msg[0]))
     #Sending power signal to boards
     relays.sendSignalToBoardOne(powerBoardA)
