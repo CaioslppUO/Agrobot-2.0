@@ -50,8 +50,6 @@ class Relay:
             GPIO.setup(35, GPIO.OUT)
             GPIO.output(35, GPIO.HIGH)
             time.sleep(0.2)
-            GPIO.output(35, GPIO.LOW)
-            time.sleep(0.2)
         elif(self.enableRelays == True):
             import RPi.GPIO as GPIO
             GPIO.setmode(GPIO.BOARD)
