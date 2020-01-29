@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from complements.Sensors import Sensor
-import serial
 import time
 
 UART0 = 0
@@ -11,6 +10,7 @@ def setUarts(amount):
     global UART0;
     global UART1;
     if(amount == 1): 
+        import serial
         #Setting UART 0
         UART0 = serial.Serial(
             port='/dev/ttyUSB_CONVERSOR-0',
@@ -22,6 +22,7 @@ def setUarts(amount):
         )
     elif(amount == 2):
         #Setting UART 0
+        import serial
         UART0 = serial.Serial(
             port='/dev/ttyUSB_CONVERSOR-0',
             baudrate = 9600,
@@ -75,6 +76,7 @@ class Movement:
         if(self.enableSensors == True and self.sensor.frontCollision() or self.sensor.leftCollision() or self.sensor.rightCollision()):
             texto = '0000,0000,0000;'
             if(self.enableUart == True):
+                import serial
                 if(self.uartAmount == 1):  
                     UART0.write(str.encode(texto))
                 elif(self.uartAmount == 2):
@@ -89,6 +91,7 @@ class Movement:
             texto += self.limit
             texto += ';'
             if(self.enableUart == True):
+                import serial
                 if(self.uartAmount == 1):  
                     UART0.write(str.encode(texto))
                 elif(self.uartAmount == 2):
