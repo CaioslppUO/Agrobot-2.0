@@ -1,18 +1,28 @@
+#####################
+#----> Imports <----#
+#####################
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
+
+##############################
+#----> Global Variables <----#
+##############################
 
 msg = ''
 msgSeparator = '*'
+webServerRequest = None
 
-#Web server
-request = None
+################################
+#----> Comunication class <----#
+################################
 
 class Comunication(BaseHTTPRequestHandler):
     def __init__(self):
         self.msg = ''
     
     def getMsg(self):
-        global msg;
-        self.msg = msg;
+        global msg
+        self.msg = msg
         return msg
     
     def msgSeparator(self,msg,msgSize):
@@ -36,11 +46,11 @@ class Comunication(BaseHTTPRequestHandler):
 
     class RequestHandler_httpd(BaseHTTPRequestHandler):
         def do_GET(self):
-            global msg,msgSeparator;
-            request = self.requestline
-            request = request[5 : int(len(request)-9)]
+            global msg,msgSeparator
+            webServerRequest = self.requestline
+            webServerRequest = webServerRequest[5 : int(len(webServerRequest)-9)]
             #Geting speed,steer and limit
-            msg = str(request).split(msgSeparator) #Message recieved from smartphone app
+            msg = str(webServerRequest).split(msgSeparator) #Message recieved from smartphone app
             return
 
     
