@@ -1,13 +1,21 @@
+#####################
+#----> Imports <----#
+#####################
+
 import os
 import time
 
+##########################
+#----> OutMsg Class <----#
+##########################
+
 class OutMsg:
-    
     def __init__(self):
         self.powerA = False
         self.powerB = False
         self.pulverizer = False
     
+    #Debug print message for control mode
     def printManualOutput(self,speed,steer,limit,powerBoardA,powerBoardB,pulverizer):
         os.system("clear")
         print('\t\t\t       * Manual Mode *\n')
@@ -37,6 +45,3 @@ class OutMsg:
         else:
             print('\t\t\t\t-> Pulverizador: Desligado' + '\n')
             
-        
-    def printMissionOutput(self):
-        os.system("cls")

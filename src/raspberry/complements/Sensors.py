@@ -1,5 +1,15 @@
+#####################
+#----> Imports <----#
+#####################
+
 from threading import Thread
 import time
+
+##############################
+#----> Global Variables <----#
+##############################
+
+#The numbers are the pins in wich sensors are connected on raspberry
 
 sensor_A_trig = 11
 sensor_A_echo = 12
@@ -9,6 +19,10 @@ sensor_B_echo = 16
 
 sensor_C_trig = 31
 sensor_C_echo = 32
+
+##########################
+#----> Sensor Class <----#
+##########################
 
 class Sensor:
     def __init__(self, enableSensors):
@@ -31,27 +45,34 @@ class Sensor:
             GPIO.setup(sensor_C_trig, GPIO.OUT)
             GPIO.setup(sensor_C_echo, GPIO.IN)
 
+    #End the thread
     def terminate(self):
         self.running = False
 
+    #Start the thread
     def run(self):
         while self.running:
             self.read_sensors()
 
+    #Return the distance read by the A sensor
     def get_distance_a(self):
         return self.distance_A
 
+    #Return the distance read by the B sensor
     def get_distance_b(self):
         return self.distance_B
 
+    #Return the distance read by the B sensor
     def get_distance_c(self):
         return self.distance_C
 
+    #Read the three sensors values
     def read_sensors(self):
         self.read_sensor_a()
         self.read_sensor_b()
         self.read_sensor_c()
 
+    #Read sensor A value
     def read_sensor_a(self):
         if(self.enableSensors == True):
             import RPi.GPIO as GPIO
@@ -68,6 +89,7 @@ class Sensor:
             distance = timepassed * 17000
             self.distance_A = distance
 
+    #Read sensor B value
     def read_sensor_b(self):
         if(self.enableSensors == True):
             import RPi.GPIO as GPIO
@@ -83,7 +105,7 @@ class Sensor:
             timepassed = signalon - signaloff
             distance = timepassed * 17000
             self.distance_B = distance
-
+    #Read sensor C value
     def read_sensor_c(self):
         if(self.enableSensors == True):
             import RPi.GPIO as GPIO
@@ -104,7 +126,7 @@ class Sensor:
     def frontCollision(self):
         if(self.enableSensors == True):
             self.read_sensors()
-            global distanceLimit;
+            global distanceLimit
             if (self.distance_A <= (self.distanceLimit) * self.sensorsCoefficiente/100 and self.distance_B <= (self.distanceLimit) * self.sensorsCoefficiente/100 and self.distance_C <= (self.distanceLimit) * self.sensorsCoefficiente/100):
                 return 1
             return 0
@@ -115,8 +137,7 @@ class Sensor:
     def leftCollision(self):
         if(self.enableSensors == True):
             self.read_sensor_c()
-            global distanceLimit;
-            global adjustment;
+            global distanceLimit,adjustment
             if (self.distance_C <= (self.distanceLimit+self.adjustment) * self.sensorsCoefficiente/100):
                 return 1
             return 0
@@ -127,8 +148,7 @@ class Sensor:
     def rightCollision(self):
         if(self.enableSensors == True):
             self.read_sensor_b()
-            global distanceLimit;
-            global adjustment;
+            global distanceLimit,adjustment
             if (self.distance_B <= (self.distanceLimit+self.adjustment) * self.sensorsCoefficiente/100):
                 return 1
             return 0

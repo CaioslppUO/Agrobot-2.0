@@ -1,6 +1,14 @@
+#####################
+#----> Imports <----#
+#####################
+
 import time
+
+#########################
+#----> Relay Class <----#
+#########################
+
 class Relay:
-    
     def __init__(self,enableRelays):
         self.relayOne = 38
         self.relayTwo = 40
@@ -8,6 +16,7 @@ class Relay:
         self.relayFour = 37
         self.enableRelays = enableRelays
         
+    #Send the recieved signal to turn on/off to board one
     def sendSignalToBoardOne(self,signal):
         if(self.enableRelays == True and signal == 1):
             import RPi.GPIO as GPIO
@@ -24,7 +33,8 @@ class Relay:
             GPIO.setwarnings(False)
             GPIO.setup(38, GPIO.OUT)
             GPIO.output(38, GPIO.LOW)
-    
+
+    #Send the recieved signal to turn on/off to board two
     def sendSignalToBoardTwo(self,signal):
         if(self.enableRelays == True and signal == 1):
             import RPi.GPIO as GPIO
@@ -42,6 +52,7 @@ class Relay:
             GPIO.setup(40, GPIO.OUT)
             GPIO.output(40, GPIO.LOW)
     
+    #Send the recieved signal to turn on/off the pulverizer
     def sendSignalToPulverizer(self,signal):
         if(self.enableRelays == True and signal == 1):
             import RPi.GPIO as GPIO
