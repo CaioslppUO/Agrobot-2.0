@@ -1,5 +1,5 @@
 """
-    Version: 1.6.1
+    Version: 1.6.2
     Date: 28/01/2020 , 22:31
     Developers: Caio, Lucas, Levi
 """
@@ -66,6 +66,7 @@ limit                = 0
 powerBoardA          = 0
 powerBoardB          = 0
 pulverizer           = 0
+uartAmount           = sys.argv[5]
 
 ##################################
 #----> Classes Declarations <----#
@@ -75,7 +76,7 @@ pulverizer           = 0
 comunication = Comunication()
 
 #Movement class
-movement = Movement(enableSensors, enableUart)
+movement = Movement(enableSensors, enableUart, uartAmount)
 
 #OutMessages class
 outputMsg = OutMsg()

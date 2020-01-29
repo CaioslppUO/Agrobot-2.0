@@ -1,14 +1,27 @@
 #!/usr/bin/python
 
+#####################
+#----> Imports <----#
+#####################
+
 from complements.Sensors import Sensor
 import time
+
+##############################
+#----> Global Variables <----#
+##############################
 
 UART0 = 0
 UART1 = 0
 
+#######################
+#----> Functions <----#
+#######################
+
+#Define the amount the wich uarts connections will be used
 def setUarts(amount):
-    global UART0;
-    global UART1;
+    global UART0
+    global UART1
     if(amount == 1): 
         import serial
         #Setting UART 0
@@ -41,14 +54,18 @@ def setUarts(amount):
             timeout=1
         )
 
+############################
+#----> Movement Class <----#
+############################
+
 class Movement:
-    def __init__(self, enableSensors, enableUart):
+    def __init__(self, enableSensors, enableUart, uartAmount):
         self.speed = '0000'
         self.steer = '0000'
         self.limit = '0000'
         self.enableSensors = enableSensors #Change to enable or disable the sensors
         self.enableUart = enableUart #Change to enable or disable uart communication
-        self.uartAmount = 2
+        self.uartAmount = uartAmount
         if(self.enableUart == True):
             setUarts(self.uartAmount)
         self.sensor = Sensor(enableSensors)
@@ -66,6 +83,7 @@ class Movement:
         r += str(abs(v))
         return r
         
+    #Define the values of speed, steer and limit in the board
     def setValues(self, speed, steer, limit):
         self.speed = self.getValue(speed)
         self.steer = self.getValue(steer)

@@ -1,7 +1,15 @@
 #!/usr/bin/python
 
+#####################
+#----> Imports <----#
+#####################
+
 import time
 from movement.Movement import Movement
+
+############################
+#----> Controls Class <----#
+############################
 
 class Controls:
     def __init__(self, enableSensors, enableUart):
