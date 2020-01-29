@@ -1,5 +1,5 @@
 """
-    Version: 1.6.4
+    Version: 1.7.0
     Date: 28/01/2020 , 22:51
     Developers: Caio, Lucas, Levi
 """
@@ -20,53 +20,58 @@ from movement.Movement import Movement
 from complements.OutputMsgs import OutMsg
 from complements.Relay import Relay
 
-####################################
-#----> Initialization options <----#
-####################################
-
-#Option to enable sensors
-if(sys.argv[1] == 'True'):
-    enableSensors = True
-else:
-    enableSensors = False
-
-#Option to enable UART communication
-    
-if(sys.argv[2] == 'True'):
-    enableUart = True
-else:
-    enableUart = False
-
-#Option to decide wich ip use
-# 0: Use PC ip, 1: Use robot ip
-ipToUse = sys.argv[3]
-
-#Option to enable relays
-if(sys.argv[4] == 'True'):
-    enableRelays = True
-else:
-    enableRelays = False
-
-#Ip definer
-if(ipToUse == '0'):
-    serverIp = '192.168.1.15' ##->Edit this line to run on computer<-##
-else: #Default robot ip
-    serverIp = '192.168.1.2'
-    
-print('Server Ip:' + serverIp)
-
 ##############################
 #----> Global Variables <----#
 ##############################
 
-msgRecievedFromApp = ''
-speed                = 0
-steer                = 0
-limit                = 0
-powerBoardA          = 0
-powerBoardB          = 0
-pulverizer           = 0
-uartAmount           = sys.argv[5]
+msgRecievedFromApp   = "None"
+speed                = "None"
+steer                = "None"
+limit                = "None"
+powerBoardA          = "None"
+powerBoardB          = "None"
+pulverizer           = "None"
+uartAmount           = "None"
+serverIp             = "None"
+enableSensors        = "None"
+enableUart           = "None"
+enableRelays         = "None"
+
+####################################
+#----> Initialization options <----#
+####################################
+
+def getInputVariables():
+    global enableSensors,enableRelays,enableUart,serverIp,uartAmount
+    aux = 1
+    while(aux < len(sys.argv)):
+        indicator = sys.argv[aux].split(":")
+        if(indicator[0] == "enableSensors"):
+            if(indicator[1] == "True"):
+                enableSensors = True
+            else:
+                enableSensors = False
+        elif(indicator[0] == "enableUart"):
+            if(indicator[1] == "True"):
+                enableUart = True
+            else:
+                enableUart = False
+        elif(indicator[0] == "serverIp"):
+            serverIp = str(indicator[1])
+        elif(indicator[0] == "enableRelays"):
+            if(indicator[1] == "True"):
+                enableRelays = True
+            else:
+                enableRelays = False
+        elif(indicator[0] == "uartAmount"):
+            uartAmount = int(indicator[1])
+        aux = aux+1
+    if(enableSensors == "None" or enableUart == "None" or serverIp == "None" or enableRelays == "None" or uartAmount == "None"):
+        print("[Error] The input variables are not correct")
+        print("Aborting...")
+        exit(1)
+
+getInputVariables()
 
 ##################################
 #----> Classes Declarations <----#
@@ -120,7 +125,8 @@ def controlRobot(msg):
 
 def mainLoop():
     comunicationAttempts = 0
-    global msgRecievedFromApp,comunication
+    global msgRecievedFromApp,comunication,serverIp 
+    print('Server Ip:' + serverIp)
     while True:
         msgRecievedFromApp = comunication.getMsg()
         if(msgRecievedFromApp):

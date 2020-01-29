@@ -1,4 +1,4 @@
 #!/bin/bash
 
 #Parameters: EnableSensors EnableUart IpToUse EnableRelays UartAmount
-cd .. && sudo python3 Controller.py True True 1 True 2
+cd .. && sudo python3 Controller.py enableSensors:True enableUart:True serverIp:192.168.1.2 enableRelays:True uartAmount:2
