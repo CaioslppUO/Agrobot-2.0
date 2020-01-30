@@ -1,6 +1,6 @@
 """
-    Version: 1.7.0
-    Date: 29/01/2020 , 18:47
+    Version: 1.8.0
+    Date: 30/01/2020 , 00:30
     Developers: Caio, Lucas, Levi
 """
 
@@ -19,6 +19,7 @@ from comunication.Comunication import Comunication
 from movement.Movement import Movement
 from complements.OutputMsgs import OutMsg
 from complements.Relay import Relay
+from comunication.LaunchInterface import LauncherInterface
 
 ##############################
 #----> Global Variables <----#
@@ -37,42 +38,6 @@ enableSensors        = "None"
 enableUart           = "None"
 enableRelays         = "None"
 
-####################################
-#----> Initialization options <----#
-####################################
-
-def getInputVariables():
-    global enableSensors,enableRelays,enableUart,serverIp,uartAmount
-    aux = 1
-    while(aux < len(sys.argv)):
-        indicator = sys.argv[aux].split(":")
-        if(indicator[0] == "enableSensors"):
-            if(indicator[1] == "True"):
-                enableSensors = True
-            else:
-                enableSensors = False
-        elif(indicator[0] == "enableUart"):
-            if(indicator[1] == "True"):
-                enableUart = True
-            else:
-                enableUart = False
-        elif(indicator[0] == "serverIp"):
-            serverIp = str(indicator[1])
-        elif(indicator[0] == "enableRelays"):
-            if(indicator[1] == "True"):
-                enableRelays = True
-            else:
-                enableRelays = False
-        elif(indicator[0] == "uartAmount"):
-            uartAmount = int(indicator[1])
-        aux = aux+1
-    if(enableSensors == "None" or enableUart == "None" or serverIp == "None" or enableRelays == "None" or uartAmount == "None"):
-        print("[Error] The input variables are not correct")
-        print("Aborting...")
-        exit(1)
-
-getInputVariables()
-
 ##################################
 #----> Classes Declarations <----#
 ##################################
@@ -88,7 +53,15 @@ outputMsg = OutMsg()
 
 #Relay class
 relays = Relay(enableRelays)
-lastPulverizeSignal = 0
+
+#LauncherInterface class
+launcher = LauncherInterface(enableSensors,enableUart,enableRelays,serverIp,uartAmount)
+
+###########################################
+#----> Launcher variables definition <----#
+###########################################
+
+enableSensors,enableUart,enableRelays,serverIp,uartAmount = launcher.getInputVariables()
 
 ########################
 #----> Web Server <----#
@@ -106,7 +79,7 @@ print('Server started')
 ##############################
 
 def controlRobot(msg):
-    global speed,steer,limit,powerBoardA,powerBoardB,relays,pulverizer,lastPulverizeSignal
+    global speed,steer,limit,powerBoardA,powerBoardB,relays,pulverizer
     speed,steer,limit,powerBoardA,powerBoardB,pulverizer = comunication.msgSeparator(msg,int(msg[0]))
     #Sending power signal to boards
     relays.sendSignalToBoardOne(powerBoardA)
@@ -125,7 +98,7 @@ def controlRobot(msg):
 
 def mainLoop():
     comunicationAttempts = 0
-    global msgRecievedFromApp,comunication,serverIp 
+    global msgRecievedFromApp,comunication,serverIp
     print('Server Ip:' + serverIp)
     while True:
         msgRecievedFromApp = comunication.getMsg()
