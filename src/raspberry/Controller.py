@@ -1,6 +1,6 @@
 """
-    Version: 1.8.0
-    Date: 30/01/2020 , 00:30
+    Version: 1.9.0
+    Date: 31/01/2020 , 09:53
     Developers: Caio, Lucas, Levi
 """
 
@@ -42,6 +42,19 @@ enableRelays         = "None"
 #----> Classes Declarations <----#
 ##################################
 
+#LauncherInterface class
+launcher = LauncherInterface(enableSensors,enableUart,enableRelays,serverIp,uartAmount)
+
+###########################################
+#----> Launcher variables definition <----#
+###########################################
+
+enableSensors,enableUart,enableRelays,serverIp,uartAmount = launcher.getInputVariables()
+
+##################################
+#----> Classes Declarations <----#
+##################################
+
 #Communication class
 comunication = Comunication()
 
@@ -53,15 +66,6 @@ outputMsg = OutMsg()
 
 #Relay class
 relays = Relay(enableRelays)
-
-#LauncherInterface class
-launcher = LauncherInterface(enableSensors,enableUart,enableRelays,serverIp,uartAmount)
-
-###########################################
-#----> Launcher variables definition <----#
-###########################################
-
-enableSensors,enableUart,enableRelays,serverIp,uartAmount = launcher.getInputVariables()
 
 ########################
 #----> Web Server <----#
@@ -81,13 +85,17 @@ print('Server started')
 def controlRobot(msg):
     global speed,steer,limit,powerBoardA,powerBoardB,relays,pulverizer
     speed,steer,limit,powerBoardA,powerBoardB,pulverizer = comunication.msgSeparator(msg,int(msg[0]))
+
     #Sending power signal to boards
     relays.sendSignalToBoardOne(powerBoardA)
     relays.sendSignalToBoardTwo(powerBoardB)
+
     #Sending power signal to relay
     relays.sendSignalToPulverizer(pulverizer)
-    #Writing in the screen the actual values
+
+    #Writing in the screen the actual values 
     outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB),str(pulverizer))
+
     #Moving the robot
     movement.setValues(speed,steer,limit)
     movement.move()

@@ -2,8 +2,10 @@
 #----> Imports <----#
 #####################
 
-from complements.Sensors import Sensor
 import time
+
+from complements.Sensors import Sensor
+from complements.Checks import Checks
 
 ##############################
 #----> Global Variables <----#
@@ -11,6 +13,7 @@ import time
 
 UART0 = 0
 UART1 = 0
+check = Checks()
 
 #######################
 #----> Functions <----#
@@ -23,14 +26,25 @@ def setUarts(amount):
     if(amount == 1): 
         import serial
         #Setting UART 0
-        UART0 = serial.Serial(
-            port='/dev/ttyUSB_CONVERSOR-0',
-            baudrate = 9600,
-            parity=serial.PARITY_NONE,
-            stopbits=serial.STOPBITS_ONE,
-            bytesize=serial.EIGHTBITS,
-            timeout=1
-        )
+        try:
+            UART0 = serial.Serial(
+                port='/dev/ttyUSB_CONVERSOR-0',
+                baudrate = 9600,
+                parity=serial.PARITY_NONE,
+                stopbits=serial.STOPBITS_ONE,
+                bytesize=serial.EIGHTBITS,
+                timeout=1
+            )
+        except:
+            UART0 = serial.Serial(
+                port='/dev/ttyUSB_CONVERSOR-1',
+                baudrate = 9600,
+                parity=serial.PARITY_NONE,
+                stopbits=serial.STOPBITS_ONE,
+                bytesize=serial.EIGHTBITS,
+                timeout=1
+            )
+
     elif(amount == 2):
         #Setting UART 0
         import serial
@@ -61,8 +75,8 @@ class Movement:
         self.speed = '0000'
         self.steer = '0000'
         self.limit = '0000'
-        self.enableSensors = enableSensors #Change to enable or disable the sensors
-        self.enableUart = enableUart #Change to enable or disable uart communication
+        self.enableSensors = enableSensors
+        self.enableUart = enableUart
         self.uartAmount = uartAmount
         if(self.enableUart == True):
             setUarts(self.uartAmount)
@@ -83,6 +97,10 @@ class Movement:
         
     #Define the values of speed, steer and limit in the board
     def setValues(self, speed, steer, limit):
+        speed = check.checkSpeed(speed)
+        steer = check.checkSteer(steer)
+        limit = check.checkLimit(limit)
+
         self.speed = self.getValue(speed)
         self.steer = self.getValue(steer)
         self.limit = self.getValue(limit)

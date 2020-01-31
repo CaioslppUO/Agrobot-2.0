@@ -129,9 +129,7 @@ class Sensor:
             global distanceLimit
             if (self.distance_A <= (self.distanceLimit) * self.sensorsCoefficiente/100 and self.distance_B <= (self.distanceLimit) * self.sensorsCoefficiente/100 and self.distance_C <= (self.distanceLimit) * self.sensorsCoefficiente/100):
                 return 1
-            return 0
-        else:
-            return 0
+        return 0
 
     #Detect left collision form distance sensor
     def leftCollision(self):
@@ -140,9 +138,7 @@ class Sensor:
             global distanceLimit,adjustment
             if (self.distance_C <= (self.distanceLimit+self.adjustment) * self.sensorsCoefficiente/100):
                 return 1
-            return 0
-        else:
-            return 0
+        return 0
 
     #Detect right collision form distance sensor
     def rightCollision(self):
@@ -151,6 +147,4 @@ class Sensor:
             global distanceLimit,adjustment
             if (self.distance_B <= (self.distanceLimit+self.adjustment) * self.sensorsCoefficiente/100):
                 return 1
-            return 0
-        else:
-            return 0
+        return 0
