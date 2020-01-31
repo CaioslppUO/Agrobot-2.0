@@ -1,6 +1,6 @@
 """
-    Version: 1.9.0
-    Date: 31/01/2020 , 09:53
+    Version: 2.0.0
+    Date: 31/01/2020 , 10:46
     Developers: Caio, Lucas, Levi
 """
 
@@ -25,13 +25,6 @@ from comunication.LaunchInterface import LauncherInterface
 #----> Global Variables <----#
 ##############################
 
-msgRecievedFromApp   = "None"
-speed                = "None"
-steer                = "None"
-limit                = "None"
-powerBoardA          = "None"
-powerBoardB          = "None"
-pulverizer           = "None"
 uartAmount           = "None"
 serverIp             = "None"
 enableSensors        = "None"
@@ -43,7 +36,7 @@ enableRelays         = "None"
 ##################################
 
 #LauncherInterface class
-launcher = LauncherInterface(enableSensors,enableUart,enableRelays,serverIp,uartAmount)
+launcher = LauncherInterface()
 
 ###########################################
 #----> Launcher variables definition <----#
@@ -82,8 +75,14 @@ print('Server started')
 #----> Robot management <----#
 ##############################
 
-def controlRobot(msg):
-    global speed,steer,limit,powerBoardA,powerBoardB,relays,pulverizer
+def controlRobot(msg,enableOutPutMessage):
+    global relays,comunication
+    speed                = "None"
+    steer                = "None"
+    limit                = "None"
+    powerBoardA          = "None"
+    powerBoardB          = "None"
+    pulverizer           = "None"
     speed,steer,limit,powerBoardA,powerBoardB,pulverizer = comunication.msgSeparator(msg,int(msg[0]))
 
     #Sending power signal to boards
@@ -93,8 +92,9 @@ def controlRobot(msg):
     #Sending power signal to relay
     relays.sendSignalToPulverizer(pulverizer)
 
-    #Writing in the screen the actual values 
-    outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB),str(pulverizer))
+    if(enableOutPutMessage == True):
+        #Writing in the screen the actual values 
+        outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB),str(pulverizer))
 
     #Moving the robot
     movement.setValues(speed,steer,limit)
@@ -105,15 +105,18 @@ def controlRobot(msg):
 #######################
 
 def mainLoop():
+    msgRecievedFromApp   = "None"
     comunicationAttempts = 0
-    global msgRecievedFromApp,comunication,serverIp
+    global comunication,serverIp
     print('Server Ip:' + serverIp)
     while True:
         msgRecievedFromApp = comunication.getMsg()
         if(msgRecievedFromApp):
-            controlRobot(msgRecievedFromApp)
+            controlRobot(msgRecievedFromApp,True)
             time.sleep(0.1)
+            comunicationAttempts = 0
         else:
+            controlRobot("0",False)
             print('No message recieved. Attempt: ' + str(comunicationAttempts))
             comunicationAttempts = comunicationAttempts + 1
             time.sleep(1.5)

@@ -10,13 +10,13 @@ from complements.Checks import Checks
 #####################################
 
 class LauncherInterface:
-    def __init__(self,enableSensors,enableUart,enableRelays,serverIp,uartAmount):
+    def __init__(self):
         self.check = Checks()
-        self.enableSensors = enableSensors
-        self.enableUart = enableUart
-        self.enableRelays = enableRelays
-        self.serverIp = serverIp
-        self.uartAmount = uartAmount
+        self.enableSensors = "None"
+        self.enableUart    = "None"
+        self.enableRelays  = "None"
+        self.serverIp      = "None"
+        self.uartAmount    = "None"
     
     #Get the variables from command line arguments
     def getInputVariables(self):

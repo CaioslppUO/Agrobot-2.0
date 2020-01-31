@@ -20,13 +20,6 @@ class Checks:
         if(uartAmount < 0 or uartAmount > 2):
             self.criticalError("One or more input variables are missing or are incorrect.","uartAmount")
 
-    #End the program in case of critical error
-    def criticalError(self,msg,especification):
-        print("[Critical Error] " + msg)
-        print("[Error] Incorrect/missing variable(s): " + especification)
-        print("Aborting...")
-        exit(1)
-
     def checkSpeed(self,speed):
         if(speed < -100):
             self.remediableError("Speed variable is below -100. Making the correction.")
@@ -54,5 +47,18 @@ class Checks:
             return 100
         return limit
 
+    def checkAppMsgProtocol(self,speed,steer,limit,powerA,powerB,pulverizer):
+        if(speed == "None" or steer == "None" or limit == "None" or powerA == "None" or powerB == "None" or pulverizer == "None"):
+            self.remediableError("One or more control variables recieved from protocol are missing or are incorrect. Making the robot stop.")
+            return False
+        return True
+
     def remediableError(self,msg):
         print("[Remediable Error] " + msg)
+
+    #End the program in case of critical error
+    def criticalError(self,msg,especification):
+        print("[Critical Error] " + msg)
+        print("[Error] Incorrect/missing variable(s): " + especification)
+        print("Aborting...")
+        exit(1)

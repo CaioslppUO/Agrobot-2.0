@@ -13,7 +13,6 @@ from complements.Checks import Checks
 
 UART0 = 0
 UART1 = 0
-check = Checks()
 
 #######################
 #----> Functions <----#
@@ -79,8 +78,15 @@ class Movement:
         self.enableUart = enableUart
         self.uartAmount = uartAmount
         if(self.enableUart == True):
-            setUarts(self.uartAmount)
+            try:
+                setUarts(self.uartAmount)
+            except:
+                print("Unable to set uarts. Running the program without uart comunication.")
+                self.enableUart = False
+                self.uartAmount = 0
+                time.sleep(3)
         self.sensor = Sensor(enableSensors)
+        self.check = Checks()
         
     #Recieve a numeric value and change it to Integer
     def getValue(self, v):
@@ -97,9 +103,9 @@ class Movement:
         
     #Define the values of speed, steer and limit in the board
     def setValues(self, speed, steer, limit):
-        speed = check.checkSpeed(speed)
-        steer = check.checkSteer(steer)
-        limit = check.checkLimit(limit)
+        speed = self.check.checkSpeed(speed)
+        steer = self.check.checkSteer(steer)
+        limit = self.check.checkLimit(limit)
 
         self.speed = self.getValue(speed)
         self.steer = self.getValue(steer)

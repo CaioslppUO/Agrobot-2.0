@@ -34,16 +34,21 @@ class Sensor:
         self.distanceLimit       = 65
         self.adjustment          = 15
         self.sensorsCoefficiente = 0
-        if(self.enableSensors == True):
-            import RPi.GPIO as GPIO
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setwarnings(False)
-            GPIO.setup(sensor_A_trig, GPIO.OUT)
-            GPIO.setup(sensor_A_echo, GPIO.IN)
-            GPIO.setup(sensor_B_trig, GPIO.OUT)
-            GPIO.setup(sensor_B_echo, GPIO.IN)
-            GPIO.setup(sensor_C_trig, GPIO.OUT)
-            GPIO.setup(sensor_C_echo, GPIO.IN)
+        try:
+            if(self.enableSensors == True):
+                import RPi.GPIO as GPIO
+                GPIO.setmode(GPIO.BOARD)
+                GPIO.setwarnings(False)
+                GPIO.setup(sensor_A_trig, GPIO.OUT)
+                GPIO.setup(sensor_A_echo, GPIO.IN)
+                GPIO.setup(sensor_B_trig, GPIO.OUT)
+                GPIO.setup(sensor_B_echo, GPIO.IN)
+                GPIO.setup(sensor_C_trig, GPIO.OUT)
+                GPIO.setup(sensor_C_echo, GPIO.IN)
+        except:
+                print("Unable to set sensors. Running the program without sensors.")
+                self.enableSensors = False
+                time.sleep(3)
 
     #End the thread
     def terminate(self):
