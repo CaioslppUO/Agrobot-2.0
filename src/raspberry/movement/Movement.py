@@ -45,25 +45,50 @@ def setUarts(amount):
             )
 
     elif(amount == 2):
-        #Setting UART 0
         import serial
-        UART0 = serial.Serial(
-            port='/dev/ttyUSB_CONVERSOR-0',
-            baudrate = 9600,
-            parity=serial.PARITY_NONE,
-            stopbits=serial.STOPBITS_ONE,
-            bytesize=serial.EIGHTBITS,
-            timeout=1
-        )
-        #Setting UART 1
-        UART1 = serial.Serial(
-            port='/dev/ttyUSB_CONVERSOR-1',
-            baudrate = 9600,
-            parity=serial.PARITY_NONE,
-            stopbits=serial.STOPBITS_ONE,
-            bytesize=serial.EIGHTBITS,
-            timeout=1
-        )
+        try:
+            #Setting UART 0
+            UART0 = serial.Serial(
+                port='/dev/ttyUSB_CONVERSOR-0',
+                baudrate = 9600,
+                parity=serial.PARITY_NONE,
+                stopbits=serial.STOPBITS_ONE,
+                bytesize=serial.EIGHTBITS,
+                timeout=1
+            )
+            #Setting UART 1
+            UART1 = serial.Serial(
+                port='/dev/ttyUSB_CONVERSOR-1',
+                baudrate = 9600,
+                parity=serial.PARITY_NONE,
+                stopbits=serial.STOPBITS_ONE,
+                bytesize=serial.EIGHTBITS,
+                timeout=1
+            )
+        except:
+            try:
+                #Setting UART 0
+                UART0 = serial.Serial(
+                port='/dev/ttyUSB_CONVERSOR-0',
+                baudrate = 9600,
+                parity=serial.PARITY_NONE,
+                stopbits=serial.STOPBITS_ONE,
+                bytesize=serial.EIGHTBITS,
+                timeout=1
+            )
+            except:
+                try:
+                    #Setting UART 1
+                    UART1 = serial.Serial(
+                    port='/dev/ttyUSB_CONVERSOR-1',
+                    baudrate = 9600,
+                    parity=serial.PARITY_NONE,
+                    stopbits=serial.STOPBITS_ONE,
+                    bytesize=serial.EIGHTBITS,
+                    timeout=1
+                    )
+                except:
+                    print("Unable to set uart comunication")
 
 ############################
 #----> Movement Class <----#
