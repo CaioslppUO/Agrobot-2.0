@@ -37,7 +37,7 @@ class Comunication(BaseHTTPRequestHandler):
         msg = ""
         return self.msg
     
-    def msgSeparator(self,msg,msgSize):
+    def msgSeparator(self,msg,msgSize,ignoreErrorMessage):
         i = 1
         while(i <= msgSize):
             msgAux = msg[i].split('$')
@@ -55,7 +55,7 @@ class Comunication(BaseHTTPRequestHandler):
                 self.pulverizer = int(msgAux[1])
             i = i+1
 
-        if(not self.check.checkAppMsgProtocol(self.speed,self.steer,self.limit,self.powerA,self.powerB,self.pulverizer)):
+        if(not self.check.checkAppMsgProtocol(self.speed,self.steer,self.limit,self.powerA,self.powerB,self.pulverizer,ignoreErrorMessage)):
             return 0,0,0,0,0,0
 
         speed = int(self.speed)
