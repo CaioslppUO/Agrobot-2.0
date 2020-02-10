@@ -47,14 +47,15 @@ class Checks:
             return 100
         return limit
 
-    def checkAppMsgProtocol(self,speed,steer,limit,powerA,powerB,pulverizer):
+    def checkAppMsgProtocol(self,speed,steer,limit,powerA,powerB,pulverizer,ignoreErrorMessage):
         if(speed == "None" or steer == "None" or limit == "None" or powerA == "None" or powerB == "None" or pulverizer == "None"):
-            self.remediableError("One or more control variables recieved from protocol are missing or are incorrect. Making the robot stop.")
+            self.remediableError("One or more control variables recieved from protocol are missing or are incorrect. Making the robot stop.",ignoreErrorMessage)
             return False
         return True
 
-    def remediableError(self,msg):
-        print("[Remediable Error] " + msg)
+    def remediableError(self,msg,ignoreErrorMessage):
+        if(ignoreErrorMessage == False):
+            print("[Remediable Error] " + msg)
 
     #End the program in case of critical error
     def criticalError(self,msg,especification):
