@@ -1,6 +1,6 @@
 """
-    Version: 2.0.1
-    Date: 31/01/2020 , 10:46
+    Version: 2.0.2
+    Date: 10/02/2020 , 13:52
     Developers: Caio, Lucas, Levi
 """
 
@@ -75,7 +75,7 @@ print('Server started')
 #----> Robot management <----#
 ##############################
 
-def controlRobot(msg,enableOutPutMessage):
+def controlRobot(msg,enableOutPutMessage,ignoreErrorMessage):
     global relays,comunication
     speed                = "None"
     steer                = "None"
@@ -83,7 +83,11 @@ def controlRobot(msg,enableOutPutMessage):
     powerBoardA          = "None"
     powerBoardB          = "None"
     pulverizer           = "None"
-    speed,steer,limit,powerBoardA,powerBoardB,pulverizer = comunication.msgSeparator(msg,int(msg[0]))
+    speed,steer,limit,powerBoardA,powerBoardB,pulverizer = comunication.msgSeparator(msg,int(msg[0]),ignoreErrorMessage)
+
+    if(enableOutPutMessage == True):
+        #Writing in the screen the actual values 
+        outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB),str(pulverizer))
 
     #Sending power signal to boards
     relays.sendSignalToBoardOne(powerBoardA)
@@ -91,11 +95,7 @@ def controlRobot(msg,enableOutPutMessage):
 
     #Sending power signal to relay
     relays.sendSignalToPulverizer(pulverizer)
-
-    if(enableOutPutMessage == True):
-        #Writing in the screen the actual values 
-        outputMsg.printManualOutput(str(speed),str(steer),str(limit),str(powerBoardA),str(powerBoardB),str(pulverizer))
-
+    
     #Moving the robot
     movement.setValues(speed,steer,limit)
     movement.move()
@@ -112,12 +112,12 @@ def mainLoop():
     while True:
         msgRecievedFromApp = comunication.getMsg()
         if(msgRecievedFromApp):
-            controlRobot(msgRecievedFromApp,True)
+            controlRobot(msgRecievedFromApp,True,False)
             time.sleep(0.1)
             comunicationAttempts = 0
         else:
-            controlRobot("0",False)
-            print('No message recieved. Attempt: ' + str(comunicationAttempts))
+            controlRobot("0",False,True)
+            print('No message recieved from the app. Attempt: ' + str(comunicationAttempts))
             comunicationAttempts = comunicationAttempts + 1
             time.sleep(1.5)
             
