@@ -23,7 +23,7 @@ def mainLoop():
     launcher = LauncherVariables()
     serverIp,enableUart,enableSensor,enableRelay,uartAmount = launcher.variableSeparator(sys.argv)
 
-    launchMsg = "roscore& python comunication/webServer.py " + serverIp + "& " + "python comunication/comunication.py& python modules/logs.py& "
+    launchMsg = "roscore& python comunication/webServer.py " + serverIp + "& " + "python comunication/comunication.py& python modules/logs.py& python modules/controlModeDecider.py& "
     if(enableRelay == "True"):
         launchMsg += "python modules/relay.py& "
     if(enableUart == "True"):
