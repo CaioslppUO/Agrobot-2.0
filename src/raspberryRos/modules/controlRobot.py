@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 #####################
 #----> Imports <----#
@@ -96,7 +96,7 @@ class ControlRobot():
         self.pub = rospy.Publisher('LogControlRobot', String, queue_size=10)
         
         try:
-            setUart(self.uartAmount)
+            setUart(int(self.uartAmount))
         except:
             self.pub.publish("[ERROR] Cant Set Uarts.")
 
@@ -130,15 +130,17 @@ class ControlRobot():
         text += self.limit
         text += ';'
         try:
-            if(self.uartAmount == "1"):  
+
+            if(int(self.uartAmount) == 1):  
                 uart0.write(str.encode(text))
-            elif(self.uartAmount == "2"):
+            elif(int(self.uartAmount) == 2):
                 uart0.write(str.encode(text))
                 uart1.write(str.encode(text))
+                self.pub.publish("Executou")
             time.sleep(0.02)
-            self.pub.publish("Command send to arduino: " + str(text))
+            self.pub.publish("Command send to arduino: " + str(text) + " Using " + str(self.uartAmount) + " Uarts")
         except:
-            self.pub.publish("[ERROR] Cant send commands via UART.")
+            self.pub.publish("[ERROR] Cant send commands via UART. Uart Amount: " + str(self.uartAmount))
 
     def listenValues(self):
         rospy.init_node('ControlRobot', anonymous=True) 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
     Version: ROS 1.0.0
@@ -23,13 +23,13 @@ def mainLoop():
     launcher = LauncherVariables()
     serverIp,enableUart,enableSensor,enableRelay,uartAmount = launcher.variableSeparator(sys.argv)
 
-    launchMsg = "roscore& python comunication/webServer.py " + serverIp + "& " + "python comunication/comunication.py& python modules/logs.py& python modules/controlModeDecider.py& "
+    launchMsg = "roscore& python3 /home/labiot/ros/src/agroBot/src/comunication/webServer.py " + serverIp + "& " + "python3 /home/labiot/ros/src/agroBot/src/comunication/comunication.py& python3 /home/labiot/ros/src/agroBot/src/modules/logs.py& python3 /home/labiot/ros/src/agroBot/src/modules/controlModeDecider.py& "
     if(enableRelay == "True"):
-        launchMsg += "python modules/relay.py& "
+        launchMsg += "python3 /home/labiot/ros/src/agroBot/src/modules/relay.py& "
     if(enableUart == "True"):
-        launchMsg += "python modules/controlRobot.py " + str(uartAmount) + "& "
+        launchMsg += "python3 /home/labiot/ros/src/agroBot/src/modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableSensor == "True"):
-        launchMsg += "python modules/sensor.py& "
+        launchMsg += "python3 /home/labiot/ros/src/agroBot/src/modules/sensor.py& "
 
     os.system(launchMsg)
 
