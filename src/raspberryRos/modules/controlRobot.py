@@ -82,6 +82,30 @@ def setUart(uartAmount):
                     timeout=1
                 )
 
+###########################
+#----> Verifications <----#
+###########################
+
+def checkSpeed(speed):
+    if(speed < -100):
+        return -100,"Speed is below -100. Automatically capped at -100."
+    if(speed < 100):
+        return 100,"Speed is over 100. Automatically capped at 100."
+    return speed,None
+
+def checkSteer(steer):
+    if(steer < -100):
+        return -100,"Steer is below -100. Automatically capped at -100."
+    if(steer > 100):
+        return 100,"Speed is over 100. Automatically capped at 100."
+    return steer,None
+
+def checkLimit(limit):
+    if(limit < 0):
+        return 0,"Limit is below 0. Automatically capped at 0."
+    if(limit > 100):
+        return 100,"Limit is over 100. Automatically capped at 100."
+    return limit,None
 
 #################################
 #----> Control Robot Class <----#
@@ -115,9 +139,22 @@ class ControlRobot():
 
     #Define the values needed to control the robot
     def setValues(self,speed,steer,limit):
-        self.speed = self.getValue(speed)
-        self.steer = self.getValue(steer)
-        self.limit = self.getValue(limit)
+        spdCk,spdCkMsg = checkSpeed(speed)
+        strCk,strCkMsg = checkSteer(steer)
+        lmtCk,lmtCkMsg = checkLimit(limit)
+    
+        if(spdCkMsg != None):
+            self.pub.publish(str(spdCkMsg))
+
+        if(strCkMsg != None):
+            self.pub.publish(str(strCkMsg))
+
+        if(lmtCkMsg != None):
+            self.pub.publish(str(lmtCkMsg))
+
+        self.speed = self.getValue(spdCk)
+        self.steer = self.getValue(strCk)
+        self.limit = self.getValue(lmtCk)
 
     #Send the values from speed,steer and limit to the arduino
     def callbackSetValues(self,data):
@@ -131,13 +168,11 @@ class ControlRobot():
         text += self.limit
         text += ';'
         try:
-
             if(int(self.uartAmount) == 1):  
                 uart0.write(str.encode(text))
             elif(int(self.uartAmount) == 2):
                 uart0.write(str.encode(text))
                 uart1.write(str.encode(text))
-                self.pub.publish("Executou")
             time.sleep(0.02)
             self.pub.publish("Command send to arduino: " + str(text) + " Using " + str(self.uartAmount) + " Uarts")
         except:

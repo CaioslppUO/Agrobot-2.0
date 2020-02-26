@@ -22,11 +22,6 @@ GPIO.setwarnings(False)
 #########################
 
 class Relay():
-    def __init__(self):
-        self.relayOne = 38
-        self.relayTwo = 40
-        self.relayThree = 35
-        self.relayFour = 37
 
     #Send the recieved signal to turn on/off to board one
     def sendSignalToBoardOne(self,signal):

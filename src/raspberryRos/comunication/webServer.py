@@ -47,6 +47,7 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
 ##############################
 #----> Web Server Class <----#
 ##############################
+
 class WebServer():
     def __init__(self):
         self.serverIp = sys.argv[1]
