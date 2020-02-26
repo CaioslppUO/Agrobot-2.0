@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-    Version: ROS 1.0.0
-    Date: 11/02/2020, 22:40
+    Version: ROS 1.0.1
+    Date: 26/02/2020, 13:41
     Devs: Caio, Lucas, Levi
 
 """
@@ -23,13 +23,18 @@ def mainLoop():
     launcher = LauncherVariables()
     serverIp,enableUart,enableSensor,enableRelay,uartAmount = launcher.variableSeparator(sys.argv)
 
-    launchMsg = "roscore& python3 /home/labiot/ros/src/agroBot/src/comunication/webServer.py " + serverIp + "& " + "python3 /home/labiot/ros/src/agroBot/src/comunication/comunication.py& python3 /home/labiot/ros/src/agroBot/src/modules/logs.py& python3 /home/labiot/ros/src/agroBot/src/modules/controlModeDecider.py& "
+    launchMsg = "roscore& "
+    launchMsg += "cd .. && python3 comunication/webServer.py " + serverIp + "& "
+    launchMsg += "cd .. && python3 comunication/comunication.py& "
+    launchMsg += "cd .. && python3 modules/logs.py& "
+    launchMsg += "cd .. && modules/controlModeDecider.py& "
+    
     if(enableRelay == "True"):
-        launchMsg += "python3 /home/labiot/ros/src/agroBot/src/modules/relay.py& "
+        launchMsg += "cd .. && python3 modules/relay.py& "
     if(enableUart == "True"):
-        launchMsg += "python3 /home/labiot/ros/src/agroBot/src/modules/controlRobot.py " + str(uartAmount) + "& "
+        launchMsg += "cd .. && python3 modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableSensor == "True"):
-        launchMsg += "python3 /home/labiot/ros/src/agroBot/src/modules/sensor.py& "
+        launchMsg += "cd .. && python3 modules/sensor.py& "
 
     os.system(launchMsg)
 

@@ -1,3 +1,24 @@
+###########################
+#----> Verifications <----#
+###########################
+
+def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount):
+    if(serverIp == None):
+        return False,"Invalid ServerIp"
+    if(enableUart == None):
+        return False,"Invalid EnableUart"
+    if(enableSensor == None):
+        return False,"Invalid EnableSensor"
+    if(enableRelay == None):
+        return False,"Invalid EnableRelay"
+    if(uartAmount == None):
+        return False,"Invalid UartAmount"
+    return True,"Launcher variables were initialized correctly"
+
+######################################
+#----> Launcher Variables Class <----#
+######################################
+
 class LauncherVariables():
     def __init__(self):
         self.serverIp     = None
@@ -22,9 +43,10 @@ class LauncherVariables():
                 self.uartAmount = int(variable[1])
             i = i + 1
 
-        if(self.serverIp == None or self.enableUart == None or self.enableSensor == None
-         or self.enableRelay == None or self.uartAmount == None):
-            print("Launcher invariables are incomplete or worng. Aborting...")
+        checkResult,checkResultMsg = checkVariables(self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount)
+        if(checkResult == False):
+            print(checkResultMsg)
             exit(0)
-
+            
+        print(checkResultMsg)
         return self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount
