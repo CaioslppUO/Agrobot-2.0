@@ -89,7 +89,7 @@ def setUart(uartAmount):
 def checkSpeed(speed):
     if(speed < -100):
         return -100,"Speed is below -100. Automatically capped at -100."
-    if(speed < 100):
+    if(speed > 100):
         return 100,"Speed is over 100. Automatically capped at 100."
     return speed,None
 
