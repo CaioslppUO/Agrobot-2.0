@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-    Version: ROS 1.0.2
-    Date: 26/02/2020, 13:46
+    Version: ROS 1.0.3
+    Date: 26/02/2020, 14:08
     Devs: Caio, Lucas, Levi
 
 """

@@ -72,6 +72,7 @@ class Relay():
             GPIO.setup(35, GPIO.OUT)
             GPIO.output(35, GPIO.LOW)
 
+    #Decide wich relay need to be activated
     def callback(self,data):
         cbAux = str(data.data).split(":")
         if(cbAux[0] == "sendSignalToPulverizer"):
@@ -81,6 +82,7 @@ class Relay():
         elif(cbAux[0] == "sendSignalToBoardOne"):
             self.sendSignalToBoardOne(int(cbAux[1]))
     
+    #Listen to the relay topic
     def listener(self):
         rospy.init_node('Relay', anonymous=True) 
         rospy.Subscriber("Relay", String, self.callback)   

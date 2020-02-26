@@ -113,12 +113,13 @@ class ControlRobot():
         r += str(abs(v))
         return r
 
+    #Define the values needed to control the robot
     def setValues(self,speed,steer,limit):
         self.speed = self.getValue(speed)
         self.steer = self.getValue(steer)
         self.limit = self.getValue(limit)
 
-    #Define the values of speed, steer and limit in the board
+    #Send the values from speed,steer and limit to the arduino
     def callbackSetValues(self,data):
         cbAux = str(data.data).split(":")
         self.setValues(int(cbAux[0]),int(cbAux[1]),int(cbAux[2]))
@@ -142,6 +143,7 @@ class ControlRobot():
         except:
             self.pub.publish("[ERROR] Cant send commands via UART. Uart Amount: " + str(self.uartAmount))
 
+    #Listen the ControlRobot topic
     def listenValues(self):
         rospy.init_node('ControlRobot', anonymous=True) 
         rospy.Subscriber("ControlRobot", String, self.callbackSetValues)   
