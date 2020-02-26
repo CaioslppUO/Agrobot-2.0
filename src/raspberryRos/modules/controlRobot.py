@@ -117,12 +117,12 @@ class ControlRobot():
         self.steer = "0000"
         self.limit = "0000"
         self.uartAmount = sys.argv[1]
-        self.pub = rospy.Publisher('LogControlRobot', String, queue_size=10)
+        rospy.init_node('ControlRobot', anonymous=True) 
         
         try:
             setUart(int(self.uartAmount))
         except:
-            self.pub.publish("[ERROR] Cant Set Uarts.")
+            pass
 
     #Recieve a numeric value and change it to String
     def getValue(self, v):
@@ -142,15 +142,6 @@ class ControlRobot():
         spdCk,spdCkMsg = checkSpeed(speed)
         strCk,strCkMsg = checkSteer(steer)
         lmtCk,lmtCkMsg = checkLimit(limit)
-    
-        if(spdCkMsg != None):
-            self.pub.publish(str(spdCkMsg))
-
-        if(strCkMsg != None):
-            self.pub.publish(str(strCkMsg))
-
-        if(lmtCkMsg != None):
-            self.pub.publish(str(lmtCkMsg))
 
         self.speed = self.getValue(spdCk)
         self.steer = self.getValue(strCk)
@@ -176,11 +167,10 @@ class ControlRobot():
             time.sleep(0.02)
             self.pub.publish("Command send to arduino: " + str(text) + " Using " + str(self.uartAmount) + " Uarts")
         except:
-            self.pub.publish("[ERROR] Cant send commands via UART. Uart Amount: " + str(self.uartAmount))
-
+            pass
+        
     #Listen the ControlRobot topic
     def listenValues(self):
-        rospy.init_node('ControlRobot', anonymous=True) 
         rospy.Subscriber("ControlRobot", String, self.callbackSetValues)   
         rospy.spin()
 
