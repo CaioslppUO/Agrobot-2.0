@@ -26,6 +26,7 @@ class LauncherVariables():
         self.enableSensor = None
         self.enableRelay  = None
         self.uartAmount   = None
+        self.numberOfNeededVariables = 5
 
     def variableSeparator(self,variables):
         i = 1
@@ -33,13 +34,13 @@ class LauncherVariables():
             variable = variables[i].split(":")
             if(variable[0] == "serverIp"):
                 self.serverIp = str(variable[1])
-            elif(variable[0] == "enableUart"):
+            elif(variable[0] == "enableUart" and (str(variable[1]) == "False" or str(variable[1]) == "True")):
                 self.enableUart = str(variable[1])
-            elif(variable[0] == "enableSensor"):
+            elif(variable[0] == "enableSensor" and (str(variable[1]) == "False" or str(variable[1]) == "True")):
                 self.enableSensor = str(variable[1])
-            elif(variable[0] == "enableRelay"):
+            elif(variable[0] == "enableRelay" and (str(variable[1]) == "False" or str(variable[1]) == "True")):
                 self.enableRelay = str(variable[1])
-            elif(variable[0] == "uartAmount"):
+            elif(variable[0] == "uartAmount" and (int(variable[1]) == 0 or int(variable[1]) == 1 or int(variable[1]) == 2)):
                 self.uartAmount = int(variable[1])
             i = i + 1
 
