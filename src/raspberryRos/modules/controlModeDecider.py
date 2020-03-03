@@ -7,16 +7,22 @@
 import rospy
 from std_msgs.msg import String
 
+################################
+#----> Global Definitions <----#
+################################
+
+rospy.init_node('ControlModeDecider', anonymous=True) 
+
+
 #######################################
 #----> Control Mode Decide Class <----#
 #######################################
 
 class ControlMode():
     def __init__(self):
-        rospy.init_node('ControlMode', anonymous=True) 
         self.pubRelay = rospy.Publisher('Relay', String, queue_size=10)
         self.pubControlRobot = rospy.Publisher('ControlRobot', String, queue_size=10)
-        self.pubControlMode = rospy.Publisher('ControlMode', String, queue_size=10)
+        self.pubControlMode = rospy.Publisher('ControlModeDecider', String, queue_size=10)
 
     def sendComands(self,speed,steer,limit,powerA,powerB,pulverizer):
         self.pubControlRobot.publish(str(speed) + ":" + str(steer) + ":" + str(limit))

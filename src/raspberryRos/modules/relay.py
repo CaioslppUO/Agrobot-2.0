@@ -22,7 +22,6 @@ GPIO.setwarnings(False)
 #########################
 
 class Relay():
-
     #Send the recieved signal to turn on/off to board one
     def sendSignalToBoardOne(self,signal):
         if(signal == 1):

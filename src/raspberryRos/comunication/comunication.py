@@ -7,10 +7,17 @@
 import rospy
 from std_msgs.msg import String
 
+################################
+#----> Global Definitions <----#
+################################
+
+rospy.init_node('Comunication', anonymous=True)
+
 #######################
 #----> Functions <----#
 #######################
 
+#Check and correct the speed value if it is needed
 def checkSpeed(speed):
     if(speed < -100):
         return -100
@@ -18,6 +25,7 @@ def checkSpeed(speed):
         return 100
     return speed
 
+#Check and correct the steer value if it is needed
 def checkSteer(steer):
     if(steer < -100):
         return -100
@@ -25,6 +33,7 @@ def checkSteer(steer):
         return 100
     return steer
 
+#Check and correct the limit value if it is needed
 def checkLimit(limit):
     if(limit < 0):
         return 0
@@ -32,11 +41,13 @@ def checkLimit(limit):
         return 100
     return limit
 
+#Check and correct the relay value if it is needed
 def checkRelays(signal):
     if(signal != 0 and signal != 1):
         return 0
     return signal
 
+#Check and correct all recieved variables from the WebServer
 def checkMessageRecieved(msg):
     try:
         speed  = int(str(msg[1]).split("$")[1])
@@ -75,7 +86,6 @@ class Comunication():
         #ROS
         self.pubComunication = rospy.Publisher('Comunication', String, queue_size=10)
         self.pubControlRobot = rospy.Publisher('ControlRobot', String, queue_size=10)
-        rospy.init_node('Comunication', anonymous=True)
         rospy.Subscriber("WebServer", String, self.callbackWebServer) 
 
     #Set the msg variable with the message recieved from the webServer
@@ -114,6 +124,10 @@ class Comunication():
             self.msg = None
             rate.sleep()
             self.msgSeparator()
+
+#######################
+#----> Main Loop <----#
+#######################
 
 try:
     comunication = Comunication()

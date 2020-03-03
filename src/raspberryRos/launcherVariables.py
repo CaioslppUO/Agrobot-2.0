@@ -2,6 +2,7 @@
 #----> Function <----#
 ###########################
 
+#Check if every variable is different from None and push back wich one is wrong(if there is a wrong one)
 def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount):
     if(serverIp == None):
         return False,"Invalid ServerIp"
@@ -27,6 +28,7 @@ class LauncherVariables():
         self.enableRelay  = None
         self.uartAmount   = None
 
+    #Separate the variables recieved and return them
     def variableSeparator(self,variables):
         i = 1
         while(i < len(variables)):

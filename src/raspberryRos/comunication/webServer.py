@@ -24,6 +24,7 @@ rospy.init_node('WebServer', anonymous=True)
 ###################################
 
 class RequestHandler_httpd(BaseHTTPRequestHandler):
+    #Handle the message when there is a connection with the app
     def do_GET(self):
         newClientConnectionAttenpts = 0
         clientAdress = None
@@ -58,7 +59,11 @@ class WebServer():
             self.serverThread.start()
         except:
             pass
-            
+
+#######################
+#----> Main Loop <----#
+#######################
+  
 if __name__ == '__main__':
     try:
         webServer = WebServer()

@@ -11,6 +11,12 @@ import rospy
 
 from std_msgs.msg import String
 
+################################
+#----> Global Definitions <----#
+################################
+
+rospy.init_node('ControlRobot', anonymous=True) 
+
 ##############################
 #----> Global Variables <----#
 ##############################
@@ -22,6 +28,7 @@ uart1 = None
 #----> Functions <----#
 #######################
 
+#Define the amount of uarts that will be used and reserve the USB port for them
 def setUart(uartAmount):
     global uart0,uart1
     if(uartAmount == 1):
@@ -65,10 +72,7 @@ def setUart(uartAmount):
         except:
             pass
 
-###########################
-#----> Function <----#
-###########################
-
+#Check and correct the speed value if it is needed
 def checkSpeed(speed):
     if(speed < -100):
         return -100
@@ -76,6 +80,7 @@ def checkSpeed(speed):
         return 100
     return speed
 
+#Check and correct the steer value if it is needed
 def checkSteer(steer):
     if(steer < -100):
         return -100
@@ -83,6 +88,7 @@ def checkSteer(steer):
         return 100
     return steer
 
+#Check and correct the limit value if it is needed
 def checkLimit(limit):
     if(limit < 0):
         return 0
@@ -104,9 +110,6 @@ class ControlRobot():
             self.uartAmount = sys.argv[1]
         except:
             self.uartAmount = 0
-
-        rospy.init_node('ControlRobot', anonymous=True) 
-        
         try:
             setUart(int(self.uartAmount))
         except:
@@ -137,6 +140,7 @@ class ControlRobot():
 
     #Send the values from speed,steer and limit to the arduino
     def callbackSetValues(self,data):
+        global uart0,uart1
         cbAux = str(data.data).split(":")
         
         try:
@@ -145,8 +149,6 @@ class ControlRobot():
             self.speed = 0
             self.steer = 0
             self.limit = 0
-
-        global uart0,uart1
 
         text = self.speed
         text += ','
