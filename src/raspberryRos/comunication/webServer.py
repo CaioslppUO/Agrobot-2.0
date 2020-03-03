@@ -16,7 +16,7 @@ from threading import Thread
 ##############################
 
 msg = None
-pub = rospy.Publisher('WebServer', String, queue_size=10)
+pubWebServer = rospy.Publisher('WebServer', String, queue_size=10)
 rospy.init_node('WebServer', anonymous=True)
 
 ###################################
@@ -28,7 +28,7 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
         newClientConnectionAttenpts = 0
         clientAdress = None
         webServerRequest = None
-        global msg,pub
+        global msg,pubWebServer
         webServerRequest = self.requestline
         if(clientAdress == None or newClientConnectionAttenpts >= 15):
             clientAdress = self.client_address[0]
@@ -36,13 +36,12 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
             newClientConnectionAttenpts = 0
             webServerRequest = webServerRequest[5 : int(len(webServerRequest)-9)]
             #Geting speed,steer and limit
-            msg = str(webServerRequest) #Message recieved from smartphone app
-            pub.publish(str(msg))
+            msg = str(webServerRequest) #Raw message recieved from smartphone app
+            pubWebServer.publish(str(msg))
             msg = None
             return
         else:
             newClientConnectionAttenpts = newClientConnectionAttenpts + 1
-
 
 ##############################
 #----> Web Server Class <----#
@@ -50,12 +49,15 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
 
 class WebServer():
     def __init__(self):
-        self.serverIp = sys.argv[1]
-        self.server_address_httpd = (self.serverIp,8080)
-        httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
-        self.serverThread = Thread(target=httpd.serve_forever)
-        self.serverThread.daemon = True #The server is closed when the program is closed
-        self.serverThread.start()
+        try:
+            self.serverIp = sys.argv[1]
+            self.server_address_httpd = (self.serverIp,8080)
+            httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
+            self.serverThread = Thread(target=httpd.serve_forever)
+            self.serverThread.daemon = True #The server is closed when the program is closed
+            self.serverThread.start()
+        except:
+            pass
             
 if __name__ == '__main__':
     try:

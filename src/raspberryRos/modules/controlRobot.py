@@ -63,49 +63,32 @@ def setUart(uartAmount):
                 timeout=1
             )
         except:
-            try:
-                uart0 = serial.Serial(
-                    port='/dev/ttyUSB_CONVERSOR-0',
-                    baudrate = 9600,
-                    parity=serial.PARITY_NONE,
-                    stopbits=serial.STOPBITS_ONE,
-                    bytesize=serial.EIGHTBITS,
-                    timeout=1
-                )
-            except:
-                uart1 = serial.Serial(
-                    port='/dev/ttyUSB_CONVERSOR-0',
-                    baudrate = 9600,
-                    parity=serial.PARITY_NONE,
-                    stopbits=serial.STOPBITS_ONE,
-                    bytesize=serial.EIGHTBITS,
-                    timeout=1
-                )
+            pass
 
 ###########################
-#----> Verifications <----#
+#----> Function <----#
 ###########################
 
 def checkSpeed(speed):
     if(speed < -100):
-        return -100,"Speed is below -100. Automatically capped at -100."
+        return -100
     if(speed > 100):
-        return 100,"Speed is over 100. Automatically capped at 100."
-    return speed,None
+        return 100
+    return speed
 
 def checkSteer(steer):
     if(steer < -100):
-        return -100,"Steer is below -100. Automatically capped at -100."
+        return -100
     if(steer > 100):
-        return 100,"Speed is over 100. Automatically capped at 100."
-    return steer,None
+        return 100
+    return steer
 
 def checkLimit(limit):
     if(limit < 0):
-        return 0,"Limit is below 0. Automatically capped at 0."
+        return 0
     if(limit > 100):
-        return 100,"Limit is over 100. Automatically capped at 100."
-    return limit,None
+        return 100
+    return limit
 
 #################################
 #----> Control Robot Class <----#
@@ -116,7 +99,12 @@ class ControlRobot():
         self.speed = "0000"
         self.steer = "0000"
         self.limit = "0000"
-        self.uartAmount = sys.argv[1]
+
+        try:
+            self.uartAmount = sys.argv[1]
+        except:
+            self.uartAmount = 0
+
         rospy.init_node('ControlRobot', anonymous=True) 
         
         try:
@@ -139,9 +127,9 @@ class ControlRobot():
 
     #Define the values needed to control the robot
     def setValues(self,speed,steer,limit):
-        spdCk,spdCkMsg = checkSpeed(speed)
-        strCk,strCkMsg = checkSteer(steer)
-        lmtCk,lmtCkMsg = checkLimit(limit)
+        spdCk = checkSpeed(speed)
+        strCk = checkSteer(steer)
+        lmtCk = checkLimit(limit)
 
         self.speed = self.getValue(spdCk)
         self.steer = self.getValue(strCk)
@@ -150,22 +138,33 @@ class ControlRobot():
     #Send the values from speed,steer and limit to the arduino
     def callbackSetValues(self,data):
         cbAux = str(data.data).split(":")
-        self.setValues(int(cbAux[0]),int(cbAux[1]),int(cbAux[2]))
+        
+        try:
+            self.setValues(int(cbAux[0]),int(cbAux[1]),int(cbAux[2]))
+        except:
+            self.speed = 0
+            self.steer = 0
+            self.limit = 0
+
         global uart0,uart1
+
         text = self.speed
         text += ','
         text += self.steer
         text += ','
         text += self.limit
         text += ';'
+
         try:
             if(int(self.uartAmount) == 1):  
                 uart0.write(str.encode(text))
+                self.pub.publish("Command send to arduino: " + str(text) + " Using " + str(self.uartAmount) + " Uarts")
             elif(int(self.uartAmount) == 2):
                 uart0.write(str.encode(text))
                 uart1.write(str.encode(text))
+            else:
+                self.pub.publish("Command send to arduino: None, Using " + str(self.uartAmount) + " Uarts")
             time.sleep(0.02)
-            self.pub.publish("Command send to arduino: " + str(text) + " Using " + str(self.uartAmount) + " Uarts")
         except:
             pass
         

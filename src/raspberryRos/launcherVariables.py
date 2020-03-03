@@ -1,5 +1,5 @@
 ###########################
-#----> Verifications <----#
+#----> Function <----#
 ###########################
 
 def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount):
@@ -26,7 +26,6 @@ class LauncherVariables():
         self.enableSensor = None
         self.enableRelay  = None
         self.uartAmount   = None
-        self.numberOfNeededVariables = 5
 
     def variableSeparator(self,variables):
         i = 1
@@ -45,6 +44,7 @@ class LauncherVariables():
             i = i + 1
 
         checkResult,checkResultMsg = checkVariables(self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount)
+        
         if(checkResult == False):
             print(checkResultMsg)
             exit(0)

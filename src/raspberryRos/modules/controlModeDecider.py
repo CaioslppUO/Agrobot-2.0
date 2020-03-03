@@ -18,7 +18,7 @@ class ControlMode():
         self.pubControlRobot = rospy.Publisher('ControlRobot', String, queue_size=10)
         self.pubControlMode = rospy.Publisher('ControlMode', String, queue_size=10)
 
-    def sendComands(self,speed,steer,limit,powerA,powerB):
+    def sendComands(self,speed,steer,limit,powerA,powerB,pulverizer):
         self.pubControlRobot.publish(str(speed) + ":" + str(steer) + ":" + str(limit))
         self.pubRelay.publish("sendSignalToBoardOne:" + str(powerA))
         self.pubRelay.publish("sendSignalToBoardTwo:" + str(powerB))
@@ -26,7 +26,7 @@ class ControlMode():
     def callbackComunication(self,data):
         if(str(data.data) != "No connection established."):
             cbAux = str(data.data).split("$")
-            self.sendComands(int(cbAux[0]), int(cbAux[1]), int(cbAux[2]), int(cbAux[3]), int(cbAux[4]))
+            self.sendComands(int(cbAux[0]), int(cbAux[1]), int(cbAux[2]), int(cbAux[3]), int(cbAux[4]), int(cbAux[5]))
             self.pubControlMode.publish("manual")
     
     def listenComunication(self):

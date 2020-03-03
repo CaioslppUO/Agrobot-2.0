@@ -7,6 +7,56 @@
 import rospy
 from std_msgs.msg import String
 
+#######################
+#----> Functions <----#
+#######################
+
+def checkSpeed(speed):
+    if(speed < -100):
+        return -100
+    if(speed > 100):
+        return 100
+    return speed
+
+def checkSteer(steer):
+    if(steer < -100):
+        return -100
+    if(steer > 100):
+        return 100
+    return steer
+
+def checkLimit(limit):
+    if(limit < 0):
+        return 0
+    if(limit > 100):
+        return 100
+    return limit
+
+def checkRelays(signal):
+    if(signal != 0 and signal != 1):
+        return 0
+    return signal
+
+def checkMessageRecieved(msg):
+    try:
+        speed  = int(str(msg[1]).split("$")[1])
+        steer  = int(str(msg[2]).split("$")[1])
+        limit  = int(str(msg[3]).split("$")[1])
+        powerA = int(str(msg[4]).split("$")[1])
+        powerB = int(str(msg[5]).split("$")[1])
+        pulver = int(str(msg[6]).split("$")[1])
+
+        speed  = int(checkSpeed(speed)) 
+        steer  = int(checkSteer(steer))
+        limit  = int(checkLimit(limit))
+        powerA = int(checkRelays(powerA))
+        powerB = int(checkRelays(powerB))
+        pulver = int(checkRelays(pulver))
+
+        return speed,steer,limit,powerA,powerB,pulver
+    except:
+        return None,None,None,None,None,None
+
 ################################
 #----> Comunication class <----#
 ################################
@@ -14,17 +64,17 @@ from std_msgs.msg import String
 class Comunication():
     def __init__(self):
         self.msg        = None
-        self.separator  = "*"
         self.speed      = None
         self.steer      = None
         self.limit      = None
         self.powerA     = None
         self.powerB     = None
         self.pulverizer = None
+        self.separator  = "*" #Symbol used to separate the message recieved from the app
 
         #ROS
-        self.pub = rospy.Publisher('Comunication', String, queue_size=10)
-        self.pub2 = rospy.Publisher('ControlRobot', String, queue_size=10)
+        self.pubComunication = rospy.Publisher('Comunication', String, queue_size=10)
+        self.pubControlRobot = rospy.Publisher('ControlRobot', String, queue_size=10)
         rospy.init_node('Comunication', anonymous=True)
         rospy.Subscriber("WebServer", String, self.callbackWebServer) 
 
@@ -34,25 +84,10 @@ class Comunication():
 
     #Separate the message to it's respective variables and publish them in the Comunication ROS Topic
     def msgSeparator(self):
-        if(self.msg != None):
-            msgSize = int(self.msg[0])
-            i = 1
-            while(i <= msgSize):
-                msgAux = self.msg[i].split('$')
-                if(msgAux[0] == 'speed'):
-                    self.speed = msgAux[1]
-                elif(msgAux[0] == 'steer'):
-                    self.steer = msgAux[1]
-                elif(msgAux[0] == 'limit'):
-                    self.limit = msgAux[1]
-                elif(msgAux[0] == 'powerA'):
-                    self.powerA = msgAux[1]
-                elif(msgAux[0] == 'powerB'):
-                    self.powerB = msgAux[1]
-                elif(msgAux[0] == 'pulverize'):
-                    self.pulverizer = msgAux[1]
-                i = i+1
+        self.speed,self.steer,self.limit,self.powerA,
+        self.powerB,self.pulverizer = checkMessageRecieved(self.msg)
 
+        if(self.msg != None):
             speed = self.speed
             steer = self.steer
             limit = self.limit
@@ -67,10 +102,10 @@ class Comunication():
             self.powerB = None
             self.pulverizer = None
 
-            self.pub.publish(speed + "$" + steer + "$" + limit + "$" + powerA + "$" + powerB + "$" + pulverizer)
-            self.pub2.publish(speed + ":" + steer + ":" + limit)
+            self.pubComunication.publish(speed + "$" + steer + "$" + limit + "$" + powerA + "$" + powerB + "$" + pulverizer)
+            self.pubControlRobot.publish(speed + ":" + steer + ":" + limit)
         else:
-            self.pub.publish("No connection established.")
+            self.pubComunication.publish("No connection established.")
 
     #Send commands even when there is no comunication with the webServer
     def sendCommands(self):
