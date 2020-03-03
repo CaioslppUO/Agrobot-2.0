@@ -36,7 +36,6 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
         if(clientAdress == self.client_address[0]):
             newClientConnectionAttenpts = 0
             webServerRequest = webServerRequest[5 : int(len(webServerRequest)-9)]
-            #Geting speed,steer and limit
             msg = str(webServerRequest) #Raw message recieved from smartphone app
             pubWebServer.publish(str(msg))
             msg = None

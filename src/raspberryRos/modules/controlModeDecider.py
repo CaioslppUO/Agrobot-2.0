@@ -13,7 +13,6 @@ from std_msgs.msg import String
 
 rospy.init_node('ControlModeDecider', anonymous=True) 
 
-
 #######################################
 #----> Control Mode Decide Class <----#
 #######################################
@@ -28,6 +27,7 @@ class ControlMode():
         self.pubControlRobot.publish(str(speed) + ":" + str(steer) + ":" + str(limit))
         self.pubRelay.publish("sendSignalToBoardOne:" + str(powerA))
         self.pubRelay.publish("sendSignalToBoardTwo:" + str(powerB))
+        self.pubRelay.publish("sendSignalToPulverizer:" + str(pulverizer))
 
     def callbackComunication(self,data):
         if(str(data.data) != "No connection established."):

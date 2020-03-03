@@ -85,7 +85,6 @@ class Comunication():
 
         #ROS
         self.pubComunication = rospy.Publisher('Comunication', String, queue_size=10)
-        self.pubControlRobot = rospy.Publisher('ControlRobot', String, queue_size=10)
         rospy.Subscriber("WebServer", String, self.callbackWebServer) 
 
     #Set the msg variable with the message recieved from the webServer
@@ -113,7 +112,6 @@ class Comunication():
             self.pulverizer = None
 
             self.pubComunication.publish(speed + "$" + steer + "$" + limit + "$" + powerA + "$" + powerB + "$" + pulverizer)
-            self.pubControlRobot.publish(speed + ":" + steer + ":" + limit)
         else:
             self.pubComunication.publish("No connection established.")
 
