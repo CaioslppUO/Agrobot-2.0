@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-    Version: ROS 1.1.0
+    Version: ROS 1.1.1
     Date: 04/03/2020, 15:04
     Devs: Caio, Lucas, Levi
 
@@ -49,9 +49,9 @@ def mainLoop():
 
     #Define the base modules to be launched
     launchMsg = "cd .. && python3 comunication/webServer.py " + serverIp + "& "
-    launchMsg += "cd .. && python3 comunication/comunication.py& "
+    launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py& "
     launchMsg += "cd .. && python3 modules/logs.py& "
-    launchMsg += "cd .. && modules/controlModeDecider.py& "
+    launchMsg += "cd .. && modules/commandDecider.py& "
     
     #Define wich optional modules will be launched
     if(enableRelay == "True"):

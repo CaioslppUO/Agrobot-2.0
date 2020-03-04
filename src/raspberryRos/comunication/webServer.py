@@ -16,8 +16,8 @@ from threading import Thread
 ##############################
 
 msg = None
-pubWebServer = rospy.Publisher('WebServer', String, queue_size=10)
-rospy.init_node('WebServer', anonymous=True)
+pubWebServer = rospy.Publisher('WebServerManual', String, queue_size=10)
+rospy.init_node('WebServerManual', anonymous=True)
 
 ###################################
 #----> Request Handler Class <----#
