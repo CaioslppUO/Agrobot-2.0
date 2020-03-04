@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-    Version: ROS 1.0.9
-    Date: 03/03/2020, 17:05
+    Version: ROS 1.1.0
+    Date: 04/03/2020, 15:04
     Devs: Caio, Lucas, Levi
 
 """
@@ -23,7 +23,7 @@ from launcherVariables import LauncherVariables
 ################################
 
 os.system("roscore& ")
-time.sleep(5)
+time.sleep(8)
 os.system("clear && echo 'ROS has been successfully initialized'& ")
 
 ################################
@@ -31,7 +31,6 @@ os.system("clear && echo 'ROS has been successfully initialized'& ")
 ################################
 
 rospy.init_node('Controller', anonymous=True)
-
 
 ##############################
 #----> Global Variables <----#

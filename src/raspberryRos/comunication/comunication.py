@@ -49,23 +49,26 @@ def checkRelays(signal):
 
 #Check and correct all recieved variables from the WebServer
 def checkMessageRecieved(msg):
-    try:
-        speed  = int(str(msg[1]).split("$")[1])
-        steer  = int(str(msg[2]).split("$")[1])
-        limit  = int(str(msg[3]).split("$")[1])
-        powerA = int(str(msg[4]).split("$")[1])
-        powerB = int(str(msg[5]).split("$")[1])
-        pulver = int(str(msg[6]).split("$")[1])
-
-        speed  = int(checkSpeed(speed)) 
-        steer  = int(checkSteer(steer))
-        limit  = int(checkLimit(limit))
-        powerA = int(checkRelays(powerA))
-        powerB = int(checkRelays(powerB))
-        pulver = int(checkRelays(pulver))
-
-        return speed,steer,limit,powerA,powerB,pulver
-    except:
+    if(msg != None):
+        try:
+            speed  = int(str(msg[1]).split("$")[1])
+            steer  = int(str(msg[2]).split("$")[1])
+            limit  = int(str(msg[3]).split("$")[1])
+            powerA = int(str(msg[4]).split("$")[1])
+            powerB = int(str(msg[5]).split("$")[1])
+            pulver = int(str(msg[6]).split("$")[1])
+            
+            speed  = int(checkSpeed(speed)) 
+            steer  = int(checkSteer(steer))
+            limit  = int(checkLimit(limit))
+            powerA = int(checkRelays(powerA))
+            powerB = int(checkRelays(powerB))
+            pulver = int(checkRelays(pulver))
+            
+            return speed,steer,limit,powerA,powerB,pulver
+        except:
+            return None,None,None,None,None,None
+    else:
         return None,None,None,None,None,None
 
 ################################
@@ -85,17 +88,19 @@ class Comunication():
 
         #ROS
         self.pubComunication = rospy.Publisher('Comunication', String, queue_size=10)
-        rospy.Subscriber("WebServer", String, self.callbackWebServer) 
 
     #Set the msg variable with the message recieved from the webServer
     def callbackWebServer(self,data):
         self.msg = str(data.data).split(self.separator)
+        self.msgSeparator()
+        self.msg = None
+
+    def listenWebServer(self):
+        rospy.Subscriber("WebServer", String, self.callbackWebServer) 
 
     #Separate the message to it's respective variables and publish them in the Comunication ROS Topic
     def msgSeparator(self):
-        self.speed,self.steer,self.limit,self.powerA,
-        self.powerB,self.pulverizer = checkMessageRecieved(self.msg)
-
+        self.speed,self.steer,self.limit,self.powerA,self.powerB,self.pulverizer = checkMessageRecieved(self.msg)
         if(self.msg != None):
             speed = self.speed
             steer = self.steer
@@ -110,18 +115,16 @@ class Comunication():
             self.powerA = None
             self.powerB = None
             self.pulverizer = None
-
-            self.pubComunication.publish(speed + "$" + steer + "$" + limit + "$" + powerA + "$" + powerB + "$" + pulverizer)
+            
+            self.pubComunication.publish(str(speed) + "$" + str(steer) + "$" + str(limit) + "$" + str(powerA) + "$" + str(powerB) + "$" + str(pulverizer))
         else:
             self.pubComunication.publish("No connection established.")
 
     #Send commands even when there is no comunication with the webServer
     def sendCommands(self):
-        rate = rospy.Rate(5) # 5hz
-        while not rospy.is_shutdown():
-            self.msg = None
-            rate.sleep()
-            self.msgSeparator()
+        self.msg = None
+        self.listenWebServer()
+        rospy.spin()
 
 #######################
 #----> Main Loop <----#
