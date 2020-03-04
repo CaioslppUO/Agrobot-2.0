@@ -115,7 +115,7 @@ class ControlRobot():
         except:
             pass
 
-    #Recieve a numeric value and change it to String
+    #Recieve a numeric value and change it to String to the format: signal (value value value)
     def getValue(self, v):
         if(v >= 0):
             r = '1'
