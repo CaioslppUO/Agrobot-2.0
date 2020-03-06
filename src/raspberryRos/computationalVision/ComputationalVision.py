@@ -24,8 +24,8 @@ def AjustAngle(pt1,size):
 		vel = Velocity(size-pt1[0],size)
 	else:
 		vel = Velocity(pt1[0]-size,size)
-	msg = direction + ":" + vel
-	pub.Publisher(msg)
+	msg = str(direction) + ":" + str(vel)
+	pub.publish(msg)
 	msg = None
 	# print(direction)
 	# print(vel)
