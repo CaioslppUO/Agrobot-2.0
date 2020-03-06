@@ -105,6 +105,7 @@ class ControlRobot():
         self.speed = "0000"
         self.steer = "0000"
         self.limit = "0000"
+        self.pub = rospy.Publisher('LOGRODANDO', String, queue_size=10)
 
         try:
             self.uartAmount = sys.argv[1]
@@ -141,8 +142,8 @@ class ControlRobot():
     #Send the values from speed,steer and limit to the arduino
     def callbackSetValues(self,data):
         global uart0,uart1
-        cbAux = str(data.data).split(":")
-        
+        cbAux = str(data.data).split("$")
+
         try:
             self.setValues(int(cbAux[0]),int(cbAux[1]),int(cbAux[2]))
         except:
@@ -168,12 +169,11 @@ class ControlRobot():
                 self.pub.publish("Command send to arduino: None, Using " + str(self.uartAmount) + " Uarts")
             time.sleep(0.02)
         except:
-            pass
+            self.pub.publish("Uart Error")
         
     #Listen the ControlRobot topic
     def listenValues(self):
-        rospy.Subscriber("ControlRobot", String, self.callbackSetValues)   
-        rospy.spin()
+        rospy.Subscriber("ControlRobot", String, self.callbackSetValues)  
 
 #######################
 #----> Main Loop <----#
@@ -182,3 +182,4 @@ class ControlRobot():
 if __name__ == '__main__':
     control = ControlRobot()
     control.listenValues()
+    rospy.spin()

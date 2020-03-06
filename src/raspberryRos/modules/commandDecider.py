@@ -24,7 +24,7 @@ class ControlMode():
         self.pubCommandDecider = rospy.Publisher('CommandDecider', String, queue_size=10)
 
     def sendComands(self,speed,steer,limit,powerA,powerB,pulverizer):
-        self.pubControlRobot.publish(str(speed) + ":" + str(steer) + ":" + str(limit))
+        self.pubControlRobot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
         self.pubRelay.publish("sendSignalToBoardOne:" + str(powerA))
         self.pubRelay.publish("sendSignalToBoardTwo:" + str(powerB))
         self.pubRelay.publish("sendSignalToPulverizer:" + str(pulverizer))
