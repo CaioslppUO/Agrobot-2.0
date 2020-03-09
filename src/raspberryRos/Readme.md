@@ -1,2 +1,2 @@
 ![diagrama]
-(https://github.com/CaioslppUO/Agrobot/blob/master/pictures/robot/robo1.jpg)
+(https://github.com/CaioslppUO/Agrobot-Private-/blob/master/src/raspberryRos/DiagramaDeClasses.drawio)
