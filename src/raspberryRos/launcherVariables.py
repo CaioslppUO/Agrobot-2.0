@@ -52,7 +52,7 @@ class LauncherVariables():
             elif(variable[0] == "commandObservers"):
                 self.commandObservers = int(variable[1])
             elif(variable[0] == "enableFaceDetect"):
-                self.enableFaceDetect = int(variable[1])
+                self.enableFaceDetect = str(variable[1])
             i = i + 1
 
         checkResult,checkResultMsg = checkVariables(self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount,self.commandObservers,self.enableFaceDetect)

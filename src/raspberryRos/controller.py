@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-    Version: ROS 1.1.4
-    Date: 06/03/2020, 14:26
+    Version: ROS 1.1.5
+    Date: 06/03/2020, 15:32
     Devs: Caio, Lucas, Levi
 
 """
@@ -49,7 +49,7 @@ def mainLoop():
 
     #Define the base modules to be launched
     launchMsg = "cd .. && python3 comunication/webServer.py " + serverIp + "& "
-    launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py " + commandObservers + "& "
+    launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
     launchMsg += "cd .. && python3 modules/logs.py& "
     launchMsg += "cd .. && modules/commandAssembler.py& "
     
@@ -67,11 +67,7 @@ def mainLoop():
     os.system(launchMsg)
 
     #Log Message
-    logPublish = str(serverIp) + "$"
-    logPublish += str(enableUart) + "$"
-    logPublish += str(enableSensor) + "$"
-    logPublish += str(enableRelay) + "$"
-    logPublish += str(uartAmount)
+    logPublish = "Modules were started"
     while not rospy.is_shutdown():
         pubController.publish(logPublish)
 
