@@ -2,7 +2,7 @@
 
 """
     Version: ROS 1.1.4
-    Date: 10/03/2020, 13:34
+    Date: 06/03/2020, 14:26
     Devs: Caio, Lucas, Levi
 
 """
@@ -45,11 +45,11 @@ pubController = rospy.Publisher('Controller', String, queue_size=10)
 def mainLoop():
     global pubController
     launcher = LauncherVariables()
-    serverIp,enableUart,enableSensor,enableRelay,uartAmount = launcher.variableSeparator(sys.argv)
+    serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect = launcher.variableSeparator(sys.argv)
 
     #Define the base modules to be launched
     launchMsg = "cd .. && python3 comunication/webServer.py " + serverIp + "& "
-    launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py& "
+    launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py " + commandObservers + "& "
     launchMsg += "cd .. && python3 modules/logs.py& "
     launchMsg += "cd .. && modules/commandAssembler.py& "
     
@@ -60,6 +60,8 @@ def mainLoop():
         launchMsg += "cd .. && python3 modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableSensor == "True"):
         launchMsg += "cd .. && python3 modules/sensor.py& "
+    if(enableFaceDetect == "True"):
+        launchMsg += "cd .. && python3 modules/coputationalVision.py& "
 
     #Launch all the required modules
     os.system(launchMsg)

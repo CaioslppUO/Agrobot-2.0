@@ -5,6 +5,7 @@
 #####################
 
 import rospy
+import sys
 from std_msgs.msg import String
 
 ################################
@@ -18,6 +19,7 @@ rospy.init_node('CommandPriorityDecider', anonymous=True)
 ##############################
 
 webServersReaded = 0
+commandObservers = int(sys.argv[1])
 
 #######################
 #----> Functions <----#
@@ -97,8 +99,8 @@ class Comunication():
         self.pubComunication = rospy.Publisher('CommandPriorityDecider', String, queue_size=10)
 
     def execute(self):
-        global webServersReaded
-        if(webServersReaded == 1):
+        global webServersReaded,commandObservers
+        if(webServersReaded == commandObservers):
             self.msgSeparator()
             self.msg = None
             self.priority = None
@@ -115,8 +117,21 @@ class Comunication():
         webServersReaded = webServersReaded + 1
         self.execute()
 
+    def callbackComputationalVision(self,data):
+        global webServersReaded
+        msg = str(data.data).split(self.separator)
+        if(self.priority == None or int(msg[0]) < self.priority):
+            self.priority = int(msg[0])
+            self.msg = msg
+
+        webServersReaded = webServersReaded + 1
+        self.execute()
+
     def listenWebServerManual(self):
         rospy.Subscriber("WebServerManual", String, self.callbackWebServerManual) 
+        
+    def listenComputationalVision(self):
+        rospy.Subscriber("ComputationalVision",String,self.callbackComputationalVision)
 
     #Separate the message to it's respective variables and publish them in the Comunication ROS Topic
     def msgSeparator(self):
@@ -144,6 +159,7 @@ class Comunication():
     def sendCommands(self):
         self.msg = None
         self.listenWebServerManual()
+        self.listenComputationalVision()
         rospy.spin()
 
 #######################
