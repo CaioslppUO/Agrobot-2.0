@@ -41,7 +41,7 @@
  * Para configurar o tipo de entrada(Para controlar os motores) que a placa irá receber, altere o arquivo inv/config.h. Apenas comente o input atual (CONTROL_NUNCHUCK) e descomente o input que você irá utilizar.
 
    * Exemplo: 
-     * Se quiser utilizar UART, é necessário descomentar as seguintes linhas:
+     * Se quiser utilizar UART, é necessário descomentar a seguinte linha:
      
        //#define CONTROL_SERIAL_USART2       // left sensor board cable, disable if ADC or PPM is used!
        
