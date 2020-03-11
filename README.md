@@ -6,3 +6,5 @@
    # Referência(s):
    
     Git utilizado como base para o projeto: https://github.com/NiklasFauth/hoverboard-firmware-hack.
+    Ros: https://www.ros.org/
+    Arduino: https://www.arduino.cc/
