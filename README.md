@@ -1,6 +1,8 @@
 # Agrobot
   * Projeto para criar um robô de multiplos propósitos baseado em Raspberry Pi 3 model B+ e Hover Boards.
 
+---
+
 # Tutorial:
    
    * 1 - Setup the main Hover Board.
@@ -30,6 +32,8 @@
    * 6 - Turn arduino and raspberry on, sync raspberry and the smartphone application by typing the ip of raspberry pi in it.
    
    * 7 - Control the robot.
+   
+   ---
    
    # Referência:
    
