@@ -1,7 +1,7 @@
-# This section is about the mainCircuit:
+# Como conectar o raspberry com o arduino:
 
-   * Be careful not to use the main board 15v wire(red cable), it can burn both arduino and raspberry.
-   * Both arduino and raspberry are powered by a 5v source via USB.
+   * Tomar cuidado para não utilizar o fio vermelho da placa do Hover Board. A tensão dele é de 15V e vai queimar tanto o Raspberry quanto o Arduino.
+   * Tanto o Arduino quando o Raspberry são alimentados por uma fonte de 5V por cabos USB.
    
    
    ![mainCircuit](https://github.com/CaioslppUO/Agrobot/blob/master/pictures/circuits/mainCircuit/mainCircuit.png)
