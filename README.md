@@ -3,20 +3,6 @@
   
 ![robo](https://github.com/CaioslppUO/Agrobot/blob/master/pictures/robot/robo1.jpg)
 
-# Material needed to do:
-   
-   Here we put a list to assemble the circuit in the simplest way, 
-     with only 2 wheels and a main board(it also can be done with only 1 wheel):
-     
-     * 1 raspberry pi 3 model B+ (With linux installed)
-     * 1 memory card for the raspberry.
-     * 1 arduino(We have tested with nano and uno r3.You need 1 arduino to each mainBoard, 
-       if want to have more than 1 in the project).
-     * 1 ft232r USB -> UART, for each arduino you are using.
-     * 1 mainBoard, removed from the hoverBoard.
-     * 2 Or 1 wheel(s), depending on what you want, removed from the hoverBoard.
-     * A couple of wires to connect the circuit.
-
 # Tutorial:
    
    * 1 - Setup the main Hover Board.
@@ -47,7 +33,6 @@
    
    * 7 - Control the robot.
    
-   # References:
+   # Referência:
    
-    On the part of hacking the main board and submitting the codes for it, 
-    we rely on this github: https://github.com/NiklasFauth/hoverboard-firmware-hack.
+    Git utilizado como base para o projeto: https://github.com/NiklasFauth/hoverboard-firmware-hack.
