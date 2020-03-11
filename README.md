@@ -1,5 +1,5 @@
 # Agrobot
-  * This is a project to make a agriculture robot, using raspberry pi 3 model B+ and hoverBoard.
+  * Projeto para criar um robô agrícola baseado em Raspberry Pi 3 model B+ e Hover Boards.
   
 ![robo](https://github.com/CaioslppUO/Agrobot/blob/master/pictures/robot/robo1.jpg)
 
