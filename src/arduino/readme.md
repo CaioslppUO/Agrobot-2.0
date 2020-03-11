@@ -1,31 +1,29 @@
-# Arduino code to control the agrobot:
+# Código do Arduino para controlar o robô:
+ 
+  * Este código permite que o Arduino receba informações a partir da comunicação UART com o Raspberry e as evie para a placa do Hover Board através da comunicação I2C.
 
-  * This code allows arduino to receive information (Uart Communication) and transmit to Hover MainBoard (I2C Communication).
-  
-# Protocol to send uart to the arduino:
+# Protocolo utilizado para a comunicação do Raspberry com o Arduino através do UART:
 
- * You need to send to arduino via UART(RX,TX pins), the three variables in the order: speed;steer;limit.
- * If using python3, you can send it through serial libs from raspberry to arduino.
-   * Our code under src/raspberry/ use it.
-
- * There are three varaibles that control the mainBoard(hoverBoard):
-     * Speed.
-     * Steer.
-     * Limit.
+ * É necessário enviar para o Arduino através do UART três variáveis, seguindo o padrão: speed;steer;limit
+       * O formato é exatamente o descrito acima, com as três variáveis e dois ponto e vírgulas separando-as
+ * São necessárias três variáveis para controlar o robô:
+       * Speed.
+       * Steer.
+       * Limit.
      
-  * Speed accept values from -100 to 100.
-     *    0 means stopped.
-     *  100 means all power to front.
-     * -100 means all power to back.
+  * Speed aceita valores entre -100 e +100.
+     *    0 significa parado.
+     *  +100 significa potência total para frente.
+     *  -100 significa potência total para trás.
   
-   * Steer accept values from -100 to 100.
-     *    0 means front.
-     *  100 means turn right.
-     * -100 means turn left.
+   * Steer aceita valores entre -100 e +100.
+     *    0 significa ir para frente.
+     *  +100 significa ir para a direita.
+     *  -100 significa ir para a esquerda.
      
-   * Limit accept values from 0 to 100.
-     *   0 means no power to the wheels.
-     * 100 means full power to the wheels.
+   * Limit aceita valores entre 0 e +100.
+     *   0 significa sem potência para as rodas.
+     * +100 Significa potência total para as rodas.
  
  # Receiving values via Uart:
   
