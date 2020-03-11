@@ -12,3 +12,7 @@
   -
   Arduino: https://www.arduino.cc/
   -
+  Ferramenta para dar flash na placa: https://www.st.com/en/development-tools/stsw-link004.html (Windows)
+  -
+  Ferramenta utilizada para dar flash na placa: https://github.com/texane/stlink (Linux)
+  -
