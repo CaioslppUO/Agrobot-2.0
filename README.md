@@ -3,6 +3,6 @@
 
 ---
    
-   # Referência:
+   # Referência(s):
    
     Git utilizado como base para o projeto: https://github.com/NiklasFauth/hoverboard-firmware-hack.
