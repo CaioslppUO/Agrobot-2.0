@@ -3,11 +3,13 @@
 ---
 
 # Comandos para destravar e dar flash na placa:
+-
  * 1 - Downloads:
  
     * 1.1 - (Linux) Para destravar ou dar flash na placa, é necessários instalar o St - Link v2 e a biblioteca libusb no seu computador.
     * 1.2 - (Windows) Baixe a ferramenta ST - Link utility
-    
+-
+
  * 2 - Destravar e dar flash na placa:
     * 2.1 - Se for a primeira vez que está dando flash na placa, utilize o seguinte comando para destrava-la:
           Comando: openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -c init -c "reset halt" -c "stm32f1x unlock 0"
