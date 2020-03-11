@@ -1,6 +1,8 @@
-# Files To unlock flash and flash the mainBoard for use the hoverboard hardware and control the motors:
+# Arquivos para destravar e dar o flash da placa do Hover Board, para poder controlar a placa e os motores
 
-# Commands to unlock flash and flash the mainBoard
+---
+
+# Comandos para destravar e dar flash na placa:
 
  * To unlock or flash the MainBoard you need to install the St-Link v2  and libusb in your linux machine. 
    If you are in a windows machine use the Windows ST-Link utility. Open the terminal in the mainboard code folder (in this 
