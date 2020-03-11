@@ -1,10 +1,10 @@
-# This is the wheel form hoverBoard:
+# Esta é a roda retirada dos Hover Boards:
 
 ![wheel](https://github.com/CaioslppUO/Agrobot/blob/master/pictures/circuits/whells/whell.jpeg)
 
- * There should be two of them, but you can use only one if wish.
+ * No projeto utilizaremos duas delas, porém a quantidade de rodas a serem utilizadas pode variar dependendo da aplicação.
  
- * Just connect them to the mainBoard by:
+ * Para conectalas à placa do Hover Board:
  
-   * Connect the hall sensor(Don't worry, it will only fit in if it is the right cable).
-   * Connect the respectives cables to the board(Green->Green, Yellow->Yellow, Blue->Blue).
+   * 1 - Conectar o sensor Hall(Não se preocupe como ou em qual cabo irá conectalo, o encaixo do cabo é único e específico par ao Hall, caso escolha o cabo errado ele não irá conectar).
+   * 2 - Conectar os cabos com as suas respectivas cores na placa: Verde com verde, azul com azul e amarelo com amarelo.
