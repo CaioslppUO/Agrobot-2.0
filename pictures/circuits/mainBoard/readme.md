@@ -1,18 +1,15 @@
-# This section is about the main board pinout:
+# Pinagem da placa do Hover Board:
 
-   * There are several types of boards, here we have two different models.
-   
-   * You need to pay attention to the pins used to flash the board, as the 
-     boards have these pins in different positions.
-   
-   * The pins used on the sensors, both right and left are the same on the boards.
+   * Existem vários modelos de placa de Hover Boards, aqui nos iremos demonstrar os dois tipos mais comuns encontrados.
+   * É necessário prestar atenção aos pinos utilizados para dar flash na placa, pois dependendo do modelo eles podem mudar de posição. Caso não saiba onde estão os pinos na placa, tente olhar se não existem marcações na própria placa para indicar onde eles estão. Casa não existam marcações, utilize um multimetro para encontrar qual pino é o ground e qual é o vcc utilizando a função de continuidade do multimetro.
+   * Os pinos utilizados para controlar a placa(Pinos de sensores) são os mesmos em qualquer modelo.
 
-# mainBoard 1:
+# Primeiro modelo:
 
 ![mainBoard1](https://github.com/CaioslppUO/Agrobot/blob/master/pictures/circuits/mainBoard/MainBoardCircuit1.png)
 
 
-# mainBoard 2:
+# Segundo modelo:
 
 ![mainBoard2](https://github.com/CaioslppUO/Agrobot/blob/master/pictures/circuits/mainBoard/MainBoardCircuit2.png)
 
