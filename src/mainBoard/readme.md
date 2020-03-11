@@ -3,11 +3,11 @@
 ---
 
 # Comandos para destravar e dar flash na placa:
-
- * To unlock or flash the MainBoard you need to install the St-Link v2  and libusb in your linux machine. 
-   If you are in a windows machine use the Windows ST-Link utility. Open the terminal in the mainboard code folder (in this 
-   project it's located here: https://github.com/CaioslppUO/Agrobot/tree/master/src/mainBoard) and use the following commands:
-
+ * 1 - Downloads:
+ 
+    * 1.1 - (Linux) Para destravar ou dar flash na placa, é necessários instalar o St - Link v2 e a biblioteca libusb no seu computador.
+    * 1.2 - (Windows) Baixe a ferramenta ST - Link utility
+ 
  * A) If you never flashed the mainboard before use this to unlock the flash:
 
    Command 1: openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg -c init -c "reset halt" -c "stm32f1x unlock 0"
