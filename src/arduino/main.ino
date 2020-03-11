@@ -1,3 +1,8 @@
+/* Versão: 1.0.0
+ * Data: 11/03/2020, 12:53
+ * Desenvolvedores: Caio, Lucas, Levi
+*/
+
 #include <Wire.h>
 #include <math.h>
 
