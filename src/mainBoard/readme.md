@@ -36,15 +36,15 @@
 
 ---
 
-# NOTE
- * To configure the input of the MainBoard you need to modify the inc/config.h.
-   Just comments the current input (CONTROL_NUNCHUCK) and uncomment the input that you want.
+# Observações
+ 
+ * Para configurar o tipo de entrada(Para controlar os motores) que a placa irá receber, altere o arquivo inv/config.h. Apenas comente o input atual (CONTROL_NUNCHUCK) e descomente o input que você irá utilizar.
 
-   * Example: 
-     * if you want the UART input, you need to uncomment the following line:
+   * Exemplo: 
+     * Se quiser utilizar UART, é necessário descomentar as seguintes linhas:
      
        //#define CONTROL_SERIAL_USART2       // left sensor board cable, disable if ADC or PPM is used!
        
-     * and comment the follwing line:
+     * E comentar a seguinte linha:
      
        #define CONTROL_NUNCHUCK            // use nunchuck as input. disable DEBUG_SERIAL_USART3!
