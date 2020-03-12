@@ -10,9 +10,6 @@
   
   * As camadas são 3: 
   
-        1 - Recepção de comandos por quaisquer meios.
--
-        2 - Montagem dos comandos de uma forma que o robô entenda.
--
-        3 - Envio dos comandos recebidos para as devidas partes e dispositivos.
--
+      * 1 - Recepção de comandos por quaisquer meios.
+      * 2 - Montagem dos comandos de uma forma que o robô entenda.
+      * 3 - Envio dos comandos recebidos para as devidas partes e dispositivos.
