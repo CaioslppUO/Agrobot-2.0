@@ -37,4 +37,4 @@
 
 
   * Exêmplo de uso:
-       * Para enviar 80% de velocidade, virando 100% para a esquerda, com 50% da potência máxima, é necessário enviar o seguinte comando: 1080;0100;1100;
+       * Para enviar 80% de velocidade, virando 100% para a esquerda, com 50% da potência máxima, é necessário enviar o seguinte comando: 1080;0100;1050;
