@@ -31,19 +31,13 @@
  
  # Recebendo os valores por UART:
   
-  * O protocolo implementado é: ABCD;ABCD;ABCD
-  -
-      * Onde, ABCD são números com os seguintes significados:
+  * O protocolo implementado é: ABCD;ABCD;ABCD onde ABCD são números com os seguintes significados:
 -
-          O número A é o sinal, com duas opções possíveis. 1 significa que o número é positivo(+). 0 significa que o númeor é negativo(-). 
+          O número A é o sinal, com duas opções possíveis. 1 significa que o número é positivo(+). 0 significa que o númeor é negativo(-). BCD são números que definem a velocidade, a direção e o limite. É necessário que todas as letras(ABCD) sejam preenchidas, mesmo que com o valor 0.
 -
-          BCD são números que definem a velocidade, a direção e o limite.
--
-              É necessário que todas as letras(ABCD) sejam preenchidas, mesmo que com o valor 0.
--
+
        * Exêmplo de uso:
--
+
               Para enviar 80% de velocidade, virando 100% para a esquerda, com 50% da potência máxima, é necessário enviar o seguinte comando:
--
                   Comando: 1080;0100;1100;
 -
