@@ -11,20 +11,24 @@ from std_msgs.msg import String
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
 
-##############################
-#----> Global Variables <----#
-##############################
+###############################
+#----> Variáveis Globais <----#
+###############################
 
 msg = None
 pubWebServer = rospy.Publisher('WebServerManual', String, queue_size=10)
 rospy.init_node('WebServerManual', anonymous=True)
 
-###################################
-#----> Request Handler Class <----#
-###################################
+####################################
+#----> Classe Request Handler <----#
+####################################
 
 class RequestHandler_httpd(BaseHTTPRequestHandler):
-    #Handle the message when there is a connection with the app
+    #Faz o manejo da mensagem quando existe uma conexão com o app
+    #Entrada: Nenhuma
+    #Retorno: Nenhum
+    #Pré-condição: Nenhuma
+    #Pós-condição: Caso exista comunicação com app, a mensagem recebida é enviada para o tópico ROS
     def do_GET(self):
         newClientConnectionAttenpts = 0
         clientAdress = None
@@ -44,7 +48,7 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
             newClientConnectionAttenpts = newClientConnectionAttenpts + 1
 
 ##############################
-#----> Web Server Class <----#
+#----> Classe Web Server <----#
 ##############################
 
 class WebServer():
@@ -54,13 +58,13 @@ class WebServer():
             self.server_address_httpd = (self.serverIp,8080)
             httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
             self.serverThread = Thread(target=httpd.serve_forever)
-            self.serverThread.daemon = True #The server is closed when the program is closed
+            self.serverThread.daemon = True #O servidor é fechado ao fechar o programa
             self.serverThread.start()
         except:
             pass
 
 #######################
-#----> Main Loop <----#
+#----> Loop Principal <----#
 #######################
   
 if __name__ == '__main__':

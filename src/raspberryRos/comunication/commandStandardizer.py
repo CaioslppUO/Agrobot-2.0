@@ -1,12 +1,16 @@
-########################################
-#----> Command Standardizer class <----#
-########################################
+#########################################
+#----> Classe Command Standardizer <----#
+#########################################
 
 class CommandStandardizer():
     def __init__(self):
         self.a = 10
 
-    #Check and correct the speed value if it is needed
+    #Checa se a velocidade está correta e a corrige caso seja necessário
+    #Entrada: Velocidade
+    #Retorno: Velocidade recebida caso esteja correta ou a velocidade corrigida
+    #Pré-condição: Nenhuma
+    #Pós-condição: Caso a velocidade esteja errada, ela é corrigida
     def checkSpeed(self,speed):
         if(speed < -100):
             return -100
@@ -14,7 +18,11 @@ class CommandStandardizer():
             return 100
         return speed
 
-    #Check and correct the steer value if it is needed
+    #Checa se a direção está correta e a corrige caso seja necessário
+    #Entrada: Direção
+    #Retorno: Direção recebida caso esteja correta ou a direção corrigida
+    #Pré-condição: Nenhuma
+    #Pós-condição: Caso a direção esteja errada, ela é corrigida
     def checkSteer(self,steer):
         if(steer < -100):
             return -100
@@ -22,7 +30,11 @@ class CommandStandardizer():
             return 100
         return steer
 
-    #Check and correct the limit value if it is needed
+    #Checa se o limite está correta e a corrige caso seja necessário
+    #Entrada: Limite
+    #Retorno: Limite recebida caso esteja correta ou o limite corrigida
+    #Pré-condição: Nenhuma
+    #Pós-condição: Caso o limite esteja errada, ela é corrigida
     def checkLimit(self,limit):
         if(limit < 0):
             return 0
@@ -30,17 +42,29 @@ class CommandStandardizer():
             return 100
         return limit
 
-    #Check and correct the relay value if it is needed
+    #Checa se o relé está correto e o corrige caso seja necessário
+    #Entrada: Relé
+    #Retorno: Relé recebido caso esteja correto ou o relé corrigido
+    #Pré-condição: Nenhuma
+    #Pós-condição: Caso o relé esteja errado, ele é corrigido
     def checkRelays(self,signal):
         if(signal != 0 and signal != 1):
             return 0
         return signal
 
-    #Check all the variables recieved from the web server
+    #Checa todas as variáveis recebidas pelo web server
+    #Entrada: Velocidade, direção, limite, powerA, powerB e pulverizador
+    #Retorno: Retorna as variáveis recebidas já corrigidas caso necessário
+    #Pré-condição: Nenhuma
+    #Pós-condição: As variáveis recebidas são retornadas já corrigidas caso necessário
     def webServerMsgCheck(self,speed,steer,limit,powerA,powerB,pulverizer):
         return self.checkSpeed(speed),self.checkSteer(steer),self.checkLimit(limit),self.checkRelays(powerA),self.checkRelays(powerB),self.checkRelays(pulverizer)
 
-    #Split and certify that all the required variables are present
+    #Separa e garante que todas as variáveis necessárias para a execução estão presentes
+    #Entrada: Mensagem recebida pelo web server
+    #Retorno: Variáveis separadas e corrigidas
+    #Pré-condição: Nenhuma
+    #Pós-condição: As variáveis são retiradas da mensagem e retornadas, já separadas e tratadas
     def webServerMsgSpliter(self,msg):
         index = 1
         while index < len(msg):
@@ -68,7 +92,11 @@ class CommandStandardizer():
         except:
             return 0,0,0,0,0,0
 
-    #Check and correct all recieved variables from the WebServer
+    #Checa e corrige todas as variáveis recbidas pelo web server
+    #Entrada: Mensagem recebida pelo web server
+    #Retorno: Variáveis recebidas já tratadas ou None caso a mensagem seja nula
+    #Pré-condição: Nenhuma
+    #Pós-condição: Retorna as variáveis corretamente, já dentro do protoloc interno de comunicação do ROS ou None caso a mensagem seja inválida
     def webServerMsgHandler(self,msg):
         if(msg != None):
             speed,steer,limit,powerA,powerB,pulver = self.webServerMsgSpliter(msg) 

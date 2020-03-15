@@ -12,23 +12,27 @@ import rospy
 from std_msgs.msg import String
 
 ################################
-#----> Global Definitions <----#
+#----> Definições Globais <----#
 ################################
 
 rospy.init_node('ControlRobot', anonymous=True) 
 
-##############################
-#----> Global Variables <----#
-##############################
+###############################
+#----> Variáveis Globais <----#
+###############################
 
 uart0 = None
 uart1 = None
 
-#######################
-#----> Functions <----#
-#######################
+#####################
+#----> Funções <----#
+#####################
 
-#Define the amount of uarts that will be used and reserve the USB port for them
+#Define a quantidade de canais de comunicação UART que serão usadas e reserva as portas USB necessárias
+#Entrada: Quantidade de canais de comunicação UART
+#Retorno: Nenhum
+#Pré-condição: Nenhuma
+#Pós-condição: As portas USB em que a comunicação UART acontecerá são definidas
 def setUart(uartAmount):
     global uart0,uart1
     if(uartAmount == 1):
@@ -72,7 +76,11 @@ def setUart(uartAmount):
         except:
             pass
 
-#Check and correct the speed value if it is needed
+#Checa se a velocidade está correta e a corrige caso seja necessário
+#Entrada: Velocidade
+#Retorno: Velocidade recebida caso esteja correta ou a velocidade corrigida
+#Pré-condição: Nenhuma
+#Pós-condição: Caso a velocidade esteja errada, ela é corrigida
 def checkSpeed(speed):
     if(speed < -100):
         return -100
@@ -80,7 +88,11 @@ def checkSpeed(speed):
         return 100
     return speed
 
-#Check and correct the steer value if it is needed
+#Checa se a direção está correta e a corrige caso seja necessário
+#Entrada: Direção
+#Retorno: Direção recebida caso esteja correta ou a direção corrigida
+#Pré-condição: Nenhuma
+#Pós-condição: Caso a direção esteja errada, ela é corrigida
 def checkSteer(steer):
     if(steer < -100):
         return -100
@@ -88,7 +100,11 @@ def checkSteer(steer):
         return 100
     return steer
 
-#Check and correct the limit value if it is needed
+#Checa se o limite está correta e a corrige caso seja necessário
+#Entrada: Limite
+#Retorno: Limite recebida caso esteja correta ou o limite corrigida
+#Pré-condição: Nenhuma
+#Pós-condição: Caso o limite esteja errada, ela é corrigida
 def checkLimit(limit):
     if(limit < 0):
         return 0
@@ -96,9 +112,9 @@ def checkLimit(limit):
         return 100
     return limit
 
-#################################
-#----> Control Robot Class <----#
-#################################
+##################################
+#----> Classe Control Robot <----#
+##################################
 
 class ControlRobot():
     def __init__(self):
@@ -116,7 +132,11 @@ class ControlRobot():
         except:
             pass
 
-    #Recieve a numeric value and change it to String to the format: signal (value value value)
+    #Recebe um valor numérico e o transforma para string no formato: sinal (valor com três digitos)
+    #Entrada: Valor para ser transformado
+    #Retorno: Valor transformado
+    #Pré-condição: O valor recebido deve ser um valor numérico entre -100 e 100
+    #Pós-condição: O valor numérico é transformado para strig no formato do protocolo acima definido
     def getValue(self, v):
         if(v >= 0):
             r = '1'
@@ -129,7 +149,11 @@ class ControlRobot():
         r += str(abs(v))
         return r
 
-    #Define the values needed to control the robot
+    #Define os valores das variáveis necessárias para controlar o robô
+    #Entrada: Velocidade, direção e limite
+    #Retorno: Nenhum
+    #Pré-condição: Nenhuma
+    #Pós-condição: As variáveis necessárias para controlar o robô são definidas
     def setValues(self,speed,steer,limit):
         spdCk = checkSpeed(speed)
         strCk = checkSteer(steer)
@@ -139,7 +163,11 @@ class ControlRobot():
         self.steer = self.getValue(strCk)
         self.limit = self.getValue(lmtCk)
 
-    #Send the values from speed,steer and limit to the arduino
+    #Envia para o arduino os valores necessários para controlar o robô
+    #Entrada: Dados recebidos pelo listenner
+    #Retorno: Nenhum
+    #Pré-condição: As variáveis devem estar corretas para serem executadas
+    #Pós-condição: O comando recebido é executado
     def callbackSetValues(self,data):
         global uart0,uart1
         cbAux = str(data.data).split("$")
@@ -171,7 +199,11 @@ class ControlRobot():
         except:
             self.pub.publish("Uart Error")
         
-    #Listen the ControlRobot topic
+    #Escuta o tópico controlRobot e executa a rotina necessária para tratar os dados
+    #Entrada: Nenhuma
+    #Retorno: Nenhum
+    #Pŕe-condição: Nenhuma
+    #Pós-condição: Ao escutar qualquer mensagem do tópico controlRobot, a envia para a rotina correta
     def listenValues(self):
         rospy.Subscriber("ControlRobot", String, self.callbackSetValues)  
 

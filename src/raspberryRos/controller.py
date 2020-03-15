@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """
-    Version: ROS 1.1.5
-    Date: 06/03/2020, 15:32
-    Devs: Caio, Lucas, Levi
+    Versão: ROS 1.1.6
+    Data: 14/03/2020, 23:30
+    Autores: Caio, Lucas, Levi
 
 """
 
@@ -18,42 +18,42 @@ import time
 from std_msgs.msg import String
 from launcherVariables import LauncherVariables
 
-################################
-#----> Ros Initialization <----#
-################################
+###################################
+#----> Inicializações do ROS <----#
+###################################
 
 os.system("roscore& ")
 time.sleep(8)
 os.system("clear && echo 'ROS has been successfully initialized'& ")
 
 ################################
-#----> Global Definitions <----#
+#----> Definições Globais <----#
 ################################
 
 rospy.init_node('Controller', anonymous=True)
 
-##############################
-#----> Global Variables <----#
-##############################
+###############################
+#----> Variáveis Globais <----#
+###############################
 
 pubController = rospy.Publisher('Controller', String, queue_size=10)
 
-#######################
-#----> Main Loop <----#
-#######################
+############################
+#----> Loop principal <----#
+############################
 
 def mainLoop():
     global pubController
     launcher = LauncherVariables()
     serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect = launcher.variableSeparator(sys.argv)
 
-    #Define the base modules to be launched
+    #Define quais módulos base serão inicializados
     launchMsg = "cd .. && python3 comunication/webServer.py " + serverIp + "& "
     launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
     launchMsg += "cd .. && python3 modules/logs.py& "
     launchMsg += "cd .. && modules/commandAssembler.py& "
     
-    #Define wich optional modules will be launched
+    #Define quais módulos opcionais serão inicializados
     if(enableRelay == "True"):
         launchMsg += "cd .. && python3 modules/relay.py& "
     if(enableUart == "True"):
@@ -63,10 +63,10 @@ def mainLoop():
     if(enableFaceDetect == "True"):
         launchMsg += "cd .. && python3 modules/coputationalVision.py& "
 
-    #Launch all the required modules
+    #Inicializa os módulos que foram requeridos
     os.system(launchMsg)
 
-    #Log Message
+    #Mensagem de log
     logPublish = "Modules were started"
     while not rospy.is_shutdown():
         pubController.publish(logPublish)

@@ -1,8 +1,12 @@
-###########################
-#----> Function <----#
-###########################
+#####################
+#----> Funções <----#
+#####################
 
-#Check if every variable is different from None and push back wich one is wrong(if there is a wrong one)
+#Checa se cada uma das variáveis é diferente de None e em caso de serem iguais, retorna qual delas está errada
+#Entrada: Variáveis recebidas ao inicializar o programa
+#Retorno: Verdadeiro se as variáveis foram inicializadas corretamente ou falso caso não
+#Pré-condição: Nenhuma
+#Pós-condição: Caso alguma das variáveis não estiver correta, é retornado False com uma mensagem de erro
 def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect):
     if(serverIp == None):
         return False,"Invalid ServerIp"
@@ -20,9 +24,9 @@ def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount,comma
         return False,"Invalid enableFaceDetect"
     return True,"Launcher variables were initialized correctly"
 
-######################################
-#----> Launcher Variables Class <----#
-######################################
+#######################################
+#----> Classe Launcher Variables <----#
+#######################################
 
 class LauncherVariables():
     def __init__(self):
@@ -34,7 +38,11 @@ class LauncherVariables():
         self.commandObservers = None
         self.enableFaceDetect = None
 
-    #Separate the variables recieved and return them
+    #Separa as variáveis recebidas e as retorna
+    #Entrada: Array com as variáveis recebidas
+    #Retorno: Variáveis devidamente separadas
+    #Pŕe-condição: Nenhuma
+    #Pós-condição: Todas as variáveis são corretamente separadas e retornadas ao final
     def variableSeparator(self,variables):
         i = 1
         while(i < len(variables)):

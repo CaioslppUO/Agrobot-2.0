@@ -10,33 +10,37 @@ from std_msgs.msg import String
 from commandStandardizer import CommandStandardizer
 
 ################################
-#----> Global Definitions <----#
+#----> Definições Globais <----#
 ################################
 
 rospy.init_node('CommandPriorityDecider', anonymous=True)
 
-##############################
-#----> Global Variables <----#
-##############################
+###############################
+#----> Variáveis Globais <----#
+###############################
 
 webServersReaded = 0
 commandObservers = int(sys.argv[1])
 
-################################
-#----> Comunication class <----#
-################################
+#################################
+#----> Classe Comunication <----#
+#################################
 
 class Comunication():
     def __init__(self):
         self.msg        = None
         self.priority   = None
-        self.separator  = "*" #Symbol used to separate the message recieved from the app
+        self.separator  = "*" #Símbolo utilizado para separa a mensagem padrão
         self.commandStandardizer = CommandStandardizer()
 
         #ROS
         self.pubComunication = rospy.Publisher('CommandPriorityDecider', String, queue_size=10)
 
-    #Publish the command trough ROS
+    #Publica o comando para o tópico do ROS
+    #Entrada: Nenhuma
+    #Retorno: Nenhum
+    #Pré-condição: O tópico em que será publicada a mensagem deve estar definido. A mensagem deve estar definida
+    #Pós-condição: A mensagem que teve a maior prioridade de execução é executada
     def execute(self):
         global webServersReaded,commandObservers
         if(webServersReaded == commandObservers):
@@ -47,7 +51,11 @@ class Comunication():
         else:
             self.pubComunication.publish("No connection established.")
 
-    #Set the msg variable with the message recieved from the webServer
+    #Trata os dados recebidos pelo listenner
+    #Entrada: Dados recebidos pelo listenner
+    #Retorno: Nenhum
+    #Pŕe-condição: Nenhuma
+    #Pós-condição: A mensagem recebida é guardada para execução e posteriormente executada caso tenha a maior prioridade
     def callbackWebServerManual(self,data):
         global webServersReaded
         msg = str(data.data).split(self.separator)
@@ -58,6 +66,11 @@ class Comunication():
         webServersReaded = webServersReaded + 1
         self.execute()
 
+    #Trata os dados recebidos pelo listenner
+    #Entrada: Dados recebidos pelo listenner
+    #Retorno: Nenhum
+    #Pŕe-condição: Nenhuma
+    #Pós-condição: A mensagem recebida é guardada para execução e posteriormente executada caso tenha a maior prioridade
     def callbackComputationalVision(self,data):
         global webServersReaded
         msg = str(data.data).split(self.separator)
@@ -68,13 +81,27 @@ class Comunication():
         webServersReaded = webServersReaded + 1
         self.execute()
 
+    #Escuta o tópico WebServerManual e executa a rotina necessária para tratar os dados
+    #Entrada: Nenhuma
+    #Retorno: Nenhum
+    #Pŕe-condição: Nenhuma
+    #Pós-condição: Ao escutar qualquer mensagem do tópico WebServerManual, a envia para a rotina correta
     def listenWebServerManual(self):
         rospy.Subscriber("WebServerManual", String, self.callbackWebServerManual) 
-        
+
+    #Escuta o tópico ComputationalVision e executa a rotina necessária para tratar os dados
+    #Entrada: Nenhuma
+    #Retorno: Nenhum
+    #Pŕe-condição: Nenhuma
+    #Pós-condição: Ao escutar qualquer mensagem do tópico ComputationalVision, a envia para a rotina correta 
     def listenComputationalVision(self):
         rospy.Subscriber("ComputationalVision",String,self.callbackComputationalVision)
 
-    #Send commands even when there is no comunication with the webServer
+    #Executa as rotinas de listen e envio dos comandos ao programa
+    #Entrada: Nenhuma
+    #Retorno: Nenhum
+    #Pré-condição: Nenhuma
+    #Pós-condição: Os comandos recebidos são processados e enviados ao programa
     def sendCommands(self):
         self.msg = None
         self.listenWebServerManual()
