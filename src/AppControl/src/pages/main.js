@@ -1,3 +1,9 @@
+/* 
+ * Versão: 1.0.0
+ * Data: 18/03/2020, 17:01
+ * Autores: Caio, Lucas
+*/
+
 import React, {Component} from 'react'
 import { Text,View,ScrollView,StyleSheet } from 'react-native'
 
