@@ -1,18 +1,25 @@
 /* 
- * Versão: 1.2.0
- * Data: 18/03/2020, 19:56
+ * Versão: 1.2.1
+ * Data: 18/03/2020, 23:20
  * Autores: Caio, Lucas
 */
 
 import React, {Component, useState} from 'react'
-import { View,StyleSheet,TouchableOpacity,Text,Slider,Image } from 'react-native'
+import { View,StyleSheet,TouchableOpacity,Text,Slider,Image,Button } from 'react-native'
 import AxisPad from 'react-native-axis-pad';
 
 
 export default class Main extends Component{
 
   static navigationOptions =  {
-    title: "Control Interface"
+    title: "Control Interface",
+    headerRight: <Button 
+      color="#02535c" 
+      title="Menu" 
+      onPress={
+        () => alert('clicked')
+      }
+      />
   };
 
   state = {
@@ -29,22 +36,15 @@ export default class Main extends Component{
       <>
       <View style={styles.main}>
 
-        <View style={styles.viewButtonMenu}>
-            <TouchableOpacity style={styles.buttonMenu}onPress={execute}>
-                      <Image
-                        source={require('../resources/menu.png')}
-                      />
-            </TouchableOpacity>
-        </View>
 
         <View style={styles.joystickView}>
             <AxisPad
-                size={105}
-                handlerSize = {125}
+                size={190}
+                handlerSize = {100}
                 handlerStyle = {styles.handlerView}
                 wrapperStyle = {styles.wrapperView}
                 resetOnRelease={true}
-                autoCenter={true}
+                autoCenter={false}
                 onValue={({ x, y }) => {
                   //sendValues(y,x)
                 }}
@@ -53,39 +53,42 @@ export default class Main extends Component{
         
         <View style={styles.buttonsView}>
 
-                <TouchableOpacity style={styles.buttonPowerA}onPress={execute}>
-                  <Text style={styles.powerButtonText}>On / Off A</Text>
-                </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonPowerA}onPress={execute}>
+            <Text style={styles.powerButtonText}>On / Off A</Text>
+          </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonPowerB}onPress={execute}>
-                  <Text style={styles.powerButtonText}>On / Off B</Text>
-                </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonPowerB}onPress={execute}>
+            <Text style={styles.powerButtonText}>On / Off B</Text>
+          </TouchableOpacity>
 
-                <TouchableOpacity style={styles.buttonPulverizer}onPress={execute}>
-                  <Text style={styles.pulverizerButtonText}>On / Off Pulverizer</Text>
-                </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonPulverizer}onPress={execute}>
+            <Text style={styles.pulverizerButtonText}>On / Off Pulverizer</Text>
+          </TouchableOpacity>
 
         </View>
 
+        
         <View style={styles.viewSlider}>
 
           <View style={styles.topBarSlider}>
-            <TouchableOpacity style={styles.changeSpeedButtonLess}onPress={() => {
+            {/* Botão de - para diminuir o valor do slider */}
+            <TouchableOpacity style={styles.backgroundsliderText} onPress={() => {
               if(this.state.speedSliderValue > 0){
                 this.setState({ speedSliderValue: this.state.speedSliderValue-1 })}
               }
             }>
-                      <Text style={styles.lessButtonText}>-</Text>
+              <Text style={styles.lessButtonText}>-</Text>
             </TouchableOpacity>
 
             <Text style={styles.speedText}>Speed {this.state.speedSliderValue}% </Text>
 
-            <TouchableOpacity onPress={() => {
+            {/* Botão de + para aumentar o valor do slider */}
+            <TouchableOpacity style={styles.backgroundsliderText} onPress={() => {
               if(this.state.speedSliderValue < 100){
                 this.setState({ speedSliderValue: this.state.speedSliderValue+1 })}
               }
             }>
-                      <Text style={styles.moreButtonText}>+</Text>
+              <Text style={styles.moreButtonText}>+</Text>
             </TouchableOpacity>
           </View>
           
@@ -97,6 +100,7 @@ export default class Main extends Component{
           style={styles.slider}
           step={1}
           />
+
         </View>
 
         <View style={styles.logos}>
@@ -126,6 +130,7 @@ const styles = StyleSheet.create({
   },
   wrapperView: {
     backgroundColor: 'white'
+    
   },
   handlerView: {
     backgroundColor: '#3495EB'
@@ -171,8 +176,8 @@ const styles = StyleSheet.create({
   },
   viewButtonMenu: {
     marginLeft: '88%',
-    marginRight: '0%',
-    backgroundColor: 'lightgrey'
+    marginRight: '0%',    
+    // backgroundColor: '#02535c'
   },
   buttonMenu: {
     height: 40,
@@ -183,37 +188,49 @@ const styles = StyleSheet.create({
     marginTop: '7%'
   },
   viewSlider: {
-    marginTop: '20%'
+    // marginTop: '20%',
+    width: '100%',
+    height: 65,
+    backgroundColor:'#aaa',
+    justifyContent: 'center',
+    flexDirection: 'column'
+  },
+  backgroundsliderText: {
+    backgroundColor: '#f0f'
   },
   slider: {
     transform: [{scaleX: 2.0}, {scaleY: 2.0}],
     marginLeft: '22%',
-    marginRight: '23%'
-  },
-  speedText: {
-    marginLeft: '15%',
-    marginBottom: '5%',
-    fontSize: 25,
-    borderRadius: 115,
-    marginRight: '15%'
+    marginRight: '23%',
+    justifyContent: 'flex-end'
   },
   changeSpeedButtonLess: {
     marginLeft: '5%'
   },
+  speedText: {
+    fontSize: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   lessButtonText:{
     fontSize: 35,
-    height: 46,
+    height: 50,
     width: 50,
-    textAlign: 'center',
+    marginLeft: 10,
+    alignItems: 'center'
   },
   moreButtonText: {
     fontSize: 35,
-    height: 46,
+    height: 50,
     width: 50,
-    textAlign: 'center',
+    marginRight: 10,
+    alignItems: 'center'
   },
   topBarSlider: {
-    flexDirection: 'row'
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#777',
+    justifyContent: 'space-between'
   },
   logos: {
     flexDirection: 'row',
