@@ -1,6 +1,6 @@
 /* 
- * Versão: 1.2.1
- * Data: 18/03/2020, 23:20
+ * Versão: 1.2.0
+ * Data: 19/03/2020, 00:00
  * Autores: Caio, Lucas
 */
 
@@ -36,7 +36,7 @@ export default class Main extends Component{
       <>
       <View style={styles.main}>
 
-
+        {/* View do joystick */}
         <View style={styles.joystickView}>
             <AxisPad
                 size={190}
@@ -51,8 +51,8 @@ export default class Main extends Component{
                 />
         </View>
         
+        {/* View dos botoes de power */}
         <View style={styles.buttonsView}>
-
           <TouchableOpacity style={styles.buttonPowerA}onPress={execute}>
             <Text style={styles.powerButtonText}>On / Off A</Text>
           </TouchableOpacity>
@@ -64,12 +64,11 @@ export default class Main extends Component{
           <TouchableOpacity style={styles.buttonPulverizer}onPress={execute}>
             <Text style={styles.pulverizerButtonText}>On / Off Pulverizer</Text>
           </TouchableOpacity>
-
         </View>
 
-        
+        {/* View dos botoes do slider e do slider */}
         <View style={styles.viewSlider}>
-
+            {/* View dos botoes + e - e do valor de speed */}
           <View style={styles.topBarSlider}>
             {/* Botão de - para diminuir o valor do slider */}
             <TouchableOpacity style={styles.backgroundsliderText} onPress={() => {
@@ -79,9 +78,7 @@ export default class Main extends Component{
             }>
               <Text style={styles.lessButtonText}>-</Text>
             </TouchableOpacity>
-
             <Text style={styles.speedText}>Speed {this.state.speedSliderValue}% </Text>
-
             {/* Botão de + para aumentar o valor do slider */}
             <TouchableOpacity style={styles.backgroundsliderText} onPress={() => {
               if(this.state.speedSliderValue < 100){
@@ -103,15 +100,19 @@ export default class Main extends Component{
 
         </View>
 
-        <View style={styles.logos}>
+        {/* View das logos */}
+        <View style={styles.containerlogos}>
             <Image
+              style={styles.logosUnioeste}
               source={require('../resources/unioeste.png')}
             />
             <Image
-              source={require('../resources/pti.png')}
+              style={styles.logosLabiot}
+              source={require('../resources/labiot.png')}
             />
             <Image
-              source={require('../resources/labiot.png')}
+              style={styles.logosPti}
+              source={require('../resources/pti.png')}
             />
         </View>
 
@@ -129,55 +130,53 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   wrapperView: {
-    backgroundColor: 'white'
-    
+    backgroundColor: '#ffffff'
   },
   handlerView: {
     backgroundColor: '#3495EB'
   },
   main: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     flex: 1
   },
   buttonsView:{
     flexDirection: 'row',
-    paddingLeft: 35,
-    marginTop: '15%'
+    marginTop: '15%',
+    // backgroundColor: '#777'
   },
   buttonPowerA: {
     borderRadius: 115,
     height: 42,
-    borderWidth: 2,
     width: 100,
+    borderWidth: 2,
+    margin: '2%',
+    marginLeft: '10%',
     backgroundColor: '#99a7ad'
   },
   buttonPowerB: {
     borderRadius: 115,
     height: 42,
-    borderWidth: 2,
     width: 100,
-    marginLeft: 10,
+    borderWidth: 2,
+    margin: '2%',
+    
     backgroundColor: '#99a7ad'
   },
   buttonPulverizer: {
     borderRadius: 115,
     height: 42,
-    borderWidth: 2,
     width: 100,
-    marginLeft: 10,
+    borderWidth: 2,
+    margin: '2%',
+    
     backgroundColor: '#99a7ad'
   },
   powerButtonText:{
     textAlign: 'center',
-    marginTop: '7%'
+    padding: 8
   },
   pulverizerButtonText: {
     textAlign: 'center',
-  },
-  viewButtonMenu: {
-    marginLeft: '88%',
-    marginRight: '0%',    
-    // backgroundColor: '#02535c'
   },
   buttonMenu: {
     height: 40,
@@ -188,15 +187,16 @@ const styles = StyleSheet.create({
     marginTop: '7%'
   },
   viewSlider: {
-    // marginTop: '20%',
     width: '100%',
     height: 65,
-    backgroundColor:'#aaa',
+    // backgroundColor:'#aaa',
     justifyContent: 'center',
     flexDirection: 'column'
   },
   backgroundsliderText: {
-    backgroundColor: '#f0f'
+    // backgroundColor: '#f0f',
+    width: 40,
+    flexDirection: 'row'
   },
   slider: {
     transform: [{scaleX: 2.0}, {scaleY: 2.0}],
@@ -205,37 +205,48 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   changeSpeedButtonLess: {
-    marginLeft: '5%'
+    justifyContent: 'flex-end'
   },
   speedText: {
     fontSize: 20,
     justifyContent: 'center',
-    alignItems: 'center'
+    marginLeft:'5%',
+    margin: 5
   },
   lessButtonText:{
     fontSize: 35,
     height: 50,
-    width: 50,
+    width: 40,
     marginLeft: 10,
-    alignItems: 'center'
+    margin: -5
   },
   moreButtonText: {
     fontSize: 35,
     height: 50,
     width: 50,
-    marginRight: 10,
-    alignItems: 'center'
+    marginLeft: 10,
+    margin: -3
   },
   topBarSlider: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#777',
+    // backgroundColor: '#777',
     justifyContent: 'space-between'
   },
-  logos: {
+  containerlogos: {
     flexDirection: 'row',
-    marginLeft: '15%',
-    marginTop: '10%'
+    // backgroundColor: '#aaa'
+  },
+  logosUnioeste: {
+    margin:'5%',
+  },
+  logosPti: {
+    height: 50,
+    width: 110,
+    margin:'5%'
+  },
+  logosLabiot: {
+    margin:'5%'
   }
 });
 
