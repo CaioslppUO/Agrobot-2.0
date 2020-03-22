@@ -1,11 +1,11 @@
 /* 
- * Versão: 1.2.1
- * Data: 21/03/2020, 23:36
+ * Versão: 1.2.2
+ * Data: 22/03/2020, 00:09
  * Autores: Caio, Lucas
 */
 
 import React, {Component, useState} from 'react'
-import { View,StyleSheet,TouchableOpacity,Text,Slider,Image,Button } from 'react-native'
+import { View,StyleSheet,TouchableOpacity,Text,Slider,Image } from 'react-native'
 import AxisPad from 'react-native-axis-pad';
 
 /* 
@@ -27,7 +27,10 @@ export default class Main extends Component{
 
   //Variáveis globais da classe
   state = {
-    speedSliderValue: 50
+    speedSliderValue: 50,
+    buttonOnOffA: '#99a7ad',
+    buttonOnOffB: '#99a7ad',
+    buttonOnOffP: '#99a7ad',
   };
 
   //Renderização do componente
@@ -59,15 +62,25 @@ export default class Main extends Component{
         
         {/* View dos botoes de power e pulverizer*/}
         <View style={styles.powerButtonsView}>
-          <TouchableOpacity style={styles.buttonPowerA}onPress={execute}>
+
+          <TouchableOpacity 
+            style={{backgroundColor: this.state.buttonOnOffA,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '10%',}} 
+            onPress={() => {this.setState({buttonOnOffA: this.state.buttonOnOffA == '#99a7ad'? '#3cc761' : '#99a7ad'})}
+          }>
             <Text style={styles.powerButtonText}>On / Off A</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonPowerB}onPress={execute}>
+          <TouchableOpacity 
+            style={{backgroundColor: this.state.buttonOnOffB,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '2%',}} 
+            onPress={() => {this.setState({buttonOnOffB: this.state.buttonOnOffB == '#99a7ad'? '#3cc761' : '#99a7ad'})}
+          }>
             <Text style={styles.powerButtonText}>On / Off B</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonPulverizer}onPress={execute}>
+          <TouchableOpacity 
+            style={{backgroundColor: this.state.buttonOnOffP,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '2%',}} 
+            onPress={() => {this.setState({buttonOnOffP: this.state.buttonOnOffP == '#99a7ad'? '#3cc761' : '#99a7ad'})}
+          }>
             <Text style={styles.pulverizerButtonText}>On / Off Pulverizer</Text>
           </TouchableOpacity>
         </View>
@@ -150,33 +163,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: '10%',
     marginBottom: '5%'
-  },
-  buttonPowerA: {
-    borderRadius: 115,
-    height: 42,
-    width: 100,
-    borderWidth: 2,
-    margin: '2%',
-    marginLeft: '10%',
-    backgroundColor: '#99a7ad'
-  },
-  buttonPowerB: {
-    borderRadius: 115,
-    height: 42,
-    width: 100,
-    borderWidth: 2,
-    margin: '2%',
-    
-    backgroundColor: '#99a7ad'
-  },
-  buttonPulverizer: {
-    borderRadius: 115,
-    height: 42,
-    width: 100,
-    borderWidth: 2,
-    margin: '2%',
-    
-    backgroundColor: '#99a7ad'
   },
   powerButtonText:{
     textAlign: 'center',
