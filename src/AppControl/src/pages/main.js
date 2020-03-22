@@ -1,6 +1,6 @@
 /* 
- * Versão: 1.2.0
- * Data: 19/03/2020, 00:00
+ * Versão: 1.2.1
+ * Data: 21/03/2020, 23:36
  * Autores: Caio, Lucas
 */
 
@@ -8,24 +8,29 @@ import React, {Component, useState} from 'react'
 import { View,StyleSheet,TouchableOpacity,Text,Slider,Image,Button } from 'react-native'
 import AxisPad from 'react-native-axis-pad';
 
-
+/* 
+ * Página principal
+*/
 export default class Main extends Component{
 
+  //Opções do controlador de navegação de páginas 
   static navigationOptions =  {
     title: "Control Interface",
-    headerRight: <Button 
-      color="#02535c" 
-      title="Menu" 
-      onPress={
-        () => alert('clicked')
-      }
+    headerRight: 
+    //Botão do menu
+    <TouchableOpacity onPress={() => {alert('menu')}}>
+      <Image
+        source={require('../resources/menu.png')}
       />
+    </TouchableOpacity>
   };
 
+  //Variáveis globais da classe
   state = {
     speedSliderValue: 50
   };
 
+  //Renderização do componente
   render(){
 
     function execute() {
@@ -34,13 +39,14 @@ export default class Main extends Component{
 
     return (
       <>
+      {/*View principal*/}
       <View style={styles.main}>
 
         {/* View do joystick */}
         <View style={styles.joystickView}>
             <AxisPad
                 size={190}
-                handlerSize = {100}
+                handlerSize = {135}
                 handlerStyle = {styles.handlerView}
                 wrapperStyle = {styles.wrapperView}
                 resetOnRelease={true}
@@ -51,8 +57,8 @@ export default class Main extends Component{
                 />
         </View>
         
-        {/* View dos botoes de power */}
-        <View style={styles.buttonsView}>
+        {/* View dos botoes de power e pulverizer*/}
+        <View style={styles.powerButtonsView}>
           <TouchableOpacity style={styles.buttonPowerA}onPress={execute}>
             <Text style={styles.powerButtonText}>On / Off A</Text>
           </TouchableOpacity>
@@ -66,12 +72,12 @@ export default class Main extends Component{
           </TouchableOpacity>
         </View>
 
-        {/* View dos botoes do slider e do slider */}
-        <View style={styles.viewSlider}>
+        {/* View do slider*/}
+        <View style={styles.sliderView}>
             {/* View dos botoes + e - e do valor de speed */}
-          <View style={styles.topBarSlider}>
+          <View style={styles.topBarSliderView}>
             {/* Botão de - para diminuir o valor do slider */}
-            <TouchableOpacity style={styles.backgroundsliderText} onPress={() => {
+            <TouchableOpacity onPress={() => {
               if(this.state.speedSliderValue > 0){
                 this.setState({ speedSliderValue: this.state.speedSliderValue-1 })}
               }
@@ -89,6 +95,7 @@ export default class Main extends Component{
             </TouchableOpacity>
           </View>
           
+          {/*Slider*/}
           <Slider
           maximumValue={100}
           minimumValue={0}
@@ -101,30 +108,30 @@ export default class Main extends Component{
         </View>
 
         {/* View das logos */}
-        <View style={styles.containerlogos}>
+        <View style={styles.logosView}>
             <Image
-              style={styles.logosUnioeste}
+              style={styles.logoUnioeste}
               source={require('../resources/unioeste.png')}
             />
             <Image
-              style={styles.logosLabiot}
+              style={styles.logoLabiot}
               source={require('../resources/labiot.png')}
             />
             <Image
-              style={styles.logosPti}
+              style={styles.logoPti}
               source={require('../resources/pti.png')}
             />
         </View>
-
       </View>
       </>
     );
   }
 }
 
+{/*Estilos*/}
 const styles = StyleSheet.create({
   joystickView: {
-    marginTop: "30%",
+    marginTop: "45%",
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -139,10 +146,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     flex: 1
   },
-  buttonsView:{
+  powerButtonsView:{
     flexDirection: 'row',
-    marginTop: '15%',
-    // backgroundColor: '#777'
+    marginTop: '10%',
+    marginBottom: '5%'
   },
   buttonPowerA: {
     borderRadius: 115,
@@ -186,15 +193,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: '7%'
   },
-  viewSlider: {
+  sliderView: {
     width: '100%',
     height: 65,
-    // backgroundColor:'#aaa',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   backgroundsliderText: {
-    // backgroundColor: '#f0f',
     width: 40,
     flexDirection: 'row'
   },
@@ -227,25 +232,24 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     margin: -3
   },
-  topBarSlider: {
+  topBarSliderView: {
     flex: 1,
     flexDirection: 'row',
-    // backgroundColor: '#777',
     justifyContent: 'space-between'
   },
-  containerlogos: {
+  logosView: {
     flexDirection: 'row',
-    // backgroundColor: '#aaa'
+    marginTop: '10%'
   },
-  logosUnioeste: {
+  logoUnioeste: {
     margin:'5%',
   },
-  logosPti: {
+  logoPti: {
     height: 50,
     width: 110,
     margin:'5%'
   },
-  logosLabiot: {
+  logoLabiot: {
     margin:'5%'
   }
 });
