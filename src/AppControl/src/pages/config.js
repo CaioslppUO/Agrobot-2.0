@@ -2,13 +2,6 @@ import React, {Component} from 'react';
 import { View,TextInput,StyleSheet,TouchableOpacity,Text } from 'react-native';
 
 export default class Config extends Component {
-
-    //Variáveis globais da classe
-    state = {
-        serverIp: '',
-        port: ''
-    }
-
     //Opções do controlador de navegação de páginas 
     static navigationOptions =  {
         title: "Config Interface",
@@ -48,7 +41,7 @@ export default class Config extends Component {
                     <View style={styles.saveView}>
                         <TouchableOpacity
                             onPress={() => {
-                                alert(this.state.serverIp+':'+this.state.port)
+                                this.props.navigation.navigate('Main')
                             }}
                         >
                             <Text style={styles.saveText}>Save</Text>

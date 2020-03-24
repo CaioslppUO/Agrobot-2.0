@@ -1,5 +1,5 @@
 /* 
- * Versão: 2.2.3
+ * Versão: 2.2.4
  * Data: 23/03/2020, 21:09
  * Autores: Caio, Lucas
 */
@@ -20,7 +20,6 @@ export default class Main extends Component{
     buttonOnOffA: '#99a7ad',
     buttonOnOffB: '#99a7ad',
     buttonOnOffP: '#99a7ad',
-    navigation: ''
   };
 
   //Opções do controlador de navegação de páginas 
@@ -35,11 +34,6 @@ export default class Main extends Component{
 
   //Renderização do componente
   render(){
-
-    function execute() {
-      alert("doNothing")
-    }
-
     return (
       <>
       {/*View principal*/}
@@ -50,7 +44,7 @@ export default class Main extends Component{
           {/*Botão do menu*/}
           <TouchableOpacity 
             onPress={() => {
-              this.props.navigation.navigate('Config')
+              this.props.navigation.navigate('Menu')
             }
           }>
             <Image
@@ -69,7 +63,9 @@ export default class Main extends Component{
                 resetOnRelease={true}
                 autoCenter={false}
                 onValue={({ x, y }) => {
-                  //sendValues(y,x)
+                  //Defining the values of speed and steer
+                  global.speed = -Math.round(y * 100)
+                  global.steer =  Math.round(x * 100)
                 }}
                 />
         </View>
@@ -82,7 +78,7 @@ export default class Main extends Component{
             style={{backgroundColor: this.state.buttonOnOffA,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '10%',}} 
             onPress={() => {
               this.setState({buttonOnOffA: this.state.buttonOnOffA == '#99a7ad'? '#3cc761' : '#99a7ad'})
-              this.props.navigation.navigate('Config')
+              //Função de ligar a placa vai aqui
             }
           }>
             <Text style={styles.powerButtonText}>On / Off A</Text>
@@ -91,7 +87,10 @@ export default class Main extends Component{
           {/*Botão da placa B*/}
           <TouchableOpacity 
             style={{backgroundColor: this.state.buttonOnOffB,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '2%',}} 
-            onPress={() => {this.setState({buttonOnOffB: this.state.buttonOnOffB == '#99a7ad'? '#3cc761' : '#99a7ad'})}
+            onPress={() => {
+              this.setState({buttonOnOffB: this.state.buttonOnOffB == '#99a7ad'? '#3cc761' : '#99a7ad'})
+              //Função de ligar a placa vai aqui
+            }
           }>
             <Text style={styles.powerButtonText}>On / Off B</Text>
           </TouchableOpacity>
@@ -99,7 +98,10 @@ export default class Main extends Component{
           {/*Botão do Pulverizador*/}
           <TouchableOpacity 
             style={{backgroundColor: this.state.buttonOnOffP,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '2%',}} 
-            onPress={() => {this.setState({buttonOnOffP: this.state.buttonOnOffP == '#99a7ad'? '#3cc761' : '#99a7ad'})}
+            onPress={() => {
+              this.setState({buttonOnOffP: this.state.buttonOnOffP == '#99a7ad'? '#3cc761' : '#99a7ad'})
+              global.pulverizer == 0? global.pulverizer = 1:global.pulverizer = 0
+            }
           }>
             <Text style={styles.pulverizerButtonText}>On / Off Pulverizer</Text>
           </TouchableOpacity>
@@ -112,6 +114,7 @@ export default class Main extends Component{
             {/* Botão de - para diminuir o valor do slider */}
             <TouchableOpacity onPress={() => {
               if(this.state.speedSliderValue > 0){
+                global.limit = this.state.speedSliderValue-1
                 this.setState({ speedSliderValue: this.state.speedSliderValue-1 })}
               }
             }>
@@ -121,6 +124,7 @@ export default class Main extends Component{
             {/* Botão de + para aumentar o valor do slider */}
             <TouchableOpacity style={styles.backgroundsliderText} onPress={() => {
               if(this.state.speedSliderValue < 100){
+                global.limit = this.state.speedSliderValue+1
                 this.setState({ speedSliderValue: this.state.speedSliderValue+1 })}
               }
             }>
@@ -133,7 +137,12 @@ export default class Main extends Component{
           maximumValue={100}
           minimumValue={0}
           value={this.state.speedSliderValue}
-          onValueChange={speedSliderValue => this.setState({speedSliderValue})}
+          onValueChange={
+            speedSliderValue => {
+              global.limit = speedSliderValue
+              this.setState({speedSliderValue})
+            }
+          }
           style={styles.slider}
           step={1}
           />
@@ -158,7 +167,7 @@ export default class Main extends Component{
 
         {/*View da versão*/}
         <View style={styles.versionView}>
-            <Text style={styles.versionText}>V 2.2.3</Text>
+          <Text style={styles.versionText}>V {global.version}</Text>
         </View>
       </View>
       </>
