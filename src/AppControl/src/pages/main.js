@@ -1,29 +1,18 @@
 /* 
- * Versão: 1.2.2
- * Data: 22/03/2020, 00:09
+ * Versão: 2.2.3
+ * Data: 23/03/2020, 21:09
  * Autores: Caio, Lucas
 */
 
 import React, {Component, useState} from 'react'
 import { View,StyleSheet,TouchableOpacity,Text,Slider,Image } from 'react-native'
 import AxisPad from 'react-native-axis-pad';
+import NavigationActions from 'react-navigation/src/NavigationActions';
 
 /* 
  * Página principal
 */
 export default class Main extends Component{
-
-  //Opções do controlador de navegação de páginas 
-  static navigationOptions =  {
-    title: "Control Interface",
-    headerRight: 
-    //Botão do menu
-    <TouchableOpacity onPress={() => {alert('menu')}}>
-      <Image
-        source={require('../resources/menu.png')}
-      />
-    </TouchableOpacity>
-  };
 
   //Variáveis globais da classe
   state = {
@@ -31,6 +20,17 @@ export default class Main extends Component{
     buttonOnOffA: '#99a7ad',
     buttonOnOffB: '#99a7ad',
     buttonOnOffP: '#99a7ad',
+    navigation: ''
+  };
+
+  //Opções do controlador de navegação de páginas 
+  static navigationOptions =  {
+    title: "Control Interface",
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf: 'center',
+      flexGrow: 1
+    }
   };
 
   //Renderização do componente
@@ -43,7 +43,21 @@ export default class Main extends Component{
     return (
       <>
       {/*View principal*/}
-      <View style={styles.main}>
+      <View style={styles.mainView}>
+
+        {/*View do botão do menu*/}
+        <View style={styles.menuButtonView}>
+          {/*Botão do menu*/}
+          <TouchableOpacity 
+            onPress={() => {
+              this.props.navigation.navigate('Config')
+            }
+          }>
+            <Image
+              source={require('../resources/menu.png')}
+            />
+          </TouchableOpacity>
+        </View>
 
         {/* View do joystick */}
         <View style={styles.joystickView}>
@@ -63,13 +77,18 @@ export default class Main extends Component{
         {/* View dos botoes de power e pulverizer*/}
         <View style={styles.powerButtonsView}>
 
+          {/*Botão da placa A*/}
           <TouchableOpacity 
             style={{backgroundColor: this.state.buttonOnOffA,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '10%',}} 
-            onPress={() => {this.setState({buttonOnOffA: this.state.buttonOnOffA == '#99a7ad'? '#3cc761' : '#99a7ad'})}
+            onPress={() => {
+              this.setState({buttonOnOffA: this.state.buttonOnOffA == '#99a7ad'? '#3cc761' : '#99a7ad'})
+              this.props.navigation.navigate('Config')
+            }
           }>
             <Text style={styles.powerButtonText}>On / Off A</Text>
           </TouchableOpacity>
 
+          {/*Botão da placa B*/}
           <TouchableOpacity 
             style={{backgroundColor: this.state.buttonOnOffB,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '2%',}} 
             onPress={() => {this.setState({buttonOnOffB: this.state.buttonOnOffB == '#99a7ad'? '#3cc761' : '#99a7ad'})}
@@ -77,6 +96,7 @@ export default class Main extends Component{
             <Text style={styles.powerButtonText}>On / Off B</Text>
           </TouchableOpacity>
 
+          {/*Botão do Pulverizador*/}
           <TouchableOpacity 
             style={{backgroundColor: this.state.buttonOnOffP,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '2%',}} 
             onPress={() => {this.setState({buttonOnOffP: this.state.buttonOnOffP == '#99a7ad'? '#3cc761' : '#99a7ad'})}
@@ -135,6 +155,11 @@ export default class Main extends Component{
               source={require('../resources/pti.png')}
             />
         </View>
+
+        {/*View da versão*/}
+        <View style={styles.versionView}>
+            <Text style={styles.versionText}>V 2.2.3</Text>
+        </View>
       </View>
       </>
     );
@@ -143,8 +168,11 @@ export default class Main extends Component{
 
 {/*Estilos*/}
 const styles = StyleSheet.create({
+  menuButtonView:{
+    marginLeft: '87%'
+  },
   joystickView: {
-    marginTop: "45%",
+    marginTop: "34%",
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -155,7 +183,7 @@ const styles = StyleSheet.create({
   handlerView: {
     backgroundColor: '#3495EB'
   },
-  main: {
+  mainView: {
     backgroundColor: '#ffffff',
     flex: 1
   },
@@ -237,6 +265,13 @@ const styles = StyleSheet.create({
   },
   logoLabiot: {
     margin:'5%'
+  },
+  versionView: {
+    marginLeft: '89%',
+  },
+  versionText: {
+    color: '#02535c',
+    fontSize: 10
   }
 });
 

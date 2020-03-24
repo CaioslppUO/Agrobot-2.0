@@ -5,16 +5,13 @@ import Debug from './pages/debug';
 
 export default createStackNavigator({
     Main,
-},{
+    Config
+},
+{
     navigationOptions: {
         headerStyle: {
             backgroundColor: "#02535c",
         },
         headerTintColor: "#FFF",
-        headerTitleStyle: {
-            textAlign: 'center',
-            alignSelf: 'center',
-            flexGrow: 1
-        }
     }
 })
