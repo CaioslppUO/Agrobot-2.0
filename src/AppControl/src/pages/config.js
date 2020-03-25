@@ -2,6 +2,14 @@ import React, {Component} from 'react';
 import { View,TextInput,StyleSheet,TouchableOpacity,Text } from 'react-native';
 
 export default class Config extends Component {
+
+    //Variáveis da classe
+    state = {
+        serverIp: '000.000.000.000',
+        port: '0000',
+        minPSpeed: '0'
+    };
+
     //Opções do controlador de navegação de páginas 
     static navigationOptions =  {
         title: "Config Interface",
@@ -17,11 +25,12 @@ export default class Config extends Component {
                 {/*View principal*/}
                 <View style={styles.mainView}>
 
-                    {/*View dos campos de preenchimento*/}
+                    <Text style={styles.comunication}>Comunication</Text>
+                    {/*View dos campos de preenchimento de comunicação*/}
                     <View style={styles.boxesView}>
                         <TextInput
                             style={styles.ipText}
-                            placeholder="Server IP"
+                            placeholder="Server IP:"
                             onChangeText={(text) => {
                                     this.setState({serverIp: text})
                                 }
@@ -30,9 +39,22 @@ export default class Config extends Component {
 
                         <TextInput
                             style={styles.portText}
-                            placeholder="Port"
+                            placeholder="Port:"
                             onChangeText={(text) => {
                                     this.setState({port: text})
+                                }
+                            }
+                        />
+                    </View>
+
+                    <Text style={styles.control}>Control</Text>
+                    {/*View dos campos de preenchimento de controle*/}
+                    <View style={styles.boxesView}>
+                        <TextInput
+                            style={styles.minPSpeedText}
+                            placeholder="Min Pulverize Speed:"
+                            onChangeText={(text) => {
+                                    this.setState({serverIp: text})
                                 }
                             }
                         />
@@ -47,6 +69,11 @@ export default class Config extends Component {
                             <Text style={styles.saveText}>Save</Text>
                         </TouchableOpacity>
                     </View>
+
+                    {/*View da versão*/}
+                    <View style={styles.versionView}>
+                        <Text style={styles.versionText}>V {global.version}</Text>
+                    </View>
                 </View>
             </>
         );
@@ -59,23 +86,61 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     boxesView: {
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginLeft: '20%',
+        marginTop: '5%',
+        marginRight: '22%',
+        height: 120
     },
     ipText: {
-        fontSize: 30
+        fontSize: 30,
+        borderRadius: 10,
+        borderWidth: 1,
     },
     portText: {
-
+        marginTop: '5%',
+        fontSize: 30,
+        borderRadius: 10,
+        borderWidth: 1,
     },
     saveView: {
-        marginLeft: '43%',
-        marginRight: '40%'
+        marginTop: '20%',
+        marginLeft: '35%',
+        marginRight: '35%',
+        height: 90
     },
     saveText: {
-        fontSize: 30,
+        fontSize: 35,
         borderWidth: 1,
         backgroundColor: '#89c5d6',
         textAlign: 'center',
-        borderRadius: 150
+        borderRadius: 10
+    },
+    comunication: {
+        marginTop: '5%',
+        fontSize: 30,
+        marginLeft: '28%',
+        color: '#596e9c',
+        fontWeight: 'bold'
+    },
+    control: {
+        marginTop: '10%',
+        fontSize: 30,
+        marginLeft: '37%',
+        color: '#596e9c',
+        fontWeight: 'bold'
+    },
+    minPSpeedText: {
+        fontSize: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+    },
+    versionView: {
+        marginLeft: '89%',
+        marginTop: '29%'
+      },
+    versionText: {
+      color: '#02535c',
+      fontSize: 10
     }
 });

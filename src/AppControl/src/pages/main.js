@@ -1,5 +1,5 @@
 /* 
- * Versão: 2.2.4
+ * Versão: 2.2.5
  * Data: 23/03/2020, 21:09
  * Autores: Caio, Lucas
 */

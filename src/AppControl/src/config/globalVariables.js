@@ -14,4 +14,4 @@ global.serverIp = '192.168.1.2'
 global.port = '8080'
 
 //Variáveis de informação
-global.version = '2.2.4'
+global.version = '2.2.5'
