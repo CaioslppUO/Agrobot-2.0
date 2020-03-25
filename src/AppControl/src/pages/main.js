@@ -1,5 +1,5 @@
 /* 
- * Versão: 2.2.6
+ * Versão: 2.2.7
  * Data: 23/03/2020, 21:09
  * Autores: Caio, Lucas
 */
@@ -34,6 +34,20 @@ export default class Main extends Component{
 
   //Renderização do componente
   render(){
+    function sendCompleteMsg(speed,steer,limit,powerA,powerB,pulveize){
+      new WebSocket('http://' + global.serverIp + ':' + global.port + '/' + global.priority + '*'
+      + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit +'*powerA$' + powerA + '*powerB$' + powerB
+      + '*pulverize$' + pulveize)
+    }
+  
+    function turnBoardOn(board){
+        if(board == 'A'){
+            sendCompleteMsg(0,0,0,1,0,0)
+        }else{
+            sendCompleteMsg(0,0,0,0,1,0)
+        }
+    }
+
     return (
       <>
       {/*View principal*/}
@@ -66,6 +80,11 @@ export default class Main extends Component{
                   //Defining the values of speed and steer
                   global.speed = -Math.round(y * 100)
                   global.steer =  Math.round(x * 100)
+                  if(global.pulverizer == 1 && global.speed >= global.minPulverizeSpeed){
+                    sendCompleteMsg(global.speed,global.steer,global.limit,global.powerA,global.powerB,1);
+                  }else{
+                    sendCompleteMsg(global.speed,global.steer,global.limit,global.powerA,global.powerB,0);
+                  }
                 }}
                 />
         </View>
@@ -78,8 +97,7 @@ export default class Main extends Component{
             style={{backgroundColor: this.state.buttonOnOffA,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '10%',}} 
             onPress={() => {
               this.setState({buttonOnOffA: this.state.buttonOnOffA == '#99a7ad'? '#3cc761' : '#99a7ad'})
-              //Função de ligar a placa vai aqui
-              alert(global.serverIp)
+              turnBoardOn('A')
             }
           }>
             <Text style={styles.powerButtonText}>On / Off A</Text>
@@ -90,8 +108,7 @@ export default class Main extends Component{
             style={{backgroundColor: this.state.buttonOnOffB,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '2%',}} 
             onPress={() => {
               this.setState({buttonOnOffB: this.state.buttonOnOffB == '#99a7ad'? '#3cc761' : '#99a7ad'})
-              //Função de ligar a placa vai aqui
-              alert(global.port)
+              turnBoardOn('B')
             }
           }>
             <Text style={styles.powerButtonText}>On / Off B</Text>
@@ -103,7 +120,6 @@ export default class Main extends Component{
             onPress={() => {
               this.setState({buttonOnOffP: this.state.buttonOnOffP == '#99a7ad'? '#3cc761' : '#99a7ad'})
               global.pulverizer == 0? global.pulverizer = 1:global.pulverizer = 0
-              alert(global.minPulverizeSpeed)
             }
           }>
             <Text style={styles.pulverizerButtonText}>On / Off Pulverizer</Text>
