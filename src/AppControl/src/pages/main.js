@@ -1,5 +1,5 @@
 /* 
- * Versão: 2.2.5
+ * Versão: 2.2.6
  * Data: 23/03/2020, 21:09
  * Autores: Caio, Lucas
 */
@@ -79,6 +79,7 @@ export default class Main extends Component{
             onPress={() => {
               this.setState({buttonOnOffA: this.state.buttonOnOffA == '#99a7ad'? '#3cc761' : '#99a7ad'})
               //Função de ligar a placa vai aqui
+              alert(global.serverIp)
             }
           }>
             <Text style={styles.powerButtonText}>On / Off A</Text>
@@ -90,6 +91,7 @@ export default class Main extends Component{
             onPress={() => {
               this.setState({buttonOnOffB: this.state.buttonOnOffB == '#99a7ad'? '#3cc761' : '#99a7ad'})
               //Função de ligar a placa vai aqui
+              alert(global.port)
             }
           }>
             <Text style={styles.powerButtonText}>On / Off B</Text>
@@ -101,6 +103,7 @@ export default class Main extends Component{
             onPress={() => {
               this.setState({buttonOnOffP: this.state.buttonOnOffP == '#99a7ad'? '#3cc761' : '#99a7ad'})
               global.pulverizer == 0? global.pulverizer = 1:global.pulverizer = 0
+              alert(global.minPulverizeSpeed)
             }
           }>
             <Text style={styles.pulverizerButtonText}>On / Off Pulverizer</Text>

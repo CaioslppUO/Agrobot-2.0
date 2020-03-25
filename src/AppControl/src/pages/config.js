@@ -5,9 +5,9 @@ export default class Config extends Component {
 
     //Variáveis da classe
     state = {
-        serverIp: '000.000.000.000',
-        port: '0000',
-        minPSpeed: '0'
+        serverIp: global.serverIp,
+        port: global.port,
+        minPSpeed: global.minPulverizeSpeed
     };
 
     //Opções do controlador de navegação de páginas 
@@ -54,15 +54,32 @@ export default class Config extends Component {
                             style={styles.minPSpeedText}
                             placeholder="Min Pulverize Speed:"
                             onChangeText={(text) => {
-                                    this.setState({serverIp: text})
+                                    this.setState({minPSpeed: text})
                                 }
                             }
                         />
                     </View>
-
+                    
+                    {/*View do botão de salvar*/}
                     <View style={styles.saveView}>
                         <TouchableOpacity
                             onPress={() => {
+                                let lastIp = global.serverIp
+                                let lastMPS = global.minPulverizeSpeed
+                                global.minPulverizeSpeed = this.state.minPSpeed
+                                global.serverIp = this.state.serverIp
+                                global.port = this.state.port
+
+                                if(global.serverIp.split(".").length != 4){
+                                    alert('Invalid IP')
+                                    global.serverIp = lastIp
+                                }
+
+                                if(global.minPulverizeSpeed < 0 || global.minPulverizeSpeed > 100){
+                                    alert('Invalid Min Pulverize speed')
+                                    global.minPulverizeSpeed = lastMPS
+                                }
+                                
                                 this.props.navigation.navigate('Main')
                             }}
                         >
