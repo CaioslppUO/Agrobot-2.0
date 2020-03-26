@@ -72,12 +72,15 @@ export default class Menu extends Component {
 const styles = StyleSheet.create({
     mainView: {
         backgroundColor: '#ffffff',
-        flex: 1
+        flex: 1,
+        flexDirection: 'column',
+        // justifyContent: 'space-between',
+        alignItems: 'center',
+
     },
     buttonsView: {
-        marginLeft: '34%',
-        marginTop: '15%',
-        marginRight: '30%',
+        justifyContent: 'space-between',
+        width: 150,
     },
     versionView: {
         marginLeft: '89%',
@@ -108,6 +111,6 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       backgroundColor: '#89c5d6',
       borderRadius: 10,
-      marginTop: '150%'
+      marginTop: '120%'
     }
 });
