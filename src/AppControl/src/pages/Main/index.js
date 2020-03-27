@@ -62,7 +62,7 @@ export default class Main extends Component{
             }
           }>
             <Image
-              source={require('../resources/menu.png')}
+              source={require('../../resources/menu.png')}
             />
           </TouchableOpacity>
         </View>
@@ -172,15 +172,15 @@ export default class Main extends Component{
         <View style={styles.logosView}>
             <Image
               style={styles.logoUnioeste}
-              source={require('../resources/unioeste.png')}
+              source={require('../../resources/unioeste.png')}
             />
             <Image
               style={styles.logoLabiot}
-              source={require('../resources/labiot.png')}
+              source={require('../../resources/labiot.png')}
             />
             <Image
               style={styles.logoPti}
-              source={require('../resources/pti.png')}
+              source={require('../../resources/pti.png')}
             />
         </View>
 
