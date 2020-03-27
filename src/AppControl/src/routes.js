@@ -1,8 +1,8 @@
 import { createStackNavigator } from 'react-navigation';
-import Main from './pages/main';
-import Config from './pages/config';
-import Debug from './pages/debug';
-import Menu from './pages/menu';
+import Main from './pages/Main';
+import Config from './pages/Config';
+import Debug from './pages/Debug';
+import Menu from './pages/Menu';
 
 export default createStackNavigator({
     Main,
