@@ -5,7 +5,7 @@ export default StyleSheet.create({
     marginLeft: '87%'
   },
   joystickView: {
-    marginTop: "34%",
+    marginTop: "15%",
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -18,7 +18,8 @@ export default StyleSheet.create({
   },
   mainView: {
     backgroundColor: '#ffffff',
-    flex: 1
+    flex: 1,
+    justifyContent: 'space-between'
   },
   powerButtonsView:{
     flexDirection: 'row',
@@ -86,24 +87,33 @@ export default StyleSheet.create({
   },
   logosView: {
     flexDirection: 'row',
-    marginTop: '10%'
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   logoUnioeste: {
-    margin:'5%',
+    marginLeft:10,
   },
   logoPti: {
     height: 50,
     width: 110,
-    margin:'5%'
   },
   logoLabiot: {
-    margin:'5%'
+    height: 70,
+    width: 70,
+    marginBottom:10,
   },
   versionView: {
-    marginLeft: '89%',
+    alignContent: 'flex-end'
   },
   versionText: {
     color: '#02535c',
-    fontSize: 10
+    fontSize: 10,
+  },
+  containerLogoVersion:{
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    flexDirection: 'row',
+    height: 110,
   }
 });

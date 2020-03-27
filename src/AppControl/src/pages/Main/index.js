@@ -9,6 +9,17 @@ import { View,TouchableOpacity,Text,Slider,Image } from 'react-native'
 import AxisPad from 'react-native-axis-pad';
 import NavigationActions from 'react-navigation/src/NavigationActions';
 import styles from './styles';
+
+/**
+ * Constantes de imagens
+ */
+const menuImg = require('../../resources/menu.png')
+const LabiotImg = require('../../resources/labiot.png')
+const ptiImg = require('../../resources/pti.png')
+const unioesteImg = require('../../resources/unioeste.png')
+
+
+
 /* 
  * Página principal
 */
@@ -62,7 +73,7 @@ export default class Main extends Component{
             }
           }>
             <Image
-              source={require('../../resources/menu.png')}
+              source={menuImg}
             />
           </TouchableOpacity>
         </View>
@@ -168,25 +179,32 @@ export default class Main extends Component{
 
         </View>
 
-        {/* View das logos */}
-        <View style={styles.logosView}>
+        {/* View de logo e versão */}
+        <View style={styles.containerLogoVersion}>
+
+          {/* View das logos */}
+          <View style={styles.logosView}>
+          
             <Image
               style={styles.logoUnioeste}
-              source={require('../../resources/unioeste.png')}
+              source={unioesteImg}
             />
             <Image
               style={styles.logoLabiot}
-              source={require('../../resources/labiot.png')}
+              source={LabiotImg}
             />
             <Image
               style={styles.logoPti}
-              source={require('../../resources/pti.png')}
+              source={ptiImg}
             />
+          
         </View>
 
-        {/*View da versão*/}
-        <View style={styles.versionView}>
+          {/*View da versão*/}
+          <View style={styles.versionView}>
           <Text style={styles.versionText}>V {global.version}</Text>
+        </View>
+          
         </View>
       </View>
       </>
