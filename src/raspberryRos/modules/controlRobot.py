@@ -46,14 +46,17 @@ def setUart(uartAmount):
                 timeout=1
             )
         except:
-            uart0 = serial.Serial(
-                port='/dev/ttyUSB_CONVERSOR-1',
-                baudrate = 9600,
-                parity=serial.PARITY_NONE,
-                stopbits=serial.STOPBITS_ONE,
-                bytesize=serial.EIGHTBITS,
-                timeout=1
-            )
+            try:
+                uart0 = serial.Serial(
+                    port='/dev/ttyUSB_CONVERSOR-1',
+                    baudrate = 9600,
+                    parity=serial.PARITY_NONE,
+                    stopbits=serial.STOPBITS_ONE,
+                    bytesize=serial.EIGHTBITS,
+                    timeout=1
+                )
+            except:
+                print('Error trying to set 1 Uart')
     elif(uartAmount == 2):
         try:
             uart0 = serial.Serial(
@@ -74,6 +77,7 @@ def setUart(uartAmount):
                 timeout=1
             )
         except:
+            print('Error trying to set 2 Uarts')
             pass
 
 #Checa se a velocidade está correta e a corrige caso seja necessário
