@@ -62,7 +62,7 @@ class CommandStandardizer():
 
     #Separa e garante que todas as variáveis necessárias para a execução estão presentes
     #Entrada: Mensagem recebida pelo web server
-    #Retorno: Variáveis separadas e corrigidas
+    #Retorno: Variáveis separadas e corrigidas ou todos os valores zerados em caso de erro
     #Pré-condição: Nenhuma
     #Pós-condição: As variáveis são retiradas da mensagem e retornadas, já separadas e tratadas
     def webServerMsgSpliter(self,msg):
