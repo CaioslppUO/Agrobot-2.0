@@ -22,7 +22,7 @@ from launcherVariables import LauncherVariables
 #----> Inicializações do ROS <----#
 ###################################
 
-os.system("roscore& ")
+os.system("roscore& ") #Inicia o ROS
 time.sleep(8)
 os.system("clear && echo 'ROS has been successfully initialized'& ")
 
