@@ -2,6 +2,7 @@
 
   * Ir para o diretório YOUR_PROJECT_PATH/node_modules/react-native-safe-area-view/index.js 
   e substituir:
+  
     this.view._component.measureInWindow((winX, winY, winWidth, winHeight) => {
     
   por:
