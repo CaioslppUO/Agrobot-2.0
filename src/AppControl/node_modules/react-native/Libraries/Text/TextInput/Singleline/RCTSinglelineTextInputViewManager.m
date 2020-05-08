@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTSinglelineTextInputViewManager.h>
+#import "RCTSinglelineTextInputViewManager.h"
 
-#import <React/RCTBaseTextInputShadowView.h>
-#import <React/RCTSinglelineTextInputView.h>
+#import "RCTBaseTextInputShadowView.h"
+#import "RCTSinglelineTextInputView.h"
 
 @implementation RCTSinglelineTextInputViewManager
 

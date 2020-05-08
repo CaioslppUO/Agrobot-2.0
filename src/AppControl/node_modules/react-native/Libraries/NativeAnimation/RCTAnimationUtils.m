@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTAnimationUtils.h>
+#import "RCTAnimationUtils.h"
 
 #import <React/RCTLog.h>
 

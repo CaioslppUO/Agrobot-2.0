@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/ARTTextManager.h>
+#import "ARTTextManager.h"
 
-#import <React/ARTText.h>
+#import "ARTText.h"
 #import "RCTConvert+ART.h"
 
 @implementation ARTTextManager

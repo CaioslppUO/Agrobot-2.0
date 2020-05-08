@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTInputAccessoryView.h>
+#import "RCTInputAccessoryView.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTTouchHandler.h>
 #import <React/UIView+React.h>
 
-#import <React/RCTInputAccessoryViewContent.h>
+#import "RCTInputAccessoryViewContent.h"
 
 @interface RCTInputAccessoryView()
 

@@ -6,29 +6,13 @@
  *
  * These don't actually exist anywhere in the code.
  *
- * @flow strict-local
  * @format
  */
 
 'use strict';
-
-import type {ModuleConfig} from '../NativeModules';
-
-const remoteModulesConfig: $ReadOnlyArray<ModuleConfig> = [
-  [
-    'RemoteModule1',
-    null,
-    ['remoteMethod', 'promiseMethod', 'promiseReturningMethod', 'syncMethod'],
-    [2 /* promiseReturningMethod */],
-    [3 /* syncMethod */],
-  ],
-  [
-    'RemoteModule2',
-    null,
-    ['remoteMethod', 'promiseMethod', 'promiseReturningMethod', 'syncMethod'],
-    [2 /* promiseReturningMethod */],
-    [3 /* syncMethod */],
-  ],
+const remoteModulesConfig = [
+  ['RemoteModule1', null, ['remoteMethod', 'promiseMethod'], []],
+  ['RemoteModule2', null, ['remoteMethod', 'promiseMethod'], []],
 ];
 
 const MessageQueueTestConfig = {

@@ -1,9 +1,10 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.animated;
 
 import com.facebook.react.bridge.Callback;
@@ -35,6 +36,6 @@ import com.facebook.react.bridge.ReadableMap;
    */
   public void resetConfig(ReadableMap config) {
     throw new JSApplicationCausedNativeException(
-        "Animation config for " + getClass().getSimpleName() + " cannot be reset");
+            "Animation config for " + getClass().getSimpleName() + " cannot be reset");
   }
 }

@@ -5,10 +5,11 @@
 
 package com.facebook.react.uimanager.layoutanimation;
 
+import javax.annotation.Nullable;
+
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import androidx.annotation.Nullable;
 
 /**
  * Class responsible for handling layout update animation, applied to view whenever a valid config
@@ -26,8 +27,7 @@ import androidx.annotation.Nullable;
   }
 
   @Override
-  @Nullable
-  Animation createAnimationImpl(View view, int x, int y, int width, int height) {
+  @Nullable Animation createAnimationImpl(View view, int x, int y, int width, int height) {
     boolean animateLocation = view.getX() != x || view.getY() != y;
     boolean animateSize = view.getWidth() != width || view.getHeight() != height;
     if (!animateLocation && !animateSize) {

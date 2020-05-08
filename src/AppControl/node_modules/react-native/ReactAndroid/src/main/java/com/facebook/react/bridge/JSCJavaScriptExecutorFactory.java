@@ -1,9 +1,10 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.bridge;
 
 public class JSCJavaScriptExecutorFactory implements JavaScriptExecutorFactory {
@@ -22,18 +23,6 @@ public class JSCJavaScriptExecutorFactory implements JavaScriptExecutorFactory {
     jscConfig.putString("AppIdentity", mAppName);
     jscConfig.putString("DeviceIdentity", mDeviceName);
     return new JSCJavaScriptExecutor(jscConfig);
-  }
-
-  @Override
-  public void startSamplingProfiler() {
-    throw new UnsupportedOperationException(
-        "Starting sampling profiler not supported on " + toString());
-  }
-
-  @Override
-  public void stopSamplingProfiler(String filename) {
-    throw new UnsupportedOperationException(
-        "Stopping sampling profiler not supported on " + toString());
   }
 
   @Override

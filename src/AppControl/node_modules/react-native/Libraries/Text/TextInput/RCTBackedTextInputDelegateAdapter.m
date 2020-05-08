@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTBackedTextInputDelegateAdapter.h>
+#import "RCTBackedTextInputDelegateAdapter.h"
 
 #pragma mark - RCTBackedTextFieldDelegateAdapter (for UITextField)
 

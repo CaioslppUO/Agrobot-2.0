@@ -8,7 +8,9 @@ package com.facebook.jni;
 import com.facebook.proguard.annotations.DoNotStrip;
 import com.facebook.soloader.SoLoader;
 
-/** Utility class to determine CPU capabilities */
+/**
+ * Utility class to determine CPU capabilities
+ */
 @DoNotStrip
 public class CpuCapabilitiesJni {
 
@@ -24,4 +26,5 @@ public class CpuCapabilitiesJni {
 
   @DoNotStrip
   public static native boolean nativeDeviceSupportsX86();
+
 }

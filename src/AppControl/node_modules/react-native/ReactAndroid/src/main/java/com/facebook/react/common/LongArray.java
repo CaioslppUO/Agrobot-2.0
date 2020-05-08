@@ -1,12 +1,15 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.common;
 
-/** Object wrapping an auto-expanding long[]. Like an ArrayList<Long> but without the autoboxing. */
+/**
+ * Object wrapping an auto-expanding long[]. Like an ArrayList<Long> but without the autoboxing.
+ */
 public class LongArray {
 
   private static final double INNER_ARRAY_GROWTH_FACTOR = 1.8;
@@ -50,7 +53,9 @@ public class LongArray {
     return mLength == 0;
   }
 
-  /** Removes the *last* n items of the array all at once. */
+  /**
+   * Removes the *last* n items of the array all at once.
+   */
   public void dropTail(int n) {
     if (n > mLength) {
       throw new IndexOutOfBoundsException(
@@ -62,7 +67,7 @@ public class LongArray {
   private void growArrayIfNeeded() {
     if (mLength == mArray.length) {
       // If the initial capacity was 1 we need to ensure it at least grows by 1.
-      int newSize = Math.max(mLength + 1, (int) (mLength * INNER_ARRAY_GROWTH_FACTOR));
+      int newSize = Math.max(mLength + 1, (int)(mLength * INNER_ARRAY_GROWTH_FACTOR));
       long[] newArray = new long[newSize];
       System.arraycopy(mArray, 0, newArray, 0, mLength);
       mArray = newArray;

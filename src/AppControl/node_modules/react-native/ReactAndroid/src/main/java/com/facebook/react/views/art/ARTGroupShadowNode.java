@@ -1,25 +1,32 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.views.art;
+
+import com.facebook.react.uimanager.ReactShadowNodeImpl;
+import javax.annotation.Nullable;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import androidx.annotation.Nullable;
+import android.graphics.Region;
+
 import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
-/** Shadow node for virtual ARTGroup view */
+/**
+ * Shadow node for virtual ARTGroup view
+ */
 public class ARTGroupShadowNode extends ARTVirtualNode {
 
   protected @Nullable RectF mClipping;
 
-  public ARTGroupShadowNode() {}
+  public ARTGroupShadowNode() { }
 
   @ReactProp(name = "clipping")
   public void setClipping(@Nullable ReadableArray clippingDims) {
@@ -42,10 +49,11 @@ public class ARTGroupShadowNode extends ARTVirtualNode {
 
       if (mClipping != null) {
         canvas.clipRect(
-            mClipping.left * mScale,
-            mClipping.top * mScale,
-            mClipping.right * mScale,
-            mClipping.bottom * mScale);
+          mClipping.left * mScale,
+          mClipping.top * mScale,
+          mClipping.right * mScale,
+          mClipping.bottom * mScale,
+          Region.Op.REPLACE);
       }
 
       for (int i = 0; i < getChildCount(); i++) {
@@ -59,7 +67,8 @@ public class ARTGroupShadowNode extends ARTVirtualNode {
   }
 
   /**
-   * Creates a {@link RectF} from an array of dimensions (e.g. [x, y, width, height])
+   * Creates a {@link RectF} from an array of dimensions
+   * (e.g. [x, y, width, height])
    *
    * @param data the array of dimensions
    * @return the {@link RectF} that can used to clip the canvas
@@ -69,7 +78,8 @@ public class ARTGroupShadowNode extends ARTVirtualNode {
       throw new JSApplicationIllegalArgumentException(
           "Clipping should be array of length 4 (e.g. [x, y, width, height])");
     }
-    RectF clippingRect = new RectF(data[0], data[1], data[0] + data[2], data[1] + data[3]);
+    RectF clippingRect = new RectF(
+      data[0], data[1], data[0] + data[2], data[1] + data[3]);
     return clippingRect;
   }
 }

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTImageURLLoader.h>
+#import <React/RCTImageLoader.h>
 
 @interface RCTLocalAssetImageLoader : NSObject <RCTImageURLLoader>
 

@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/ARTSurfaceViewManager.h>
+#import "ARTSurfaceViewManager.h"
 
-#import <React/ARTSurfaceView.h>
+#import "ARTSurfaceView.h"
 
 @implementation ARTSurfaceViewManager
 

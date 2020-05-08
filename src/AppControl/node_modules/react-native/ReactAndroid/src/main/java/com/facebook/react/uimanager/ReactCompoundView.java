@@ -1,9 +1,10 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.uimanager;
 
 import android.view.View;
@@ -17,7 +18,6 @@ public interface ReactCompoundView {
 
   /**
    * Return react tag for touched element. Event coordinates are relative to the view
-   *
    * @param touchX the X touch coordinate relative to the view
    * @param touchY the Y touch coordinate relative to the view
    */

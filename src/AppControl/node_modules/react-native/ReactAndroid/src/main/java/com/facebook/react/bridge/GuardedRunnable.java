@@ -6,21 +6,16 @@
 package com.facebook.react.bridge;
 
 /**
- * Abstract base for a Runnable that should have any RuntimeExceptions it throws handled by the
- * {@link com.facebook.react.bridge.NativeModuleCallExceptionHandler} registered if the app is in
- * dev mode.
+ * Abstract base for a Runnable that should have any RuntimeExceptions it throws
+ * handled by the {@link com.facebook.react.bridge.NativeModuleCallExceptionHandler} registered if
+ * the app is in dev mode.
  */
 public abstract class GuardedRunnable implements Runnable {
 
-  private final NativeModuleCallExceptionHandler mExceptionHandler;
+  private final ReactContext mReactContext;
 
-  @Deprecated
   public GuardedRunnable(ReactContext reactContext) {
-    this(reactContext.getExceptionHandler());
-  }
-
-  public GuardedRunnable(NativeModuleCallExceptionHandler exceptionHandler) {
-    mExceptionHandler = exceptionHandler;
+    mReactContext = reactContext;
   }
 
   @Override
@@ -28,7 +23,7 @@ public abstract class GuardedRunnable implements Runnable {
     try {
       runGuarded();
     } catch (RuntimeException e) {
-      mExceptionHandler.handleException(e);
+      mReactContext.handleException(e);
     }
   }
 

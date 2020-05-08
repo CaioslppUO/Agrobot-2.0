@@ -1,27 +1,32 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.modules.deviceinfo;
 
+import javax.annotation.Nullable;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
-import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.BaseJavaModule;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.react.turbomodule.core.interfaces.TurboModule;
 import com.facebook.react.uimanager.DisplayMetricsHolder;
-import java.util.HashMap;
-import java.util.Map;
 
-/** Module that exposes Android Constants to JS. */
+/**
+ * Module that exposes Android Constants to JS.
+ */
 @ReactModule(name = DeviceInfoModule.NAME)
-public class DeviceInfoModule extends BaseJavaModule
-    implements LifecycleEventListener, TurboModule {
+public class DeviceInfoModule extends BaseJavaModule implements
+    LifecycleEventListener {
 
   public static final String NAME = "DeviceInfo";
 
@@ -48,7 +53,9 @@ public class DeviceInfoModule extends BaseJavaModule
   @Override
   public @Nullable Map<String, Object> getConstants() {
     HashMap<String, Object> constants = new HashMap<>();
-    constants.put("Dimensions", DisplayMetricsHolder.getDisplayMetricsMap(mFontScale));
+    constants.put(
+        "Dimensions",
+        DisplayMetricsHolder.getDisplayMetricsMap(mFontScale));
     return constants;
   }
 
@@ -66,10 +73,12 @@ public class DeviceInfoModule extends BaseJavaModule
   }
 
   @Override
-  public void onHostPause() {}
+  public void onHostPause() {
+  }
 
   @Override
-  public void onHostDestroy() {}
+  public void onHostDestroy() {
+  }
 
   public void emitUpdateDimensionsEvent() {
     if (mReactApplicationContext == null) {
@@ -80,7 +89,4 @@ public class DeviceInfoModule extends BaseJavaModule
         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
         .emit("didUpdateDimensions", DisplayMetricsHolder.getDisplayMetricsNativeMap(mFontScale));
   }
-
-  @Override
-  public void invalidate() {}
 }

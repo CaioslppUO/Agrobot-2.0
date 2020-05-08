@@ -1,21 +1,24 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.devsupport;
 
-import androidx.annotation.Nullable;
+import javax.annotation.Nullable;
+
+import java.io.File;
+
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
-import java.io.File;
 
 // This module is being called only by Java via the static method "captureHeap" that
-// requires it to already be initialized, thus we eagerly initialize this module
+// requires it to alreay be initialized, thus we eagerly initialize this module
 @ReactModule(name = "JSCHeapCapture", needsEagerInit = true)
 public class JSCHeapCapture extends ReactContextBaseJavaModule {
   public interface HeapCapture extends JavaScriptModule {
@@ -26,7 +29,6 @@ public class JSCHeapCapture extends ReactContextBaseJavaModule {
     CaptureException(String message) {
       super(message);
     }
-
     CaptureException(String message, Throwable cause) {
       super(message, cause);
     }
@@ -34,7 +36,6 @@ public class JSCHeapCapture extends ReactContextBaseJavaModule {
 
   public interface CaptureCallback {
     void onSuccess(File capture);
-
     void onFailure(CaptureException error);
   }
 

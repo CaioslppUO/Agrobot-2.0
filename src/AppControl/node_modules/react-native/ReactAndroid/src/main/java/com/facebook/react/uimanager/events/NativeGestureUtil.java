@@ -1,16 +1,20 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.uimanager.events;
 
 import android.view.MotionEvent;
 import android.view.View;
+
 import com.facebook.react.uimanager.RootViewUtil;
 
-/** Utilities for native Views that interpret native gestures (e.g. ScrollView, ViewPager, etc.). */
+/**
+ * Utilities for native Views that interpret native gestures (e.g. ScrollView, ViewPager, etc.).
+ */
 public class NativeGestureUtil {
 
   /**

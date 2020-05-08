@@ -12,12 +12,12 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * A thread which invokes the "destruct" routine for objects after they have been garbage collected.
  *
- * <p>An object which needs to be destructed should create a static subclass of {@link Destructor}.
- * Once the referent object is garbage collected, the DestructorThread will callback to the {@link
- * Destructor#destruct()} method.
+ * An object which needs to be destructed should create a static subclass of {@link Destructor}.
+ * Once the referent object is garbage collected, the DestructorThread will callback to the
+ * {@link Destructor#destruct()} method.
  *
- * <p>The underlying thread in DestructorThread starts when the first Destructor is constructed and
- * then runs indefinitely.
+ * The underlying thread in DestructorThread starts when the first Destructor is constructed
+ * and then runs indefinitely.
  */
 public class DestructorThread {
 
@@ -31,7 +31,7 @@ public class DestructorThread {
     private Destructor next;
     private Destructor previous;
 
-    public Destructor(Object referent) {
+    Destructor(Object referent) {
       super(referent, sReferenceQueue);
       sDestructorStack.push(this);
     }
@@ -41,14 +41,13 @@ public class DestructorThread {
     }
 
     /** Callback which is invoked when the original object has been garbage collected. */
-    protected abstract void destruct();
+    abstract void destruct();
   }
 
   /** A list to keep all active Destructors in memory confined to the Destructor thread. */
   private static DestructorList sDestructorList;
   /** A thread safe stack where new Destructors are placed before being add to sDestructorList. */
   private static DestructorStack sDestructorStack;
-
   private static ReferenceQueue sReferenceQueue;
   private static Thread sThread;
 
@@ -56,35 +55,34 @@ public class DestructorThread {
     sDestructorStack = new DestructorStack();
     sReferenceQueue = new ReferenceQueue();
     sDestructorList = new DestructorList();
-    sThread =
-        new Thread("HybridData DestructorThread") {
-          @Override
-          public void run() {
-            while (true) {
-              try {
-                Destructor current = (Destructor) sReferenceQueue.remove();
-                current.destruct();
+    sThread = new Thread("HybridData DestructorThread") {
+      @Override
+      public void run() {
+        while (true) {
+          try {
+            Destructor current = (Destructor) sReferenceQueue.remove();
+            current.destruct();
 
-                // If current is in the sDestructorStack,
-                // transfer all the Destructors in the stack to the list.
-                if (current.previous == null) {
-                  sDestructorStack.transferAllToList();
-                }
-
-                DestructorList.drop(current);
-              } catch (InterruptedException e) {
-                // Continue. This thread should never be terminated.
-              }
+            // If current is in the sDestructorStack,
+            // transfer all the Destructors in the stack to the list.
+            if (current.previous == null) {
+              sDestructorStack.transferAllToList();
             }
+
+            DestructorList.drop(current);
+          } catch (InterruptedException e) {
+            // Continue. This thread should never be terminated.
           }
-        };
+        }
+      }
+    };
 
     sThread.start();
   }
 
   private static class Terminus extends Destructor {
     @Override
-    protected void destruct() {
+    void destruct() {
       throw new IllegalStateException("Cannot destroy Terminus Destructor.");
     }
   }

@@ -1,12 +1,14 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.modules.network;
 
 import java.io.IOException;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.BufferedSink;
@@ -53,26 +55,25 @@ public class ProgressRequestBody extends RequestBody {
   }
 
   private Sink outputStreamSink(BufferedSink sink) {
-    return Okio.sink(
-        new CountingOutputStream(sink.outputStream()) {
-          @Override
-          public void write(byte[] data, int offset, int byteCount) throws IOException {
-            super.write(data, offset, byteCount);
-            sendProgressUpdate();
-          }
+    return Okio.sink(new CountingOutputStream(sink.outputStream()) {
+      @Override
+      public void write(byte[] data, int offset, int byteCount) throws IOException {
+        super.write(data, offset, byteCount);
+        sendProgressUpdate();
+      }
 
-          @Override
-          public void write(int data) throws IOException {
-            super.write(data);
-            sendProgressUpdate();
-          }
+      @Override
+      public void write(int data) throws IOException {
+        super.write(data);
+        sendProgressUpdate();
+      }
 
-          private void sendProgressUpdate() throws IOException {
-            long bytesWritten = getCount();
-            long contentLength = contentLength();
-            mProgressListener.onProgress(
-                bytesWritten, contentLength, bytesWritten == contentLength);
-          }
-        });
+      private void sendProgressUpdate() throws IOException {
+        long bytesWritten = getCount();
+        long contentLength = contentLength();
+        mProgressListener.onProgress(
+          bytesWritten, contentLength, bytesWritten == contentLength);
+      }
+    });
   }
 }

@@ -1,9 +1,10 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.animated;
 
 import com.facebook.react.bridge.JSApplicationCausedNativeException;
@@ -20,7 +21,8 @@ import com.facebook.react.bridge.ReadableMap;
   private final int[] mInputNodes;
 
   public SubtractionAnimatedNode(
-      ReadableMap config, NativeAnimatedNodesManager nativeAnimatedNodesManager) {
+      ReadableMap config,
+      NativeAnimatedNodesManager nativeAnimatedNodesManager) {
     mNativeAnimatedNodesManager = nativeAnimatedNodesManager;
     ReadableArray inputNodes = config.getArray("input");
     mInputNodes = new int[inputNodes.size()];
@@ -41,8 +43,8 @@ import com.facebook.react.bridge.ReadableMap;
         }
         mValue -= ((ValueAnimatedNode) animatedNode).getValue();
       } else {
-        throw new JSApplicationCausedNativeException(
-            "Illegal node ID set as an input for " + "Animated.subtract node");
+        throw new JSApplicationCausedNativeException("Illegal node ID set as an input for " +
+          "Animated.subtract node");
       }
     }
   }

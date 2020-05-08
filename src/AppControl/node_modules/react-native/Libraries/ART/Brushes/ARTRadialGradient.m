@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/ARTRadialGradient.h>
+#import "ARTRadialGradient.h"
 
 #import <React/RCTLog.h>
 

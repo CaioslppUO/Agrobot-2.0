@@ -27,7 +27,7 @@ const unregister = (id: string) => {
   }
 };
 
-const has = (id: string): number | boolean => {
+const has = (id: string) => {
   return registry[id] && registry[id] > 0;
 };
 

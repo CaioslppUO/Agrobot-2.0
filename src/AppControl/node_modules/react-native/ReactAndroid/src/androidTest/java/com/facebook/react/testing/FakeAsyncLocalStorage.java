@@ -1,9 +1,10 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.testing;
 
 import com.facebook.react.bridge.Arguments;
@@ -13,11 +14,12 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 
-/** Dummy implementation of storage module, used for testing */
+/**
+ * Dummy implementation of storage module, used for testing
+ */
 public final class FakeAsyncLocalStorage extends BaseJavaModule {
 
   private static WritableMap errorMessage;
-
   static {
     errorMessage = Arguments.createMap();
     errorMessage.putString("message", "Fake Async Local Storage");

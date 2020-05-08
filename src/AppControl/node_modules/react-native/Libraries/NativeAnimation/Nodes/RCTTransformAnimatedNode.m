@@ -5,8 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTTransformAnimatedNode.h>
-#import <React/RCTValueAnimatedNode.h>
+#import "RCTTransformAnimatedNode.h"
+#import "RCTValueAnimatedNode.h"
 
 @implementation RCTTransformAnimatedNode
 {

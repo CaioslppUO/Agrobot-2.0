@@ -15,29 +15,33 @@
 namespace facebook {
 namespace react {
 
-class AccessibilityProps {
+class AccessibilityProps;
+
+typedef std::shared_ptr<const AccessibilityProps> SharedAccessibilityProps;
+
+class AccessibilityProps : public virtual DebugStringConvertible {
  public:
   AccessibilityProps() = default;
   AccessibilityProps(
-      AccessibilityProps const &sourceProps,
-      RawProps const &rawProps);
+      const AccessibilityProps &sourceProps,
+      const RawProps &rawProps);
 
 #pragma mark - Props
 
-  bool const accessible{false};
-  AccessibilityTraits const accessibilityTraits{AccessibilityTraits::None};
-  std::string const accessibilityLabel{""};
-  std::string const accessibilityHint{""};
-  std::vector<std::string> const accessibilityActions{};
-  bool const accessibilityViewIsModal{false};
-  bool const accessibilityElementsHidden{false};
-  bool const accessibilityIgnoresInvertColors{false};
-  std::string const testId{""};
+  const bool accessible{false};
+  const AccessibilityTraits accessibilityTraits{AccessibilityTraits::None};
+  const std::string accessibilityLabel{""};
+  const std::string accessibilityHint{""};
+  const std::vector<std::string> accessibilityActions{};
+  const bool accessibilityViewIsModal{false};
+  const bool accessibilityElementsHidden{false};
+  const bool accessibilityIgnoresInvertColors{false};
+  const std::string testId{""};
 
 #pragma mark - DebugStringConvertible
 
 #if RN_DEBUG_STRING_CONVERTIBLE
-  SharedDebugStringConvertibleList getDebugProps() const;
+  SharedDebugStringConvertibleList getDebugProps() const override;
 #endif
 };
 

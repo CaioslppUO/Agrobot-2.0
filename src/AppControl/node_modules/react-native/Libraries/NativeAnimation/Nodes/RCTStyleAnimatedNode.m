@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTStyleAnimatedNode.h>
-#import <React/RCTAnimationUtils.h>
-#import <React/RCTValueAnimatedNode.h>
-#import <React/RCTTransformAnimatedNode.h>
+#import "RCTStyleAnimatedNode.h"
+#import "RCTAnimationUtils.h"
+#import "RCTValueAnimatedNode.h"
+#import "RCTTransformAnimatedNode.h"
 
 @implementation RCTStyleAnimatedNode
 {

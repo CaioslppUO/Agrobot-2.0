@@ -5,10 +5,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTInputAccessoryViewManager.h>
+#import "RCTInputAccessoryViewManager.h"
 
-#import <React/RCTInputAccessoryShadowView.h>
-#import <React/RCTInputAccessoryView.h>
+#import "RCTInputAccessoryShadowView.h"
+#import "RCTInputAccessoryView.h"
 
 @implementation RCTInputAccessoryViewManager
 

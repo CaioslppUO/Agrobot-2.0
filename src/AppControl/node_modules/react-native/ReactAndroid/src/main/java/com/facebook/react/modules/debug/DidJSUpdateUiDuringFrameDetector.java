@@ -1,13 +1,14 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.modules.debug;
 
-import com.facebook.react.bridge.NotThreadSafeBridgeIdleDebugListener;
 import com.facebook.react.bridge.ReactBridge;
+import com.facebook.react.bridge.NotThreadSafeBridgeIdleDebugListener;
 import com.facebook.react.common.LongArray;
 import com.facebook.react.modules.core.ChoreographerCompat;
 import com.facebook.react.uimanager.UIManagerModule;
@@ -15,12 +16,13 @@ import com.facebook.react.uimanager.debug.NotThreadSafeViewHierarchyUpdateDebugL
 
 /**
  * Debug object that listens to bridge busy/idle events and UiManagerModule dispatches and uses it
- * to calculate whether JS was able to update the UI during a given frame. After being installed on
- * a {@link ReactBridge} and a {@link UIManagerModule}, {@link #getDidJSHitFrameAndCleanup} should
- * be called once per frame via a {@link ChoreographerCompat.FrameCallback}.
+ * to calculate whether JS was able to update the UI during a given frame. After being installed
+ * on a {@link ReactBridge} and a {@link UIManagerModule},
+ * {@link #getDidJSHitFrameAndCleanup} should be called once per frame via a
+ * {@link ChoreographerCompat.FrameCallback}.
  */
-public class DidJSUpdateUiDuringFrameDetector
-    implements NotThreadSafeBridgeIdleDebugListener, NotThreadSafeViewHierarchyUpdateDebugListener {
+public class DidJSUpdateUiDuringFrameDetector implements NotThreadSafeBridgeIdleDebugListener,
+    NotThreadSafeViewHierarchyUpdateDebugListener {
 
   private final LongArray mTransitionToIdleEvents = LongArray.createWithInitialCapacity(20);
   private final LongArray mTransitionToBusyEvents = LongArray.createWithInitialCapacity(20);
@@ -58,36 +60,35 @@ public class DidJSUpdateUiDuringFrameDetector
   /**
    * Designed to be called from a {@link ChoreographerCompat.FrameCallback#doFrame} call.
    *
-   * <p>There are two 'success' cases that will cause {@link #getDidJSHitFrameAndCleanup} to return
-   * true for a given frame:
+   * There are two 'success' cases that will cause {@link #getDidJSHitFrameAndCleanup} to
+   * return true for a given frame:
    *
-   * <ol>
-   *   <li>UIManagerModule finished dispatching a batched UI update on the UI thread during the
-   *       frame. This means that during the next hierarchy traversal, new UI will be drawn if
-   *       needed (good).
-   *   <li>The bridge ended the frame idle (meaning there were no JS nor native module calls still
-   *       in flight) AND there was no UiManagerModule update enqueued that didn't also finish. NB:
-   *       if there was one enqueued that actually finished, we'd have case 1), so effectively we
-   *       just look for whether one was enqueued.
-   * </ol>
+   * 1) UIManagerModule finished dispatching a batched UI update on the UI thread during the frame.
+   *    This means that during the next hierarchy traversal, new UI will be drawn if needed (good).
+   * 2) The bridge ended the frame idle (meaning there were no JS nor native module calls still in
+   *    flight) AND there was no UiManagerModule update enqueued that didn't also finish. NB: if
+   *    there was one enqueued that actually finished, we'd have case 1), so effectively we just
+   *    look for whether one was enqueued.
    *
-   * <p>NB: This call can only be called once for a given frame time range because it cleans up
+   * NB: This call can only be called once for a given frame time range because it cleans up
    * events it recorded for that frame.
    *
-   * <p>NB2: This makes the assumption that onViewHierarchyUpdateEnqueued is called from the {@link
-   * UIManagerModule#onBatchComplete()}, e.g. while the bridge is still considered busy, which means
-   * there is no race condition where the bridge has gone idle but a hierarchy update is waiting to
-   * be enqueued.
+   * NB2: This makes the assumption that onViewHierarchyUpdateEnqueued is called from the
+   * {@link UIManagerModule#onBatchComplete()}, e.g. while the bridge is still considered busy,
+   * which means there is no race condition where the bridge has gone idle but a hierarchy update is
+   * waiting to be enqueued.
    *
    * @param frameStartTimeNanos the time in nanos that the last frame started
    * @param frameEndTimeNanos the time in nanos that the last frame ended
    */
   public synchronized boolean getDidJSHitFrameAndCleanup(
-      long frameStartTimeNanos, long frameEndTimeNanos) {
+      long frameStartTimeNanos,
+      long frameEndTimeNanos) {
     // Case 1: We dispatched a UI update
-    boolean finishedUiUpdate =
-        hasEventBetweenTimestamps(
-            mViewHierarchyUpdateFinishedEvents, frameStartTimeNanos, frameEndTimeNanos);
+    boolean finishedUiUpdate = hasEventBetweenTimestamps(
+        mViewHierarchyUpdateFinishedEvents,
+        frameStartTimeNanos,
+        frameEndTimeNanos);
     boolean didEndFrameIdle = didEndFrameIdle(frameStartTimeNanos, frameEndTimeNanos);
 
     boolean hitFrame;
@@ -95,10 +96,10 @@ public class DidJSUpdateUiDuringFrameDetector
       hitFrame = true;
     } else {
       // Case 2: Ended idle but no UI was enqueued during that frame
-      hitFrame =
-          didEndFrameIdle
-              && !hasEventBetweenTimestamps(
-                  mViewHierarchyUpdateEnqueuedEvents, frameStartTimeNanos, frameEndTimeNanos);
+      hitFrame = didEndFrameIdle && !hasEventBetweenTimestamps(
+          mViewHierarchyUpdateEnqueuedEvents,
+          frameStartTimeNanos,
+          frameEndTimeNanos);
     }
 
     cleanUp(mTransitionToIdleEvents, frameEndTimeNanos);
@@ -112,7 +113,9 @@ public class DidJSUpdateUiDuringFrameDetector
   }
 
   private static boolean hasEventBetweenTimestamps(
-      LongArray eventArray, long startTime, long endTime) {
+      LongArray eventArray,
+      long startTime,
+      long endTime) {
     for (int i = 0; i < eventArray.size(); i++) {
       long time = eventArray.get(i);
       if (time >= startTime && time < endTime) {
@@ -123,7 +126,9 @@ public class DidJSUpdateUiDuringFrameDetector
   }
 
   private static long getLastEventBetweenTimestamps(
-      LongArray eventArray, long startTime, long endTime) {
+      LongArray eventArray,
+      long startTime,
+      long endTime) {
     long lastEvent = -1;
     for (int i = 0; i < eventArray.size(); i++) {
       long time = eventArray.get(i);
@@ -137,10 +142,14 @@ public class DidJSUpdateUiDuringFrameDetector
   }
 
   private boolean didEndFrameIdle(long startTime, long endTime) {
-    long lastIdleTransition =
-        getLastEventBetweenTimestamps(mTransitionToIdleEvents, startTime, endTime);
-    long lastBusyTransition =
-        getLastEventBetweenTimestamps(mTransitionToBusyEvents, startTime, endTime);
+    long lastIdleTransition = getLastEventBetweenTimestamps(
+        mTransitionToIdleEvents,
+        startTime,
+        endTime);
+    long lastBusyTransition = getLastEventBetweenTimestamps(
+        mTransitionToBusyEvents,
+        startTime,
+        endTime);
 
     if (lastIdleTransition == -1 && lastBusyTransition == -1) {
       return mWasIdleAtEndOfLastFrame;

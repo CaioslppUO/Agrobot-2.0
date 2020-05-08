@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTFileRequestHandler.h>
+#import "RCTFileRequestHandler.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 

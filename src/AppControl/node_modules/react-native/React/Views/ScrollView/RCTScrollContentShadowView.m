@@ -18,7 +18,7 @@
 {
   if (layoutMetrics.layoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
     // Motivation:
-    // Yoga place `contentView` on the right side of `scrollView` when RTL layout is enforced.
+    // Yoga place `contentView` on the right side of `scrollView` when RTL layout is enfoced.
     // That breaks everything; it is completely pointless to (re)position `contentView`
     // because it is `contentView`'s job. So, we work around it here.
 

@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * UIView class for root <ActivityIndicator> component.
+ * UIView class for root <ShimmeringView> component.
  */
 @interface RCTActivityIndicatorViewComponentView : RCTViewComponentView
 

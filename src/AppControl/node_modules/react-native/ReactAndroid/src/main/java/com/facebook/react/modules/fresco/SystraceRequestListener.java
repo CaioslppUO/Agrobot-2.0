@@ -5,19 +5,23 @@
 
 package com.facebook.react.modules.fresco;
 
-import android.util.Pair;
-import com.facebook.imagepipeline.listener.BaseRequestListener;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.systrace.Systrace;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Logs requests to Systrace */
+import android.util.Pair;
+
+import com.facebook.imagepipeline.listener.BaseRequestListener;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.systrace.Systrace;
+
+/**
+ * Logs requests to Systrace
+ */
 public class SystraceRequestListener extends BaseRequestListener {
 
   int mCurrentID = 0;
-  Map<String, Pair<Integer, String>> mProducerID = new HashMap<>();
-  Map<String, Pair<Integer, String>> mRequestsID = new HashMap<>();
+  Map<String, Pair<Integer,String>> mProducerID = new HashMap<>();
+  Map<String, Pair<Integer,String>> mRequestsID = new HashMap<>();
 
   @Override
   public void onProducerStart(String requestId, String producerName) {
@@ -29,36 +33,50 @@ public class SystraceRequestListener extends BaseRequestListener {
     entryName.append("FRESCO_PRODUCER_");
     entryName.append(producerName.replace(':', '_'));
 
-    Pair<Integer, String> requestPair = Pair.create(mCurrentID, entryName.toString());
-    Systrace.beginAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, requestPair.second, mCurrentID);
+    Pair<Integer,String> requestPair = Pair.create(mCurrentID, entryName.toString());
+    Systrace.beginAsyncSection(
+        Systrace.TRACE_TAG_REACT_FRESCO,
+        requestPair.second,
+        mCurrentID);
     mProducerID.put(requestId, requestPair);
     mCurrentID++;
   }
 
   @Override
   public void onProducerFinishWithSuccess(
-      String requestId, String producerName, Map<String, String> extraMap) {
+      String requestId,
+      String producerName,
+      Map<String, String> extraMap) {
     if (!Systrace.isTracing(Systrace.TRACE_TAG_REACT_FRESCO)) {
       return;
     }
 
     if (mProducerID.containsKey(requestId)) {
       Pair<Integer, String> entry = mProducerID.get(requestId);
-      Systrace.endAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, entry.second, entry.first);
+      Systrace.endAsyncSection(
+          Systrace.TRACE_TAG_REACT_FRESCO,
+          entry.second,
+          entry.first);
       mProducerID.remove(requestId);
     }
   }
 
   @Override
   public void onProducerFinishWithFailure(
-      String requestId, String producerName, Throwable throwable, Map<String, String> extraMap) {
+      String requestId,
+      String producerName,
+      Throwable throwable,
+      Map<String, String> extraMap) {
     if (!Systrace.isTracing(Systrace.TRACE_TAG_REACT_FRESCO)) {
       return;
     }
 
     if (mProducerID.containsKey(requestId)) {
       Pair<Integer, String> entry = mProducerID.get(requestId);
-      Systrace.endAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, entry.second, entry.first);
+      Systrace.endAsyncSection(
+          Systrace.TRACE_TAG_REACT_FRESCO,
+          entry.second,
+          entry.first);
       mProducerID.remove(requestId);
     }
   }
@@ -72,7 +90,10 @@ public class SystraceRequestListener extends BaseRequestListener {
 
     if (mProducerID.containsKey(requestId)) {
       Pair<Integer, String> entry = mProducerID.get(requestId);
-      Systrace.endAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, entry.second, entry.first);
+      Systrace.endAsyncSection(
+          Systrace.TRACE_TAG_REACT_FRESCO,
+          entry.second,
+          entry.first);
       mProducerID.remove(requestId);
     }
   }
@@ -91,12 +112,17 @@ public class SystraceRequestListener extends BaseRequestListener {
     entryName.append("_");
     entryName.append(producerEventName.replace(':', '_'));
     Systrace.traceInstant(
-        Systrace.TRACE_TAG_REACT_FRESCO, entryName.toString(), Systrace.EventScope.THREAD);
+        Systrace.TRACE_TAG_REACT_FRESCO,
+        entryName.toString(),
+        Systrace.EventScope.THREAD);
   }
 
   @Override
   public void onRequestStart(
-      ImageRequest request, Object callerContext, String requestId, boolean isPrefetch) {
+      ImageRequest request,
+      Object callerContext,
+      String requestId,
+      boolean isPrefetch) {
     if (!Systrace.isTracing(Systrace.TRACE_TAG_REACT_FRESCO)) {
       return;
     }
@@ -105,8 +131,11 @@ public class SystraceRequestListener extends BaseRequestListener {
     entryName.append("FRESCO_REQUEST_");
     entryName.append(request.getSourceUri().toString().replace(':', '_'));
 
-    Pair<Integer, String> requestPair = Pair.create(mCurrentID, entryName.toString());
-    Systrace.beginAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, requestPair.second, mCurrentID);
+    Pair<Integer,String> requestPair = Pair.create(mCurrentID, entryName.toString());
+    Systrace.beginAsyncSection(
+        Systrace.TRACE_TAG_REACT_FRESCO,
+        requestPair.second,
+        mCurrentID);
     mRequestsID.put(requestId, requestPair);
     mCurrentID++;
   }
@@ -119,21 +148,30 @@ public class SystraceRequestListener extends BaseRequestListener {
 
     if (mRequestsID.containsKey(requestId)) {
       Pair<Integer, String> entry = mRequestsID.get(requestId);
-      Systrace.endAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, entry.second, entry.first);
+      Systrace.endAsyncSection(
+          Systrace.TRACE_TAG_REACT_FRESCO,
+          entry.second,
+          entry.first);
       mRequestsID.remove(requestId);
     }
   }
 
   @Override
   public void onRequestFailure(
-      ImageRequest request, String requestId, Throwable throwable, boolean isPrefetch) {
+      ImageRequest request,
+      String requestId,
+      Throwable throwable,
+      boolean isPrefetch) {
     if (!Systrace.isTracing(Systrace.TRACE_TAG_REACT_FRESCO)) {
       return;
     }
 
     if (mRequestsID.containsKey(requestId)) {
       Pair<Integer, String> entry = mRequestsID.get(requestId);
-      Systrace.endAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, entry.second, entry.first);
+      Systrace.endAsyncSection(
+          Systrace.TRACE_TAG_REACT_FRESCO,
+          entry.second,
+          entry.first);
       mRequestsID.remove(requestId);
     }
   }
@@ -146,7 +184,10 @@ public class SystraceRequestListener extends BaseRequestListener {
 
     if (mRequestsID.containsKey(requestId)) {
       Pair<Integer, String> entry = mRequestsID.get(requestId);
-      Systrace.endAsyncSection(Systrace.TRACE_TAG_REACT_FRESCO, entry.second, entry.first);
+      Systrace.endAsyncSection(
+          Systrace.TRACE_TAG_REACT_FRESCO,
+          entry.second,
+          entry.first);
       mRequestsID.remove(requestId);
     }
   }

@@ -13,7 +13,7 @@ export default class Menu extends Component {
         }
     };
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         BackHandler.addEventListener('hardwareBackPress', this.backPressed);
     }
 

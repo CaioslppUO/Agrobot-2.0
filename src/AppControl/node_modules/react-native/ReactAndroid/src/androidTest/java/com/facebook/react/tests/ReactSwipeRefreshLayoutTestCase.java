@@ -1,20 +1,24 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.tests;
 
 import android.view.View;
+
+import com.facebook.react.testing.ReactAppInstrumentationTestCase;
+import com.facebook.react.testing.ReactInstanceSpecForTest;
 import com.facebook.react.bridge.BaseJavaModule;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.testing.ReactAppInstrumentationTestCase;
-import com.facebook.react.testing.ReactInstanceSpecForTest;
 import com.facebook.react.views.swiperefresh.ReactSwipeRefreshLayout;
 
-/** Test case for {@link ReactSwipeRefreshLayout}. */
+/**
+ * Test case for {@link ReactSwipeRefreshLayout}.
+ */
 public class ReactSwipeRefreshLayoutTestCase extends ReactAppInstrumentationTestCase {
 
   private class SwipeRefreshLayoutRecordingModule extends BaseJavaModule {
@@ -49,7 +53,8 @@ public class ReactSwipeRefreshLayoutTestCase extends ReactAppInstrumentationTest
 
   @Override
   protected ReactInstanceSpecForTest createReactInstanceSpecForTest() {
-    return super.createReactInstanceSpecForTest().addNativeModule(mRecordingModule);
+    return super.createReactInstanceSpecForTest()
+      .addNativeModule(mRecordingModule);
   }
 
   public void testRefreshNoScroll() {
@@ -93,4 +98,5 @@ public class ReactSwipeRefreshLayoutTestCase extends ReactAppInstrumentationTest
     waitForBridgeAndUIIdle();
     assertEquals(0, mRecordingModule.getCount());
   }
+
 }

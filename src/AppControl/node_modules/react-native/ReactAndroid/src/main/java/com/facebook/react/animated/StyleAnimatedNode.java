@@ -1,17 +1,20 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.animated;
 
-import androidx.annotation.Nullable;
 import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 /**
  * Native counterpart of style animated node (see AnimatedStyle class in AnimatedImplementation.js)
@@ -43,8 +46,8 @@ import java.util.Map;
       } else if (node instanceof ValueAnimatedNode) {
         propsMap.putDouble(entry.getKey(), ((ValueAnimatedNode) node).getValue());
       } else {
-        throw new IllegalArgumentException(
-            "Unsupported type of node used in property node " + node.getClass());
+        throw new IllegalArgumentException("Unsupported type of node used in property node " +
+          node.getClass());
       }
     }
   }

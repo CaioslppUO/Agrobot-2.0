@@ -1,9 +1,10 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.animated;
 
 import com.facebook.react.bridge.ReadableMap;
@@ -53,10 +54,9 @@ public class DecayAnimation extends AnimationDriver {
       mLastValue = mAnimatedValue.mValue;
     }
 
-    final double value =
-        mFromValue
-            + (mVelocity / (1 - mDeceleration))
-                * (1 - Math.exp(-(1 - mDeceleration) * (frameTimeMillis - mStartFrameTimeMillis)));
+    final double value = mFromValue +
+      (mVelocity / (1 - mDeceleration)) *
+        (1 - Math.exp(-(1 - mDeceleration) * (frameTimeMillis - mStartFrameTimeMillis)));
 
     if (Math.abs(mLastValue - value) < 0.1) {
 

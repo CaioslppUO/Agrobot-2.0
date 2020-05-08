@@ -85,8 +85,8 @@ export default class Main extends Component{
                 handlerSize = {135}
                 handlerStyle = {styles.handlerView}
                 wrapperStyle = {styles.wrapperView}
-                resetOnRelease={true}
                 autoCenter={false}
+                resetOnRelease={true}
                 onValue={({ x, y }) => {
                   //Defining the values of speed and steer
                   global.speed = -Math.round(y * 100)

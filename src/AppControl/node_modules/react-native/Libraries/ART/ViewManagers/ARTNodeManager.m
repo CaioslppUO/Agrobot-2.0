@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/ARTNodeManager.h>
+#import "ARTNodeManager.h"
 
-#import <React/ARTNode.h>
+#import "ARTNode.h"
 
 @implementation ARTNodeManager
 

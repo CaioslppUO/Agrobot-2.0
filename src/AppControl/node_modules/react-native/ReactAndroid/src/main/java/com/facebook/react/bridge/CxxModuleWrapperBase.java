@@ -11,16 +11,18 @@ import com.facebook.proguard.annotations.DoNotStrip;
 /**
  * A Java Object which represents a cross-platform C++ module
  *
- * <p>This module implements the NativeModule interface but will never be invoked from Java, instead
- * the underlying Cxx module will be extracted by the bridge and called directly.
+ * This module implements the NativeModule interface but will never be invoked from Java,
+ * instead the underlying Cxx module will be extracted by the bridge and called directly.
  */
 @DoNotStrip
-public class CxxModuleWrapperBase implements NativeModule {
+public class CxxModuleWrapperBase implements NativeModule
+{
   static {
     ReactBridge.staticInit();
   }
 
-  @DoNotStrip private HybridData mHybridData;
+  @DoNotStrip
+  private HybridData mHybridData;
 
   @Override
   public native String getName();

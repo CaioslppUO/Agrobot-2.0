@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTRawTextViewManager.h>
+#import "RCTRawTextViewManager.h"
 
-#import <React/RCTRawTextShadowView.h>
+#import "RCTRawTextShadowView.h"
 
 @implementation RCTRawTextViewManager
 

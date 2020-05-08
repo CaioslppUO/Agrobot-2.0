@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/RCTPackagerClient.h>
+#import "RCTPackagerClient.h"
 
 #import <React/RCTLog.h>
 #import <React/RCTReconnectingWebSocket.h>

@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import <React/ARTShapeManager.h>
+#import "ARTShapeManager.h"
 
-#import <React/ARTShape.h>
+#import "ARTShape.h"
 #import "RCTConvert+ART.h"
 
 @implementation ARTShapeManager

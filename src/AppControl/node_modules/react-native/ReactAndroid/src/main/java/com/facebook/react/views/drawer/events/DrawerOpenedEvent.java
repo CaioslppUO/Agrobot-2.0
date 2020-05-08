@@ -1,9 +1,10 @@
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
- * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
- * directory of this source tree.
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+
 package com.facebook.react.views.drawer.events;
 
 import com.facebook.react.bridge.Arguments;
@@ -12,7 +13,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 public class DrawerOpenedEvent extends Event<DrawerOpenedEvent> {
 
-  public static final String EVENT_NAME = "topDrawerOpen";
+  public static final String EVENT_NAME = "topDrawerOpened";
 
   public DrawerOpenedEvent(int viewId) {
     super(viewId);
@@ -33,4 +34,5 @@ public class DrawerOpenedEvent extends Event<DrawerOpenedEvent> {
   public void dispatch(RCTEventEmitter rctEventEmitter) {
     rctEventEmitter.receiveEvent(getViewTag(), getEventName(), Arguments.createMap());
   }
+
 }

@@ -25,14 +25,14 @@
  * Designated method to control dirty propagation mechanism.
  * Dirties the shadow view (and all affected shadow views, usually a superview)
  * in terms of layout.
- * The default implementation does nothing.
+ * The default implementaion does nothing.
  */
 - (void)dirtyLayout;
 
 /**
  * Designated method to control dirty propagation mechanism.
  * Clears (makes not dirty) the shadow view.
- * The default implementation does nothing.
+ * The default implementaion does nothing.
  */
 - (void)clearLayout;
 
