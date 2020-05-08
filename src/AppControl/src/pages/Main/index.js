@@ -108,7 +108,6 @@ export default class Main extends Component{
             style={{backgroundColor: this.state.buttonOnOffA,borderRadius: 115,height: 42,width: 100,borderWidth: 2,margin: '2%',marginLeft: '10%',}} 
             onPress={() => {
               this.setState({buttonOnOffA: this.state.buttonOnOffA == '#99a7ad'? '#3cc761' : '#99a7ad'})
-              alert(global.serverIp)
               turnBoardOn('A')
             }
           }>
