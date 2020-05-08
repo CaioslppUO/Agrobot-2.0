@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/caioslpp/git/Agrobot-2.0/src/Agrobot/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
+            "outputFile": "/home/caioslpp/git/Agrobot-2.0/src/AppControl/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
             "map": [
                 {
                     "source": "/home/caioslpp/.gradle/caches/transforms-2/files-2.1/7bea4d2f03d7619509d4d6588aa7e389/res/values-v23/values-v23.xml",
