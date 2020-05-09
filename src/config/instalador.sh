@@ -44,6 +44,19 @@ function GerarWifi(){
   Password name: $password_name"
 }
 
+function downloadROS(){
+  sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+  apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+  curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -
+  apt-get update
+  apt-get install ros-kinetic-desktop
+  apt-cache search ros-kinetic
+  echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+  source ~/.bashrc
+  apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+  rosdep init
+  rosdep update
+}
 
 
 echo "Digite o numero equivalento a essa distro:
@@ -125,12 +138,35 @@ echo "Deseja baixar o codigo fonte do Git?
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
     done
+    
+
+# SUBSYSTEM=="usb", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="ttyUSB_CONVERSOR-0" MODE=="0777"
 
 # ADICIONANDO USUARIO NO GRUPO PARA LER PORTA SERIAL
-adduser $USER uucp
+usermod -a -G dialout $USER
 
 # BAIXANDO SSH
 $gerenciadorPacotes openssh*
+
+# CONFIGURAR SSH
+touch /usr/bin/resetssh.sh 
+echo >> /usr/bin/resetssh.sh "service ssh restart"
+chmod +x /usr/bin/resetssh.sh
+touch /lib/systemd/system/restartssh.service
+echo >> /lib/systemd/system/restartssh.service "
+[Unit]
+Description=Example systemd service.
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/bin/resetssh.sh
+
+[Install]
+WantedBy=multi-user.target"
+chmod 644 /etc/systemd/system/resetssh.service
+systemctl start resetssh
+
+
 
 # GERAR WIFI
 echo "Deseja gerar um wifi com o rasp?
@@ -151,3 +187,73 @@ echo "Deseja gerar um wifi com o rasp?
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
     done
+
+echo "Deseja baixar o ROS?
+    1 - Sim
+    2 - Não"
+    read resposta
+    while true;do
+      if [ "$resposta" -eq 1 ];
+      then
+        downloadROS()
+        clear
+        break;
+      elif [ "$resposta" -eq 2 ]
+      then
+        clear
+        break;
+      else
+        echo "Resposta inexistente, favor digitar novamente:"
+        read resposta
+    done
+  
+echo "Deseja habilitar login automatico?
+    1 - Sim
+    2 - Não"
+    read resposta
+    while true;do
+      if [ "$resposta" -eq 1 ];
+      then
+        echo >> /etc/lightdm/lightdm.conf "[SeatDefaults]
+          greeter-show-manual-login=true
+          greeter-hide-users=true
+          autologin-user= $USER
+          autologin-user-timeout=0"
+        clear
+        break;
+      elif [ "$resposta" -eq 2 ]
+      then
+        clear
+        break;
+      else
+        echo "Resposta inexistente, favor digitar novamente:"
+        read resposta
+    done
+
+echo "Deseja habilitar o i2c?
+    1 - Sim
+    2 - Não"
+    read resposta
+    while true;do
+      if [ "$resposta" -eq 1 ];
+      then
+        echo "va em 'INTERFACING OPTIONS'"
+        raspi-config
+        echo >> /dev/modules "#i2c
+          i2c-bcm2835 
+          #disponibilizar o barramento em /dev 
+          i2c-dev"
+          echo >> /boot/config.txt "dtparam=i2c1=on"
+          apt-get install python-smbus i2c-tools
+        clear
+        break;
+      elif [ "$resposta" -eq 2 ]
+      then
+        clear
+        break;
+      else
+        echo "Resposta inexistente, favor digitar novamente:"
+        read resposta
+    done
+
+reboot
