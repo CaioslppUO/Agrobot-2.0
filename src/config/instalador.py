@@ -49,44 +49,52 @@ def echoToFile(filePath,msg,overWrite):
 def newAccessPoint():
     print(bcolors.OKGREEN + "Toranando o RaspBerry em um Access Point" + bcolors.ENDC)
     global wifiName,wifiPassword
-    command = "sudo apt-get install -y dnsmasq hostapd"
+
+    command = "sudo apt-get install -y dnsmasq hostapd dhcpcd5"
     run(command)
+    command = "sudo systemctl stop hostapd"
+    run(command)
+    command = "sudo systemctl stop dnsmasq"
+    run(command)
+
+    echoToFile("/etc/dhcpcd.conf","denyinterfaces wlan0",False)
+    echoToFile("/etc/dhcpcd.conf","denyinterfaces eth0",False)
+
+    echoToFile("/etc/network/interfaces","allow-hotplug wlan0",True)
+    echoToFile("/etc/network/interfaces","iface wlan0 inet static",False)
+    echoToFile("/etc/network/interfaces","address 192.168.1.2",False)
+    echoToFile("/etc/network/interfaces","netmask 255.255.255.0",False)
+    echoToFile("/etc/network/interfaces","network 192.168.1.1",False)
+    echoToFile("/etc/network/interfaces","broadcast 192.168.1.255",False)
+
     wifiName = input("Digite o nome da rede wifi:")
     wifiPassword = input("Digite a senha da rede wifi:")
-    command = "sudo echo >> /etc/dhcpcd.conf 'denyinterfaces wlan0' "
-    run(command)
-    command = "sudo echo >> /etc/network/interfaces 'allow-hotplug wlan0\
-    iface wlan0 inet static\
-    address 192.168.1.2\
-    netmask 255.255.255.0\
-    network 192.168.1.1\
-    broadcast 192.168.1.255'"
-    run(command)
-    command = "sudo echo >> /etc/hostapd/hostapd.conf 'interface=wlan0\
-    driver=nl80211\
-    ssid="+ wifiName + "\
-    hw_mode=g\
-    channel=6\
-    macaddr_acl=0\
-    auth_algs=1\
-    ignore_broadcast_ssid=0\
-    wpa=2\
-    wpa_passphrase=" + wifiPassword + "\
-    wpa_key_mgmt=WPA-PSK\
-    rsn_pairwise=CCMP'"
-    run(command)
-    command = "sudo echo >> /etc/default/hostapd 'DAEMON_CONF='/etc/hostapd/hostapd.conf''"
-    run(command)
-    command = "sudo echo >> /etc/dnsmasq.conf 'interface=wlan0\
-    listen-address=192.168.1.2\
-    bind-interfaces\
-    server=8.8.8.8\
-    domain-needed\
-    bogus-priv\
-    dhcp-range=192.168.1.120,192.168.1.254,12h'"
-    run(command)
-    command = "sudo echo >> /etc/sysctl.conf 'net.ipv4.ip_forward=1'"
-    run(command)
+
+    echoToFile("/etc/hostapd/hostapd.conf","interface=wlan0",True)
+    echoToFile("/etc/hostapd/hostapd.conf","driver=nl80211",False)
+    echoToFile("/etc/hostapd/hostapd.conf","ssid="+wifiName,False)
+    echoToFile("/etc/hostapd/hostapd.conf","hw_mode=g",False)
+    echoToFile("/etc/hostapd/hostapd.conf","channel=6",False)
+    echoToFile("/etc/hostapd/hostapd.conf","macaddr_acl=0",False)
+    echoToFile("/etc/hostapd/hostapd.conf","auth_algs=1",False)
+    echoToFile("/etc/hostapd/hostapd.conf","ignore_broadcast_ssid=0",False)
+    echoToFile("/etc/hostapd/hostapd.conf","wpa=2",False)
+    echoToFile("/etc/hostapd/hostapd.conf","wpa_passphrase="+wifiPassword,False)
+    echoToFile("/etc/hostapd/hostapd.conf","wpa_key_mgmt=WPA-PSK",False)
+    echoToFile("/etc/hostapd/hostapd.conf","rsn_pairwise=CCMP",False)
+
+    echoToFile("/etc/default/hostapd","DAEMON_CONF='/etc/hostapd/hostapd.conf'",False)
+
+    echoToFile("/etc/dnsmasq.conf","interface=wlan0",True)
+    echoToFile("/etc/dnsmasq.conf","listen-address=192.168.1.2",False)
+    echoToFile("/etc/dnsmasq.conf","bind-interfaces",False)
+    echoToFile("/etc/dnsmasq.conf","server=8.8.8.8",False)
+    echoToFile("/etc/dnsmasq.conf","domain-needed",False)
+    echoToFile("/etc/dnsmasq.conf","bogus-priv",False)
+    echoToFile("/etc/dnsmasq.conf","dhcp-range=192.168.1.120,192.168.1.254,12h",False)
+
+    echoToFile("/etc/sysctl.conf","net.ipv4.ip_forward=1",False)
+
     command = "sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE"
     run(command)
     command = "sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT"
@@ -95,6 +103,17 @@ def newAccessPoint():
     run(command)
     command = "sudo sh -c 'iptables-save > /etc/iptables.ipv4.nat'"
     run(command)
+
+    echoToFile("/usr/bin/resetssh.sh","iptables-restore < /etc/iptables.ipv4.nat",False)
+    echoToFile("/usr/bin/resetssh.sh","/usr/sbin/hostapd /etc/hostapd/hostapd.conf",False)
+
+    command = "sudo apt-get install ponte-utils"
+    run(command)
+    command = "sudo brctl addbr br0"
+    run(command)
+    command = "sudo brctl addif br0 eth0"
+    run(command)
+    
     run("clear")
     printOk("Access Point")
 
