@@ -166,9 +166,9 @@ def addUserSerialPorts():
 
 def echoToFile(filePath,msg,writeOver):
     if(writeOver == True):
-        command = "echo > " + filePath + "'" + msg + "'"
+        command = "echo > " + filePath + " '" + msg + "'"
     else:
-        command = "echo >> " + filePath + "'" + msg + "'"
+        command = "echo >> " + filePath + " '" + msg + "'"
     run(command)
 
 def installandConfigureSSH():
