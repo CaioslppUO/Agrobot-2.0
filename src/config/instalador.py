@@ -84,6 +84,7 @@ def configureRos():
     os.system("clear")
 
 def installLidar():
+    global lidarRepo
     print('Instalando a biblioteca de ROS para o RPLidar')
     command = "cd ~/catkin_ws/src && git clone " + lidarRepo + " && cd .. && catkin_make"
     os.system(command)
@@ -169,6 +170,10 @@ def installandConfigureSSH():
     command = "systemctl start resetssh"
     os.system(command)
     command = "systemctl enable resetssh"
+    os.system(command)
+    command = "ufw allow 22"
+    os.system(command)
+    command = "dpkg-reconfigure openssh-server"
     os.system(command)
     os.system("clear")
 
@@ -327,7 +332,6 @@ def main():
             print('Erro ao configurar o AcessPoint')
             time.sleep(1)
     
-    answ = 0
     print('Instalar a biblioteca do RPLidar?')
     print('[0] - Sim')
     print('[1] Nao')
