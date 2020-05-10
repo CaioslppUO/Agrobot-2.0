@@ -143,7 +143,7 @@ def installROS():
 
 def updateSystem():
     print(bcolors.OKGREEN + "Inicializando o update e upgrade de sistema" + bcolors.ENDC)
-    command = "sudo apt-get update && upgrade -y"
+    command = "sudo apt update && sudo apt autoremove -y && sudo apt upgrade -y"
     run(command)
     run("clear")
     printOk("Update de sistema")
