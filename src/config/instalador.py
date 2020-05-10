@@ -101,7 +101,12 @@ def newAccessPoint():
 def installLidar():
     global lidarRepo
     print(bcolors.OKGREEN + 'Instalando a biblioteca de ROS para o RPLidar' + bcolors.ENDC)
-    command = "cd ~/catkin_ws/src && git clone " + lidarRepo + " && cd .. && catkin_make"
+    command = "cd ~/catkin_ws/src && git clone " + lidarRepo
+    run(command)
+    print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
+    print(bcolors.WARNING +  'Para terminar a instalação entre no diretório: ~/catkin_ws e digite o comando: catkin_make e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
+    print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
+    command = "sudo -u labiot -s"
     run(command)
     run("clear")
     printOk("Instalação do Lidar")
@@ -121,7 +126,7 @@ def configROS():
     run(command)
     run("clear")
     print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
-    print(bcolors.WARNING +  'Entre no diretório: ~/catkin_ws e digite o comando: catkin_make e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
+    print(bcolors.WARNING +  'Para terminar a instalação entre no diretório: ~/catkin_ws e digite o comando: catkin_make e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
     print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
     command = "sudo -u labiot -s"
     run(command)
