@@ -119,7 +119,10 @@ def configROS():
     run(command)
     command = "sudo -u labiot mkdir -p ~/catkin_ws/src"
     run(command)
-    print('Entre no diretório: ~/catkin_ws e digite o comando: catkin_make')
+    run("clear")
+    print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
+    print(bcolors.WARNING +  'Entre no diretório: ~/catkin_ws e digite o comando: catkin_make e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
+    print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
     command = "sudo -u labiot -s"
     run(command)
     run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
