@@ -173,12 +173,12 @@ def installandConfigureSSH():
     command = "chmod +x /usr/bin/resetssh.sh"
     run(command)
     command = "echo > /etc/systemd/system/restartssh.service '\
-    [Unit]\
-    Description=Example systemd service. \n\
-    [Service]\
+    [Unit]\n\
+    Description=Example systemd service.\n\
+    [Service]\n\
     Type=simple\
-    ExecStart=/bin/bash /usr/bin/resetssh.sh \n\
-    [Install]\
+    ExecStart=/bin/bash /usr/bin/resetssh.sh\n\
+    [Install]\n\
     WantedBy=multi-user.target'"
     run(command)
     command = "chmod 644 /etc/systemd/system/restartssh.service"
