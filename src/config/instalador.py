@@ -117,11 +117,9 @@ def configROS():
     run(command)
     command = "rosdep update"
     run(command)
-    command = "exit"
+    command = "sudo su $USER && mkdir -p ~/catkin_ws/src"
     run(command)
-    command = "mkdir -p ~/catkin_ws/src"
-    run(command)
-    command = "cd ~/catkin_ws && catkin_make"
+    command = "sudo su $USER && cd ~/catkin_ws && catkin_make"
     run(command)
     run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
     time.sleep(5)
