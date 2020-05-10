@@ -118,6 +118,7 @@ if [ "$NumDistro" -ne 2 ];
         read resposta
       fi
     done
+fi
 
 # BAIXAR FONTE DO GIT
 echo "Deseja baixar o codigo fonte do Git?
