@@ -238,10 +238,10 @@ def showQuestion(msg,function,errorMsg):
     print('[0] - Sim')
     print('[1] Nao')
     answ = input("Default=0: ")
-    if(answ == ""):
-        answ = 0
-    else:
-        answ = int(answ)
+#    if(answ == ""):
+#        answ = 0
+#    else:
+#        answ = int(answ)
 
 #    if(answ != 1):
 #        try:
