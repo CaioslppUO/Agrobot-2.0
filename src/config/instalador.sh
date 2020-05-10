@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function GerarWifi(){
   echo "Enter network name: "
   read network_name
