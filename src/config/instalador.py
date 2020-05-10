@@ -101,7 +101,7 @@ def newAccessPoint():
 def installLidar():
     global lidarRepo
     print(bcolors.OKGREEN + 'Instalando a biblioteca de ROS para o RPLidar' + bcolors.ENDC)
-    command = "cd ~/catkin_ws/src && git clone " + lidarRepo
+    command = "cd ~/catkin_ws/src && sudo -u labiot git clone " + lidarRepo
     run(command)
     print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
     print(bcolors.WARNING +  'Para terminar a instalação entre no diretório: ~/catkin_ws e digite o comando: catkin_make e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
