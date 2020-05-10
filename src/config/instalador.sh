@@ -109,7 +109,7 @@ if [ "$NumDistro" -ne 2 ];
         sudo apt-get install rpi.gpio
         clear
         break;
-      elif [ "$resposta" -eq 2 ]
+      elif [ "$resposta" -eq 2 ];
       then
         clear
         break;
@@ -133,7 +133,7 @@ echo "Deseja baixar o codigo fonte do Git?
         git checkout raspberry-ros
         clear
         break;
-      elif [ "$resposta" -eq 2 ]
+      elif [ "$resposta" -eq 2 ];
       then
         clear
         break;
@@ -184,7 +184,7 @@ echo "Deseja gerar um wifi com o rasp?
         GerarWifi
         clear
         break;
-      elif [ "$resposta" -eq 2 ]
+      elif [ "$resposta" -eq 2 ];
       then
         clear
         break;
@@ -204,7 +204,7 @@ echo "Deseja baixar o ROS?
         downloadROS
         clear
         break;
-      elif [ "$resposta" -eq 2 ]
+      elif [ "$resposta" -eq 2 ];
       then
         clear
         break;
@@ -228,7 +228,7 @@ echo "Deseja habilitar login automatico?
           autologin-user-timeout=0"
         clear
         break;
-      elif [ "$resposta" -eq 2 ]
+      elif [ "$resposta" -eq 2 ];
       then
         clear
         break;
@@ -255,7 +255,7 @@ echo "Deseja habilitar o i2c?
           apt-get install python-smbus i2c-tools
         clear
         break;
-      elif [ "$resposta" -eq 2 ]
+      elif [ "$resposta" -eq 2 ];
       then
         clear
         break;
