@@ -168,9 +168,7 @@ def installandConfigureSSH():
     print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
     command = "apt-get install -y openssh*"
     run(command)
-    command = "touch /usr/bin/resetssh.sh"
-    run(command)
-    command = "echo >> /usr/bin/resetssh.sh 'service ssh restart'"
+    command = "echo > /usr/bin/resetssh.sh 'service ssh restart'"
     run(command)
     command = "chmod +x /usr/bin/resetssh.sh"
     run(command)
@@ -185,7 +183,7 @@ def installandConfigureSSH():
     [Install]\
     WantedBy=multi-user.target'"
     run(command)
-    command = "chmod 644 /etc/systemd/system/resetssh.service"
+    command = "chmod 644 /etc/systemd/system/restartssh.service"
     run(command)
     command = "systemctl start resetssh"
     run(command)
