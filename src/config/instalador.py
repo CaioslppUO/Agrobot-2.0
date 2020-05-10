@@ -39,6 +39,13 @@ def printOk(msg):
 def run(command):
     subprocess.call(command,shell=True,executable='/bin/bash')
 
+def echoToFile(filePath,msg,overWrite):
+    if(overWrite == True):
+        command = "echo > " + filePath + " '" + msg + "'"
+    else:
+        command = "echo >> " + filePath + " '" + msg + "'"
+    run(command)
+
 def newAccessPoint():
     print(bcolors.OKGREEN + "Toranando o RaspBerry em um Access Point" + bcolors.ENDC)
     global wifiName,wifiPassword
@@ -101,8 +108,7 @@ def installLidar():
 
 def configROS():
     print(bcolors.OKGREEN + "Iniciando configuração do ROS melodic" + bcolors.ENDC)
-    command = "echo 'source /opt/ros/melodic/setup.bash' >> ~/.bashrc"
-    run(command)
+    echoToFile("~/.bashrc","source /opt/ros/melodic/setup.bash",False)
     command = "source ~/.bashrc"
     run(command)
     command = "sudo apt install -y python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential"
@@ -163,13 +169,6 @@ def installI2C():
 
 def addUserSerialPorts():
     run("usermod -a -G uucp " + user)
-
-def echoToFile(filePath,msg,writeOver):
-    if(writeOver == True):
-        command = "echo > " + filePath + " '" + msg + "'"
-    else:
-        command = "echo >> " + filePath + " '" + msg + "'"
-    run(command)
 
 def installandConfigureSSH():
     print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
