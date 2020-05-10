@@ -201,7 +201,7 @@ echo "Deseja baixar o ROS?
     while true;do
       if [ "$resposta" -eq 1 ];
       then
-        downloadROS()
+        downloadROS
         clear
         break;
       elif [ "$resposta" -eq 2 ]
