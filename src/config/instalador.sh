@@ -5,6 +5,7 @@ function GerarWifi(){
   read network_name
   echo "Enter password name"
   read password_name
+  apt-get install dnsmasq hostapd
   echo >> /etc/dhcpcd.conf "denyinterfaces wlan0"
   echo >> /etc/network/interfaces "allow-hotplug wlan0
     iface wlan0 inet static
