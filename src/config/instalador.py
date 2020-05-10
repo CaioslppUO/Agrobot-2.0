@@ -326,7 +326,8 @@ def main():
             os.system("clear")
             print('Erro ao configurar o AcessPoint')
             time.sleep(1)
-
+    
+    answ = 0
     print('Instalar a biblioteca do RPLidar?')
     print('[0] - Sim')
     print('[1] Nao')
