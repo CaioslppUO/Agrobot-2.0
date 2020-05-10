@@ -119,7 +119,8 @@ def configROS():
     run(command)
     command = "sudo -u labiot mkdir -p ~/catkin_ws/src"
     run(command)
-    command = "cd ~/catkin_ws && sudo -u labiot && source ~/.bashrc && catkin_make"
+    command = "cd ~/catkin_ws && sudo -u labiot source ~/.bashrc && catkin_make"
+    command = "./configCatkin_ws.sh"
     run(command)
     run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
     time.sleep(5)
@@ -135,8 +136,6 @@ def installROS():
     run(command)
     command = "sudo apt install -y ros-melodic-desktop"
     run(command)
-    run("echo bbbbbbbbbbbbbbbbbbbb")
-    time.sleep(5)
     run("clear")
     printOk("Instalação do ROS")
     configROS()
