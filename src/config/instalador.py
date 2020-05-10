@@ -248,8 +248,10 @@ def showQuestion(msg,function,errorMsg):
             print(errorMsg)
             time.sleep(1)
             return False
+    run("clear")
 
 def main():
+    run("clear")
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
