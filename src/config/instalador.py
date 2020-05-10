@@ -115,11 +115,11 @@ def configROS():
     run(command)
     command = "sudo rosdep init"
     run(command)
-    command = "rosdep update"
+    command = "sudo -u labiot rosdep update"
     run(command)
-    command = "sudo su labiot && mkdir -p ~/catkin_ws/src"
+    command = "sudo -u labiot mkdir -p ~/catkin_ws/src"
     run(command)
-    command = "sudo su labiot && cd ~/catkin_ws && catkin_make"
+    command = "sudo -u labiot cd ~/catkin_ws && catkin_make"
     run(command)
     run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
     time.sleep(5)
