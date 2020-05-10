@@ -164,6 +164,13 @@ def installI2C():
 def addUserSerialPorts():
     run("usermod -a -G uucp " + user)
 
+def echoToFile(filePath,msg,writeOver):
+    if(writeOver == True):
+        command = "echo > " + filePath + "'" + msg + "'"
+    else:
+        command = "echo >> " + filePath + "'" + msg + "'"
+    run(command)
+
 def installandConfigureSSH():
     print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
     command = "apt-get install -y openssh*"
@@ -172,8 +179,15 @@ def installandConfigureSSH():
     run(command)
     command = "chmod +x /usr/bin/resetssh.sh"
     run(command)
-    command = "echo > /etc/systemd/system/restartssh.service '[Unit]\nDescription=Starts ssh\n\n[Service]\nType=simple\nExecStart=/bin/bash /usr/bin/resetssh.sh\n\n[Install]\nWantedBy=multi-user.target'"
-    run(command)
+    echoToFile("/etc/systemd/system/restartssh.service","[Unit]",True)
+    echoToFile("/etc/systemd/system/restartssh.service","Description=Starts ssh",False)
+    echoToFile("/etc/systemd/system/restartssh.service","",False)
+    echoToFile("/etc/systemd/system/restartssh.service","[Service]",False)
+    echoToFile("/etc/systemd/system/restartssh.service","Type=simple",False)
+    echoToFile("/etc/systemd/system/restartssh.service","ExecStart=/bin/bash /usr/bin/resetssh.sh",False)
+    echoToFile("/etc/systemd/system/restartssh.service","",False)
+    echoToFile("/etc/systemd/system/restartssh.service","[Install]",False)
+    echoToFile("/etc/systemd/system/restartssh.service","WantedBy=multi-user.target",False)
     command = "chmod 644 /etc/systemd/system/restartssh.service"
     run(command)
     command = "systemctl start restartssh"
