@@ -1,0 +1,50 @@
+Movimento:
+
+1 - andar pra frente : perto < robo > perto && longe > robo < longe && medio < roboFrente
+
+2 - chegou no final do corredor parar de andar (distância infinita): longe <= robo >= longe
+
+3 - detectou algo muito perto para de andar (frente): medio >= roboFrente
+
+Correção:
+
+1 - Detectar se a distância das paredes mudou
+
+2 - Se mudar, corrigir a direção pro lado certo (permanente)
+
+3 - Se chegar perto (0.5m), fazer uma correção maior pro lado certo (temporária,thread)
+
+
+Variáveis: 
+
+vel -100 a 100 //tras e frente
+dir -100 a 100 //esq e dir
+lim 0 a 100
+
+lim 100
+vel 50
+dir
+
+perto 0.5m
+medio 2.0m
+longe 7.0m
+
+anguloVisto: 15º
+
+
+0             5m
+______________
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
+|            |
