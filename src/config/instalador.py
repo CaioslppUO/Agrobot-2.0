@@ -252,7 +252,7 @@ def showQuestion(msg,function,errorMsg):
             return True
         except:
             run("clear")
-            print(errorMsg)
+            print(bcolors.FAIL + errorMsg + bcolors.ENDC)
             time.sleep(1)
             return False
     run("clear")
