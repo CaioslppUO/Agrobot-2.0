@@ -186,25 +186,28 @@ def log():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     os.system("clear")
     print('Resumo da instalacao: ')
-    print('UpdateSystem: ' + updtOk)
-    print('SSH: ' + sshOk)
-    print('GPIO: ' + gpioOk)
-    print('I2C: ' + i2cOk)
-    print('Repositorio do GIT: ' + repoOk)
-    print('ROS: ' + rosOk)
-    print('AccessPoint: ' + accesPOk)
-    print('Lidar: ' + lidarOk)
-    print('UsbPortConfig: ' + portsOk)
+    print('UpdateSystem: ' + str(updtOk))
+    print('SSH: ' + str(sshOk))
+    print('GPIO: ' + str(gpioOk))
+    print('I2C: ' + str(i2cOk))
+    print('Repositorio do GIT: ' + str(repoOk))
+    print('ROS: ' + str(rosOk))
+    print('AccessPoint: ' + str(accesPOk))
+    print('Lidar: ' + str(lidarOk))
+    print('UsbPortConfig: ' + str(portsOk))
 
 def main():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
-    answ = 0
     print('Fazer update e upgrade?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
 
     if(answ != 1):
         try:
@@ -215,11 +218,15 @@ def main():
             print('Erro ao dar update no sistema')
             time.sleep(1)
     
-    answ = 0
     print('Instalar e configurar o ssh?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
+
 
     if(answ != 1):
         try:
@@ -230,11 +237,14 @@ def main():
             print('Erro ao instalar o SSH')
             time.sleep(1)
     
-    answ = 0
     print('Instalar e configurar o GPIO?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
 
     if(answ != 1):
         try:
@@ -245,11 +255,14 @@ def main():
             print('Erro ao instalar o GPIO')
             time.sleep(1)
 
-    answ = 0
     print('Instalar e configurar o I2C?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
 
     if(answ != 1):
         try:
@@ -260,11 +273,14 @@ def main():
             print('Erro ao instalar o I2C')
             time.sleep(1)
 
-    answ = 0
     print('Baixar o repositorio do git?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
     
     if(answ != 1):
         try:
@@ -275,11 +291,14 @@ def main():
             print('Erro ao baixar o repositorio remoto')
             time.sleep(1)
 
-    answ = 0
     print('Instalar e configurar o ROS?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
     
     if(answ != 1):
         try:
@@ -290,11 +309,14 @@ def main():
             print('Erro ao instalar o ROS')
             time.sleep(1)
         
-    answ = 0
     print('Configurar o RASP como access point?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
     
     if(answ != 1):
         try:
@@ -305,11 +327,14 @@ def main():
             print('Erro ao configurar o AcessPoint')
             time.sleep(1)
 
-    answ = 0
     print('Instalar a biblioteca do RPLidar?')
     print('[0] - Sim')
     print('[1] Nao')
-    answ = int(input("Default=0"))
+    answ = input("Default=0")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
     
     if(answ != 1):
         try:
