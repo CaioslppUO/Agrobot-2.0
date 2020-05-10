@@ -237,6 +237,7 @@ def showQuestion(msg,function,errorMsg):
     print(msg)
     print('[0] - Sim')
     print('[1] Nao')
+    k = input()
     answ = input("Default=0: ")
 #    if(answ == ""):
 #        answ = 0
