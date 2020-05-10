@@ -58,7 +58,6 @@ def newAccessPoint():
     run(command)
 
     echoToFile("/etc/dhcpcd.conf","denyinterfaces wlan0",False)
-    echoToFile("/etc/dhcpcd.conf","denyinterfaces eth0",False)
 
     echoToFile("/etc/network/interfaces","allow-hotplug wlan0",True)
     echoToFile("/etc/network/interfaces","iface wlan0 inet static",False)
