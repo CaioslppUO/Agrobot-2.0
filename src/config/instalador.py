@@ -131,10 +131,8 @@ def installROS():
     run(command)
     command = "sudo apt update"
     run(command)
-    command = "sudo apt install ros-melodic-desktop"
+    command = "sudo apt install -y ros-melodic-desktop"
     run(command)
-    run("echo blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    time.sleep(3)
     run("clear")
     printOk("Instalação do ROS")
     configROS()
