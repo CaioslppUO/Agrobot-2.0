@@ -239,23 +239,19 @@ def showQuestion(msg,function,errorMsg):
     print('[1] Nao')
     try:
         answ = input("Default=0: ")
+        answ = int(answ)
     except:
         answ = 0
-    print(answ)
-#    if(answ == ""):
-#        answ = 0
-#    else:
-#        answ = int(answ)
 
-#    if(answ != 1):
-#        try:
-#            function()
-#            return True
-#        except:
-#            run("clear")
-#            print(errorMsg)
-#            time.sleep(1)
-#            return False
+    if(answ == 0):
+        try:
+            function()
+            return True
+        except:
+            run("clear")
+            print(errorMsg)
+            time.sleep(1)
+            return False
 
 def main():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
