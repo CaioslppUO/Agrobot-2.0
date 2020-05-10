@@ -25,7 +25,7 @@ portsOk = False
 def newAccessPoint():
     print("Toranando o RaspBerry em um Access Point")
     global wifiName,wifiPassword
-    command = "apt-get install dnsmasq hostapd"
+    command = "apt-get install -y dnsmasq hostapd"
     os.system(command)
     wifiName = input("Digite o nome da rede wifi:")
     wifiPassword = input("Digite a senha da rede wifi:")
@@ -91,7 +91,7 @@ def installLidar():
 
 def installROS():
     print("Iniciando instalacao do ROS")
-    command = "apt-get install dirmngr"
+    command = "apt-get install -y dirmngr"
     os.system(command)
     command = "sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
     os.system(command)
@@ -101,7 +101,7 @@ def installROS():
     os.system(command)
     command = "apt-get update"
     os.system(command)
-    command = "apt-get install ros-kinetic-desktop"
+    command = "apt-get install -y ros-kinetic-desktop"
     os.system(command)
     commando = "apt-cache search ros-kinetic"
     os.system(command)
@@ -125,7 +125,7 @@ def updateSystem():
 def installGPIO():
     print("Instalando e configurando o GPIO")
     os.system("raspi-config")
-    command = "sudo apt-get install rpi.gpio"
+    command = "apt-get install -y rpi.gpio"
     os.system(command)
     os.system("clear")
 
@@ -138,7 +138,7 @@ def installI2C():
     os.system(command)
     command = "echo >> /boot/config.txt 'dtparam=i2c1=on'"
     os.system(command)
-    command = "apt-get install python-smbus i2c-tools"
+    command = "apt-get install -y python-smbus i2c-tools"
     os.system(command)
     os.system("clear")
 
@@ -147,7 +147,7 @@ def addUserSerialPorts():
 
 def installandConfigureSSH():
     print("Instalando e configurando o SSH")
-    command = "apt-get install openssh*"
+    command = "apt-get install -y openssh*"
     os.system(command)
     command = "touch /usr/bin/resetssh.sh"
     os.system(command)
