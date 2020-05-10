@@ -245,6 +245,7 @@ def showQuestion(msg,function,errorMsg):
 
     if(answ == 0):
         try:
+            run("clear")
             function()
             return True
         except:
