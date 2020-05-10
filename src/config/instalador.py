@@ -74,7 +74,7 @@ def newAccessPoint():
     os.system("clear")
     
 def configureRos():
-    print("Iniciando configuração do Ros")
+    print("Iniciando configuracao do Ros")
     command = "mkdir -p ~/catkin_ws/src"
     os.system(command)
     command = "cd ~/catkin_ws/ && catkin_make"
@@ -90,7 +90,7 @@ def installLidar():
     os.system("clear")
 
 def installROS():
-    print("Iniciando instalação do ROS")
+    print("Iniciando instalacao do ROS")
     command = "apt-get install dirmngr"
     os.system(command)
     command = "sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
@@ -174,7 +174,7 @@ def installandConfigureSSH():
 
 def downloadRepo():
     global gitRepo
-    print("Iniciando o download do repositório remoto")
+    print("Iniciando o download do repositiorio remoto")
     command = "apt install git"
     os.system(command)
     command = "git clone " + gitRepo
@@ -185,12 +185,12 @@ def downloadRepo():
 def log():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     os.system("clear")
-    print('Resumo da instalação: ')
+    print('Resumo da instalacao: ')
     print('UpdateSystem: ' + updtOk)
     print('SSH: ' + sshOk)
     print('GPIO: ' + gpioOk)
     print('I2C: ' + i2cOk)
-    print('Repositório do GIT: ' + repoOk)
+    print('Repositorio do GIT: ' + repoOk)
     print('ROS: ' + rosOk)
     print('AccessPoint: ' + accesPOk)
     print('Lidar: ' + lidarOk)
@@ -203,7 +203,7 @@ def main():
     answ = 0
     print('Fazer update e upgrade?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
 
     if(answ != 1):
@@ -218,7 +218,7 @@ def main():
     answ = 0
     print('Instalar e configurar o ssh?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
 
     if(answ != 1):
@@ -233,7 +233,7 @@ def main():
     answ = 0
     print('Instalar e configurar o GPIO?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
 
     if(answ != 1):
@@ -248,7 +248,7 @@ def main():
     answ = 0
     print('Instalar e configurar o I2C?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
 
     if(answ != 1):
@@ -261,9 +261,9 @@ def main():
             time.sleep(1)
 
     answ = 0
-    print('Baixar o repositório do git?')
+    print('Baixar o repositorio do git?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
     
     if(answ != 1):
@@ -272,13 +272,13 @@ def main():
             repoOk = True
         except:
             os.system("clear")
-            print('Erro ao baixar o repositório remoto')
+            print('Erro ao baixar o repositorio remoto')
             time.sleep(1)
 
     answ = 0
     print('Instalar e configurar o ROS?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
     
     if(answ != 1):
@@ -293,7 +293,7 @@ def main():
     answ = 0
     print('Configurar o RASP como access point?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
     
     if(answ != 1):
@@ -308,7 +308,7 @@ def main():
     answ = 0
     print('Instalar a biblioteca do RPLidar?')
     print('[0] - Sim')
-    print('[1] Não')
+    print('[1] Nao')
     answ = int(input("Default=0"))
     
     if(answ != 1):
