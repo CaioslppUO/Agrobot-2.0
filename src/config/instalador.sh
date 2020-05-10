@@ -181,7 +181,7 @@ echo "Deseja gerar um wifi com o rasp?
     while true;do
       if [ "$resposta" -eq 1 ];
       then
-        GerarWifi()
+        GerarWifi
         clear
         break;
       elif [ "$resposta" -eq 2 ]
