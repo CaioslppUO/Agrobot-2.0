@@ -172,9 +172,7 @@ def installandConfigureSSH():
     run(command)
     command = "chmod +x /usr/bin/resetssh.sh"
     run(command)
-    command = "touch /etc/systemd/system/restartssh.service"
-    run(command)
-    command = "echo >> /etc/systemd/system/restartssh.service '\
+    command = "echo > /etc/systemd/system/restartssh.service '\
     [Unit]\
     Description=Example systemd service.\
     [Service]\
