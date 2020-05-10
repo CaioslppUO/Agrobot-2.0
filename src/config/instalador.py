@@ -131,7 +131,7 @@ def installROS():
     echoToFile("/etc/apt/sources.list.d/ros-latest.list","deb http://packages.ros.org/ros/ubuntu bionic main",True)
     command = "sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
     run(command)
-    command = "sudo apt update"
+    command = "sudo apt update && sudo apt-get upgrade -y"
     run(command)
     command = "sudo apt install -y ros-melodic-desktop"
     run(command)
