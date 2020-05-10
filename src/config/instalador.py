@@ -2,14 +2,12 @@
 #coding: utf-8
 import os
 import time
+import subprocess
 
 wifiName = ""
 wifiPassword = ""
 gitRepo = "https://github.com/CaioslppUO/Agrobot-2.0"
 lidarRepo = "https://github.com/robopeak/rplidar_ros"
-rosDistro = "kinetic"
-libGPIO = "rpi.gpio"
-libI2C = "python-smbus i2c-tools"
 user = "$USER"
 
 gpioOk = False
@@ -22,22 +20,41 @@ repoOk = False
 updtOk = False
 portsOk = False
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def printOk(msg):
+    run("clear")
+    print(bcolors.OKGREEN + msg + " " + " OK " + bcolors.ENDC)
+    time.sleep(1)
+    run("clear")
+
+def run(command):
+    subprocess.call(command,shell=True,executable='/bin/bash')
+
 def newAccessPoint():
-    print("Toranando o RaspBerry em um Access Point")
+    print(bcolors.OKGREEN + "Toranando o RaspBerry em um Access Point" + bcolors.ENDC)
     global wifiName,wifiPassword
     command = "apt-get install -y dnsmasq hostapd"
-    os.system(command)
+    run(command)
     wifiName = input("Digite o nome da rede wifi:")
     wifiPassword = input("Digite a senha da rede wifi:")
     command = "echo >> /etc/dhcpcd.conf 'denyinterfaces wlan0' "
-    os.system(command)
+    run(command)
     command = "echo >> /etc/network/interfaces 'allow-hotplug wlan0\
     iface wlan0 inet static\
     address 192.168.1.2\
     netmask 255.255.255.0\
     network 192.168.1.1\
     broadcast 192.168.1.255'"
-    os.system(command)
+    run(command)
     command = "echo >> /etc/hostapd/hostapd.conf 'interface=wlan0\
     driver=nl80211\
     ssid="+ wifiName + "\
@@ -50,9 +67,9 @@ def newAccessPoint():
     wpa_passphrase=" + wifiPassword + "\
     wpa_key_mgmt=WPA-PSK\
     rsn_pairwise=CCMP'"
-    os.system(command)
+    run(command)
     command = "echo >> /etc/default/hostapd 'DAEMON_CONF='/etc/hostapd/hostapd.conf''"
-    os.system(command)
+    run(command)
     command = "echo >> /etc/dnsmasq.conf 'interface=wlan0\
     listen-address=192.168.1.2\
     bind-interfaces\
@@ -60,102 +77,103 @@ def newAccessPoint():
     domain-needed\
     bogus-priv\
     dhcp-range=192.168.1.120,192.168.1.254,12h'"
-    os.system(command)
+    run(command)
     command = "echo >> /etc/sysctl.conf 'net.ipv4.ip_forward=1'"
-    os.system(command)
+    run(command)
     command = "sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE"
-    os.system(command)
+    run(command)
     command = "sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT"
-    os.system(command)
+    run(command)
     command = "sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT"
-    os.system(command)
+    run(command)
     command = "sh -c 'iptables-save > /etc/iptables.ipv4.nat'"
-    os.system(command)
-    os.system("clear")
-    
-def configureRos():
-    print("Iniciando configuracao do Ros")
-    command = "mkdir -p ~/catkin_ws/src"
-    os.system(command)
-    command = "cd ~/catkin_ws/ && catkin_make"
-    os.system(command)
-    command = "echo >> ~/.bashrc 'source ~/catkin_ws/devel/setup.bash'"
-    os.system(command)
-    os.system("clear")
+    run(command)
+    run("clear")
+    printOk("Access Point")
 
 def installLidar():
     global lidarRepo
-    print('Instalando a biblioteca de ROS para o RPLidar')
+    print(bcolors.OKGREEN + 'Instalando a biblioteca de ROS para o RPLidar' + bcolors.ENDC)
     command = "cd ~/catkin_ws/src && git clone " + lidarRepo + " && cd .. && catkin_make"
-    os.system(command)
-    os.system("clear")
+    run(command)
+    run("clear")
+    printOk("Instalação do Lidar")
+
+def configROS():
+    print(bcolors.OKGREEN + "Iniciando configuração do ROS melodic" + bcolors.ENDC)
+    command = "echo 'source /opt/ros/melodic/setup.bash' >> ~/.bashrc"
+    run(command)
+    command = "source ~/.bashrc"
+    run(command)
+    command = "sudo apt install -y python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential"
+    run(command)
+    command = "rosdep init"
+    run(command)
+    command = "rosdep update"
+    run(command)
+    command = "mkdir -p ~/catkin_ws/src"
+    run(command)
+    command = "cd ~/catkin_ws && catkin_make"
+    run(command)
+    run("clear")
+    printOk("Configuração do ROS")
 
 def installROS():
-    print("Iniciando instalacao do ROS")
-    command = "apt-get install -y dirmngr"
-    os.system(command)
+    print(bcolors.OKGREEN + "Iniciando instalacao do ROS melodic" + bcolors.ENDC)
     command = "sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
-    os.system(command)
+    run(command)
     command = "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
-    os.system(command)
-    command = "curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -"
-    os.system(command)
-    command = "apt-get update"
-    os.system(command)
-    command = "apt-get install -y ros-kinetic-desktop"
-    os.system(command)
-    commando = "apt-cache search ros-kinetic"
-    os.system(command)
-    command = "echo 'source /opt/ros/kinetic/setup.bash' >> ~/.bashrc"
-    os.system(command)
-    command = "source ~/.bashrc"
-    os.system(command)
-    command = "apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential"
-    os.system(command)
-    command = "rosdep init"
-    os.system(command)
-    command = "rosdep update"
-    os.system("clear")
+    run(command)
+    command = "apt update"
+    run(command)
+    command = "apt install ros-melodic-desktop"
+    run(command)
+    run("clear")
+    printOk("Instalação do ROS")
+    configROS()
 
 def updateSystem():
-    print("Inicializando o update e upgrade de sistema")
-    command = "apt-get update && upgrade"
-    os.system(command)
-    os.system("clear")
+    print(bcolors.OKGREEN + "Inicializando o update e upgrade de sistema" + bcolors.ENDC)
+    command = "apt-get update && upgrade -y"
+    run(command)
+    run("clear")
+    printOk("Update de sistema")
 
 def installGPIO():
-    print("Instalando e configurando o GPIO")
-    os.system("raspi-config")
+    print(bcolors.OKGREEN + "Instalando e configurando o GPIO" + bcolors.ENDC)
+    run("raspi-config")
     command = "apt-get install -y rpi.gpio"
-    os.system(command)
-    os.system("clear")
+    run(command)
+    run("clear")
+    printOk("Instalação do GPIO")
 
 def installI2C():
-    print("Instalando e configurando o I2C")
-    os.system("raspi-config")
+    print(bcolors.OKGREEN + "Instalando e configurando o I2C" + bcolors.ENDC)
+    run("raspi-config")
     command = "echo >> /dev/modules '\
     i2c-bcm2835 \
     i2c-dev'"
-    os.system(command)
+    run(command)
     command = "echo >> /boot/config.txt 'dtparam=i2c1=on'"
-    os.system(command)
+    run(command)
     command = "apt-get install -y python-smbus i2c-tools"
-    os.system(command)
-    os.system("clear")
+    run(command)
+    run("clear")
+    printOk("Instalação do I2C")
 
 def addUserSerialPorts():
-    os.system("usermod -a -G uucp " + user)
+    run("usermod -a -G uucp " + user)
 
 def installandConfigureSSH():
-    print("Instalando e configurando o SSH")
+    print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
     command = "apt-get install -y openssh*"
-    os.system(command)
+    run(command)
     command = "touch /usr/bin/resetssh.sh"
-    os.system(command)
+    run(command)
     command = "echo >> /usr/bin/resetssh.sh 'service ssh restart'\
     chmod +x /usr/bin/resetssh.sh\
     touch /lib/systemd/system/restartssh.service"
-    os.system(command)
+    run(command)
     command = "echo >> /lib/systemd/system/restartssh.service '\
     [Unit]\
     Description=Example systemd service.\
@@ -164,191 +182,88 @@ def installandConfigureSSH():
     ExecStart=/bin/bash /usr/bin/resetssh.sh\
     [Install]\
     WantedBy=multi-user.target'"
-    os.system(command)
+    run(command)
     command = "chmod 644 /etc/systemd/system/resetssh.service"
-    os.system(command)
+    run(command)
     command = "systemctl start resetssh"
-    os.system(command)
+    run(command)
     command = "systemctl enable resetssh"
-    os.system(command)
+    run(command)
     command = "ufw allow 22"
-    os.system(command)
+    run(command)
     command = "dpkg-reconfigure openssh-server"
-    os.system(command)
-    os.system("clear")
+    run(command)
+    run("clear")
+    printOk("Instalação do SSH")
 
 def downloadRepo():
     global gitRepo
-    print("Iniciando o download do repositiorio remoto")
+    print(bcolors.OKGREEN + "Iniciando o download do repositiorio remoto do robô" + bcolors.ENDC)
     command = "apt install git"
-    os.system(command)
+    run(command)
     command = "git clone " + gitRepo
-    os.system(command)
+    run(command)
     command = "cd Agrobot-2.0 && git checkout raspberry-ros && clear"
-    os.system(command)
+    run(command)
+    run("clear")
+    printOk("Download do repositório")
+
+def setVerifiedColor(var):
+    if(var == True):
+        return bcolors.OKBLUE + "OK" + bcolors.ENDC
+    else:
+        return bcolors.FAIL + "NO" + bcolors.ENDC
 
 def log():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
-    os.system("clear")
-    print('Resumo da instalacao: ')
-    print('UpdateSystem: ' + str(updtOk))
-    print('SSH: ' + str(sshOk))
-    print('GPIO: ' + str(gpioOk))
-    print('I2C: ' + str(i2cOk))
-    print('Repositorio do GIT: ' + str(repoOk))
-    print('ROS: ' + str(rosOk))
-    print('AccessPoint: ' + str(accesPOk))
-    print('Lidar: ' + str(lidarOk))
-    print('UsbPortConfig: ' + str(portsOk))
+    run("clear")
+    print(bcolors.OKGREEN + 'Resumo da instalacao: ' + bcolors.ENDC)
+    print('UpdateSystem: ' + setVerifiedColor(updtOk))
+    print('SSH: ' + setVerifiedColor(sshOk))
+    print('GPIO: ' + setVerifiedColor(gpioOk))
+    print('I2C: ' + setVerifiedColor(i2cOk))
+    print('Repositorio do GIT: ' + setVerifiedColor(repoOk))
+    print('ROS: ' + setVerifiedColor(rosOk))
+    print('AccessPoint: ' + setVerifiedColor(accesPOk))
+    print('Lidar: ' + setVerifiedColor(lidarOk))
+    print('UsbPortConfig: ' + setVerifiedColor(portsOk))
+
+
+def showQuestion(msg,function,errorMsg):
+    print(msg)
+    print('[0] - Sim')
+    print('[1] Nao')
+    answ = input("Default=0: ")
+    if(answ != ""):
+        answ = int(answ)
+    else:
+        answ = 0
+
+    if(answ != 1):
+        try:
+            function()
+            return True
+        except:
+            run("clear")
+            print(errorMsg)
+            time.sleep(1)
+            return False
 
 def main():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
-    print('Fazer update e upgrade?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
 
-    if(answ != 1):
-        try:
-            updateSystem()
-            updtOk = True
-        except:
-            os.system("clear")
-            print('Erro ao dar update no sistema')
-            time.sleep(1)
-    
-    print('Instalar e configurar o ssh?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
+    updtOk = showQuestion(bcolors.OKBLUE + 'Fazer update e upgrade?' + bcolors.ENDC,updateSystem,'Erro ao dar update no sistema')
+    sshOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,installandConfigureSSH,'Erro ao instalar o SSH')
+    gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
+    i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
+    repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositorio do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositorio remoto')
+    rosO = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ROS?' + bcolors.ENDC,installROS,'Erro ao instalar o ROS')
+    accesPOk = showQuestion(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,newAccessPoint,'Erro ao configurar o AcessPoint')
+    lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
+
+    log()
 
 
-    if(answ != 1):
-        try:
-            installandConfigureSSH()
-            sshOk = True
-        except:
-            os.system("clear")
-            print('Erro ao instalar o SSH')
-            time.sleep(1)
-    
-    print('Instalar e configurar o GPIO?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
-
-    if(answ != 1):
-        try:
-            installGPIO()
-            gpioOk = True
-        except:
-            os.system("clear")
-            print('Erro ao instalar o GPIO')
-            time.sleep(1)
-
-    print('Instalar e configurar o I2C?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
-
-    if(answ != 1):
-        try:
-            installI2C()
-            i2cOk = True
-        except:
-            os.system("clear")
-            print('Erro ao instalar o I2C')
-            time.sleep(1)
-
-    print('Baixar o repositorio do git?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
-    
-    if(answ != 1):
-        try:
-            downloadRepo()
-            repoOk = True
-        except:
-            os.system("clear")
-            print('Erro ao baixar o repositorio remoto')
-            time.sleep(1)
-
-    print('Instalar e configurar o ROS?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
-    
-    if(answ != 1):
-        try:
-            installROS()
-            rosOk = True
-        except:
-            os.system("clear")
-            print('Erro ao instalar o ROS')
-            time.sleep(1)
-        
-    print('Configurar o RASP como access point?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
-    
-    if(answ != 1):
-        try:
-            newAccessPoint()
-            accesPOk = True
-        except:
-            os.system("clear")
-            print('Erro ao configurar o AcessPoint')
-            time.sleep(1)
-    
-    print('Instalar a biblioteca do RPLidar?')
-    print('[0] - Sim')
-    print('[1] Nao')
-    answ = input("Default=0")
-    if(answ != ""):
-        answ = int(answ)
-    else:
-        answ = 0
-    
-    if(answ != 1):
-        try:
-            installLidar()
-            lidarOk = True
-        except:
-            os.system("clear")
-            print('Erro ao configurar o AcessPoint')
-            time.sleep(1)
-        
 main()
-log()
