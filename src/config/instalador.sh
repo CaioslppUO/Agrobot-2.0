@@ -165,6 +165,7 @@ ExecStart=/bin/bash /usr/bin/resetssh.sh
 WantedBy=multi-user.target"
 chmod 644 /etc/systemd/system/resetssh.service
 systemctl start resetssh
+systemctl enable resetssh
 
 
 
