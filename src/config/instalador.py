@@ -121,6 +121,8 @@ def configROS():
     run(command)
     command = "cd ~/catkin_ws && catkin_make"
     run(command)
+    run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
+    time.sleep(5)
     run("clear")
     printOk("Configuração do ROS")
 
