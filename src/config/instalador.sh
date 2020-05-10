@@ -114,6 +114,7 @@ if [ "$NumDistro" -ne 2 ];
       else
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
+      fi
     done
 
 # BAIXAR FONTE DO GIT
@@ -137,6 +138,7 @@ echo "Deseja baixar o codigo fonte do Git?
       else
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
+      fi
     done
     
 
@@ -187,6 +189,7 @@ echo "Deseja gerar um wifi com o rasp?
       else
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
+      fi
     done
 
 echo "Deseja baixar o ROS?
@@ -206,6 +209,7 @@ echo "Deseja baixar o ROS?
       else
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
+      fi
     done
   
 echo "Deseja habilitar login automatico?
@@ -229,6 +233,7 @@ echo "Deseja habilitar login automatico?
       else
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
+      fi
     done
 
 echo "Deseja habilitar o i2c?
@@ -255,6 +260,7 @@ echo "Deseja habilitar o i2c?
       else
         echo "Resposta inexistente, favor digitar novamente:"
         read resposta
+      fi
     done
 
 reboot
