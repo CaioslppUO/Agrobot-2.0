@@ -154,7 +154,6 @@ def updateSystem():
 
 def installGPIO():
     print(bcolors.OKGREEN + "Instalando e configurando o GPIO" + bcolors.ENDC)
-    run("sudo raspi-config")
     command = "sudo apt-get install -y rpi.gpio"
     run(command)
     run("clear")
