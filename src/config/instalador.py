@@ -243,15 +243,15 @@ def showQuestion(msg,function,errorMsg):
     else:
         answ = int(answ)
 
-    if(answ != 1):
-        try:
-            function()
-            return True
-        except:
-            run("clear")
-            print(errorMsg)
-            time.sleep(1)
-            return False
+#    if(answ != 1):
+#        try:
+#            function()
+#            return True
+#        except:
+#            run("clear")
+#            print(errorMsg)
+#            time.sleep(1)
+#            return False
 
 def main():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
