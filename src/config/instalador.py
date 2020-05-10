@@ -41,28 +41,28 @@ def run(command):
 
 def echoToFile(filePath,msg,overWrite):
     if(overWrite == True):
-        command = "echo > " + filePath + " '" + msg + "'"
+        command = "sudo echo > " + filePath + " '" + msg + "'"
     else:
-        command = "echo >> " + filePath + " '" + msg + "'"
+        command = "sudo echo >> " + filePath + " '" + msg + "'"
     run(command)
 
 def newAccessPoint():
     print(bcolors.OKGREEN + "Toranando o RaspBerry em um Access Point" + bcolors.ENDC)
     global wifiName,wifiPassword
-    command = "apt-get install -y dnsmasq hostapd"
+    command = "sudo apt-get install -y dnsmasq hostapd"
     run(command)
     wifiName = input("Digite o nome da rede wifi:")
     wifiPassword = input("Digite a senha da rede wifi:")
-    command = "echo >> /etc/dhcpcd.conf 'denyinterfaces wlan0' "
+    command = "sudo echo >> /etc/dhcpcd.conf 'denyinterfaces wlan0' "
     run(command)
-    command = "echo >> /etc/network/interfaces 'allow-hotplug wlan0\
+    command = "sudo echo >> /etc/network/interfaces 'allow-hotplug wlan0\
     iface wlan0 inet static\
     address 192.168.1.2\
     netmask 255.255.255.0\
     network 192.168.1.1\
     broadcast 192.168.1.255'"
     run(command)
-    command = "echo >> /etc/hostapd/hostapd.conf 'interface=wlan0\
+    command = "sudo echo >> /etc/hostapd/hostapd.conf 'interface=wlan0\
     driver=nl80211\
     ssid="+ wifiName + "\
     hw_mode=g\
@@ -75,9 +75,9 @@ def newAccessPoint():
     wpa_key_mgmt=WPA-PSK\
     rsn_pairwise=CCMP'"
     run(command)
-    command = "echo >> /etc/default/hostapd 'DAEMON_CONF='/etc/hostapd/hostapd.conf''"
+    command = "sudo echo >> /etc/default/hostapd 'DAEMON_CONF='/etc/hostapd/hostapd.conf''"
     run(command)
-    command = "echo >> /etc/dnsmasq.conf 'interface=wlan0\
+    command = "sudo echo >> /etc/dnsmasq.conf 'interface=wlan0\
     listen-address=192.168.1.2\
     bind-interfaces\
     server=8.8.8.8\
@@ -85,7 +85,7 @@ def newAccessPoint():
     bogus-priv\
     dhcp-range=192.168.1.120,192.168.1.254,12h'"
     run(command)
-    command = "echo >> /etc/sysctl.conf 'net.ipv4.ip_forward=1'"
+    command = "sudo echo >> /etc/sysctl.conf 'net.ipv4.ip_forward=1'"
     run(command)
     command = "sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE"
     run(command)
@@ -93,7 +93,7 @@ def newAccessPoint():
     run(command)
     command = "sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT"
     run(command)
-    command = "sh -c 'iptables-save > /etc/iptables.ipv4.nat'"
+    command = "sudo sh -c 'iptables-save > /etc/iptables.ipv4.nat'"
     run(command)
     run("clear")
     printOk("Access Point")
@@ -113,9 +113,9 @@ def configROS():
     run(command)
     command = "sudo apt install -y python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential"
     run(command)
-    command = "rosdep init"
+    command = "sudo rosdep init"
     run(command)
-    command = "rosdep update"
+    command = "sudo rosdep update"
     run(command)
     command = "mkdir -p ~/catkin_ws/src"
     run(command)
@@ -126,13 +126,13 @@ def configROS():
 
 def installROS():
     print(bcolors.OKGREEN + "Iniciando instalacao do ROS melodic" + bcolors.ENDC)
-    command = "sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
+    command = "sudo sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
     run(command)
-    command = "apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
+    command = "sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
     run(command)
-    command = "apt update"
+    command = "sudo apt update"
     run(command)
-    command = "apt install ros-melodic-desktop"
+    command = "sudo apt install ros-melodic-desktop"
     run(command)
     run("clear")
     printOk("Instalação do ROS")
@@ -140,43 +140,39 @@ def installROS():
 
 def updateSystem():
     print(bcolors.OKGREEN + "Inicializando o update e upgrade de sistema" + bcolors.ENDC)
-    command = "apt-get update && upgrade -y"
+    command = "sudo apt-get update && upgrade -y"
     run(command)
     run("clear")
     printOk("Update de sistema")
 
 def installGPIO():
     print(bcolors.OKGREEN + "Instalando e configurando o GPIO" + bcolors.ENDC)
-    run("raspi-config")
-    command = "apt-get install -y rpi.gpio"
+    run("sudo raspi-config")
+    command = "sudo apt-get install -y rpi.gpio"
     run(command)
     run("clear")
     printOk("Instalação do GPIO")
 
 def installI2C():
     print(bcolors.OKGREEN + "Instalando e configurando o I2C" + bcolors.ENDC)
-    run("raspi-config")
-    command = "echo >> /dev/modules '\
-    i2c-bcm2835 \
-    i2c-dev'"
-    run(command)
-    command = "echo >> /boot/config.txt 'dtparam=i2c1=on'"
-    run(command)
-    command = "apt-get install -y python-smbus i2c-tools"
+    run("sudo raspi-config")
+    echoToFile("/dev/modules","i2c-bcm2835",False)
+    echoToFile("/dev/modules","i2c-dev",False)
+    echoToFile("/boot/config.txt","dtparam=i2c1=on",False)
+    command = "sudo apt-get install -y python-smbus i2c-tools"
     run(command)
     run("clear")
     printOk("Instalação do I2C")
 
 def addUserSerialPorts():
-    run("usermod -a -G uucp " + user)
+    run("sudo usermod -a -G uucp " + user)
 
 def installandConfigureSSH():
     print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
-    command = "apt-get install -y openssh*"
+    command = "sudo apt-get install -y openssh*"
     run(command)
-    command = "echo > /usr/bin/resetssh.sh 'service ssh restart'"
-    run(command)
-    command = "chmod +x /usr/bin/resetssh.sh"
+    echoToFile("/usr/bin/resetssh.sh","service ssh restart",True)
+    command = "sudo chmod +x /usr/bin/resetssh.sh"
     run(command)
     echoToFile("/etc/systemd/system/restartssh.service","[Unit]",True)
     echoToFile("/etc/systemd/system/restartssh.service","Description=Starts ssh",False)
@@ -187,15 +183,15 @@ def installandConfigureSSH():
     echoToFile("/etc/systemd/system/restartssh.service","",False)
     echoToFile("/etc/systemd/system/restartssh.service","[Install]",False)
     echoToFile("/etc/systemd/system/restartssh.service","WantedBy=multi-user.target",False)
-    command = "chmod 644 /etc/systemd/system/restartssh.service"
+    command = "sudo chmod 644 /etc/systemd/system/restartssh.service"
     run(command)
-    command = "systemctl start restartssh"
+    command = "sudo systemctl start restartssh"
     run(command)
-    command = "systemctl enable restartssh"
+    command = "sudo systemctl enable restartssh"
     run(command)
-    command = "ufw allow 22"
+    command = "sudo ufw allow 22"
     run(command)
-    command = "dpkg-reconfigure openssh-server"
+    command = "sudo dpkg-reconfigure openssh-server"
     run(command)
     run("clear")
     printOk("Instalação do SSH")
@@ -203,7 +199,7 @@ def installandConfigureSSH():
 def downloadRepo():
     global gitRepo
     print(bcolors.OKGREEN + "Iniciando o download do repositiorio remoto do robô" + bcolors.ENDC)
-    command = "apt install git"
+    command = "sudo apt install git"
     run(command)
     command = "git clone " + gitRepo
     run(command)
