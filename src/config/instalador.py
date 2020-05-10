@@ -143,7 +143,11 @@ def installROS():
 
 def updateSystem():
     print(bcolors.OKGREEN + "Inicializando o update e upgrade de sistema" + bcolors.ENDC)
-    command = "sudo apt update && sudo apt autoremove -y && sudo apt upgrade -y"
+    command = "sudo apt update"
+    run(command)
+    command = "sudo echo 'linux-firmware-raspi2 hold' | sudo dpkg --set-selections"
+    run(command)
+    command = "sudo apt autoremove -y && sudo apt upgrade -y"
     run(command)
     run("clear")
     printOk("Update de sistema")
