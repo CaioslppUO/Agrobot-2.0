@@ -253,14 +253,14 @@ def showQuestion(msg,function,errorMsg):
         except:
             run("clear")
             print(bcolors.FAIL + errorMsg + bcolors.ENDC)
-            echoToFile("~/Agrobot-2.0/src/config/log",errorMsg,False)
+            echoToFile("./log",errorMsg,False)
             time.sleep(1)
             return False
     run("clear")
 
 def main():
     run("clear")
-    echoToFile("~/Agrobot-2.0/src/config/log","",True)
+    echoToFile("./log","",True)
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
