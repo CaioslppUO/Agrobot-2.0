@@ -238,7 +238,7 @@ def log():
 def showQuestion(msg,function,errorMsg):
     print(msg)
     print('[0] - Sim')
-    print('[1] Nao')
+    print('[1] Não')
     try:
         answ = input("Default=0: ")
         answ = int(answ)
@@ -269,7 +269,7 @@ def main():
     sshOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,installandConfigureSSH,'Erro ao instalar o SSH')
     gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
-    repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositorio do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositorio remoto')
+    repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
     rosO = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ROS?' + bcolors.ENDC,installROS,'Erro ao instalar o ROS')
     accesPOk = showQuestion(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,newAccessPoint,'Erro ao configurar o AcessPoint')
     lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
