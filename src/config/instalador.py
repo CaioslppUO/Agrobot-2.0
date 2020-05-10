@@ -121,7 +121,7 @@ def configROS():
     run(command)
     command = "sudo -u labiot mkdir -p ~/catkin_ws/src"
     run(command)
-    command = "cd ~/catkin_ws && sudo su - labiot && catkin_make"
+    command = "cd ~/catkin_ws && sudo su - labiot && source ~/.bashrc && catkin_make"
     run(command)
     run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
     time.sleep(5)
