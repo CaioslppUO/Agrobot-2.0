@@ -174,10 +174,10 @@ def installandConfigureSSH():
     run(command)
     command = "echo > /etc/systemd/system/restartssh.service '\
     [Unit]\
-    Description=Example systemd service.\
+    Description=Example systemd service. \n\
     [Service]\
     Type=simple\
-    ExecStart=/bin/bash /usr/bin/resetssh.sh\
+    ExecStart=/bin/bash /usr/bin/resetssh.sh \n\
     [Install]\
     WantedBy=multi-user.target'"
     run(command)
