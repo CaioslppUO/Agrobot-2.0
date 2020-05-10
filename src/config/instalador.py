@@ -125,8 +125,6 @@ def configROS():
     print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
     command = "sudo -u labiot -s"
     run(command)
-    run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
-    time.sleep(5)
     run("clear")
     printOk("Configuração do ROS")
 
