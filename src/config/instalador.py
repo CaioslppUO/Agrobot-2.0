@@ -183,9 +183,9 @@ def installandConfigureSSH():
     run(command)
     command = "chmod 644 /etc/systemd/system/restartssh.service"
     run(command)
-    command = "systemctl start resetssh"
+    command = "systemctl start restartssh"
     run(command)
-    command = "systemctl enable resetssh"
+    command = "systemctl enable restartssh"
     run(command)
     command = "ufw allow 22"
     run(command)
