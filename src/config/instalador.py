@@ -113,15 +113,13 @@ def configROS():
     run(command)
     command = "sudo apt install -y python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential"
     run(command)
-    command = "sudo apt install -y catkin"
-    run(command)
     command = "sudo rosdep init"
     run(command)
     command = "sudo rosdep update"
     run(command)
     command = "sudo -u labiot mkdir -p ~/catkin_ws/src"
     run(command)
-    command = "cd ~/catkin_ws && sudo su - labiot && source ~/.bashrc && catkin_make"
+    command = "cd ~/catkin_ws && sudo u - labiot && source ~/.bashrc && catkin_make"
     run(command)
     run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
     time.sleep(5)
