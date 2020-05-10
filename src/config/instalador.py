@@ -117,9 +117,11 @@ def configROS():
     run(command)
     command = "rosdep update"
     run(command)
-    command = "sudo -k && mkdir -p ~/catkin_ws/src"
+    command = "exit"
     run(command)
-    command = "sudo -k && cd ~/catkin_ws && catkin_make"
+    command = "mkdir -p ~/catkin_ws/src"
+    run(command)
+    command = "cd ~/catkin_ws && catkin_make"
     run(command)
     run("echo aaaaaaaaaaaaaaaaaaaaaaaaaa")
     time.sleep(5)
@@ -127,7 +129,7 @@ def configROS():
     printOk("Configuração do ROS")
 
 def installROS():
-    print(bcolors.OKGREEN + "Iniciando instalacao do ROS melodic" + bcolors.ENDC)
+    print(bcolors.OKGREEN + "Iniciando instalação do ROS melodic" + bcolors.ENDC)
     echoToFile("/etc/apt/sources.list.d/ros-latest.list","deb http://packages.ros.org/ros/ubuntu bionic main",True)
     command = "sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
     run(command)
@@ -204,7 +206,7 @@ def installandConfigureSSH():
 
 def downloadRepo():
     global gitRepo
-    print(bcolors.OKGREEN + "Iniciando o download do repositiorio remoto do robô" + bcolors.ENDC)
+    print(bcolors.OKGREEN + "Iniciando o download do repositiório remoto do robô" + bcolors.ENDC)
     command = "sudo apt install git"
     run(command)
     command = "git clone " + gitRepo
@@ -223,12 +225,12 @@ def setVerifiedColor(var):
 def log():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     run("clear")
-    print(bcolors.OKGREEN + 'Resumo da instalacao: ' + bcolors.ENDC)
+    print(bcolors.OKGREEN + 'Resumo da instalação: ' + bcolors.ENDC)
     print('UpdateSystem: ' + setVerifiedColor(updtOk))
     print('SSH: ' + setVerifiedColor(sshOk))
     print('GPIO: ' + setVerifiedColor(gpioOk))
     print('I2C: ' + setVerifiedColor(i2cOk))
-    print('Repositorio do GIT: ' + setVerifiedColor(repoOk))
+    print('Repositório do GIT: ' + setVerifiedColor(repoOk))
     print('ROS: ' + setVerifiedColor(rosOk))
     print('AccessPoint: ' + setVerifiedColor(accesPOk))
     print('Lidar: ' + setVerifiedColor(lidarOk))
