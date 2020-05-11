@@ -153,8 +153,13 @@ def configROS():
 
 def installROS():
     print(bcolors.OKGREEN + "Iniciando instalação do ROS melodic" + bcolors.ENDC)
-    echoToFile("/etc/apt/sources.list.d/ros-latest.list","deb http://packages.ros.org/ros/ubuntu bionic main",True)
+    command = "sudo apt-get install curl"
+    run(command)
+    command = "sudo sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
+    run(command)
     command = "sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
+    run(command)
+    command = "curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -"
     run(command)
     command = "sudo apt update && sudo apt-get upgrade -y"
     run(command)
