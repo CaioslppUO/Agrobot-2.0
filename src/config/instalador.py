@@ -84,7 +84,7 @@ def installI2C():
     printOk("Instalação do I2C")
 
 def addUserSerialPorts():
-    run("sudo usermod -a -G uucp " + user)
+    run("sudo usermod -a -G dialout " + user)
 
 def installandConfigureSSH():
     print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
