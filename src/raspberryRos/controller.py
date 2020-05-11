@@ -49,20 +49,20 @@ def mainLoop():
 
 
     #Define quais módulos base serão inicializados
-    launchMsg = "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 comunication/webServer.py " + serverIp + "& "
-    launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
-    launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/logs.py& "
-    launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && modules/commandAssembler.py& "
+    launchMsg = "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/comunication/webServer.py " + serverIp + "& "
+    launchMsg += "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
+    launchMsg += "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/modules/logs.py& "
+    launchMsg += "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/modules/commandAssembler.py& "
     
     #Define quais módulos opcionais serão inicializados
     if(enableRelay == "True"):
-        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/relay.py& "
+        launchMsg += "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/modules/relay.py& "
     if(enableUart == "True"):
-        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/controlRobot.py " + str(uartAmount) + "& "
+        launchMsg += "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableSensor == "True"):
-        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/sensor.py& "
+        launchMsg += "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/modules/sensor.py& "
     if(enableFaceDetect == "True"):
-        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/coputationalVision.py& "
+        launchMsg += "python3 /home/labiot/Agrobor-2.0/src/raspberryRos/modules/coputationalVision.py& "
 
     #Inicializa os módulos que foram requeridos
     os.system(launchMsg)
