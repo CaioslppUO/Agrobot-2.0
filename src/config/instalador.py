@@ -255,7 +255,7 @@ def main():
     addUserSerialPorts()
     portsOk = True
 
-    updtOk = showQuestion(bcolors.OKBLUE + +"Fazer update no sistema?" + bcolors.ENDC, updateSystem,'Erro ao dar update no sistema')
+    updtOk = showQuestion(bcolors.OKBLUE + "Fazer update no sistema?" + bcolors.ENDC, updateSystem,'Erro ao dar update no sistema')
     sshOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,installandConfigureSSH,'Erro ao instalar o SSH')
     gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
