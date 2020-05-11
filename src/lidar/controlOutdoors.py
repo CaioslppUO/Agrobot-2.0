@@ -52,7 +52,7 @@ def move(frontDist,backDist,leftDist,rightDist):
         stringToPublish = "Stop"
 
     pubControlCommand.publish(commandToPublish)
-    pubHumanReadableString.publish()
+    pubHumanReadableString.publish(stringToPublish)
 
 def callback(msg):
     distances = str(msg.data).split("$")
