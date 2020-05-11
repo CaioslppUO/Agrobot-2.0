@@ -1,7 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
-    Versão: ROS 1.1.6
+    Ver: ROS 1.1.6
     Data: 14/03/2020, 23:30
     Autores: Caio, Lucas, Levi
 
