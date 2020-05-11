@@ -30,4 +30,4 @@ Digite os comandos abaixo na ordem correta:
 
 15: sudo apt-get install python3-pip python3-yaml
 
-16: sudo pip3 install rospkg catkin_pkg
+16: sudo pip3 install rospkg catkin_pkg pyserial
