@@ -5,9 +5,9 @@ from threading import Thread
 from std_msgs.msg import String
 
 #Variáveis de controle do robô
-speed = 50
-limit = 100
-steer = 0
+speed = "50"
+limit = "100"
+steer = "0"
 
 #Distancias em metro
 close = 0.5
@@ -31,23 +31,23 @@ def move(frontDist,backDist,leftDist,rightDist):
     commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
     stringToPublish = ""
     if(moveFowardRule(frontDist)):
-        speed = 50
-        steer = 0
+        speed = "50"
+        steer = "0"
         commandToPublish = "5*speed$" + speed + "*steer$" + steer + "*limit$" + limit + "*powerA$0*powerB$0*pulverize$0"
         stringToPublish = "Go Foward"
     elif(turnLeftRule(frontDist,leftDist)):
-        speed = 0
-        steer = -25
+        speed = "0"
+        steer = "-25"
         commandToPublish = "5*speed$" + speed + "*steer$" + steer + "*limit$" + limit + "*powerA$0*powerB$0*pulverize$0"
         stringToPublish = "Turn Left"
     elif(turnRightRule(frontDist,rightDist)):
-        speed = 0
-        steer = 25
+        speed = "0"
+        steer = "25"
         commandToPublish = "5*speed$" + speed + "*steer$" + steer + "*limit$" + limit + "*powerA$0*powerB$0*pulverize$0"
         stringToPublish = "Turn Right"
     else:
-        speed = 0
-        steer = 0
+        speed = "0"
+        steer = "0"
         commandToPublish = "5*speed$" + speed + "*steer$" + steer + "*limit$" + limit + "*powerA$0*powerB$0*pulverize$0"
         stringToPublish = "Stop"
 
