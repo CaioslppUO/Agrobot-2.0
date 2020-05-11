@@ -47,21 +47,22 @@ def mainLoop():
     launcher = LauncherVariables()
     serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect = launcher.variableSeparator(sys.argv)
 
+
     #Define quais módulos base serão inicializados
-    launchMsg = "cd .. && python3 comunication/webServer.py " + serverIp + "& "
-    launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
-    launchMsg += "cd .. && python3 modules/logs.py& "
-    launchMsg += "cd .. && modules/commandAssembler.py& "
+    launchMsg = "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 comunication/webServer.py " + serverIp + "& "
+    launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
+    launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/logs.py& "
+    launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && modules/commandAssembler.py& "
     
     #Define quais módulos opcionais serão inicializados
     if(enableRelay == "True"):
-        launchMsg += "cd .. && python3 modules/relay.py& "
+        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/relay.py& "
     if(enableUart == "True"):
-        launchMsg += "cd .. && python3 modules/controlRobot.py " + str(uartAmount) + "& "
+        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableSensor == "True"):
-        launchMsg += "cd .. && python3 modules/sensor.py& "
+        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/sensor.py& "
     if(enableFaceDetect == "True"):
-        launchMsg += "cd .. && python3 modules/coputationalVision.py& "
+        launchMsg += "cd /home/labiot/Agrobor-2.0/src/raspberryRos/ && python3 modules/coputationalVision.py& "
 
     #Inicializa os módulos que foram requeridos
     os.system(launchMsg)
