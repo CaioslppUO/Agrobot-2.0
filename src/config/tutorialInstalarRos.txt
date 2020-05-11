@@ -1,0 +1,19 @@
+Digite os comandos abaixo na ordem correta:
+
+1:sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+2:sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+3:sudo apt update
+
+4:sudo apt install ros-melodic-desktop
+
+5:echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+
+6:source ~/.bashrc
+
+7:sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+
+8:sudo rosdep init
+
+9:rosdep update

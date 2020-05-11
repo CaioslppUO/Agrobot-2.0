@@ -9,7 +9,7 @@ wifiPassword = ""
 gitRepo = "https://github.com/CaioslppUO/Agrobot-2.0"
 lidarRepo = "https://github.com/robopeak/rplidar_ros"
 user = "$USER"
-sudoAsUser = "sudo -u labiot echo labiot | "
+sudo = "sudo -u labiot echo labiot | "
 
 gpioOk = False
 i2cOk = False
@@ -130,51 +130,9 @@ def installLidar():
     run("clear")
     printOk("Instalação do Lidar")
 
-def configROS():
-    print(bcolors.OKGREEN + "Iniciando configuração do ROS melodic" + bcolors.ENDC)
-    echoToFile("~/.bashrc","source /opt/ros/melodic/setup.bash",False)
-    command = "source ~/.bashrc"
-    run(command)
-    command = "sudo apt install -y python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential"
-    run(command)
-    command = "sudo rosdep init"
-    run(command)
-    command = "sudo rosdep update"
-    run(command)
-    command = "sudo -u labiot mkdir -p ~/catkin_ws/src"
-    run(command)
-    run("clear")
-    print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
-    print(bcolors.WARNING +  'Para terminar a instalação entre no diretório: ~/catkin_ws e digite o comando: catkin_make -j 1 e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
-    print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
-    command = "sudo -u labiot -s"
-    run(command)
-    run("clear")
-    printOk("Configuração do ROS")
-
-def installROS():
-    print(bcolors.OKGREEN + "Iniciando instalação do ROS melodic" + bcolors.ENDC)
-    command = sudoAsUser + "sudo apt-get install curl"
-    run(command)
-    command = sudoAsUser + "sudo sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
-    run(command)
-    command = sudoAsUser + "sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
-    run(command)
-    command = "curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -"
-    run(command)
-    command = sudoAsUser + "sudo apt update && sudo apt-get upgrade -y"
-    run(command)
-    command = sudoAsUser + "sudo apt install -y ros-melodic-desktop"
-    run(command)
-    run("clear")
-    printOk("Instalação do ROS")
-    configROS()
-
 def updateSystem():
     print(bcolors.OKGREEN + "Inicializando o update e upgrade de sistema" + bcolors.ENDC)
     command = "sudo apt update"
-    run(command)
-    command = "sudo echo 'linux-firmware-raspi2 hold' | sudo dpkg --set-selections"
     run(command)
     command = "sudo apt autoremove -y && sudo apt upgrade -y"
     run(command)
@@ -249,6 +207,10 @@ def setVerifiedColor(var):
     else:
         return bcolors.FAIL + "NO" + bcolors.ENDC
 
+def fixBugs():
+    command = "sudo echo 'linux-firmware-raspi2 hold' | sudo dpkg --set-selections"
+    run(command)
+
 def log():
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     run("clear")
@@ -258,7 +220,6 @@ def log():
     print('GPIO: ' + setVerifiedColor(gpioOk))
     print('I2C: ' + setVerifiedColor(i2cOk))
     print('Repositório do GIT: ' + setVerifiedColor(repoOk))
-    print('ROS: ' + setVerifiedColor(rosOk))
     print('AccessPoint: ' + setVerifiedColor(accesPOk))
     print('Lidar: ' + setVerifiedColor(lidarOk))
     print('UsbPortConfig: ' + setVerifiedColor(portsOk))
@@ -290,16 +251,17 @@ def showQuestion(msg,function,errorMsg):
 def main():
     run("clear")
     echoToFile("./log","",True)
+    fixBugs()
+
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
 
-    updateSystem()
+    updtOk = showQuestion(bcolors.OKBLUE + +"Fazer update no sistema?" + bcolors.ENDC, updateSystem,'Erro ao dar update no sistema')
     sshOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,installandConfigureSSH,'Erro ao instalar o SSH')
     gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
     repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
-    rosO = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ROS?' + bcolors.ENDC,installROS,'Erro ao instalar o ROS')
     accesPOk = showQuestion(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,newAccessPoint,'Erro ao configurar o AcessPoint')
     lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
 
