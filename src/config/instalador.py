@@ -18,6 +18,7 @@ accesPOk = False
 repoOk = False
 updtOk = False
 portsOk = False
+autoStartRobotOk = False
 
 class bcolors:
     HEADER = '\033[95m'
@@ -199,6 +200,28 @@ def downloadRepo():
     run("clear")
     printOk("Download do repositório")
 
+def autoStartRobotCore():
+    print(bcolors.OKGREEN + "Configurando a iniciação automática do robô" + bcolors.ENDC)
+    command = "sudo chmod +x /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/run_ROBOT.sh"
+    run(command)
+    echoToFile("/etc/systemd/system/startRobot.service","[Unit]",True)
+    echoToFile("/etc/systemd/system/startRobot.service","Description=Start robor core",False)
+    echoToFile("/etc/systemd/system/startRobot.service","",False)
+    echoToFile("/etc/systemd/system/startRobot.service","[Service]",False)
+    echoToFile("/etc/systemd/system/startRobot.service","Type=simple",False)
+    echoToFile("/etc/systemd/system/startRobot.service","ExecStart=/bin/bash /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/run_ROBOT.sh",False)
+    echoToFile("/etc/systemd/system/startRobot.service","",False)
+    echoToFile("/etc/systemd/system/startRobot.service","[Install]",False)
+    echoToFile("/etc/systemd/system/startRobot.service","WantedBy=multi-user.target",False)
+    command = "sudo chmod 644 /etc/systemd/system/startRobot.service"
+    run(command)
+    command = "sudo systemctl start startRobot"
+    run(command)
+    command = "sudo systemctl enable startRobot"
+    run(command)
+    run("clear")
+    printOk("Inicialização automática")
+
 def setVerifiedColor(var):
     if(var == True):
         return bcolors.OKBLUE + "OK" + bcolors.ENDC
@@ -210,7 +233,7 @@ def fixBugs():
     run(command)
 
 def log():
-    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
+    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk,autoStartRobotOk
     run("clear")
     print(bcolors.OKGREEN + 'Resumo da instalação: ' + bcolors.ENDC)
     print('UpdateSystem: ' + setVerifiedColor(updtOk))
@@ -221,6 +244,7 @@ def log():
     print('AccessPoint: ' + setVerifiedColor(accesPOk))
     print('Lidar: ' + setVerifiedColor(lidarOk))
     print('UsbPortConfig: ' + setVerifiedColor(portsOk))
+    print('AutoStartRobot: ' + setVerifiedColor(autoStartRobotOk))
 
 
 def showQuestion(msg,function,errorMsg):
@@ -251,7 +275,7 @@ def main():
     echoToFile("./log","",True)
     fixBugs()
 
-    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
+    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk,autoStartRobotOk
     addUserSerialPorts()
     portsOk = True
 
@@ -262,7 +286,8 @@ def main():
     repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
     accesPOk = showQuestion(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,newAccessPoint,'Erro ao configurar o AcessPoint')
     lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
-
+    autoStartRobotOk = showQuestion(bcolors.OKBLUE + 'Inicializar automaticamente do código fonte do robô?' + bcolors.ENDC,autoStartRobotCore,'Erro ao inicializar automaticamente o código fonte do robô')
+    
     log()
 
 
