@@ -50,7 +50,7 @@ def move(frontDist,backDist,leftDist,rightDist):
         steer = 0
         commandToPublish = "5*speed$" + speed + "*steer$" + steer + "*limit$" + limit + "*powerA$0*powerB$0*pulverize$0"
         stringToPublish = "Stop"
-        
+
     pubControlCommand.publish(commandToPublish)
     pubHumanReadableString.publish()
 
@@ -60,6 +60,7 @@ def callback(msg):
     backDist = distances[1]
     leftDist = distances[2]
     rightDist = distances[3]
+    move(frontDist,backDist,leftDist,rightDist)
 
 rospy.init_node('controlOutdoors', anonymous=True)
 pubControlCommand = rospy.Publisher("ControlOutdoors", String,queue_size=10)
