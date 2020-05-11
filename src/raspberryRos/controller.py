@@ -57,13 +57,13 @@ def mainLoop():
     
     #Define quais módulos opcionais serão inicializados
     if(enableRelay == "True"):
-        launchMsg += "python3" + rootPath + "modules/relay.py& "
+        launchMsg += "python3 " + rootPath + "modules/relay.py& "
     if(enableUart == "True"):
-        launchMsg += "python3" + rootPath + "modules/controlRobot.py " + str(uartAmount) + "& "
+        launchMsg += "python3 " + rootPath + "modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableSensor == "True"):
-        launchMsg += "python3" + rootPath + "modules/sensor.py& "
+        launchMsg += "python3 " + rootPath + "modules/sensor.py& "
     if(enableFaceDetect == "True"):
-        launchMsg += "python3" + rootPath + "modules/coputationalVision.py& "
+        launchMsg += "python3 " + rootPath + "modules/coputationalVision.py& "
 
     #Inicializa os módulos que foram requeridos
     os.system(launchMsg)
