@@ -15,7 +15,6 @@ lidarOk = False
 repoOk = False
 updtOk = False
 portsOk = False
-autoStartRobotOk = False
 
 class bcolors:
     HEADER = '\033[95m'
@@ -127,28 +126,6 @@ def downloadRepo():
     run("clear")
     printOk("Download do repositório")
 
-def autoStartRobotCore():
-    print(bcolors.OKGREEN + "Configurando a iniciação automática do robô" + bcolors.ENDC)
-    command = "sudo chmod +x /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/run_ROBOT.sh"
-    run(command)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","[Unit]",True)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","Description=Start robor core",False)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","",False)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","[Service]",False)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","Type=simple",False)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","ExecStart=/bin/bash /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/run_ROBOT.sh",False)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","",False)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","[Install]",False)
-    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","WantedBy=multi-user.target",False)
-    command = "sudo chmod 644 /home/labiot/.config/systemd/user/startRobot.service"
-    run(command)
-    command ="sudo loginctl enable-linger labiot"
-    run(command)
-    command = "systemctl --labiot enable startRobot"
-    run(command)
-    run("clear")
-    printOk("Inicialização automática")
-
 def setVerifiedColor(var):
     if(var == True):
         return bcolors.OKBLUE + "OK" + bcolors.ENDC
@@ -160,7 +137,7 @@ def fixBugs():
     run(command)
 
 def log():
-    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobotOk
+    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk
     run("clear")
     print(bcolors.OKGREEN + 'Resumo da instalação: ' + bcolors.ENDC)
     print('UpdateSystem: ' + setVerifiedColor(updtOk))
@@ -170,7 +147,6 @@ def log():
     print('Repositório do GIT: ' + setVerifiedColor(repoOk))
     print('Lidar: ' + setVerifiedColor(lidarOk))
     print('UsbPortConfig: ' + setVerifiedColor(portsOk))
-    print('AutoStartRobot: ' + setVerifiedColor(autoStartRobotOk))
 
 
 def showQuestion(msg,function,errorMsg):
@@ -201,7 +177,7 @@ def main():
     echoToFile("./log","",True)
     fixBugs()
 
-    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobotOk
+    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
 
@@ -211,7 +187,6 @@ def main():
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
     repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
     lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
-    autoStartRobotOk = showQuestion(bcolors.OKBLUE + 'Inicializar automaticamente do código fonte do robô?' + bcolors.ENDC,autoStartRobotCore,'Erro ao inicializar automaticamente o código fonte do robô')
     
     log()
 
