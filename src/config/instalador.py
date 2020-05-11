@@ -210,7 +210,7 @@ def main():
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
     repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
     lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
-    autoStartRobot = showQuestion(bcolors.OKBLUE + "Configurando a inicialização automática do robô" + bcolors.ENDC,autoStartRobot,'Erro ao Configurar a inicialização automática do robô')
+    autoStartRobot = showQuestion(bcolors.OKBLUE + "Configurando a inicialização automática do robô" + bcolors.ENDC,setAutoStartRobotCore,'Erro ao Configurar a inicialização automática do robô')
 
     log()
 
