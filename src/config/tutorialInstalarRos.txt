@@ -17,3 +17,13 @@ Digite os comandos abaixo na ordem correta:
 8:sudo rosdep init
 
 9:rosdep update
+
+10:source /opt/ros/melodic/setup.bash
+
+11:mkdir -p ~/catkin_ws/src
+
+12:cd ~/catkin_ws/
+
+13:catkin_make
+
+14: echo 'source devel/setup.bash' >> ~/.bashrc

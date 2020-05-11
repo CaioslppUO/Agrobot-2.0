@@ -13,7 +13,6 @@ sudo = "sudo -u labiot echo labiot | "
 
 gpioOk = False
 i2cOk = False
-rosOk = False
 sshOk = False
 lidarOk = False
 accesPOk = False
@@ -212,7 +211,7 @@ def fixBugs():
     run(command)
 
 def log():
-    global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
+    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     run("clear")
     print(bcolors.OKGREEN + 'Resumo da instalação: ' + bcolors.ENDC)
     print('UpdateSystem: ' + setVerifiedColor(updtOk))
@@ -253,7 +252,7 @@ def main():
     echoToFile("./log","",True)
     fixBugs()
 
-    global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
+    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
 
