@@ -30,7 +30,7 @@ def move(frontDist,backDist,leftDist,rightDist):
     global close,medium,far,speed,steer,limit,pubControlCommand
     commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
     stringToPublish = ""
-    if(turnRightRule(frontDist)):
+    if(moveFowardRule(frontDist)):
         speed = 50
         steer = 0
         commandToPublish = "5*speed$" + speed + "*steer$" + steer + "*limit$" + limit + "*powerA$0*powerB$0*pulverize$0"
