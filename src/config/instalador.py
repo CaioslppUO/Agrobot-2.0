@@ -204,20 +204,20 @@ def autoStartRobotCore():
     print(bcolors.OKGREEN + "Configurando a iniciação automática do robô" + bcolors.ENDC)
     command = "sudo chmod +x /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/run_ROBOT.sh"
     run(command)
-    echoToFile("/etc/systemd/system/startRobot.service","[Unit]",True)
-    echoToFile("/etc/systemd/system/startRobot.service","Description=Start robor core",False)
-    echoToFile("/etc/systemd/system/startRobot.service","",False)
-    echoToFile("/etc/systemd/system/startRobot.service","[Service]",False)
-    echoToFile("/etc/systemd/system/startRobot.service","Type=simple",False)
-    echoToFile("/etc/systemd/system/startRobot.service","ExecStart=/bin/bash /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/run_ROBOT.sh",False)
-    echoToFile("/etc/systemd/system/startRobot.service","",False)
-    echoToFile("/etc/systemd/system/startRobot.service","[Install]",False)
-    echoToFile("/etc/systemd/system/startRobot.service","WantedBy=multi-user.target",False)
-    command = "sudo chmod 644 /etc/systemd/system/startRobot.service"
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","[Unit]",True)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","Description=Start robor core",False)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","",False)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","[Service]",False)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","Type=simple",False)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","ExecStart=/bin/bash /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/run_ROBOT.sh",False)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","",False)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","[Install]",False)
+    echoToFile("/home/labiot/.config/systemd/user/startRobot.service","WantedBy=multi-user.target",False)
+    command = "sudo chmod 644 /home/labiot/.config/systemd/user/startRobot.service"
     run(command)
-    command = "sudo systemctl start startRobot"
+    command ="sudo loginctl enable-linger labiot"
     run(command)
-    command = "sudo systemctl enable startRobot"
+    command = "systemctl --labiot enable startRobot"
     run(command)
     run("clear")
     printOk("Inicialização automática")
