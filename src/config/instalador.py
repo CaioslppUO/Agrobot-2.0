@@ -195,7 +195,7 @@ def downloadRepo():
     run(command)
     command = "git clone " + gitRepo
     run(command)
-    command = "cd Agrobot-2.0 && git checkout raspberry-ros && clear"
+    command = "cd Agrobot-2.0 && git checkout raspberry-ros-stable && clear"
     run(command)
     run("clear")
     printOk("Download do repositório")
