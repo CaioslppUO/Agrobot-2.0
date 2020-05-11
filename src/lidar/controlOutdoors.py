@@ -56,10 +56,10 @@ def move(frontDist,backDist,leftDist,rightDist):
 
 def callback(msg):
     distances = str(msg.data).split("$")
-    frontDist = distances[0]
-    backDist = distances[1]
-    leftDist = distances[2]
-    rightDist = distances[3]
+    frontDist = float(distances[0])
+    backDist = float(distances[1])
+    leftDist = float(distances[2])
+    rightDist = float(distances[3])
     move(frontDist,backDist,leftDist,rightDist)
 
 rospy.init_node('controlOutdoors', anonymous=True)
