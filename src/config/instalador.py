@@ -4,8 +4,6 @@ import os
 import time
 import subprocess
 
-wifiName = ""
-wifiPassword = ""
 gitRepo = "https://github.com/CaioslppUO/Agrobot-2.0"
 lidarRepo = "https://github.com/robopeak/rplidar_ros"
 user = "$USER"
@@ -14,7 +12,6 @@ gpioOk = False
 i2cOk = False
 sshOk = False
 lidarOk = False
-accesPOk = False
 repoOk = False
 updtOk = False
 portsOk = False
@@ -45,76 +42,6 @@ def echoToFile(filePath,msg,overWrite):
     else:
         command = "sudo echo >> " + filePath + " '" + msg + "'"
     run(command)
-
-def newAccessPoint():
-    print(bcolors.OKGREEN + "Toranando o RaspBerry em um Access Point" + bcolors.ENDC)
-    global wifiName,wifiPassword
-
-    command = "sudo apt-get install -y dnsmasq hostapd dhcpcd5"
-    run(command)
-    command = "sudo systemctl stop hostapd"
-    run(command)
-    command = "sudo systemctl stop dnsmasq"
-    run(command)
-
-    echoToFile("/etc/dhcpcd.conf","denyinterfaces wlan0",False)
-
-    echoToFile("/etc/network/interfaces","allow-hotplug wlan0",True)
-    echoToFile("/etc/network/interfaces","iface wlan0 inet static",False)
-    echoToFile("/etc/network/interfaces","address 192.168.1.2",False)
-    echoToFile("/etc/network/interfaces","netmask 255.255.255.0",False)
-    echoToFile("/etc/network/interfaces","network 192.168.1.1",False)
-    echoToFile("/etc/network/interfaces","broadcast 192.168.1.255",False)
-
-    wifiName = input("Digite o nome da rede wifi:")
-    wifiPassword = input("Digite a senha da rede wifi:")
-
-    echoToFile("/etc/hostapd/hostapd.conf","interface=wlan0",True)
-    echoToFile("/etc/hostapd/hostapd.conf","driver=nl80211",False)
-    echoToFile("/etc/hostapd/hostapd.conf","ssid="+wifiName,False)
-    echoToFile("/etc/hostapd/hostapd.conf","hw_mode=g",False)
-    echoToFile("/etc/hostapd/hostapd.conf","channel=6",False)
-    echoToFile("/etc/hostapd/hostapd.conf","macaddr_acl=0",False)
-    echoToFile("/etc/hostapd/hostapd.conf","auth_algs=1",False)
-    echoToFile("/etc/hostapd/hostapd.conf","ignore_broadcast_ssid=0",False)
-    echoToFile("/etc/hostapd/hostapd.conf","wpa=2",False)
-    echoToFile("/etc/hostapd/hostapd.conf","wpa_passphrase="+wifiPassword,False)
-    echoToFile("/etc/hostapd/hostapd.conf","wpa_key_mgmt=WPA-PSK",False)
-    echoToFile("/etc/hostapd/hostapd.conf","rsn_pairwise=CCMP",False)
-
-    echoToFile("/etc/default/hostapd","DAEMON_CONF='/etc/hostapd/hostapd.conf'",False)
-
-    echoToFile("/etc/dnsmasq.conf","interface=wlan0",True)
-    echoToFile("/etc/dnsmasq.conf","listen-address=192.168.1.2",False)
-    echoToFile("/etc/dnsmasq.conf","bind-interfaces",False)
-    echoToFile("/etc/dnsmasq.conf","server=8.8.8.8",False)
-    echoToFile("/etc/dnsmasq.conf","domain-needed",False)
-    echoToFile("/etc/dnsmasq.conf","bogus-priv",False)
-    echoToFile("/etc/dnsmasq.conf","dhcp-range=192.168.1.120,192.168.1.254,12h",False)
-
-    echoToFile("/etc/sysctl.conf","net.ipv4.ip_forward=1",False)
-
-    command = "sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE"
-    run(command)
-    command = "sudo iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT"
-    run(command)
-    command = "sudo iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT"
-    run(command)
-    command = "sudo sh -c 'iptables-save > /etc/iptables.ipv4.nat'"
-    run(command)
-
-    echoToFile("/usr/bin/resetssh.sh","iptables-restore < /etc/iptables.ipv4.nat",False)
-    echoToFile("/usr/bin/resetssh.sh","/usr/sbin/hostapd /etc/hostapd/hostapd.conf",False)
-
-    command = "sudo apt-get install ponte-utils"
-    run(command)
-    command = "sudo brctl addbr br0"
-    run(command)
-    command = "sudo brctl addif br0 eth0"
-    run(command)
-    
-    run("clear")
-    printOk("Access Point")
 
 def installLidar():
     global lidarRepo
@@ -233,7 +160,7 @@ def fixBugs():
     run(command)
 
 def log():
-    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk,autoStartRobotOk
+    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobotOk
     run("clear")
     print(bcolors.OKGREEN + 'Resumo da instalação: ' + bcolors.ENDC)
     print('UpdateSystem: ' + setVerifiedColor(updtOk))
@@ -241,7 +168,6 @@ def log():
     print('GPIO: ' + setVerifiedColor(gpioOk))
     print('I2C: ' + setVerifiedColor(i2cOk))
     print('Repositório do GIT: ' + setVerifiedColor(repoOk))
-    print('AccessPoint: ' + setVerifiedColor(accesPOk))
     print('Lidar: ' + setVerifiedColor(lidarOk))
     print('UsbPortConfig: ' + setVerifiedColor(portsOk))
     print('AutoStartRobot: ' + setVerifiedColor(autoStartRobotOk))
@@ -275,7 +201,7 @@ def main():
     echoToFile("./log","",True)
     fixBugs()
 
-    global gpioOk,i2cOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk,autoStartRobotOk
+    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobotOk
     addUserSerialPorts()
     portsOk = True
 
@@ -284,7 +210,6 @@ def main():
     gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
     repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
-    accesPOk = showQuestion(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,newAccessPoint,'Erro ao configurar o AcessPoint')
     lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
     autoStartRobotOk = showQuestion(bcolors.OKBLUE + 'Inicializar automaticamente do código fonte do robô?' + bcolors.ENDC,autoStartRobotCore,'Erro ao inicializar automaticamente o código fonte do robô')
     
