@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-    Versão: ROS 1.1.6
+    Ver: ROS 1.1.6
     Data: 14/03/2020, 23:30
     Autores: Caio, Lucas, Levi
 
@@ -47,21 +47,23 @@ def mainLoop():
     launcher = LauncherVariables()
     serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect = launcher.variableSeparator(sys.argv)
 
+    rootPath = "/home/labiot/Agrobot-2.0/src/raspberryRos/"
+
     #Define quais módulos base serão inicializados
-    launchMsg = "cd .. && python3 comunication/webServer.py " + serverIp + "& "
-    launchMsg += "cd .. && python3 comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
-    launchMsg += "cd .. && python3 modules/logs.py& "
-    launchMsg += "cd .. && modules/commandAssembler.py& "
+    launchMsg = "python3 " + rootPath + "comunication/webServer.py " + serverIp + "& "
+    launchMsg += "python3 " + rootPath + "comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
+    launchMsg += "python3 " + rootPath + "modules/logs.py& "
+    launchMsg += "python3 " + rootPath + "modules/commandAssembler.py& "
     
     #Define quais módulos opcionais serão inicializados
     if(enableRelay == "True"):
-        launchMsg += "cd .. && python3 modules/relay.py& "
+        launchMsg += "python3 " + rootPath + "modules/relay.py& "
     if(enableUart == "True"):
-        launchMsg += "cd .. && python3 modules/controlRobot.py " + str(uartAmount) + "& "
+        launchMsg += "python3 " + rootPath + "modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableSensor == "True"):
-        launchMsg += "cd .. && python3 modules/sensor.py& "
+        launchMsg += "python3 " + rootPath + "modules/sensor.py& "
     if(enableFaceDetect == "True"):
-        launchMsg += "cd .. && python3 modules/coputationalVision.py& "
+        launchMsg += "python3 " + rootPath + "modules/coputationalVision.py& "
 
     #Inicializa os módulos que foram requeridos
     os.system(launchMsg)

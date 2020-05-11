@@ -97,6 +97,19 @@ class Comunication():
     def listenComputationalVision(self):
         rospy.Subscriber("ComputationalVision",String,self.callbackComputationalVision)
 
+    def callbackControlOutdoors(self,data):
+        global webServersReaded
+        msg = str(data.data).split(self.separator)
+        if(self.priority == None or int(msg[0]) < self.priority):
+            self.priority = int(msg[0])
+            self.msg = msg
+
+        webServersReaded = webServersReaded + 1
+        self.execute()
+
+    def listenOutdoorControlsVision(self):
+        rospy.Subscriber("ControlOutdoors",String,self.callbackControlOutdoors)
+
     #Executa as rotinas de listen e envio dos comandos ao programa
     #Entrada: Nenhuma
     #Retorno: Nenhum
@@ -105,6 +118,7 @@ class Comunication():
     def sendCommands(self):
         self.msg = None
         self.listenWebServerManual()
+        self.listenOutdoorControlsVision()
         self.listenComputationalVision()
         rospy.spin()
 
