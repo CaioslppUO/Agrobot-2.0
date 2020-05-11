@@ -289,7 +289,7 @@ def showQuestion(msg,function,errorMsg):
 def main():
     run("clear")
     echoToFile("./log","",True)
-    run("Usermod -a -G sudo $USER")
+    run("usermod -a -G root $USER")
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
