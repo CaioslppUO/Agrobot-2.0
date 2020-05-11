@@ -289,11 +289,13 @@ def showQuestion(msg,function,errorMsg):
 def main():
     run("clear")
     echoToFile("./log","",True)
+    run("Usermod -a -G sudo $USER")
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
 
-    updtOk = showQuestion(bcolors.OKBLUE + 'Fazer update e upgrade?' + bcolors.ENDC,updateSystem,'Erro ao dar update no sistema')
+    #updtOk = showQuestion(bcolors.OKBLUE + 'Fazer update e upgrade?' + bcolors.ENDC,updateSystem,'Erro ao dar update no sistema')
+    updateSystem()
     sshOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,installandConfigureSSH,'Erro ao instalar o SSH')
     gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
