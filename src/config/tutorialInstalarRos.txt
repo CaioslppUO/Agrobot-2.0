@@ -27,3 +27,7 @@ Digite os comandos abaixo na ordem correta:
 13:catkin_make
 
 14: echo "source devel/setup.bash" >> ~/.bashrc
+
+15: sudo apt-get install python3-pip python3-yaml
+
+16: sudo pip3 install rospkg catkin_pkg
