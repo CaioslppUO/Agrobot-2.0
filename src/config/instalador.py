@@ -15,6 +15,7 @@ lidarOk = False
 repoOk = False
 updtOk = False
 portsOk = False
+autoStartRobot = False
 
 class bcolors:
     HEADER = '\033[95m'
@@ -136,8 +137,29 @@ def fixBugs():
     command = "sudo echo 'linux-firmware-raspi2 hold' | sudo dpkg --set-selections"
     run(command)
 
+def setAutoStartRobotCore():
+    print(bcolors.OKGREEN + "Configurando a inicialização automática do robô" + bcolors.ENDC)
+    echoToFile("/usr/bin/autoStartRobotCore.sh","source /opt/ros/melodic/setup.bash && /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/./run_ROBOT.sh",True)
+    command = "sudo chmod +x /usr/bin/autoStartRobotCore.sh"
+    run(command)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","[Unit]",True)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","Description=Starts ssh",False)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","",False)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","[Service]",False)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","Type=simple",False)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","ExecStart=/bin/bash /usr/bin/autoStartRobotCore.sh",False)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","",False)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","[Install]",False)
+    echoToFile("/etc/systemd/system/autoStartRobotCore.service","WantedBy=multi-user.target",False)
+    command = "sudo chmod 644 /etc/systemd/system/autoStartRobotCore.service"
+    run(command)
+    command = "sudo systemctl enable autoStartRobotCore"
+    run(command)
+    run("clear")
+    printOk("Configuração da inicialização automática do robô")
+
 def log():
-    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk
+    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobot
     run("clear")
     print(bcolors.OKGREEN + 'Resumo da instalação: ' + bcolors.ENDC)
     print('UpdateSystem: ' + setVerifiedColor(updtOk))
@@ -147,6 +169,7 @@ def log():
     print('Repositório do GIT: ' + setVerifiedColor(repoOk))
     print('Lidar: ' + setVerifiedColor(lidarOk))
     print('UsbPortConfig: ' + setVerifiedColor(portsOk))
+    print("Iniciar Automáticamente o robô: " + setVerifiedColor(autoStartRobot))
 
 
 def showQuestion(msg,function,errorMsg):
@@ -177,7 +200,7 @@ def main():
     echoToFile("./log","",True)
     fixBugs()
 
-    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk
+    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobot
     addUserSerialPorts()
     portsOk = True
 
@@ -187,7 +210,8 @@ def main():
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
     repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
     lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
-    
+    autoStartRobot = showQuestion(bcolors.OKBLUE + "Configurando a inicialização automática do robô" + bcolors.ENDC,autoStartRobot,'Erro ao Configurar a inicialização automática do robô')
+
     log()
 
 
