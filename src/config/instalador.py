@@ -9,7 +9,6 @@ wifiPassword = ""
 gitRepo = "https://github.com/CaioslppUO/Agrobot-2.0"
 lidarRepo = "https://github.com/robopeak/rplidar_ros"
 user = "$USER"
-sudo = "sudo -u labiot echo labiot | "
 
 gpioOk = False
 i2cOk = False
