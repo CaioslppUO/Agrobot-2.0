@@ -9,6 +9,7 @@ wifiPassword = ""
 gitRepo = "https://github.com/CaioslppUO/Agrobot-2.0"
 lidarRepo = "https://github.com/robopeak/rplidar_ros"
 user = "$USER"
+sudoAsUser = "sudo -u labiot echo labiot | "
 
 gpioOk = False
 i2cOk = False
@@ -122,7 +123,7 @@ def installLidar():
     command = "cd ~/catkin_ws/src && sudo -u labiot git clone " + lidarRepo
     run(command)
     print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
-    print(bcolors.WARNING +  'Para terminar a instalação entre no diretório: ~/catkin_ws e digite o comando: catkin_make e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
+    print(bcolors.WARNING +  'Para terminar a instalação entre no diretório: ~/catkin_ws e digite o comando: catkin_make -j 1 e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
     print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
     command = "sudo -u labiot -s"
     run(command)
@@ -153,17 +154,17 @@ def configROS():
 
 def installROS():
     print(bcolors.OKGREEN + "Iniciando instalação do ROS melodic" + bcolors.ENDC)
-    command = "sudo apt-get install curl"
+    command = sudoAsUser + "sudo apt-get install curl"
     run(command)
-    command = "sudo sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
+    command = sudoAsUser + "sudo sh -c 'echo 'deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main' > /etc/apt/sources.list.d/ros-latest.list'"
     run(command)
-    command = "sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
+    command = sudoAsUser + "sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654"
     run(command)
     command = "curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -"
     run(command)
-    command = "sudo apt update && sudo apt-get upgrade -y"
+    command = sudoAsUser + "sudo apt update && sudo apt-get upgrade -y"
     run(command)
-    command = "sudo apt install -y ros-melodic-desktop"
+    command = sudoAsUser + "sudo apt install -y ros-melodic-desktop"
     run(command)
     run("clear")
     printOk("Instalação do ROS")
@@ -289,12 +290,10 @@ def showQuestion(msg,function,errorMsg):
 def main():
     run("clear")
     echoToFile("./log","",True)
-    run("usermod -a -G root $USER")
     global gpioOk,i2cOk,rosOk,sshOk,lidarOk,accesPOk,repoOk,updtOk,portsOk
     addUserSerialPorts()
     portsOk = True
 
-    #updtOk = showQuestion(bcolors.OKBLUE + 'Fazer update e upgrade?' + bcolors.ENDC,updateSystem,'Erro ao dar update no sistema')
     updateSystem()
     sshOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,installandConfigureSSH,'Erro ao instalar o SSH')
     gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
