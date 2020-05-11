@@ -16,7 +16,7 @@ far = 7.0
 
 def moveFowardRule(frontDist):
     global medium
-    return frontDist > medium and frontDist < far
+    return frontDist > medium
 
 def turnRightRule(frontDist,rightDist):
     global medium,far
