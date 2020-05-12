@@ -4,8 +4,8 @@ import os
 import time
 import subprocess
 
-wifiName = ""
-wifiPassword = ""
+wifiName = "Agrobot4"
+wifiPassword = "rapisbere"
 gitRepo = "https://github.com/CaioslppUO/Agrobot-2.0"
 lidarRepo = "https://github.com/robopeak/rplidar_ros"
 user = "$USER"
@@ -60,8 +60,8 @@ def installLidar():
     printOk("Instalação do Lidar")
 
 def newAccessPoint():
+    def newAccessPoint():
     print(bcolors.OKGREEN + "Toranando o RaspBerry em um Access Point" + bcolors.ENDC)
-    global wifiName,wifiPassword
 
     command = "sudo apt-get install -y dnsmasq hostapd dhcpcd5"
     run(command)
@@ -78,9 +78,6 @@ def newAccessPoint():
     echoToFile("/etc/network/interfaces","netmask 255.255.255.0",False)
     echoToFile("/etc/network/interfaces","network 192.168.1.1",False)
     echoToFile("/etc/network/interfaces","broadcast 192.168.1.255",False)
-
-    wifiName = input("Digite o nome da rede wifi:")
-    wifiPassword = input("Digite a senha da rede wifi:")
 
     echoToFile("/etc/hostapd/hostapd.conf","interface=wlan0",True)
     echoToFile("/etc/hostapd/hostapd.conf","driver=nl80211",False)
@@ -195,7 +192,7 @@ def downloadRepo():
     run(command)
     command = "git clone " + gitRepo
     run(command)
-    command = "cd Agrobot-2.0 && git checkout raspberry-ros && clear"
+    command = "cd Agrobot-2.0 && git checkout raspberry-ros-stable && clear"
     run(command)
     run("clear")
     printOk("Download do repositório")
