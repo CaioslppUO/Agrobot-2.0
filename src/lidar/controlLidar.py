@@ -22,7 +22,7 @@ lastRightPoint = 0
 lastLeftPoint = 0
 def move():
     global frontPoint,backPoint,rightPoint,leftPoint
-    if( rightPoint < longe AND leftPoint < longe AND frontPoint < medio )
+    if( rightPoint < longe and leftPoint < longe and frontPoint < medio ):
         speed = 100
         return True
     else:
@@ -35,7 +35,7 @@ def correctHardDirection(arg):
     steer-=arg
     
 def correctDirection():
-
+    global lastLeftPoint, lastRightPoint, rightPoint, leftPoint
     if(leftPoint <= perto ):
         thread = Thread(target = correctHardDirection,args=(50))
         thread.start()
@@ -45,10 +45,9 @@ def correctDirection():
         thread.start()
         thread.join()
     else:
-        global lastLeftPoint, lastRightPoint, rightPoint, leftPoint
-        if(lastLeftPoint - leftPoint > 0.20 AND rightPoint - lastRightPoint > 0.20)
+        if(lastLeftPoint - leftPoint > 0.20 and rightPoint - lastRightPoint > 0.20):
             steer+=10
-        elif(leftPoint - lastLeftPoint > 0.20 AND lastRightPoint - rightPoint > 0.20)
+        elif(leftPoint - lastLeftPoint > 0.20 and lastRightPoint - rightPoint > 0.20):
             steer-=10
         lastRightPoint = rightPoint
         lastLeftPoint = leftPoint
