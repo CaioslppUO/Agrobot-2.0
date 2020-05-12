@@ -60,7 +60,6 @@ def installLidar():
     printOk("Instalação do Lidar")
 
 def newAccessPoint():
-    def newAccessPoint():
     print(bcolors.OKGREEN + "Toranando o RaspBerry em um Access Point" + bcolors.ENDC)
 
     command = "sudo apt-get install -y dnsmasq hostapd dhcpcd5"
