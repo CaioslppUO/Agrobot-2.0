@@ -107,8 +107,21 @@ class Comunication():
         webServersReaded = webServersReaded + 1
         self.execute()
 
-    def listenOutdoorControlsVision(self):
+    def listenOutdoorControls(self):
         rospy.Subscriber("ControlOutdoors",String,self.callbackControlOutdoors)
+
+    def callbackLidarControl(self,data):
+        global webServersReaded
+        msg = str(data.data).split(self.separator)
+        if(self.priority == None or int(msg[0]) < self.priority):
+            self.priority = int(msg[0])
+            self.msg = msg
+
+        webServersReaded = webServersReaded + 1
+        self.execute()
+
+    def listenLidarControl(self):
+        rospy.Subscriber("ControlLidar",String,self.callbackLidarControl)
 
     #Executa as rotinas de listen e envio dos comandos ao programa
     #Entrada: Nenhuma
@@ -119,6 +132,7 @@ class Comunication():
         self.msg = None
         self.listenWebServerManual()
         self.listenOutdoorControlsVision()
+        self.listenLidarControl()
         self.listenComputationalVision()
         rospy.spin()
 
