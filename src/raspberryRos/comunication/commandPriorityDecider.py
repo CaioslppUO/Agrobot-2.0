@@ -131,9 +131,7 @@ class Comunication():
     def sendCommands(self):
         self.msg = None
         self.listenWebServerManual()
-        self.listenOutdoorControlsVision()
         self.listenLidarControl()
-        self.listenComputationalVision()
         rospy.spin()
 
 #######################
