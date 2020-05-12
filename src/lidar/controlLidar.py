@@ -6,7 +6,7 @@ from threading import Thread
 from std_msgs.msg import String
 
 speed = 100
-limit = 40
+limit = 20
 steer = 0
 perto = 0.3
 medio = 2.0
