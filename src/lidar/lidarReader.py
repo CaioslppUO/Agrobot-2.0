@@ -13,7 +13,7 @@ mf = 0
 mb = int((brange[0] + brange[1])/2)
 ml = int((lrange[0] + lrange[1])/2)
 mr = int((rrange[0] + rrange[1])/2)
-angleRange = 7
+angleRange = 11
 
 def selectPoints(vet,range,centralPoint):
     i = 0

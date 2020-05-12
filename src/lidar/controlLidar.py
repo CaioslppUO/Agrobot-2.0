@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+121#!/usr/bin/env python3
 
 import rospy
 import time
@@ -8,7 +8,7 @@ from std_msgs.msg import String
 speed = 100
 limit = 40
 steer = 0
-perto = 0.5
+perto = 0.3
 medio = 2.0
 longe = 7.0
 
@@ -21,36 +21,20 @@ pointDirection = 0
 lastRightPoint = 0
 lastLeftPoint = 0
 def move():
-    global frontPoint,backPoint,rightPoint,leftPoint
-    if( rightPoint < longe and leftPoint < longe and frontPoint < medio ):
+    global frontPoint,backPoint,rightPoint,leftPoint,longe,medio,speed
+    if( rightPoint < longe and leftPoint < longe and frontPoint > medio ):
         speed = 100
         return True
     else:
         speed = 0
         return False
-
-def correctHardDirection(arg):
-    steer+=arg
-    time.sleep(1)
-    steer-=arg
     
 def correctDirection():
-    global lastLeftPoint, lastRightPoint, rightPoint, leftPoint
-    if(leftPoint <= perto ):
-        thread = Thread(target = correctHardDirection,args=(50))
-        thread.start()
-        thread.join()
-    elif(rightPoint <= perto):
-        thread = Thread(target = correctHardDirection,args=(-50))
-        thread.start()
-        thread.join()
-    else:
-        if(lastLeftPoint - leftPoint > 0.20 and rightPoint - lastRightPoint > 0.20):
-            steer+=10
-        elif(leftPoint - lastLeftPoint > 0.20 and lastRightPoint - rightPoint > 0.20):
-            steer-=10
-        lastRightPoint = rightPoint
-        lastLeftPoint = leftPoint
+    global rightPoint, leftPoint,steer
+    if(leftPoint < perto):
+        steer+=1
+    if(rightPoint < perto):
+        steer-=1
 
 def main():
     sub = rospy.Subscriber('/Lidar', String, callback)
@@ -60,15 +44,16 @@ def callback(data):
     global pointDirection,frontPoint,backPoint,rightPoint,leftPoint
     commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
     pointDirection = str(data.data).split('$')
-    frontPoint = pointDirection[0]
-    backPoint = pointDirection[1]
-    rightPoint = pointDirection[2]
-    leftPoint = pointDirection[3]
+    frontPoint = float(pointDirection[0])
+    backPoint = float(pointDirection[1])
+    leftPoint = float(pointDirection[2])
+    rightPoint = float(pointDirection[3])
     if(move()):
         correctDirection()
-    commandToPublish = "5*speed$" + speed + "*steer$" + steer + "*limit$" + limit + "*powerA$0*powerB$0*pulverize$0"
-    pubControlCommand(commandToPublish)
+    commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(limit) + "*powerA$0*powerB$0*pulverize$0"
+    pubControlCommand.publish(commandToPublish)
     
 
 rospy.init_node('ControlLidar', anonymous=True)
 pubControlCommand = rospy.Publisher("ControlLidar", String,queue_size=10)
+main()
