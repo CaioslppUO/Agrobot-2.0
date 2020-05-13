@@ -17,26 +17,31 @@ angleRange = 11
 
 def selectPoints(vet,range,centralPoint):
     i = 0
-    selectedVet = []
-    selectedVet.append(vet[centralPoint])
+    RightVet = []
+    LeftVet = []
+    RightVet.append(vet[centralPoint])
+    LeftVet.append(vet[centralPoint])
     while(i < range):
-        selectedVet.append(vet[centralPoint+i])
-        selectedVet.append(vet[centralPoint-i])
+        RightVet.append(vet[centralPoint+i])
+        LeftVet.append(vet[centralPoint-i])
         i = i+1
-    return selectedVet
+    return RightVet,LeftVet
 
 def callback(msg):
-    pubProcessedData.publish(str(getClosestObject(selectPoints(msg.ranges,angleRange,mf))) + '$'\
-    + str(getClosestObject(selectPoints(msg.ranges,angleRange,mb))) + '$'\
-    + str(getClosestObject(selectPoints(msg.ranges,angleRange,ml))) + '$'\
-    + str(getClosestObject(selectPoints(msg.ranges,angleRange,mr))))
+    global mf,angleRange
+    RVet = []
+    LVet = []
+    RVet,LVet = selectPoints(msg.ranges,angleRange,mf)
+
+    pubProcessedData.publish(str( getClosestObject(LVet) + "$" getClosestObject(RVet) )
+
 def getClosestObject(Vet):
-    lowerValue = 100
     for testValue in Vet:
         if(not isinstance(testValue, str)):
-            if (testValue < lowerValue):
-                lowerValue = testValue 
-    return lowerValue
+            return "busy" 
+        # if(testValue < 1.5):
+            # return "busy" 
+    return "free"
 
 
 rospy.init_node('lidar_values', anonymous=True)
