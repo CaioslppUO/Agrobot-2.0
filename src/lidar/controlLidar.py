@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import rospy
 import time
 from threading import Thread
+import rospy
 from std_msgs.msg import String
 import json
 
@@ -14,7 +14,7 @@ correctdir = "None"
 leftArea = "None"
 rightArea = "None"
 
-def read_json():
+def readJson():
     with open('parameters.json','r') as file:
         return json.load(file)
 
@@ -47,10 +47,6 @@ def correctDirection():
         tick = dataDefault['tickDefault']
         correctdir = "left"
 
-def main():
-    sub = rospy.Subscriber('/Lidar', String, callback)
-    rospy.spin()
-
 def callback(data):
     global tick
     commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
@@ -68,8 +64,12 @@ def callback(data):
     commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$0"
     pubControlCommand.publish(commandToPublish)
     
+    
+def main():
+    sub = rospy.Subscriber('/Lidar', String, callback)
+    rospy.spin()
 
 rospy.init_node('ControlLidar', anonymous=True)
 pubControlCommand = rospy.Publisher("ControlLidar", String,queue_size=10)
-dataDefault = read_json()
+dataDefault = readJson()
 main()
