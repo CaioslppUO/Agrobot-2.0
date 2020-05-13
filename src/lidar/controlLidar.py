@@ -15,7 +15,7 @@ leftArea = "None"
 rightArea = "None"
 
 def read_json():
-    with open('params.json','r') as file:
+    with open('parameters.json','r') as file:
         return json.load(file)
 
 
