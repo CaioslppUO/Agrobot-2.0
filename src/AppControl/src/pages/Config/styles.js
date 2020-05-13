@@ -44,7 +44,7 @@ export default StyleSheet.create({
       fontWeight: 'bold'
   },
   control: {
-      marginTop: '10%',
+      marginTop: '25%',
       fontSize: 30,
       marginLeft: '37%',
       color: '#596e9c',
@@ -62,5 +62,11 @@ export default StyleSheet.create({
   versionText: {
     color: '#02535c',
     fontSize: 10
+  },
+  delayText: {
+    marginTop: '5%',
+    fontSize: 30,
+    borderRadius: 10,
+    borderWidth: 1
   }
 });

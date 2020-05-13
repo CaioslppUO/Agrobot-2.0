@@ -8,7 +8,8 @@ export default class Config extends Component {
     state = {
         serverIp: global.serverIp,
         port: global.port,
-        minPSpeed: global.minPulverizeSpeed
+        minPSpeed: global.minPulverizeSpeed,
+        delay: global.delay
     };
 
     //Opções do controlador de navegação de páginas 
@@ -46,6 +47,15 @@ export default class Config extends Component {
                                 }
                             }
                         />
+
+                        <TextInput
+                            style={styles.delayText}
+                            placeholder="Delay(ms):"
+                            onChangeText={(text) => {
+                                    this.setState({delay: text})
+                                }
+                            }
+                        />
                     </View>
 
                     <Text style={styles.control}>Control</Text>
@@ -67,9 +77,11 @@ export default class Config extends Component {
                             onPress={() => {
                                 let lastIp = global.serverIp
                                 let lastMPS = global.minPulverizeSpeed
+                                let lastDelay = global.delay
                                 global.minPulverizeSpeed = this.state.minPSpeed
                                 global.serverIp = this.state.serverIp
                                 global.port = this.state.port
+                                global.delay = parseFloat(this.state.delay)
 
                                 if(global.serverIp.split(".").length != 4){
                                     alert('Invalid IP')
