@@ -22,6 +22,13 @@ rospy.init_node('CommandPriorityDecider', anonymous=True)
 webServersReaded = 0
 commandObservers = int(sys.argv[1])
 
+class priorities():
+    def __init__(self):
+        self.manual_app = 1000
+        self.rasp_lidar = 999
+        self.computacional_vision = 998
+        self.guaranteedCommands = 50 #Quantidade de comandos que precisam ser executados antes da prioridade ser liberada
+
 #################################
 #----> Classe Comunication <----#
 #################################
@@ -29,96 +36,53 @@ commandObservers = int(sys.argv[1])
 class Comunication():
     def __init__(self):
         self.msg        = None
-        self.priority   = None
         self.separator  = "*" #Símbolo utilizado para separa a mensagem padrão
         self.commandStandardizer = CommandStandardizer()
+        self.priorities = priorities()
+        self.priority = 0
+        self.leftCommands = 0
 
         #ROS
         self.pubComunication = rospy.Publisher('CommandPriorityDecider', String, queue_size=10)
 
     #Publica o comando para o tópico do ROS
-    #Entrada: Nenhuma
-    #Retorno: Nenhum
-    #Pré-condição: O tópico em que será publicada a mensagem deve estar definido. A mensagem deve estar definida
-    #Pós-condição: A mensagem que teve a maior prioridade de execução é executada
     def execute(self):
-        global webServersReaded,commandObservers
-        if(webServersReaded == commandObservers):
-            self.pubComunication.publish(self.commandStandardizer.webServerMsgHandler(self.msg))
-            self.msg = None
-            self.priority = None
-            webServersReaded = 0
-        else:
-            self.pubComunication.publish("No connection established.")
-
-    #Trata os dados recebidos pelo listenner
-    #Entrada: Dados recebidos pelo listenner
-    #Retorno: Nenhum
-    #Pŕe-condição: Nenhuma
-    #Pós-condição: A mensagem recebida é guardada para execução e posteriormente executada caso tenha a maior prioridade
-    def callbackWebServerManual(self,data):
-        global webServersReaded
-        msg = str(data.data).split(self.separator)
-        if(self.priority == None or int(msg[0]) < self.priority):
-            self.priority = int(msg[0])
-            self.msg = msg
-
-        webServersReaded = webServersReaded + 1
-        self.execute()
-
-    #Trata os dados recebidos pelo listenner
-    #Entrada: Dados recebidos pelo listenner
-    #Retorno: Nenhum
-    #Pŕe-condição: Nenhuma
-    #Pós-condição: A mensagem recebida é guardada para execução e posteriormente executada caso tenha a maior prioridade
-    def callbackComputationalVision(self,data):
-        global webServersReaded
-        msg = str(data.data).split(self.separator)
-        if(self.priority == None or int(msg[0]) < self.priority):
-            self.priority = int(msg[0])
-            self.msg = msg
-
-        webServersReaded = webServersReaded + 1
-        self.execute()
+        self.pubComunication.publish(self.commandStandardizer.webServerMsgHandler(self.msg))
+        self.msg = None
 
     #Escuta o tópico WebServerManual e executa a rotina necessária para tratar os dados
-    #Entrada: Nenhuma
-    #Retorno: Nenhum
-    #Pŕe-condição: Nenhuma
-    #Pós-condição: Ao escutar qualquer mensagem do tópico WebServerManual, a envia para a rotina correta
     def listenWebServerManual(self):
-        rospy.Subscriber("WebServerManual", String, self.callbackWebServerManual) 
+        rospy.Subscriber("WebServerManual", String, self.callback,self.priorities.manual_app) 
 
     #Escuta o tópico ComputationalVision e executa a rotina necessária para tratar os dados
-    #Entrada: Nenhuma
-    #Retorno: Nenhum
-    #Pŕe-condição: Nenhuma
-    #Pós-condição: Ao escutar qualquer mensagem do tópico ComputationalVision, a envia para a rotina correta 
     def listenComputationalVision(self):
-        rospy.Subscriber("ComputationalVision",String,self.callbackComputationalVision)
+        rospy.Subscriber("ComputationalVision",String,self.callback,self.priorities.computacional_vision)
 
-    def callbackControlOutdoors(self,data):
-        global webServersReaded
+    #Escuta o tópico ControlOutdoors e executa a rotina necessária para tratar os dados
+    def listenOutdoorControls(self):
+        rospy.Subscriber("ControlOutdoors",String,self.callback,self.priorities.rasp_lidar)
+
+    #Define qual comando será executado
+    def callback(self,data,priority):
         msg = str(data.data).split(self.separator)
-        if(self.priority == None or int(msg[0]) < self.priority):
-            self.priority = int(msg[0])
+        if(priority >= self.priority):
+            self.priority = priority
+            self.leftCommands = self.priorities.guaranteedCommands
             self.msg = msg
-
-        webServersReaded = webServersReaded + 1
-        self.execute()
-
-    def listenOutdoorControlsVision(self):
-        rospy.Subscriber("ControlOutdoors",String,self.callbackControlOutdoors)
+            self.execute()
+        elif(self.leftCommands == 0):
+            self.priority = priority
+            self.leftCommands = self.priorities.guaranteedCommands
+            self.msg = msg
+            self.execute()
+        else:
+            self.leftCommands = self.leftCommands - 1
 
     #Executa as rotinas de listen e envio dos comandos ao programa
-    #Entrada: Nenhuma
-    #Retorno: Nenhum
-    #Pré-condição: Nenhuma
-    #Pós-condição: Os comandos recebidos são processados e enviados ao programa
-    def sendCommands(self):
+    def listenCommands(self):
         self.msg = None
         self.listenWebServerManual()
-        self.listenOutdoorControlsVision()
+        self.listenOutdoorControls()
         self.listenComputationalVision()
         rospy.spin()
 
@@ -128,6 +92,6 @@ class Comunication():
 
 try:
     comunication = Comunication()
-    comunication.sendCommands()
+    comunication.listenCommands()
 except:
     pass
