@@ -46,8 +46,8 @@ export default class Menu extends Component {
                     {/*Botão de debug*/}
                     <TouchableOpacity
                     style={styles.menuButton}
-                    onPress={() => {this.props.navigation.navigate('Debug')}}>
-                        <Text style={styles.buttonText}>Debug</Text>
+                    onPress={() => {this.props.navigation.navigate('Automatic')}}>
+                        <Text style={styles.buttonText}>Auto Config</Text>
                     </TouchableOpacity>
 
                     {/*Botão de sair*/}

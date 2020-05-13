@@ -47,7 +47,7 @@ class ParamServer():
     def __init__(self):
         try:
             self.serverIp = sys.argv[1]
-            self.server_address_httpd = (self.serverIp,8081)
+            self.server_address_httpd = (self.serverIp,8082)
             httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
             self.serverThread = Thread(target=httpd.serve_forever)
             self.serverThread.daemon = True #O servidor é fechado ao fechar o programa

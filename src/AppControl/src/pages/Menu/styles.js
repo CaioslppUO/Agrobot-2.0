@@ -22,7 +22,7 @@ export default StyleSheet.create({
     fontSize: 10
   },
   menuButton: {
-    fontSize: 35,
+    fontSize: 30,
     borderWidth: 1,
     textAlign: 'center',
     backgroundColor: '#89c5d6',
