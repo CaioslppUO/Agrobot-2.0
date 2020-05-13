@@ -45,10 +45,11 @@ pubController = rospy.Publisher('Controller', String, queue_size=10)
 def mainLoop():
     global pubController
     launcher = LauncherVariables()
-    serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect,rootPath = launcher.variableSeparator(sys.argv)
+    serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect,rootPath,paramServerIp = launcher.variableSeparator(sys.argv)
 
     #Define quais módulos base serão inicializados
     launchMsg = "python3 " + rootPath + "comunication/webServer.py " + serverIp + "& "
+    launchMsg += "python3 " + rootPath + "comunication/paramServer.py " + paramServerIp + "& " 
     launchMsg += "python3 " + rootPath + "comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
     launchMsg += "python3 " + rootPath + "modules/commandAssembler.py& "
     
