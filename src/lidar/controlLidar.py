@@ -42,7 +42,7 @@ def correctDirection():
     if(leftArea == "busy"):
         tick = tickDefault
         correctdir = "right"
-    if(rightPoint < perto):
+    if(rightArea == "busy"):
         tick = tickDefault
         correctdir = "left"
 
@@ -55,8 +55,8 @@ def callback(data):
     commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
     pointDirection = str(data.data).split('$')
 
-    leftArea = float(pointDirection[0])
-    rightArea = float(pointDirection[1])
+    leftArea = pointDirection[0]
+    rightArea = pointDirection[1]
 
     if(move()):
         if(tick == 0):
