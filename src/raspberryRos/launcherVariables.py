@@ -7,7 +7,7 @@
 #Retorno: Verdadeiro se as variáveis foram inicializadas corretamente ou falso caso não
 #Pré-condição: Nenhuma
 #Pós-condição: Caso alguma das variáveis não estiver correta, é retornado False com uma mensagem de erro
-def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect):
+def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect,rootPath):
     if(serverIp == None):
         return False,"Invalid ServerIp"
     if(enableUart == None):
@@ -22,6 +22,8 @@ def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount,comma
         return False,"Invalid commandObservers"
     if(enableFaceDetect == None):
         return False,"Invalid enableFaceDetect"
+    if(rootPath == None):
+        return False,"Invalid rootPath"
     return True,"Launcher variables were initialized correctly"
 
 #######################################
@@ -37,6 +39,7 @@ class LauncherVariables():
         self.uartAmount       = None
         self.commandObservers = None
         self.enableFaceDetect = None
+        self.rootPath         = None
 
     #Separa as variáveis recebidas e as retorna
     #Entrada: Array com as variáveis recebidas
@@ -61,13 +64,15 @@ class LauncherVariables():
                 self.commandObservers = int(variable[1])
             elif(variable[0] == "enableFaceDetect"):
                 self.enableFaceDetect = str(variable[1])
+            elif(variable[0] == "rootPath"):
+                self.rootPath = str(variable[1])
             i = i + 1
 
-        checkResult,checkResultMsg = checkVariables(self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount,self.commandObservers,self.enableFaceDetect)
+        checkResult,checkResultMsg = checkVariables(self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount,self.commandObservers,self.enableFaceDetect,self.rootPath)
         
         if(checkResult == False):
             print(checkResultMsg)
             exit(0)
             
         print(checkResultMsg)
-        return self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount,self.commandObservers,self.enableFaceDetect
+        return self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount,self.commandObservers,self.enableFaceDetect,self.rootPath

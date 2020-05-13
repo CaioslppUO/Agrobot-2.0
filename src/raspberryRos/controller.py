@@ -45,9 +45,7 @@ pubController = rospy.Publisher('Controller', String, queue_size=10)
 def mainLoop():
     global pubController
     launcher = LauncherVariables()
-    serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect = launcher.variableSeparator(sys.argv)
-
-    rootPath = "/home/caioslpp/git/Agrobot-2.0/src/raspberryRos/"
+    serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect,rootPath = launcher.variableSeparator(sys.argv)
 
     #Define quais módulos base serão inicializados
     launchMsg = "python3 " + rootPath + "comunication/webServer.py " + serverIp + "& "
