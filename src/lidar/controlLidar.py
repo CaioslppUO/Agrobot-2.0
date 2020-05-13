@@ -4,46 +4,47 @@ import rospy
 import time
 from threading import Thread
 from std_msgs.msg import String
+import json
 
 speed = 0
-limit = 50
 steer = 0
 tick = 0
 
-tickDefault = 3
-steerDefault = -3
-speedDefault = -26
-shiftDirection = 5
 correctdir = "None"
 leftArea = "None"
 rightArea = "None"
 
+def read_json():
+    with open('params.json','r') as file:
+        return json.load(file)
+
+
 def move():
-    global speedDefault,leftArea,rightArea
+    global leftArea,rightArea,dataDefault
     if( rightArea == "free" or leftArea == "free"):
-        speed = speedDefault
+        speed = dataDefault['speedDefault']
         return True
     else:
         speed = 0
         return False
 
 def correctDirA():
-    global correctdir,tick,steer,shiftDirection
+    global correctdir,tick,steer,dataDefault
     if(tick == 1):
-        steer = steerDefault
+        steer = dataDefault['steerDefault']
     elif(correctdir == "right"):
-        steer = steerDefault + shiftDirection
+        steer = dataDefault['steerDefault'] + dataDefault['shiftDirection']
     else:
-        steer = steerDefault - shiftDirection
+        steer = dataDefault['steerDefault'] - dataDefault['shiftDirection']
     tick = tick - 1
     
 def correctDirection():
-    global leftArea,rightArea,tick,tickDefault,correctdir
+    global leftArea,rightArea,tick,correctdir,dataDefault
     if(leftArea == "busy"):
-        tick = tickDefault
+        tick = dataDefault['tickDefault']
         correctdir = "right"
     if(rightArea == "busy"):
-        tick = tickDefault
+        tick = dataDefault['tickDefault']
         correctdir = "left"
 
 def main():
@@ -64,10 +65,11 @@ def callback(data):
         else:
             correctDirA()
 
-    commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(limit) + "*powerA$0*powerB$0*pulverize$0"
+    commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$0"
     pubControlCommand.publish(commandToPublish)
     
 
 rospy.init_node('ControlLidar', anonymous=True)
 pubControlCommand = rospy.Publisher("ControlLidar", String,queue_size=10)
+dataDefault = read_json()
 main()
