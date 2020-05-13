@@ -1,4 +1,4 @@
-121#!/usr/bin/env python3
+#!/usr/bin/env python3
 
 import rospy
 import time
@@ -13,10 +13,10 @@ tick = 0
 tickDefault = 3
 steerDefault = -3
 speedDefault = -26
+shiftDirection = 5
 correctdir = "None"
 leftArea = "None"
 rightArea = "None"
-shiftDirection = 5
 
 def move():
     global speedDefault,leftArea,rightArea
