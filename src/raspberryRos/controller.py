@@ -47,7 +47,7 @@ def mainLoop():
     launcher = LauncherVariables()
     serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect = launcher.variableSeparator(sys.argv)
 
-    rootPath = "/home/labiot/Agrobot-2.0/src/raspberryRos/"
+    rootPath = "/home/caioslpp/git/Agrobot-2.0/src/raspberryRos/"
 
     #Define quais módulos base serão inicializados
     launchMsg = "python3 " + rootPath + "comunication/webServer.py " + serverIp + "& "

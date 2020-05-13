@@ -92,9 +92,13 @@ export default class Main extends Component{
                   global.speed = -Math.round(y * 100)
                   global.steer =  Math.round(x * 100)
                   if(global.pulverizer == 1 && global.speed >= global.minPulverizeSpeed){
-                    sendCompleteMsg(global.speed,global.steer,global.limit,global.powerA,global.powerB,1);
+                    setTimeout(() => {
+                      sendCompleteMsg(global.speed,global.steer,global.limit,global.powerA,global.powerB,1)
+                    },global.delay)
                   }else{
-                    sendCompleteMsg(global.speed,global.steer,global.limit,global.powerA,global.powerB,0);
+                    setTimeout(() => {
+                      sendCompleteMsg(global.speed,global.steer,global.limit,global.powerA,global.powerB,0)
+                    },global.delay)
                   }
                 }}
                 />

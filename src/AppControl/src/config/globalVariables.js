@@ -13,6 +13,7 @@ global.pulverizer = 0
 //Variáveis de comunicação
 global.serverIp = '192.168.1.2'
 global.port = '8080'
+global.delay = 50
 
 //Variáveis de informação
 global.version = '2.2.7'
