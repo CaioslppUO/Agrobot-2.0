@@ -1,7 +1,0 @@
-{
-'limit' = 50,
-'tickDefault' = 3,
-'steerDefault' = -3,
-'speedDefault' = -26,
-'shiftDirection' = 5
-}
