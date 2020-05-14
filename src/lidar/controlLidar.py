@@ -47,24 +47,41 @@ def correctDirection():
         tick = dataDefault['tickDefault']
         correctdir = "left"
 
+
+def checkAuto():
+    global dataDefault
+    if(dataDefault['limit'] == 0 and dataDefault['tickDefault'] == 0 and dataDefault['steerDefault'] == 0 and dataDefault['speedDefault'] == 0 and dataDefault['shiftDirection'] == 0 ):
+        return False
+    return True
+
+
+def readFile():
+    global dataDefault
+    dataDefault = readJson()
+
+
 def callback(data):
-    global tick
-    commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
-    pointDirection = str(data.data).split('$')
+    global tick,dataDefault
+    if(checkAuto()):
+        commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
+        pointDirection = str(data.data).split('$')
 
-    leftArea = pointDirection[0]
-    rightArea = pointDirection[1]
+        leftArea = pointDirection[0]
+        rightArea = pointDirection[1]
 
-    if(move()):
-        if(tick == 0):
-            correctDirection()
-        else:
-            correctDirA()
+        if(move()):
+            if(tick == 0):
+                correctDirection()
+            else:
+                correctDirA()
 
-    commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$0"
-    pubControlCommand.publish(commandToPublish)
-    
-    
+        commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$0"
+        pubControlCommand.publish(commandToPublish)
+
+        subb = rospy.Subscriber('/writeFile', String, readFile)
+            
+
+
 def main():
     sub = rospy.Subscriber('/Lidar', String, callback)
     rospy.spin()
