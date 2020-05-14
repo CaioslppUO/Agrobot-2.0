@@ -24,6 +24,7 @@ export default class Main extends Component {
     buttonOnOffUv: '#99a7ad',
     buttonOnOffAuto: '#99a7ad',
     buttonStop: '#cc1414',
+    autoMode: 0
   };
 
   //Opções do controlador de navegação de páginas 
@@ -43,6 +44,11 @@ export default class Main extends Component {
         + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit + '*powerA$' + powerA + '*powerB$' + powerB
         + '*pulverize$' + pulveize)
     }
+
+    function sendMsg(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
+      new WebSocket('http://' + global.serverIp + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
+          speedDefault + "$" + shiftDirection)
+   }
 
     function turnBoardOn(board) {
       if (board == 'Power') {
@@ -84,20 +90,14 @@ export default class Main extends Component {
                 //Defining the values of speed and steer
                 global.speed = -Math.round(y * 100)
                 global.steer = Math.round(x * 100)
-                if (global.pulverizer == 1 && global.speed >= global.minPulverizeSpeed) {
-                  setTimeout(() => {
-                    sendCompleteMsg(global.speed, global.steer, global.limit, global.powerA, global.powerB, 1)
-                  }, global.delay)
-                } else {
                   setTimeout(() => {
                     sendCompleteMsg(global.speed, global.steer, global.limit, global.powerA, global.powerB, 0)
                   }, global.delay)
-                }
               }}
             />
           </View>
 
-          {/* View dos botoes de power e pulverizer*/}
+          {/* View dos botoes*/}
           <View style={styles.powerButtonsView}>
 
             {/*Botão da placa A*/}
@@ -127,7 +127,12 @@ export default class Main extends Component {
               style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, margin: '2%', marginLeft: '2%', }}
               onPress={() => {
                 this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                //turnBoardOn('Automatico')
+                if(this.state.autoMode == 0){
+                  sendMsg(global.limit_auto,global.tickDefault_auto,global.steerDefault_auto,global.speedDefault_auto,global.shiftDirection_auto)
+                }else{
+                  sendMsg(0,0,0,0,0)
+                }
+                this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
               }
               }>
               <Text style={styles.automaticButtonText}>Modo Automático</Text>
@@ -140,7 +145,9 @@ export default class Main extends Component {
               style={{ backgroundColor: this.state.buttonStop, borderRadius: 115, height: 62, width: 200, borderWidth: 2, margin: '2%', marginLeft: '25%', }}
               onPress={() => {
                 this.setState({buttonStop: '#cc1414'})
-                //turnBoardOn('A')
+                this.setState({ buttonOnOffAuto: '#99a7ad' })
+                sendCompleteMsg(0,0,0,0,0,0)
+                sendMsg(0,0,0,0,0)
               }
               }>
               <Text style={styles.stopButtonText}>PARAR</Text>
