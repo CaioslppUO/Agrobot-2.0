@@ -9,7 +9,7 @@ export default class Automatic extends Component {
     title: "Configuração do Modo Automático",
     headerTitleStyle: {
       flexGrow: 1,
-      marginLeft: '2%'
+      fontSize : 15
     }
   };
 
