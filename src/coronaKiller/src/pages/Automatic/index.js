@@ -19,13 +19,16 @@ export default class Automatic extends Component {
     tickDefault_auto: global.tickDefault_auto,
     steerDefault_auto: global.steerDefault_auto,
     speedDefault_auto: global.speedDefault_auto,
-    shiftDirection_auto: global.shiftDirection_auto
+    shiftDirection_auto: global.shiftDirection_auto,
+    move_time_auto: global.move_time_auto,
+    stop_time_auto: global.stop_time_auto,
+    detect_distance: global.detect_distance
   };
 
   render() {
-    function sendMsg(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
+    function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection, detectDist) {
         new WebSocket('http://' + global.serverIp + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-            speedDefault + "$" + shiftDirection)
+            speedDefault + "$" + shiftDirection + "$" + detectDist)
     }
     return (
       <>
@@ -75,21 +78,21 @@ export default class Automatic extends Component {
               style={styles.boxText}
               placeholder="collisionDefault:"
               onChangeText={(text) => {
-                // this.setState({ speedDefault_auto: text })
+                this.setState({ detect_distance: text })
               }}
             />
             <TextInput
               style={styles.boxText}
               placeholder="Andar por:"
               onChangeText={(text) => {
-                // this.setState({ speedDefault_auto: text })
+                this.setState({ move_time_auto: text })
               }}
             />
             <TextInput
               style={styles.boxText}
               placeholder="Parar por:"
               onChangeText={(text) => {
-                // this.setState({ speedDefault_auto: text })
+                this.setState({ stop_time_auto: text })
               }}
             />
           </View>
@@ -103,12 +106,18 @@ export default class Automatic extends Component {
                 let lastSteer = global.steerDefault_auto
                 let lastSpeed = global.speedDefault_auto
                 let lastShift = global.shiftDirection_auto
+                let lastMoveTime = globa.move_time_auto
+                let lastStopTime = global.stop_time_auto
+                let lastDetectDist = globa.detect_distance
                 global.limit_auto = this.state.limit_auto
                 global.tickDefault_auto = this.state.tickDefault_auto
                 global.steerDefault_auto = this.state.steerDefault_auto
                 global.speedDefault_auto = this.state.speedDefault_auto
                 global.shiftDirection_auto = this.state.shiftDirection_auto
-                sendMsg(this.state.limit_auto,this.state.tickDefault_auto,this.state.steerDefault_auto,this.state.speedDefault_auto,this.state.shiftDirection_auto)
+                global.move_time_auto = this.state.move_time_auto
+                global.stop_time_auto = this.state.stop_time_auto
+                global.detect_distance = this.state.detect_distance
+                sendToParamServer(this.state.limit_auto,this.state.tickDefault_auto,this.state.steerDefault_auto,this.state.speedDefault_auto,this.state.shiftDirection_auto,this.state.detect_distance)
                 this.props.navigation.navigate('Main')
               }}
             >
