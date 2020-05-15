@@ -11,6 +11,7 @@ const menuImg = require('../../resources/menu.png')
 const LabiotImg = require('../../resources/labiot.png')
 const ptiImg = require('../../resources/pti.png')
 const unioesteImg = require('../../resources/unioeste.png')
+const itaipuImg = require('../../resources/Itaipu.png')
 
 /* 
  * Página principal
@@ -39,6 +40,7 @@ export default class Main extends Component {
 
   //Renderização do componente
   render() {
+    console.disableYellowBox = true;
     function sendCompleteMsg(speed, steer, limit, powerA, powerB, pulveize) {
       new WebSocket('http://' + global.serverIp + ':' + global.port + '/' + global.priority + '*'
         + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit + '*powerA$' + powerA + '*powerB$' + powerB
@@ -61,10 +63,10 @@ export default class Main extends Component {
     return (
       <>
         {/*View principal*/}
-        <View style={styles.mainView}>
+        <View style={styles.mainContainer}>
 
           {/*View do botão do menu*/}
-          <View style={styles.menuButtonView}>
+          <View style={styles.menuButton}>
             {/*Botão do menu*/}
             <TouchableOpacity
               onPress={() => {
@@ -97,87 +99,93 @@ export default class Main extends Component {
             />
           </View>
 
-          {/* View dos botoes*/}
-          <View style={styles.powerButtonsView}>
+          <View style={styles.containerButtons}>
 
-            {/*Botão da placa A*/}
-            <TouchableOpacity
-              style={{ backgroundColor: this.state.buttonOnOffPower, borderRadius: 115, height: 42, width: 100, borderWidth: 2, margin: '2%', marginLeft: '8%', }}
-              onPress={() => {
-                this.setState({ buttonOnOffPower: this.state.buttonOnOffPower == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                turnBoardOn('Power')
-              }
-              }>
-              <Text style={styles.powerButtonText}>Ligar Robô</Text>
-            </TouchableOpacity>
+            {/* View dos botoes*/}
+            <View style={styles.powerButtonsContainer}>
 
-            {/*Botão da lâmpada UV*/}
-            <TouchableOpacity
-              style={{ backgroundColor: this.state.buttonOnOffUv, borderRadius: 115, height: 42, width: 100, borderWidth: 2, margin: '2%', marginLeft: '2%', }}
-              onPress={() => {
-                this.setState({ buttonOnOffUv: this.state.buttonOnOffUv == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                turnBoardOn('UV')
-              }
-              }>
-              <Text style={styles.uvButtonText}>Ligar UV</Text>
-            </TouchableOpacity>
-
-            {/*Botão ligar modo automático*/}
-            <TouchableOpacity
-              style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, margin: '2%', marginLeft: '2%', }}
-              onPress={() => {
-                this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                if(this.state.autoMode == 0){
-                  sendMsg(global.limit_auto,global.tickDefault_auto,global.steerDefault_auto,global.speedDefault_auto,global.shiftDirection_auto)
-                }else{
-                  sendMsg(0,0,0,0,0)
+              {/*Botão da placa A*/}
+              <TouchableOpacity
+                style={{backgroundColor: this.state.buttonOnOffPower, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center'}}
+                onPress={() => {
+                  this.setState({ buttonOnOffPower: this.state.buttonOnOffPower == '#99a7ad' ? '#3cc761' : '#99a7ad' })
+                  turnBoardOn('Power')
                 }
-                this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
-              }
-              }>
-              <Text style={styles.automaticButtonText}>Modo Automático</Text>
-            </TouchableOpacity>
-          </View>
+                }>
+                <Text style={styles.ButtonText}>Ligar Robô</Text>
+              </TouchableOpacity>
+              
+              {/*Botão da lâmpada UV*/}
+              <TouchableOpacity
+                style={{ backgroundColor: this.state.buttonOnOffUv, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center'}}
+                onPress={() => {
+                  this.setState({ buttonOnOffUv: this.state.buttonOnOffUv == '#99a7ad' ? '#3cc761' : '#99a7ad' })
+                  turnBoardOn('UV')
+                }
+                }>
+                <Text style={styles.ButtonText}>Ligar UV</Text>
+              </TouchableOpacity>
+              
+              {/*Botão ligar modo automático*/}
+              <TouchableOpacity
+                style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center'}}
+                onPress={() => {
+                  this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
+                  if(this.state.autoMode == 0){
+                    sendMsg(global.limit_auto,global.tickDefault_auto,global.steerDefault_auto,global.speedDefault_auto,global.shiftDirection_auto)
+                  }else{
+                    sendMsg(0,0,0,0,0)
+                  }
+                  this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
+                }
+                }>
+                <Text style={styles.ButtonText}>Modo Automático</Text>
+              </TouchableOpacity>
+          
+            </View>
 
-          <View>
-            {/*Botão PARAR*/}
-            <TouchableOpacity
-              style={{ backgroundColor: this.state.buttonStop, borderRadius: 115, height: 62, width: 200, borderWidth: 2, margin: '2%', marginLeft: '25%', }}
-              onPress={() => {
-                this.setState({buttonStop: '#cc1414'})
-                this.setState({ buttonOnOffAuto: '#99a7ad' })
-                sendCompleteMsg(0,0,0,0,0,0)
-                sendMsg(0,0,0,0,0)
-              }
-              }>
-              <Text style={styles.stopButtonText}>PARAR</Text>
-            </TouchableOpacity>
+            <View style={styles.powerButtonsContainer}>
+              <TouchableOpacity
+                style={{ backgroundColor: '#cc1414', borderRadius: 115, height: 62, width: 200, borderWidth: 2, alignItems: 'center', justifyContent: 'center'}}
+                  onPress={() => {
+                    this.setState({ buttonOnOffAuto: '#99a7ad' })
+                    sendCompleteMsg(0,0,0,0,0,0)
+                    sendMsg(0,0,0,0,0)
+                  }
+                }>
+                <Text style={styles.ButtonText}>PARAR</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-
+          
           {/* View do slider*/}
-          <View style={styles.sliderView}>
+          <View style={styles.sliderContainer}>
             {/* View dos botoes + e - e do valor de speed */}
             <View style={styles.topBarSliderView}>
+              
               {/* Botão de - para diminuir o valor do slider */}
-              <TouchableOpacity onPress={() => {
-                if (this.state.speedSliderValue > 0) {
-                  global.limit = this.state.speedSliderValue - 1
-                  this.setState({ speedSliderValue: this.state.speedSliderValue - 1 })
-                }
-              }
-              }>
-                <Text style={styles.lessButtonText}>-</Text>
+              <TouchableOpacity 
+                onPress={() => {
+                  if (this.state.speedSliderValue > 0) {
+                    global.limit = this.state.speedSliderValue - 1
+                    this.setState({ speedSliderValue: this.state.speedSliderValue - 1 })
+                  }
+                }}
+              >
+                <Text style={styles.sinalText}>-</Text>
               </TouchableOpacity>
+              
               <Text style={styles.speedText}>Velocidade {this.state.speedSliderValue}% </Text>
+              
               {/* Botão de + para aumentar o valor do slider */}
-              <TouchableOpacity style={styles.backgroundsliderText} onPress={() => {
+              <TouchableOpacity onPress={() => {
                 if (this.state.speedSliderValue < 100) {
                   global.limit = this.state.speedSliderValue + 1
                   this.setState({ speedSliderValue: this.state.speedSliderValue + 1 })
                 }
               }
               }>
-                <Text style={styles.moreButtonText}>+</Text>
+                <Text style={styles.sinalText}>+</Text>
               </TouchableOpacity>
             </View>
 
@@ -216,15 +224,20 @@ export default class Main extends Component {
                 style={styles.logoPti}
                 source={ptiImg}
               />
+              <Image
+                style={styles.logoItaipu}
+                source={itaipuImg}
+              />
 
             </View>
 
             {/*View da versão*/}
-            <View style={styles.versionView}>
+            <View>
               <Text style={styles.versionText}>V {global.version}</Text>
             </View>
 
           </View>
+        
         </View>
       </>
     );
