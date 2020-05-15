@@ -24,7 +24,8 @@ export default class Main extends Component {
     buttonOnOffUv: '#99a7ad',
     buttonOnOffAuto: '#99a7ad',
     buttonStop: '#cc1414',
-    autoMode: 0
+    autoMode: 0,
+    move_time_interval_id: null,
   };
 
   //Opções do controlador de navegação de páginas 
@@ -39,22 +40,22 @@ export default class Main extends Component {
 
   //Renderização do componente
   render() {
-    function sendCompleteMsg(speed, steer, limit, powerA, powerB, pulveize) {
+    function sendToWebServerManual(speed, steer, limit, powerA, powerB, pulveize) {
       new WebSocket('http://' + global.serverIp + ':' + global.port + '/' + global.priority + '*'
         + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit + '*powerA$' + powerA + '*powerB$' + powerB
         + '*pulverize$' + pulveize)
     }
 
-    function sendMsg(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
+    function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
       new WebSocket('http://' + global.serverIp + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-          speedDefault + "$" + shiftDirection)
-   }
+        speedDefault + "$" + shiftDirection)
+    }
 
     function turnBoardOn(board) {
       if (board == 'Power') {
-        sendCompleteMsg(0, 0, 0, 1, 0, 0)
+        sendToWebServerManual(0, 0, 0, 1, 0, 0)
       } else {
-        sendCompleteMsg(0, 0, 0, 0, 0, 1)
+        sendToWebServerManual(0, 0, 0, 0, 0, 1)
       }
     }
 
@@ -90,9 +91,9 @@ export default class Main extends Component {
                 //Defining the values of speed and steer
                 global.speed = -Math.round(y * 100)
                 global.steer = Math.round(x * 100)
-                  setTimeout(() => {
-                    sendCompleteMsg(global.speed, global.steer, global.limit, global.powerA, global.powerB, 0)
-                  }, global.delay)
+                setTimeout(() => {
+                  sendToWebServerManual(global.speed, global.steer, global.limit, global.powerA, global.powerB, 0)
+                }, global.delay)
               }}
             />
           </View>
@@ -127,10 +128,20 @@ export default class Main extends Component {
               style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, margin: '2%', marginLeft: '2%', }}
               onPress={() => {
                 this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                if(this.state.autoMode == 0){
-                  sendMsg(global.limit_auto,global.tickDefault_auto,global.steerDefault_auto,global.speedDefault_auto,global.shiftDirection_auto)
-                }else{
-                  sendMsg(0,0,0,0,0)
+                if (this.state.autoMode == 0) {
+                  if (global.move_time_auto == 0 && global.stop_time_auto == 0) {
+                    sendToParamServer(global.limit_auto, global.tickDefault_auto, global.steerDefault_auto, global.speedDefault_auto, global.shiftDirection_auto)
+                  } else {
+                    move_time_interval_id = setInterval(() => {
+                      sendToParamServer(global.limit_auto, global.tickDefault_auto, global.steerDefault_auto, global.speedDefault_auto, global.shiftDirection_auto)
+                      setTimeout(() =>{
+                        sendToParamServer(0, 0, 0, 0, 0)
+                      },global.move_time_auto)
+                    },global.move_time_auto + global.stop_time_auto)
+                  }
+                } else {
+                  clearInterval(move_time_interval_id)
+                  sendToParamServer(0, 0, 0, 0, 0)
                 }
                 this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
               }
@@ -144,10 +155,14 @@ export default class Main extends Component {
             <TouchableOpacity
               style={{ backgroundColor: this.state.buttonStop, borderRadius: 115, height: 62, width: 200, borderWidth: 2, margin: '2%', marginLeft: '25%', }}
               onPress={() => {
-                this.setState({buttonStop: '#cc1414'})
+                this.setState({ buttonStop: '#cc1414' })
                 this.setState({ buttonOnOffAuto: '#99a7ad' })
-                sendCompleteMsg(0,0,0,0,0,0)
-                sendMsg(0,0,0,0,0)
+                if(move_time_interval_id != null){
+                  clearInterval(move_time_interval_id)
+                }
+                this.setState({ autoMode: 0})
+                sendToWebServerManual(0, 0, 0, 0, 0, 0)
+                sendToParamServer(0, 0, 0, 0, 0)
               }
               }>
               <Text style={styles.stopButtonText}>PARAR</Text>

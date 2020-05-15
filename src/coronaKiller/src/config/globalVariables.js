@@ -21,6 +21,8 @@ global.steerDefault_auto = -3
 global.speedDefault_auto = -26
 global.shiftDirection_auto = 5
 global.port_auto = '8082'
+global.move_time_auto = 0
+global.stop_time_auto = 0
 
 //Variáveis de informação
-global.version = '0.0.1'
+global.version = '0.1.1'
