@@ -25,4 +25,4 @@ global.move_time_auto = 0
 global.stop_time_auto = 0
 
 //Variáveis de informação
-global.version = '0.1.1'
+global.version = '0.1.2'

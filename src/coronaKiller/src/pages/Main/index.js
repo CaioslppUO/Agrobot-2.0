@@ -134,7 +134,7 @@ export default class Main extends Component {
                     if (global.move_time_auto == 0 && global.stop_time_auto == 0) {
                       sendToParamServer(global.limit_auto, global.tickDefault_auto, global.steerDefault_auto, global.speedDefault_auto, global.shiftDirection_auto)
                     } else {
-                      move_time_interval_id = setInterval(() => {
+                      this.state.move_time_interval_id = setInterval(() => {
                         sendToParamServer(global.limit_auto, global.tickDefault_auto, global.steerDefault_auto, global.speedDefault_auto, global.shiftDirection_auto)
                         setTimeout(() =>{
                           sendToParamServer(0, 0, 0, 0, 0)
@@ -142,7 +142,7 @@ export default class Main extends Component {
                       },global.move_time_auto + global.stop_time_auto)
                     }
                   } else {
-                    clearInterval(move_time_interval_id)
+                    clearInterval(this.state.move_time_interval_id)
                     sendToParamServer(0, 0, 0, 0, 0)
                   }
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
@@ -157,8 +157,8 @@ export default class Main extends Component {
                 style={{ backgroundColor: '#cc1414', borderRadius: 115, height: 62, width: 200, borderWidth: 2, alignItems: 'center', justifyContent: 'center'}}
                   onPress={() => {
                     this.setState({ buttonOnOffAuto: '#99a7ad' })
-                    if(move_time_interval_id != null){
-                      clearInterval(move_time_interval_id)
+                    if(this.state.move_time_interval_id != null){
+                      clearInterval(this.state.move_time_interval_id)
                     }
                     this.setState({ autoMode: 0})
                     sendToWebServerManual(0, 0, 0, 0, 0, 0)
