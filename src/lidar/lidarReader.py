@@ -9,6 +9,7 @@ brange = [135,225]
 lrange = [44,134]
 rrange = [224,314]
 
+collisionDistance = 1.5
 mf = 0
 mb = int((brange[0] + brange[1])/2)
 ml = int((lrange[0] + lrange[1])/2)
@@ -27,20 +28,27 @@ def selectPoints(vet,range,centralPoint):
         i = i+1
     return RightVet,LeftVet
 
+
+def callback(data):
+  global collisionDistance
+  dadosNo = str(data.data).split('$')
+  collisionDistance = dadosNo[5]
+
+
 def callback(msg):
     global mf,angleRange
     RVet = []
     LVet = []
     RVet,LVet = selectPoints(msg.ranges,angleRange,mf)
-
-    pubProcessedData.publish(str( getClosestObject(LVet) + "$" getClosestObject(RVet) )
+    sub = rospy.Subscriber('/ParamServer', String, callBack)
+    pubProcessedData.publish(str( getClosestObject(LVet) + "$" + getClosestObject(RVet) )
 
 def getClosestObject(Vet):
+    global collisionDistance
     for testValue in Vet:
         if(not isinstance(testValue, str)):
-            return "busy" 
-        # if(testValue < 1.5):
-            # return "busy" 
+            if(testValue <= collisionDistance):
+                return "busy" 
     return "free"
 
 
