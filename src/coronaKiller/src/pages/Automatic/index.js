@@ -26,10 +26,6 @@ export default class Automatic extends Component {
   };
 
   render() {
-    function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection, detectDist) {
-        new WebSocket('http://' + global.serverIp + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-            speedDefault + "$" + shiftDirection + "$" + detectDist)
-    }
     return (
       <>
         {/*View principal*/}
@@ -106,18 +102,17 @@ export default class Automatic extends Component {
                 let lastSteer = global.steer_auto
                 let lastSpeed = global.speed_auto
                 let lastShift = global.correction_factor
-                let lastMoveTime = globa.move_time_auto
+                let lastMoveTime = global.move_time_auto
                 let lastStopTime = global.stop_time_auto
-                let lastDetectDist = globa.detect_distance
+                let lastDetectDist = global.detect_distance
                 global.limit_auto = this.state.limit_auto
                 global.correction_movements = this.state.tickDefault_auto
                 global.steer_auto = this.state.steerDefault_auto
                 global.speed_auto = this.state.speedDefault_auto
                 global.correction_factor = this.state.shiftDirection_auto
-                global.move_time_auto = this.state.move_time_auto
-                global.stop_time_auto = this.state.stop_time_auto
+                global.move_time_auto = parseFloat(this.state.move_time_auto) * 1000
+                global.stop_time_auto = parseFloat(this.state.stop_time_auto) * 1000
                 global.detect_distance = this.state.detect_distance
-                sendToParamServer(this.state.limit_auto,this.state.tickDefault_auto,this.state.steerDefault_auto,this.state.speedDefault_auto,this.state.shiftDirection_auto,this.state.detect_distance)
                 this.props.navigation.navigate('Main')
               }}
             >

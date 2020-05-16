@@ -145,6 +145,9 @@ export default class Main extends Component {
                 if(this.state.autoMode != 0){
                   this.setState({ buttonOnOffAuto: '#99a7ad' })
                   this.setState({ autoMode: 0 })
+                  if(this.state.move_time_interval_id != null){
+                    clearInterval(this.state.move_time_interval_id)
+                  }
                 }
               }}
             />
