@@ -1,34 +1,26 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  mainView: {
+    mainContainer: {
       backgroundColor: '#ffffff',
       flex: 1,
-  },
-  boxesView: {
       flexDirection: 'column',
-      marginLeft: '22%',
-      marginTop: '5%',
-      marginRight: '22%',
-      marginBottom: '10%',
+      alignItems: 'center',
+      justifyContent: 'space-between' 
+  },
+  textInputContainer: {
+      flexDirection: 'column',
       height: 120
   },
-  ipText: {
-      fontSize: 30,
+  textDefault: {
+      marginTop: 10,
+      fontSize: 25,
       borderRadius: 10,
       borderWidth: 1,
   },
-  portText: {
-      marginTop: '5%',
-      fontSize: 30,
-      borderRadius: 10,
-      borderWidth: 1,
-  },
-  saveView: {
-      marginTop: '20%',
-      marginLeft: '35%',
-      marginRight: '35%',
-      height: 90
+  saveContainer: {
+      height: 90,
+      width: 150
   },
   saveText: {
       fontSize: 35,
@@ -38,36 +30,16 @@ export default StyleSheet.create({
       borderRadius: 10
   },
   comunication: {
-      marginTop: '5%',
       fontSize: 30,
-      marginLeft: '28%',
       color: '#596e9c',
       fontWeight: 'bold',
   },
-  control: {
-      marginTop: '25%',
-      fontSize: 30,
-      marginLeft: '37%',
-      color: '#596e9c',
-      fontWeight: 'bold'
+  versionContainer: {
+    alignItems:'flex-end',
+    width: '100%'
   },
-  minPSpeedText: {
-      fontSize: 20,
-      borderRadius: 10,
-      borderWidth: 1,
-  },
-  versionView: {
-      marginLeft: '89%',
-      marginTop: '75%'
-    },
   versionText: {
-    color: '#02535c',
-    fontSize: 10
+  	color: '#02535c',
+  	fontSize: 10
   },
-  delayText: {
-    marginTop: '5%',
-    fontSize: 20,
-    borderRadius: 10,
-    borderWidth: 1
-  }
 });

@@ -33,13 +33,13 @@ export default class Config extends Component {
         return (
             <>
                 {/*View principal*/}
-                <View style={styles.mainView}>
+                <View style={styles.mainContainer}>
 
                     <Text style={styles.comunication}>Comunicação</Text>
                     {/*View dos campos de preenchimento de comunicação*/}
-                    <View style={styles.boxesView}>
+                    <View style={styles.textInputContainer}>
                         <TextInput
-                            style={styles.ipText}
+                            style={styles.textDefault}
                             placeholder="IP do robô:"
                             onChangeText={(text) => {
                                 this.setState({ serverIp: text })
@@ -48,7 +48,7 @@ export default class Config extends Component {
                         />
 
                         <TextInput
-                            style={styles.portText}
+                            style={styles.textDefault}
                             placeholder="Porta:"
                             onChangeText={(text) => {
                                 this.setState({ port: text })
@@ -57,7 +57,7 @@ export default class Config extends Component {
                         />
 
                         <TextInput
-                            style={styles.delayText}
+                            style={styles.textDefault}
                             placeholder="Tempo de resposta(ms):"
                             onChangeText={(text) => {
                                 this.setState({ delay: text })
@@ -67,7 +67,7 @@ export default class Config extends Component {
                     </View>
 
                     {/*View do botão de salvar*/}
-                    <View style={styles.saveView}>
+                    <View style={styles.saveContainer}>
                         <TouchableOpacity
                             onPress={() => {
                                 let lastIp = global.serverIp
@@ -96,7 +96,7 @@ export default class Config extends Component {
                     </View>
 
                     {/*View da versão*/}
-                    <View style={styles.versionView}>
+                    <View style={styles.versionContainer}>
                         <Text style={styles.versionText}>V {global.version}</Text>
                     </View>
                 </View>
