@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { View,TextInput,TouchableOpacity,Text } from 'react-native';
+import React, { Component } from 'react';
+import { View, TextInput, TouchableOpacity, Text, BackHandler } from 'react-native';
 import styles from './styles';
 
 export default class Config extends Component {
@@ -7,13 +7,13 @@ export default class Config extends Component {
     //Variáveis da classe
     state = {
         serverIp: global.serverIp,
-        port: global.port,
+        port: global.port_manual,
         minPSpeed: global.minPulverizeSpeed,
-        delay: global.delay
+        delay: global.comunication_delay
     };
 
     //Opções do controlador de navegação de páginas 
-    static navigationOptions =  {
+    static navigationOptions = {
         title: "Configuração",
         headerTitleStyle: {
             flexGrow: 1,
@@ -21,7 +21,15 @@ export default class Config extends Component {
         }
     };
 
-    render(){
+    componentWillMount() {
+        BackHandler.addEventListener('hardwareBackPress', () => { });
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.backPressed)
+    }
+
+    render() {
         return (
             <>
                 {/*View principal*/}
@@ -34,8 +42,8 @@ export default class Config extends Component {
                             style={styles.ipText}
                             placeholder="IP do robô:"
                             onChangeText={(text) => {
-                                    this.setState({serverIp: text})
-                                }
+                                this.setState({ serverIp: text })
+                            }
                             }
                         />
 
@@ -43,8 +51,8 @@ export default class Config extends Component {
                             style={styles.portText}
                             placeholder="Porta:"
                             onChangeText={(text) => {
-                                    this.setState({port: text})
-                                }
+                                this.setState({ port: text })
+                            }
                             }
                         />
 
@@ -52,34 +60,34 @@ export default class Config extends Component {
                             style={styles.delayText}
                             placeholder="Tempo de resposta(ms):"
                             onChangeText={(text) => {
-                                    this.setState({delay: text})
-                                }
+                                this.setState({ delay: text })
+                            }
                             }
                         />
                     </View>
-                    
+
                     {/*View do botão de salvar*/}
                     <View style={styles.saveView}>
                         <TouchableOpacity
                             onPress={() => {
                                 let lastIp = global.serverIp
                                 let lastMPS = global.minPulverizeSpeed
-                                let lastDelay = global.delay
+                                let lastDelay = global.comunication_delay
                                 global.minPulverizeSpeed = this.state.minPSpeed
                                 global.serverIp = this.state.serverIp
-                                global.port = this.state.port
-                                global.delay = parseFloat(this.state.delay)
+                                global.port_manual = this.state.port
+                                global.comunication_delay = parseFloat(this.state.delay)
 
-                                if(global.serverIp.split(".").length != 4){
+                                if (global.serverIp.split(".").length != 4) {
                                     alert('Invalid IP')
                                     global.serverIp = lastIp
                                 }
 
-                                if(global.minPulverizeSpeed < 0 || global.minPulverizeSpeed > 100){
+                                if (global.minPulverizeSpeed < 0 || global.minPulverizeSpeed > 100) {
                                     alert('Invalid Min Pulverize speed')
                                     global.minPulverizeSpeed = lastMPS
                                 }
-                                
+
                                 this.props.navigation.navigate('Main')
                             }}
                         >

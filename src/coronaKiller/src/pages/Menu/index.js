@@ -1,11 +1,11 @@
-import React,{Component} from 'react';
-import { View,Text,TouchableOpacity,BackHandler } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, BackHandler } from 'react-native';
 
 import styles from './styles';
 
 export default class Menu extends Component {
   //Opções do controlador de navegação de páginas 
-  static navigationOptions =  {
+  static navigationOptions = {
     title: "Menu",
     headerTitleStyle: {
       flexGrow: 1,
@@ -13,17 +13,17 @@ export default class Menu extends Component {
     }
   };
 
-  UNSAFE_componentWillMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => { });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.backPressed)
   }
 
-    render(){
-      return (
-        <>
+  render() {
+    return (
+      <>
         {/*View principal*/}
         <View style={styles.mainContainer}>
 
@@ -31,23 +31,23 @@ export default class Menu extends Component {
           <View style={styles.buttonContainer}>
             {/*Botão do controle manual*/}
             <TouchableOpacity
-            style={styles.Button}
-            onPress={() => {this.props.navigation.navigate('Main')}}>
+              style={styles.Button}
+              onPress={() => { this.props.navigation.navigate('Main') }}>
               <Text style={styles.buttonText}>Controle</Text>
-            
+
             </TouchableOpacity>
 
             {/*Botão do menu de configuração*/}
             <TouchableOpacity
-            style={styles.Button}
-            onPress={() => {this.props.navigation.navigate('Config')}}>
+              style={styles.Button}
+              onPress={() => { this.props.navigation.navigate('Config') }}>
               <Text style={styles.buttonText}>Configuração</Text>
             </TouchableOpacity>
-            
+
             {/*Botão de debug*/}
             <TouchableOpacity
-            style={styles.Button}
-            onPress={() => {this.props.navigation.navigate('Automatic')}}>
+              style={styles.Button}
+              onPress={() => { this.props.navigation.navigate('Automatic') }}>
               <Text style={styles.buttonText}>Configuração Modo Automático</Text>
             </TouchableOpacity>
 
@@ -60,20 +60,17 @@ export default class Menu extends Component {
             onPress={() => {
               BackHandler.exitApp()
             }}>
-              <Text style={styles.buttonText}>Sair</Text>
+            <Text style={styles.buttonText}>Sair</Text>
           </TouchableOpacity>
 
           {/*View da versão*/}
           <View style={styles.containerVersion}>
             <Text style={styles.versionText}>V {global.version}</Text>
           </View>
-        
 
-        
-        
         </View>
-        </>
-        );
-    }
+      </>
+    );
+  }
 }
 

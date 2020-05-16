@@ -16,10 +16,10 @@ export default class Automatic extends Component {
   //Variáveis da classe
   state = {
     limit_auto: global.limit_auto,
-    tickDefault_auto: global.tickDefault_auto,
-    steerDefault_auto: global.steerDefault_auto,
-    speedDefault_auto: global.speedDefault_auto,
-    shiftDirection_auto: global.shiftDirection_auto,
+    tickDefault_auto: global.correction_movements,
+    steerDefault_auto: global.steer_auto,
+    speedDefault_auto: global.speed_auto,
+    shiftDirection_auto: global.correction_factor,
     move_time_auto: global.move_time_auto,
     stop_time_auto: global.stop_time_auto,
     detect_distance: global.detect_distance
@@ -48,49 +48,49 @@ export default class Automatic extends Component {
             />
             <TextInput
               style={styles.boxText}
-              placeholder="SteerDefault:"
+              placeholder="Direção:"
               onChangeText={(text) => {
                 this.setState({ steerDefault_auto: text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="SpeedDefault:"
+              placeholder="Velocidade:"
               onChangeText={(text) => {
                 this.setState({ speedDefault_auto: text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="tickDefault:"
+              placeholder="Nº de Movimentos de correção:"
               onChangeText={(text) => {
                 this.setState({ tickDefault_auto: text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="ShiftDirection:"
+              placeholder="Fator de Correção:"
               onChangeText={(text) => {
                 this.setState({ shiftDirection_auto: text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="collisionDefault:"
+              placeholder="Distância de Colisão(m):"
               onChangeText={(text) => {
                 this.setState({ detect_distance: text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Andar por:"
+              placeholder="Andar por(seg):"
               onChangeText={(text) => {
                 this.setState({ move_time_auto: text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Parar por:"
+              placeholder="Parar por(seg):"
               onChangeText={(text) => {
                 this.setState({ stop_time_auto: text })
               }}
@@ -102,18 +102,18 @@ export default class Automatic extends Component {
             <TouchableOpacity
               onPress={() => {
                 let lastLimit = global.limit_auto
-                let lastTick = global.tickDefault_auto
-                let lastSteer = global.steerDefault_auto
-                let lastSpeed = global.speedDefault_auto
-                let lastShift = global.shiftDirection_auto
+                let lastTick = global.correction_movements
+                let lastSteer = global.steer_auto
+                let lastSpeed = global.speed_auto
+                let lastShift = global.correction_factor
                 let lastMoveTime = globa.move_time_auto
                 let lastStopTime = global.stop_time_auto
                 let lastDetectDist = globa.detect_distance
                 global.limit_auto = this.state.limit_auto
-                global.tickDefault_auto = this.state.tickDefault_auto
-                global.steerDefault_auto = this.state.steerDefault_auto
-                global.speedDefault_auto = this.state.speedDefault_auto
-                global.shiftDirection_auto = this.state.shiftDirection_auto
+                global.correction_movements = this.state.tickDefault_auto
+                global.steer_auto = this.state.steerDefault_auto
+                global.speed_auto = this.state.speedDefault_auto
+                global.correction_factor = this.state.shiftDirection_auto
                 global.move_time_auto = this.state.move_time_auto
                 global.stop_time_auto = this.state.stop_time_auto
                 global.detect_distance = this.state.detect_distance
