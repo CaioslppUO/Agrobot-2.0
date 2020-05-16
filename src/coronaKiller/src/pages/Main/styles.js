@@ -9,7 +9,13 @@ export default StyleSheet.create({
     padding: 10,
     height: 260
   },
-  
+  area: {
+    marginTop: 7,
+    width: 25,
+    height: 25,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   wrapperView: {
     backgroundColor: '#ffffff'
   },

@@ -210,6 +210,7 @@ export default class Main extends Component {
 
               {/* Botão de - para diminuir o valor do slider */}
               <TouchableOpacity
+                style={styles.area}
                 onPress={() => {
                   if (this.state.speedSliderValue > 0) {
                     global.limit = this.state.speedSliderValue - 1
@@ -223,13 +224,14 @@ export default class Main extends Component {
               <Text style={styles.speedText}>Velocidade {this.state.speedSliderValue}% </Text>
 
               {/* Botão de + para aumentar o valor do slider */}
-              <TouchableOpacity onPress={() => {
-                if (this.state.speedSliderValue < 100) {
-                  global.limit = this.state.speedSliderValue + 1
-                  this.setState({ speedSliderValue: this.state.speedSliderValue + 1 })
-                }
-              }
-              }>
+              <TouchableOpacity 
+                style={styles.area}
+                onPress={() => {
+                  if (this.state.speedSliderValue < 100) {
+                    global.limit = this.state.speedSliderValue + 1
+                    this.setState({ speedSliderValue: this.state.speedSliderValue + 1 })
+                  }
+              }}>
                 <Text style={styles.sinalText}>+</Text>
               </TouchableOpacity>
             </View>

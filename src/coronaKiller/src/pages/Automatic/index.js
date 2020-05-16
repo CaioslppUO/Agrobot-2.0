@@ -7,6 +7,7 @@ export default class Automatic extends Component {
   //Opções do controlador de navegação de páginas 
   static navigationOptions = {
     title: "Configuração do Modo Automático",
+    alignContent: 'center',
     headerTitleStyle: {
       flexGrow: 1,
       fontSize : 15
