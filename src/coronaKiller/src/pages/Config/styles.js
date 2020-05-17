@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   textInputContainer: {
       flexDirection: 'column',
-			height: 250,
+			height: 550,
 			alignItems: 'center',
   },
   textDefault: {
@@ -22,7 +22,7 @@ export default StyleSheet.create({
 			width: 310
   },
   saveContainer: {
-			marginTop: 10,
+			marginTop: 150,
       height: 90,
       width: 150
   },
@@ -37,6 +37,7 @@ export default StyleSheet.create({
       fontSize: 30,
       color: '#596e9c',
       fontWeight: 'bold',
+      marginTop: 50
   },
   versionContainer: {
     alignItems:'flex-end',
