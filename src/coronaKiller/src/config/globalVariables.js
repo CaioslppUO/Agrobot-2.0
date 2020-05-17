@@ -9,7 +9,7 @@ global.power = 0
 global.uv = 0
 
 //Variáveis de comunicação
-global.serverIp = '192.168.1.12'
+global.serverIp = '192.168.1.2'
 global.port_manual = '8080'
 global.comunication_delay = 50
 
