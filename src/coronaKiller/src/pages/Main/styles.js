@@ -67,11 +67,10 @@ export default StyleSheet.create({
   },
   logosView: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    alignContent: 'center',
     height: 90,
-    width: 410
+    width: '100%',
   },
   logoUnioeste: {
     // height: '50%',
