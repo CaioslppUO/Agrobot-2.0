@@ -6,19 +6,23 @@ export default StyleSheet.create({
       flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'space-between' 
+      justifyContent: 'space-between' ,
   },
   textInputContainer: {
       flexDirection: 'column',
-      height: 120
+			height: 250,
+			alignItems: 'center',
   },
   textDefault: {
+			alignItems: 'flex-start',
       marginTop: 10,
       fontSize: 25,
       borderRadius: 10,
-      borderWidth: 1,
+			borderWidth: 1,
+			width: 310
   },
   saveContainer: {
+			marginTop: 10,
       height: 90,
       width: 150
   },

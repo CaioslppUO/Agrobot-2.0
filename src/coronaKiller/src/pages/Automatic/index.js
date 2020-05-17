@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
 import styles from './styles';
 
 export default class Automatic extends Component {
@@ -29,6 +29,8 @@ export default class Automatic extends Component {
   render() {
     return (
       <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}>
         {/*View principal*/}
         <View style={styles.mainContainer}>
 
@@ -127,6 +129,7 @@ export default class Automatic extends Component {
           </View>
         
         </View>
+        </ScrollView>
       </>
     );
   }

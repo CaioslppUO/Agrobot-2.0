@@ -64,37 +64,38 @@ export default class Config extends Component {
                             }
                             }
                         />
+                        {/*View do botão de salvar*/}
+                        <View style={styles.saveContainer}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    let lastIp = global.serverIp
+                                    let lastMPS = global.minPulverizeSpeed
+                                    let lastDelay = global.comunication_delay
+                                    global.minPulverizeSpeed = this.state.minPSpeed
+                                    global.serverIp = this.state.serverIp
+                                    global.port_manual = this.state.port
+                                    global.comunication_delay = parseFloat(this.state.delay)
+
+                                    if (global.serverIp.split(".").length != 4) {
+                                        alert('Invalid IP')
+                                        global.serverIp = lastIp
+                                    }
+
+                                    if (global.minPulverizeSpeed < 0 || global.minPulverizeSpeed > 100) {
+                                        alert('Invalid Min Pulverize speed')
+                                        global.minPulverizeSpeed = lastMPS
+                                    }
+
+                                    this.props.navigation.navigate('Main')
+                                }}
+                            >
+                                <Text style={styles.saveText}>Salvar</Text>
+                            </TouchableOpacity>
+                        </View>
+
                     </View>
 
-                    {/*View do botão de salvar*/}
-                    <View style={styles.saveContainer}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                let lastIp = global.serverIp
-                                let lastMPS = global.minPulverizeSpeed
-                                let lastDelay = global.comunication_delay
-                                global.minPulverizeSpeed = this.state.minPSpeed
-                                global.serverIp = this.state.serverIp
-                                global.port_manual = this.state.port
-                                global.comunication_delay = parseFloat(this.state.delay)
-
-                                if (global.serverIp.split(".").length != 4) {
-                                    alert('Invalid IP')
-                                    global.serverIp = lastIp
-                                }
-
-                                if (global.minPulverizeSpeed < 0 || global.minPulverizeSpeed > 100) {
-                                    alert('Invalid Min Pulverize speed')
-                                    global.minPulverizeSpeed = lastMPS
-                                }
-
-                                this.props.navigation.navigate('Main')
-                            }}
-                        >
-                            <Text style={styles.saveText}>Salvar</Text>
-                        </TouchableOpacity>
-                    </View>
-
+                  
                     {/*View da versão*/}
                     <View style={styles.versionContainer}>
                         <Text style={styles.versionText}>V {global.version}</Text>
