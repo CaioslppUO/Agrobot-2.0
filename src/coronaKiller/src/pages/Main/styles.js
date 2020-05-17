@@ -69,24 +69,28 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    alignContent: 'center',
     height: 90,
     width: 410
   },
   logoUnioeste: {
-    marginLeft: 10,
+    // height: '50%',
+    height: 40,
+    width: 100,
+    // width: '25%',
   },
   logoPti: {
-    height: 50,
-    width: 110,
+    height: 45,
+    width: 100,
   },
   logoLabiot: {
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 50,
     marginBottom: 10,
   },
   logoItaipu: {
-    height: 50,
-    width: 60,
+    height: 40,
+    width: 50,
   },
   versionText: {
     color: '#02535c',
