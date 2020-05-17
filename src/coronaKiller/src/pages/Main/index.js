@@ -53,7 +53,7 @@ export default class Main extends Component {
     //Envia a mensagem de controle automático para o webserver de parâmetros
     function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
       new WebSocket('http://' + global.serverIp + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-        speedDefault + "$" + shiftDirection)
+        speedDefault + "$" + shiftDirection + "$" + global.detect_distance)
     }
 
     //Envia o sinal para o relé ligar ou desligar
