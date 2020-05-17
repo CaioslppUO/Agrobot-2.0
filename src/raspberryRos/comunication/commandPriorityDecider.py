@@ -24,6 +24,7 @@ commandObservers = int(sys.argv[1])
 
 class priorities():
     def __init__(self):
+        self.manual_pc = 1001
         self.manual_app = 1000
         self.rasp_lidar = 999
         self.computacional_vision = 998
@@ -62,6 +63,10 @@ class Comunication():
     def listenOutdoorControls(self):
         rospy.Subscriber("ControlOutdoors",String,self.callback,self.priorities.rasp_lidar)
 
+    #Escuta o tópico PcManual
+    def listenOutdoorControls(self):
+        rospy.Subscriber("PcManual",String,self.callback,self.priorities.manual_pc)
+
     #Define qual comando será executado
     def callback(self,data,priority):
         msg = str(data.data).split(self.separator)
@@ -84,6 +89,7 @@ class Comunication():
         self.listenWebServerManual()
         self.listenOutdoorControls()
         self.listenComputationalVision()
+        self.listenOutdoorControls()
         rospy.spin()
 
 #######################
