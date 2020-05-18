@@ -4,16 +4,9 @@ import rospy
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import String
 
-frange = [0,45,315,359]
-brange = [135,225]
-lrange = [44,134]
-rrange = [224,314]
 
 collisionDistance = 1.5
 mf = 0
-mb = int((brange[0] + brange[1])/2)
-ml = int((lrange[0] + lrange[1])/2)
-mr = int((rrange[0] + rrange[1])/2)
 angleRange = 16
 
 def selectPoints(vet,range,centralPoint):

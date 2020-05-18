@@ -18,36 +18,50 @@ def readJson():
     with open('parameters.json','r') as file:
         return json.load(file)
 
+def setSpeed(speednew):
+    global speed
+    speed = speednew
 
-def move():
+def setSteer(steernew):
+    global steer
+    steer = steernew
+
+def checkTick()
+    global tick
+    if(tick == 0):
+        setCorrection()
+    else:
+        correctDirection()
+    
+
+def checkFoward():
     global leftArea,rightArea,dataDefault,speed    
     if( rightArea == "free" or leftArea == "free"):
-        speed = dataDefault['speedDefault']
-        print(speed) 
-        return True
+        setSpeed(dataDefault['speedDefault'])
+        checkTick()
     else:
-        speed = 0
-        return False
+        setSteer(0)
+        setSpeed(0)
 
-def correctDirA():
+
+def correctDirection():
     global correctdir,tick,steer,dataDefault
     if(tick == 1):
-        steer = dataDefault['steerDefault']
+        setSteer(int(dataDefault['steerDefault']))
     elif(correctdir == "right"):
-        steer = int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection'])
+        setSteer(int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection']))
     else:
-        steer = int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection'])
-    tick = int(tick) - 1
+        setSteer(int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection']))
+    tick = tick - 1
     
-def correctDirection():
+def setCorrection():
     global leftArea,rightArea,tick,correctdir,dataDefault
     if(leftArea == "busy"):
         tick = int(dataDefault['tickDefault'])
         correctdir = "right"
     if(rightArea == "busy"):
-        tick = (dataDefault['tickDefault'])
+        tick = int(dataDefault['tickDefault'])
         correctdir = "left"
-
 
 def checkAuto():
     global dataDefault
@@ -55,31 +69,22 @@ def checkAuto():
         return False
     return True
 
-
 def readFile(data):
     global dataDefault
     dataDefault = readJson()
 
-
 def callback(data):
-    global tick,dataDefault,leftArea,rightArea
+    global dataDefault,leftArea,rightArea,steer
     if(checkAuto()):
-        commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
         pointDirection = str(data.data).split('$')
-        
         leftArea = pointDirection[0]
         rightArea = pointDirection[1]
 
-        if(move()):
-            if(tick == 0):
-                correctDirection()
-            else:
-                correctDirA()
-
+        checkFoward()
         commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$0"
         pubControlCommand.publish(commandToPublish)
 
-        subb = rospy.Subscriber('/writeFile', String, readFile)
+        rospy.Subscriber('/writeFile', String, readFile)
             
 
 
