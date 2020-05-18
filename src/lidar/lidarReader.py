@@ -33,7 +33,7 @@ def selectPoints(vet,range,centralPoint):
 def callBack(data):
   global collisionDistance
   dadosNo = str(data.data).split('$')
-  collisionDistance = float(dadosNo[5])
+  collisionDistance = float(dadosNo[6])
 
 
 def callback(msg):

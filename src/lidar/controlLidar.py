@@ -83,7 +83,7 @@ def callback(data):
         rightArea = pointDirection[2]
 
         checkFoward()
-        commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$0"
+        commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(dataDefault['uv'])
         pubControlCommand.publish(commandToPublish)
 
         rospy.Subscriber('/writeFile', String, readFile)
