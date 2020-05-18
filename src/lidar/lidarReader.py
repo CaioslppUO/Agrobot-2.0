@@ -13,13 +13,21 @@ def selectPoints(vet,range,centralPoint):
     i = 0
     RightVet = []
     LeftVet = []
+    centerVet = []
+    centerVet.append(vet[centralPoint])
+    while(i < range):
+        centerVet.append(vet[centralPoint+i])
+        centerVet.append(vet[centralPoint-i])
+        i=i+1
+
+    i=0
     RightVet.append(vet[centralPoint])
     LeftVet.append(vet[centralPoint])
     while(i < range):
         RightVet.append(vet[centralPoint+i])
         LeftVet.append(vet[centralPoint-i])
         i = i+1
-    return RightVet,LeftVet
+    return RightVet,centerVet,LeftVet
 
 
 def callBack(data):
@@ -32,9 +40,10 @@ def callback(msg):
     global mf,angleRange
     RVet = []
     LVet = []
-    RVet,LVet = selectPoints(msg.ranges,angleRange,mf)
+    CVet = []
+    RVet,CVet,LVet = selectPoints(msg.ranges,angleRange,mf)
     sub = rospy.Subscriber('/ParamServer', String, callBack)
-    pubProcessedData.publish(str( getClosestObject(LVet) + "$" + getClosestObject(RVet) ))
+    pubProcessedData.publish(str( getClosestObject(LVet) + "$" + getClosestObject(CVet) + "$" + getClosestObject(RVet) ))
 
 
 def getClosestObject(Vet):

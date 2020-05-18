@@ -13,6 +13,7 @@ tick = 0
 correctdir = "None"
 leftArea = "None"
 rightArea = "None"
+centerArea = "None"
 
 def readJson():
     with open('parameters.json','r') as file:
@@ -35,8 +36,8 @@ def checkTick()
     
 
 def checkFoward():
-    global leftArea,rightArea,dataDefault,speed    
-    if( rightArea == "free" or leftArea == "free"):
+    global dataDefault,speed,centerArea 
+    if( centerArea == "free"):
         setSpeed(dataDefault['speedDefault'])
         checkTick()
     else:
@@ -74,11 +75,12 @@ def readFile(data):
     dataDefault = readJson()
 
 def callback(data):
-    global dataDefault,leftArea,rightArea,steer
+    global dataDefault,leftArea,rightArea,steer,centerArea
     if(checkAuto()):
         pointDirection = str(data.data).split('$')
         leftArea = pointDirection[0]
-        rightArea = pointDirection[1]
+        centerArea = pointDirection[1]
+        rightArea = pointDirection[2]
 
         checkFoward()
         commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$0"

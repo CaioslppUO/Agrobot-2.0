@@ -1,3 +1,5 @@
 #!/bin/bash
 sleep 60
-./lauchLidar.sh& && python3 lidarReader.py& && python3 paramServer.py& && python3 readerParamsControlLidar.py& && python3 controlLidar&
+caminho="/home/labiot/Agrobot-2.0/src/lidar/"
+source /opt/ros/melodic/setup.bash && ${caminho}./launchLidar.sh & python3 ${caminho}lidarReader.py& python3 ${caminho}paramServer.py& python3 ${caminho}readerParamsControlLidar.py&
+
