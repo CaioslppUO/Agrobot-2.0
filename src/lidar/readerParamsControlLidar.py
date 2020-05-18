@@ -11,8 +11,6 @@ def writeJson():
     json.dump(dadosWrite,file)
     pubCheck.publish("OK")
 
-
-
 def callback(data):
   global dadosWrite
   dadosNo = str(data.data).split('$')
@@ -24,8 +22,6 @@ def callback(data):
   dadosWrite['shiftDirection'] = dadosNo[4]
 
   writeJson()
-
-  
 
 def main():
   sub = rospy.Subscriber('/ParamServer', String, callback)
