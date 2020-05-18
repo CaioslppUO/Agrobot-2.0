@@ -66,9 +66,16 @@ class Comunication():
     #Escuta o tópico PcManual
     def listenPcManual(self):
         rospy.Subscriber("PcManual",String,self.callback,self.priorities.manual_pc)
+<<<<<<< Updated upstream
    
     def listenControlLidar(self):
         rospy.Subscriber("ControlLidar", String, self.callback, self.priorities.rasp_lidar)
+=======
+    
+    #Escuta o tópico ControlLidar
+    def listenControlLidar(self):
+        rospy.Subscriber("ControlLidar",String,self.callback,self.priorities.rasp_lidar)
+>>>>>>> Stashed changes
 
     #Define qual comando será executado
     def callback(self,data,priority):
