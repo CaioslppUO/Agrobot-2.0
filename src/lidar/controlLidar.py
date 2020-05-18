@@ -20,9 +20,10 @@ def readJson():
 
 
 def move():
-    global leftArea,rightArea,dataDefault
+    global leftArea,rightArea,dataDefault,speed    
     if( rightArea == "free" or leftArea == "free"):
         speed = dataDefault['speedDefault']
+        print(speed) 
         return True
     else:
         speed = 0
@@ -33,18 +34,18 @@ def correctDirA():
     if(tick == 1):
         steer = dataDefault['steerDefault']
     elif(correctdir == "right"):
-        steer = dataDefault['steerDefault'] + dataDefault['shiftDirection']
+        steer = int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection'])
     else:
-        steer = dataDefault['steerDefault'] - dataDefault['shiftDirection']
-    tick = tick - 1
+        steer = int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection'])
+    tick = int(tick) - 1
     
 def correctDirection():
     global leftArea,rightArea,tick,correctdir,dataDefault
     if(leftArea == "busy"):
-        tick = dataDefault['tickDefault']
+        tick = int(dataDefault['tickDefault'])
         correctdir = "right"
     if(rightArea == "busy"):
-        tick = dataDefault['tickDefault']
+        tick = (dataDefault['tickDefault'])
         correctdir = "left"
 
 
@@ -55,17 +56,17 @@ def checkAuto():
     return True
 
 
-def readFile():
+def readFile(data):
     global dataDefault
     dataDefault = readJson()
 
 
 def callback(data):
-    global tick,dataDefault
+    global tick,dataDefault,leftArea,rightArea
     if(checkAuto()):
         commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
         pointDirection = str(data.data).split('$')
-
+        
         leftArea = pointDirection[0]
         rightArea = pointDirection[1]
 

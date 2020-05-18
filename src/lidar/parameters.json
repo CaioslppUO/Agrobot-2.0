@@ -1,7 +1,1 @@
-{
-"limit" : 50,
-"tickDefault" : 3,
-"steerDefault" : -3,
-"speedDefault" : -26,
-"shiftDirection" : 5
-}
+{"limit": "0", "tickDefault": "0", "steerDefault": "0", "speedDefault": "0", "shiftDirection": "0"}

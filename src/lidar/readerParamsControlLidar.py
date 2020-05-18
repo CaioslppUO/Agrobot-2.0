@@ -7,8 +7,8 @@ dadosWrite = {}
 
 def writeJson():
   global dadosWrite
-  with open('parameter.json','w') as file:
-    json.dump(dadosWrite,file,ident=2,separators=(',',':'))
+  with open('parameters.json','w') as file:
+    json.dump(dadosWrite,file)
     pubCheck.publish("OK")
 
 
