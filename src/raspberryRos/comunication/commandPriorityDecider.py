@@ -64,8 +64,11 @@ class Comunication():
         rospy.Subscriber("ControlOutdoors",String,self.callback,self.priorities.rasp_lidar)
 
     #Escuta o tópico PcManual
-    def listenOutdoorControls(self):
+    def listenPcManual(self):
         rospy.Subscriber("PcManual",String,self.callback,self.priorities.manual_pc)
+   
+    def listenControlLidar(self):
+        rospy.Subscriber("ControlLidar", String, self.callback, self.priorities.rasp_lidar)
 
     #Define qual comando será executado
     def callback(self,data,priority):
@@ -89,7 +92,8 @@ class Comunication():
         self.listenWebServerManual()
         self.listenOutdoorControls()
         self.listenComputationalVision()
-        self.listenOutdoorControls()
+        self.listenPcManual()
+        self.listenControlLidar()
         rospy.spin()
 
 #######################
