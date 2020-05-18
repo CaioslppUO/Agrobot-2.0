@@ -15,7 +15,7 @@ def selectPoints(vet,range,centralPoint):
     LeftVet = []
     centerVet = []
     centerVet.append(vet[centralPoint])
-    while(i < range):
+    while(i < range/2):
         centerVet.append(vet[centralPoint+i])
         centerVet.append(vet[centralPoint-i])
         i=i+1

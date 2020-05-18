@@ -13,8 +13,8 @@ def writeJson():
 
 def callback(data):
   global dadosWrite
-  dadosNo = str(data.data).split('$')
 
+  print(dadosNo)
   dadosWrite['limit'] = dadosNo[0]
   dadosWrite['tickDefault'] = dadosNo[1]
   dadosWrite['steerDefault'] = dadosNo[2]

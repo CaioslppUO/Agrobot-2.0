@@ -27,7 +27,7 @@ def setSteer(steernew):
     global steer
     steer = steernew
 
-def checkTick()
+def checkTick():
     global tick
     if(tick == 0):
         setCorrection()
@@ -97,4 +97,5 @@ def main():
 rospy.init_node('ControlLidar', anonymous=True)
 pubControlCommand = rospy.Publisher("ControlLidar", String,queue_size=10)
 dataDefault = readJson()
+print(dataDefault)
 main()
