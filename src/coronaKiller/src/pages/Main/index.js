@@ -26,7 +26,7 @@ export default class Main extends Component {
     buttonOnOffAuto: '#99a7ad',
     buttonStop: '#cc1414',
     autoMode: 0,
-    move_time_interval_id: null,
+    move_time_interval_id: null
   };
 
   //Opções do controlador de navegação de páginas 
@@ -47,30 +47,28 @@ export default class Main extends Component {
     function sendToWebServerManual(speed, steer, limit, power, uv) {
       new WebSocket('http://' + global.serverIp + ':' + global.port_manual + '/' + 0 + '*'
         + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit + '*powerA$' + power + '*powerB$' + 0
-        + '*pulverize$' + uv)
+        + '*pulverize$' + global.uv)
     }
 
     //Envia a mensagem de controle automático para o webserver de parâmetros
     function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
-      new WebSocket('http://' + global.serverIp + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-        speedDefault + "$" + shiftDirection + "$" + global.detect_distance)
+      new WebSocket('http://' + "192.168.1.121" + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
+        speedDefault + "$" + shiftDirection + "$" + global.uv + "$" + global.detect_distance)
     }
 
     //Envia o sinal para o relé ligar ou desligar
     function sendSignalToRelay(relay_id) {
       if (relay_id == 'Power') {
-        sendToWebServerManual(0, 0, 0, 1, 0)
-      } else {
-        sendToWebServerManual(0, 0, 0, 0, 1)
+        sendToWebServerManual(0, 0, 0, 1, global.uv)
       }
     }
 
     //Função que pega os valores de x e y do JoyStick e os envia para o robô
-    function sendManualCommand(x, y) {
+    function sendManualCommand(x, y, uv) {
       global.speed = -Math.round(y * 100)
       global.steer = Math.round(x * 100)
       setTimeout(() => {
-        sendToWebServerManual(global.speed, global.steer, global.limit, 0, 0)
+        sendToWebServerManual(global.speed, global.steer, global.limit, 0, global.uv)
       }, global.comunication_delay)
     }
 
@@ -80,18 +78,20 @@ export default class Main extends Component {
     }
 
     //Função que envia os valores corretos para ligar a lâmpada UV
-    function uvButtonPressed() {
-      sendSignalToRelay('UV')
+    function uvButtonPressed(uv) {
+      global.uv = global.uv == 0 ? 1 : 0
+      sendToWebServerManual(0, 0, 0, 0, global.uv)
+      sendToParamServer(global.limit_auto,global.correction_movements,global.steer_auto,global.speed_auto,global.correction_factor)
     }
 
     //Função que liga/desliga o modo de controle automático
-    function automaticButtonPressed(autoMode,move_time_interval_id) {
+    function automaticButtonPressed(autoMode, move_time_interval_id) {
       if (autoMode == 0) {
         if (global.move_time_auto == 0 && global.stop_time_auto == 0) {
           sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor)
           return null
         } else {
-           return setInterval(() => {
+          return setInterval(() => {
             sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor)
             setTimeout(() => {
               sendToParamServer(0, 0, 0, 0, 0)
@@ -99,7 +99,7 @@ export default class Main extends Component {
           }, global.move_time_auto + global.stop_time_auto)
         }
       } else {
-        if(move_time_interval_id != null){
+        if (move_time_interval_id != null) {
           clearInterval(move_time_interval_id)
         }
         sendToParamServer(0, 0, 0, 0, 0)
@@ -108,11 +108,11 @@ export default class Main extends Component {
     }
 
     //Função que para o robô
-    function stopRobot(move_time_interval_id){
+    function stopRobot(move_time_interval_id) {
       if (move_time_interval_id != null) {
         clearInterval(move_time_interval_id)
       }
-      sendToWebServerManual(0, 0, 0, 0, 0, 0)
+      sendToWebServerManual(0, 0, 0, 0, 0, global.uv)
       sendToParamServer(0, 0, 0, 0, 0)
     }
 
@@ -140,12 +140,12 @@ export default class Main extends Component {
               wrapperStyle={styles.wrapperView}
               autoCenter={false}
               resetOnRelease={true}
-              onValue={({ x, y }) => { 
-                sendManualCommand(x,y)
-                if(this.state.autoMode != 0){
+              onValue={({ x, y }) => {
+                sendManualCommand(x, y)
+                if (this.state.autoMode != 0) {
                   this.setState({ buttonOnOffAuto: '#99a7ad' })
                   this.setState({ autoMode: 0 })
-                  if(this.state.move_time_interval_id != null){
+                  if (this.state.move_time_interval_id != null) {
                     clearInterval(this.state.move_time_interval_id)
                   }
                 }
@@ -181,7 +181,7 @@ export default class Main extends Component {
                 style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
                   this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                  this.state.move_time_interval_id = automaticButtonPressed(this.state.autoMode,this.state.move_time_interval_id)
+                  this.state.move_time_interval_id = automaticButtonPressed(this.state.autoMode, this.state.move_time_interval_id)
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
                 }}>
                 <Text style={styles.ButtonText}>Modo Automático</Text>
@@ -224,14 +224,14 @@ export default class Main extends Component {
               <Text style={styles.speedText}>Velocidade {this.state.speedSliderValue}% </Text>
 
               {/* Botão de + para aumentar o valor do slider */}
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={styles.area}
                 onPress={() => {
                   if (this.state.speedSliderValue < 100) {
                     global.limit = this.state.speedSliderValue + 1
                     this.setState({ speedSliderValue: this.state.speedSliderValue + 1 })
                   }
-              }}>
+                }}>
                 <Text style={styles.sinalText}>+</Text>
               </TouchableOpacity>
             </View>

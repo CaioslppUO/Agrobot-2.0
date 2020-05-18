@@ -17,8 +17,8 @@ global.comunication_delay = 50
 global.speed_auto = -26
 global.steer_auto = -3
 global.limit_auto = 50
-global.correction_movements = 3
-global.correction_factor = 5
+global.correction_movements = 5
+global.correction_factor = 10
 
 global.port_auto = '8082'
 global.move_time_auto = 0
