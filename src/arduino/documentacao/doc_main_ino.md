@@ -1,3 +1,7 @@
+**Descrição**
+
+ * Programa que roda no arduino, fazendo a comunicação entre o Raspberry e placa do Hover Board.
+
 **Defines**
 
  * STD_X e STD_Y: Valores que significam 'parado' para a placa do hover board.
