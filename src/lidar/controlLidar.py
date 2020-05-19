@@ -85,7 +85,6 @@ def callback(data):
         checkFoward()
         commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(dataDefault['uv'])
         pubControlCommand.publish(commandToPublish)
-
         rospy.Subscriber('/writeFile', String, readFile)
             
 
@@ -97,5 +96,4 @@ def main():
 rospy.init_node('ControlLidar', anonymous=True)
 pubControlCommand = rospy.Publisher("ControlLidar", String,queue_size=10)
 dataDefault = readJson()
-print(dataDefault)
 main()
