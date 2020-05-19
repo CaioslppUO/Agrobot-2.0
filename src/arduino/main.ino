@@ -1,27 +1,20 @@
-/* Versão: 1.0.0
- * Data: 11/03/2020, 12:53
- * Desenvolvedores: Caio, Lucas, Levi
-*/
-
 #include <Wire.h>
 #include <math.h>
 
-/*Standard x and y
- * These are the values that keep the robot stationary
- * They range from 30 to 230, where 30 is go Back and 230 is go Ahead for y. For x, 30 is go Left and 230 is go Right
-*/
+//X e Y padrões
 #define STD_X 130
 #define STD_Y 123
 
-//Global variables
-int x,y; //Values sent to the main board
-int Speed,Steer,Limit; //Values used to convert string -> int, recieved through UART
-String information=""; //String recieved through UART
-bool stringComplete; //Flag to check if the message is complete
+//Variáveis globais
+int x,y;
+int Speed,Steer,Limit; 
+String information="";
+bool stringComplete;
 
-//Vector send through I2C
+//Vetor enviado pela comunicação I2C
 uint8_t vector[6] = {218, 130, 0, 1, 0, 1};
 
+//Configurações iniciais
 void setup(){
   Serial.begin(9600);
     
@@ -30,7 +23,7 @@ void setup(){
   Wire.onRequest(requestEvent);  
 }
 
-//Function that checks if speed and steer are correct, transform them according to the limit, and set the global x and y
+//Função que verifica se a velocidade, a direção e o limite estão corretos, e depois define as variáveis globais x e y
 void control(float _speed, float _steer, float _limit){
   float  coefficient_speed, coefficient_steer;  
   coefficient_speed = (_speed/100) * abs(_limit);
@@ -42,12 +35,12 @@ void control(float _speed, float _steer, float _limit){
  
 }
 
+//Lê o canal de comunicação UART e executa o tratamento para os dados recebidos
 void loop(){ 
-  //read menssages and call control funtion
   readUart();
 }
 
-//Send information to the main board, when requested
+//Envia informação para a placa do hover board quando requisitado
 void requestEvent() {
   int i;
   vector[0] = x;
@@ -57,13 +50,13 @@ void requestEvent() {
   }
 }
 
-//Auxiliary funtion to uart communication
+//Função auxiliar para tratar a comunicação UART
 void readinfo(){
       information = "";
       stringComplete = false;  
 }
 
-//Convert the uart menssage and call control
+//Traduz a mensagem recebida pelo UART e as envia para a placa do hover board
 void readUart() {
   String temp;
   char sinal;
@@ -73,7 +66,7 @@ void readUart() {
     Serial.print(information);
     Serial.println("}");
     temp="";
-    sinal = information[0] - 48; //1 if sinal = '1' and 0 if sinal = '0'
+    sinal = information[0] - 48; //1 se o sinal for igual a '1' e 0 se o sinal for igual a '0'
     temp += information[1];
     temp += information[2];
     temp += information[3];
@@ -97,11 +90,11 @@ void readUart() {
     if(!sinal) Limit *= -1;
     
     control(Speed,Steer,Limit);
-    readinfo(); //reset the flags for the next reading
+    readinfo(); //Reseta os flags para a próxima leitura
   }
 }
 
-//Receive uart sinal, and save it
+//recebe o sinal pelo UART e o salva
 void EventSerial() {
   while (Serial.available()) {
     char inChar = (char)Serial.read();
