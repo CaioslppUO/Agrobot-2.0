@@ -11,6 +11,8 @@
     * Recebe as variáveis de inicialização, verifica se todas estão corretas e retorna uma mensagem.
     * A mensagem indica se alguma variável está incorreta ou se todas estão corretas.
 
+---
+
 **Classes**
   
   * LauncherVariables():
