@@ -17,7 +17,7 @@
 
     * Classe que gerencia as variáveis.
 
-  *Métodos*
+  * **Métodos**
 
     * variableSeparator(self,variables):
 
