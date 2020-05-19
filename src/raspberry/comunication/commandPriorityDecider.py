@@ -5,7 +5,6 @@
 #####################
 
 import rospy
-import sys
 from std_msgs.msg import String
 from commandStandardizer import CommandStandardizer
 
@@ -15,12 +14,9 @@ from commandStandardizer import CommandStandardizer
 
 rospy.init_node('CommandPriorityDecider', anonymous=True)
 
-###############################
-#----> Variáveis Globais <----#
-###############################
-
-webServersReaded = 0
-commandObservers = int(sys.argv[1])
+#################################
+#----> Classe priorities <----#
+#################################
 
 class priorities():
     def __init__(self):
