@@ -38,7 +38,7 @@ pubController = rospy.Publisher('Controller', String, queue_size=10)
 def mainLoop():
     global pubController
     launcher = LauncherVariables()
-    serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect,rootPath = launcher.variableSeparator(sys.argv)
+    serverIp,enableUart,enableRelay,uartAmount,enableFaceDetect,rootPath = launcher.variableSeparator(sys.argv)
 
     #Define quais módulos base serão inicializados
     launchMsg = "python3 " + rootPath + "comunication/webServer.py " + serverIp + "& "
@@ -50,8 +50,6 @@ def mainLoop():
         launchMsg += "python3 " + rootPath + "modules/relay.py& "
     if(enableUart == "True"):
         launchMsg += "python3 " + rootPath + "modules/controlRobot.py " + str(uartAmount) + "& "
-    if(enableSensor == "True"):
-        launchMsg += "python3 " + rootPath + "modules/sensor.py& "
     if(enableFaceDetect == "True"):
         launchMsg += "python3 " + rootPath + "modules/coputationalVision.py& "
 

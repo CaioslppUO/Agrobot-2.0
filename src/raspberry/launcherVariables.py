@@ -7,19 +7,15 @@
 #Retorno: Verdadeiro se as variáveis foram inicializadas corretamente ou falso caso não
 #Pré-condição: Nenhuma
 #Pós-condição: Caso alguma das variáveis não estiver correta, é retornado False com uma mensagem de erro
-def checkVariables(serverIp,enableUart,enableSensor,enableRelay,uartAmount,commandObservers,enableFaceDetect,rootPath):
+def checkVariables(serverIp,enableUart,enableRelay,uartAmount,enableFaceDetect,rootPath):
     if(serverIp == None):
         return False,"Invalid ServerIp"
     if(enableUart == None):
         return False,"Invalid EnableUart"
-    if(enableSensor == None):
-        return False,"Invalid EnableSensor"
     if(enableRelay == None):
         return False,"Invalid EnableRelay"
     if(uartAmount == None):
         return False,"Invalid UartAmount"
-    if(commandObservers == None):
-        return False,"Invalid commandObservers"
     if(enableFaceDetect == None):
         return False,"Invalid enableFaceDetect"
     if(rootPath == None):
@@ -34,10 +30,8 @@ class LauncherVariables():
     def __init__(self):
         self.serverIp         = None
         self.enableUart       = None
-        self.enableSensor     = None
         self.enableRelay      = None
         self.uartAmount       = None
-        self.commandObservers = None
         self.enableFaceDetect = None
         self.rootPath         = None
 
@@ -54,25 +48,21 @@ class LauncherVariables():
                 self.serverIp = str(variable[1])
             elif(variable[0] == "enableUart" and (str(variable[1]) == "False" or str(variable[1]) == "True")):
                 self.enableUart = str(variable[1])
-            elif(variable[0] == "enableSensor" and (str(variable[1]) == "False" or str(variable[1]) == "True")):
-                self.enableSensor = str(variable[1])
             elif(variable[0] == "enableRelay" and (str(variable[1]) == "False" or str(variable[1]) == "True")):
                 self.enableRelay = str(variable[1])
             elif(variable[0] == "uartAmount" and (int(variable[1]) == 0 or int(variable[1]) == 1 or int(variable[1]) == 2)):
                 self.uartAmount = int(variable[1])
-            elif(variable[0] == "commandObservers"):
-                self.commandObservers = int(variable[1])
             elif(variable[0] == "enableFaceDetect"):
                 self.enableFaceDetect = str(variable[1])
             elif(variable[0] == "rootPath"):
                 self.rootPath = str(variable[1])
             i = i + 1
 
-        checkResult,checkResultMsg = checkVariables(self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount,self.commandObservers,self.enableFaceDetect,self.rootPath)
+        checkResult,checkResultMsg = checkVariables(self.serverIp,self.enableUart,self.enableRelay,self.uartAmount,self.enableFaceDetect,self.rootPath)
         
         if(checkResult == False):
             print(checkResultMsg)
             exit(0)
             
         print(checkResultMsg)
-        return self.serverIp,self.enableUart,self.enableSensor,self.enableRelay,self.uartAmount,self.commandObservers,self.enableFaceDetect,self.rootPath
+        return self.serverIp,self.enableUart,self.enableRelay,self.uartAmount,self.enableFaceDetect,self.rootPath
