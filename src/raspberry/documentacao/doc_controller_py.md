@@ -2,6 +2,8 @@
 
 * Programa que gerência o launch do ROS e de todos os módulos que serão utilizados
 
+---
+
 **Dependências**
  
  * os
@@ -10,6 +12,8 @@
  * time
  * String from std_msgs.msg
  * launcherVariables from raspberry/LauncherVariables
+
+---
 
 **Parâmetros de execução do arquivo**
 
@@ -21,9 +25,13 @@
  * enableFaceDetect: Boolean para definir se o controle automático por meio de câmeras será ou não habilitado
  * rootPath: Caminho completo até a raiz do código fonte. Ex: /home/USER/Agrobor-2.0/src/raspberry/
 
+---
+
  **Variáveis Globais**
 
  * pubController: Variável que controla o publisher no Tópico 'Controller' do ROS
+
+ ---
 
 **Funções**
 
