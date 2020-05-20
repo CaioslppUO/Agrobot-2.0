@@ -40,58 +40,58 @@ export default class Automatic extends Component {
           <View style={styles.BoxesContainer}>
             <TextInput
               style={styles.boxText}
-                placeholder="Limite:"
-                onChangeText={(text) => {
-                  this.setState({ limit_auto: text })
+                placeholder={"Limite: " + this.state.limit_auto}
+                onEndEditing={(text) => {
+                  this.setState({ limit_auto: text.nativeEvent.text })
                 }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Direção:"
-              onChangeText={(text) => {
-                this.setState({ steerDefault_auto: text })
+              placeholder={"Direção: " + this.state.steerDefault_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ steerDefault_auto: text.nativeEvent.text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Velocidade:"
-              onChangeText={(text) => {
-                this.setState({ speedDefault_auto: text })
+              placeholder={"Velocidade: " + this.state.speedDefault_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ speedDefault_auto: text.nativeEvent.text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Nº de Movimentos de correção:"
-              onChangeText={(text) => {
-                this.setState({ tickDefault_auto: text })
+              placeholder={"Nº de Movimentos de correção: " + this.state.tickDefault_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ tickDefault_auto: text.nativeEvent.text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Fator de Correção:"
-              onChangeText={(text) => {
-                this.setState({ shiftDirection_auto: text })
+              placeholder={"Fator de Correção: " + this.state.shiftDirection_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ shiftDirection_auto: text.nativeEvent.text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Distância de Colisão(m):"
-              onChangeText={(text) => {
-                this.setState({ detect_distance: text })
+              placeholder={"Distância de Colisão(m): " + this.state.detect_distance}
+              onSubmitEditing={(text) => {
+                this.setState({ detect_distance: text.nativeEvent.text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Andar por(seg):"
-              onChangeText={(text) => {
-                this.setState({ move_time_auto: text })
+              placeholder={"Andar por(seg): " + this.state.move_time_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ move_time_auto: text.nativeEvent.text })
               }}
             />
             <TextInput
               style={styles.boxText}
-              placeholder="Parar por(seg):"
-              onChangeText={(text) => {
-                this.setState({ stop_time_auto: text })
+              placeholder={"Parar por(seg): " + this.state.stop_time_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ stop_time_auto: text.nativeEvent.text })
               }}
             />
           </View>

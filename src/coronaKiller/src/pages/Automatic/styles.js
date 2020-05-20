@@ -13,7 +13,7 @@ export default StyleSheet.create({
   },
   boxText: {
     marginTop: '3%',
-    fontSize: 20,
+    fontSize: 15,
     borderRadius: 10,
     borderWidth: 1,
   },
