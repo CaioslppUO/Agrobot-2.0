@@ -43,24 +43,6 @@ export default class Main extends Component {
   render() {
     console.disableYellowBox = true;
 
-    const requestLocationPermission = async () => {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location permission is required for WiFi connections',
-          message: 'Permissão para acesso à rede WIFI?',
-          buttonNegative: 'Permitir',
-          buttonPositive: 'Cancelar',
-        },
-      )
-      alert(granted)
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        alert('Permissão concedida.')
-      } else {
-        alert('Permissão negada.')
-      }
-    }
-
     //Envia a mensagem de controle manual para o webServerManual
     function sendToWebServerManual(speed, steer, limit, power, uv) {
       new WebSocket('http://' + global.serverIp + ':' + global.port_manual + '/' + 0 + '*'
