@@ -12,6 +12,7 @@ global.uv = 0
 global.serverIp = '192.168.1.2'
 global.port_manual = '8080'
 global.comunication_delay = 50
+global.comunication_interval = 0
 
 //Variáveis de controle automático
 global.speed_auto = -26
@@ -26,4 +27,4 @@ global.stop_time_auto = 0
 global.detect_distance = 1.2
 
 //Variáveis de informação
-global.version = '0.1.9'
+global.version = '0.2.0'

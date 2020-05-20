@@ -27,7 +27,7 @@ export default class Main extends Component {
     buttonStop: '#cc1414',
     autoMode: 0,
     move_time_interval_id: null
-  };
+    };
 
   //Opções do controlador de navegação de páginas 
   static navigationOptions = {
@@ -141,14 +141,22 @@ export default class Main extends Component {
               autoCenter={false}
               resetOnRelease={true}
               onValue={({ x, y }) => {
-                sendManualCommand(x, y)
-                if (this.state.autoMode != 0) {
-                  this.setState({ buttonOnOffAuto: '#99a7ad' })
-                  this.setState({ autoMode: 0 })
-                  if (this.state.move_time_interval_id != null) {
-                    clearInterval(this.state.move_time_interval_id)
+                if(global.comunication_interval === 5){
+                  sendManualCommand(x, y)
+                  global.comunication_interval = 0
+                }else{
+                  if(x == 0 && y == 0){
+                    sendManualCommand(0, 0)
                   }
+                  global.comunication_interval = global.comunication_interval + 1
                 }
+                  if (this.state.autoMode != 0) {
+                    this.setState({ buttonOnOffAuto: '#99a7ad' })
+                    this.setState({ autoMode: 0 })
+                    if (this.state.move_time_interval_id != null) {
+                      clearInterval(this.state.move_time_interval_id)
+                    }
+                  }
               }}
             />
           </View>

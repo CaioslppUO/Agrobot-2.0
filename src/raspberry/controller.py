@@ -42,7 +42,7 @@ def mainLoop():
 
     #Define quais módulos base serão inicializados
     launchMsg = "python3 " + rootPath + "comunication/webServer.py " + serverIp + "& "
-    launchMsg += "python3 " + rootPath + "comunication/commandPriorityDecider.py " + str(commandObservers) + "& "
+    launchMsg += "python3 " + rootPath + "comunication/commandPriorityDecider.py& "
     launchMsg += "python3 " + rootPath + "modules/commandAssembler.py& "
     
     #Define quais módulos opcionais serão inicializados
