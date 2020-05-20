@@ -28,7 +28,6 @@ export default StyleSheet.create({
     justifyContent: 'space-around'
   },
   powerButtonsContainer: {
-    marginTop: 13,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around'
