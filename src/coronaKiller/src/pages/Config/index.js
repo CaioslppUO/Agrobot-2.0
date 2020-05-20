@@ -40,27 +40,27 @@ export default class Config extends Component {
                     <View style={styles.textInputContainer}>
                         <TextInput
                             style={styles.textDefault}
-                            placeholder="IP do robô:"
-                            onChangeText={(text) => {
-                                this.setState({ serverIp: text })
+                            placeholder={"IP do robô: " + this.state.serverIp}
+                            onEndEditing={(text) => {
+                                this.setState({ serverIp: text.nativeEvent.text })
                             }
                             }
                         />
 
                         <TextInput
                             style={styles.textDefault}
-                            placeholder="Porta:"
-                            onChangeText={(text) => {
-                                this.setState({ port: text })
+                            placeholder={"Porta: " + this.state.port}
+                            onEndEditing={(text) => {
+                                this.setState({ port: text.nativeEvent.text })
                             }
                             }
                         />
 
                         <TextInput
                             style={styles.textDefault}
-                            placeholder="Tempo de resposta(ms):"
-                            onChangeText={(text) => {
-                                this.setState({ delay: text })
+                            placeholder={"Tempo de resposta(ms): " + this.state.delay}
+                            onEndEditing={(text) => {
+                                this.setState({ delay: text.nativeEvent.text })
                             }
                             }
                         />
@@ -95,7 +95,7 @@ export default class Config extends Component {
 
                     </View>
 
-                  
+
                     {/*View da versão*/}
                     <View style={styles.versionContainer}>
                         <Text style={styles.versionText}>V {global.version}</Text>

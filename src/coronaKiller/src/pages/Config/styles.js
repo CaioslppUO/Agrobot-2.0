@@ -16,7 +16,7 @@ export default StyleSheet.create({
   textDefault: {
 			alignItems: 'flex-start',
       marginTop: 10,
-      fontSize: 25,
+      fontSize: 20,
       borderRadius: 10,
 			borderWidth: 1,
 			width: 310
