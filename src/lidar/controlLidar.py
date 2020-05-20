@@ -48,20 +48,20 @@ def checkFoward():
 def correctDirection():
     global correctdir,tick,steer,dataDefault
     if(tick == 1):
-        setSteer(int(dataDefault['steerDefault']))
+        setSteer(dataDefault['steerDefault'])
     elif(correctdir == "right"):
-        setSteer(int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection']))
+        setSteer(dataDefault['steerDefault'] - dataDefault['shiftDirection'])
     else:
-        setSteer(int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection']))
+        setSteer(dataDefault['steerDefault'] + dataDefault['shiftDirection'])
     tick = tick - 1
     
 def setCorrection():
     global leftArea,rightArea,tick,correctdir,dataDefault
     if(leftArea == "busy"):
-        tick = int(dataDefault['tickDefault'])
+        tick = dataDefault['tickDefault']
         correctdir = "right"
     if(rightArea == "busy"):
-        tick = int(dataDefault['tickDefault'])
+        tick = dataDefault['tickDefault']
         correctdir = "left"
 
 def checkAuto():
@@ -87,8 +87,6 @@ def callback(data):
         pubControlCommand.publish(commandToPublish)
         rospy.Subscriber('/writeFile', String, readFile)
             
-
-
 def main():
     sub = rospy.Subscriber('/Lidar', String, callback)
     rospy.spin()
