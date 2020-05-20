@@ -25,8 +25,7 @@ export default class Main extends Component {
     buttonOnOffUv: '#99a7ad',
     buttonOnOffAuto: '#99a7ad',
     buttonStop: '#cc1414',
-    autoMode: 0,
-    move_time_interval_id: null
+    autoMode: 0
   };
 
   //Opções do controlador de navegação de páginas 
@@ -51,9 +50,9 @@ export default class Main extends Component {
     }
 
     //Envia a mensagem de controle automático para o webserver de parâmetros
-    function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
+    function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection, move_time_auto, stop_time_auto) {
       new WebSocket('http://' + "192.168.1.121" + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-        speedDefault + "$" + shiftDirection + "$" + global.uv + "$" + global.detect_distance)
+        speedDefault + "$" + shiftDirection + "$" + global.uv + "$" + global.detect_distance + "$" + move_time_auto + "$" + stop_time_auto)
     }
 
     //Envia o sinal para o relé ligar ou desligar
@@ -81,39 +80,24 @@ export default class Main extends Component {
     function uvButtonPressed(uv) {
       global.uv = global.uv == 0 ? 1 : 0
       sendToWebServerManual(0, 0, 0, 0, global.uv)
-      sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor)
+      sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor, global.move_time_auto, global.stop_time_auto)
     }
 
     //Função que liga/desliga o modo de controle automático
-    function automaticButtonPressed(autoMode, move_time_interval_id) {
+    function automaticButtonPressed(autoMode) {
       if (autoMode == 0) {
-        if (global.move_time_auto == 0 && global.stop_time_auto == 0) {
-          sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor)
-          return null
-        } else {
-          return setInterval(() => {
-            sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor)
-            setTimeout(() => {
-              sendToParamServer(0, 0, 0, 0, 0)
-            }, global.move_time_auto)
-          }, global.move_time_auto + global.stop_time_auto)
-        }
+        sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor, global.move_time_auto, global.stop_time_auto)
+        return null
       } else {
-        if (move_time_interval_id != null) {
-          clearInterval(move_time_interval_id)
-        }
-        sendToParamServer(0, 0, 0, 0, 0)
+        sendToParamServer(0, 0, 0, 0, 0, 0, 0)
         return null
       }
     }
 
     //Função que para o robô
-    function stopRobot(move_time_interval_id) {
-      if (move_time_interval_id != null) {
-        clearInterval(move_time_interval_id)
-      }
+    function stopRobot() {
       sendToWebServerManual(0, 0, 0, 0, 0, global.uv)
-      sendToParamServer(0, 0, 0, 0, 0)
+      sendToParamServer(0, 0, 0, 0, 0, 0, 0)
     }
 
     return (
@@ -153,9 +137,6 @@ export default class Main extends Component {
                 if (this.state.autoMode != 0) {
                   this.setState({ buttonOnOffAuto: '#99a7ad' })
                   this.setState({ autoMode: 0 })
-                  if (this.state.move_time_interval_id != null) {
-                    clearInterval(this.state.move_time_interval_id)
-                  }
                 }
               }}
             />
@@ -189,7 +170,7 @@ export default class Main extends Component {
                 style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
                   this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                  this.state.move_time_interval_id = automaticButtonPressed(this.state.autoMode, this.state.move_time_interval_id)
+                  automaticButtonPressed(this.state.autoMode)
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
                 }}>
                 <Text style={styles.ButtonText}>Modo Automático</Text>
@@ -203,7 +184,7 @@ export default class Main extends Component {
                 style={{ backgroundColor: '#cc1414', borderRadius: 115, height: 62, width: 200, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
                   this.setState({ buttonOnOffAuto: '#99a7ad' })
-                  stopRobot(this.state.move_time_interval_id)
+                  stopRobot()
                   this.setState({ autoMode: 0 })
                 }}>
                 <Text style={styles.ButtonText}>PARAR</Text>

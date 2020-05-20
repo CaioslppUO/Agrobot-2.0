@@ -27,4 +27,4 @@ global.stop_time_auto = 0
 global.detect_distance = 1.2
 
 //Variáveis de informação
-global.version = '0.2.1'
+global.version = '0.2.2'
