@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Módulo que gerencia a comunicação com o app de celular de controle manual.
+"""
+
 #####################
 #----> Imports <----#
 #####################

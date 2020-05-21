@@ -1,5 +1,5 @@
 """
-Módulo que gerência a padronização dos comandos recebidos.
+Módulo que gerencia a padronização dos comandos recebidos.
 """
 
 #########################################

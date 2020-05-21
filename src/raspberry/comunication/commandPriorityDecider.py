@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Módulo que gerência qual comando terá prioridade de execução e o envia para o ROS.
+Módulo que gerencia qual comando terá prioridade de execução e o envia para o ROS.
 """
 
 #####################

@@ -1,5 +1,5 @@
 """ 
-Programa que gerência as variáveis de inicialização do sistema.
+Programa que gerencia as variáveis de inicialização do sistema.
 """
 
 ## Função que checa se cada uma das variáveis recebidas é válida.
