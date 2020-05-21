@@ -27,12 +27,9 @@ rospy.init_node('WebServerManual', anonymous=True)
 #----> Classe Request Handler <----#
 ####################################
 
+## Classe que gerencia os requests feito no servidor http.
 class RequestHandler_httpd(BaseHTTPRequestHandler):
-    #Faz o manejo da mensagem quando existe uma conexão com o app
-    #Entrada: Nenhuma
-    #Retorno: Nenhum
-    #Pré-condição: Nenhuma
-    #Pós-condição: Caso exista comunicação com app, a mensagem recebida é enviada para o tópico ROS
+    ## Método que trata o GET feito pelo app de controle manual.
     def do_GET(self):
         newClientConnectionAttenpts = 0
         clientAdress = None
@@ -55,9 +52,12 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
 #----> Classe Web Server <----#
 ##############################
 
+## Classe que gerencia o servidor http
 class WebServer():
+    ## Método que inicializa as variáveis e o servidor
     def __init__(self):
         try:
+            ## Ip no qual será aberto o servidor.
             self.serverIp = sys.argv[1]
             self.server_address_httpd = (self.serverIp,8080)
             httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
@@ -67,9 +67,9 @@ class WebServer():
         except:
             pass
 
-#######################
+############################
 #----> Loop Principal <----#
-#######################
+############################
   
 if __name__ == '__main__':
     try:
