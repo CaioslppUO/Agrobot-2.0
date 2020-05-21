@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['setup_36',['setup',['../main_8ino.html#a4fc01d736fe50cf5b977f755b675f11d',1,'main.ino']]]
+  ['get_172',['get',['../namespacemanualControl.html#afc7926cec7ec746cb786d0c67f42384a',1,'manualControl']]],
+  ['getvalue_173',['getValue',['../classcontrolRobot_1_1ControlRobot.html#a60dd40c8f1707d77eb9f94126917b95f',1,'controlRobot::ControlRobot']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pubcontroller_11',['pubController',['../namespacecontroller.html#ac572f4af4d77a29f88e6eec5ee9ee4da',1,'controller']]]
+  ['information_44',['information',['../main_8ino.html#a6d8ad146b9f7b79127f1f463f888fd43',1,'main.ino']]]
 ];

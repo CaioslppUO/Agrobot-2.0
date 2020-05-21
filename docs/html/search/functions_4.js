@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['readinfo_33',['readinfo',['../main_8ino.html#a90872048bafeb9b26f383f6dcb98b539',1,'main.ino']]],
-  ['readuart_34',['readUart',['../main_8ino.html#ae6dc3d16071afd7076911d79962660a2',1,'main.ino']]],
-  ['requestevent_35',['requestEvent',['../main_8ino.html#ac10b80b8aaeaf66cecbf0bb5eff5ae33',1,'main.ino']]]
+  ['enablevision_169',['enableVision',['../namespacecomputationalVision.html#a9b74d31684680e702683f8eb7bb68205',1,'computationalVision']]],
+  ['eventserial_170',['EventSerial',['../main_8ino.html#af98a493eca41f334866d9f1626cc64c5',1,'main.ino']]],
+  ['execute_171',['execute',['../classcommandPriorityDecider_1_1Comunication.html#a012eedab8bfd21a512b7b84f00dcb465',1,'commandPriorityDecider::Comunication']]]
 ];
