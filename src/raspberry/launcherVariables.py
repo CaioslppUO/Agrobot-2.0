@@ -1,3 +1,7 @@
+""" 
+Programa que gerência as variáveis de inicialização do sistema.
+"""
+
 ## Função que checa se cada uma das variáveis recebidas é válida.
 #  Caso seja inválida, retorna false e uma mensagem de erro. \n
 #  Caso seja válida, retorna true e uma mensagem de sucesso.
