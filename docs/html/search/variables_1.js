@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['limit_30',['Limit',['../main_8ino.html#a6fac9866655c7ad72f728800ed0e3e98',1,'main.ino']]]
+  ['information_38',['information',['../main_8ino.html#a6d8ad146b9f7b79127f1f463f888fd43',1,'main.ino']]]
 ];

@@ -29,18 +29,18 @@ bool stringComplete;
 /** Variável utilizada para enviar as informações para a placa do hover board. */
 uint8_t vector[6] = {218, 130, 0, 1, 0, 1};
 
-/** Função que roda as configurações iniciais do programa.
-  * Roda somente uma vez durante toda a execução do programa.
-  * Configura o monitor serial e a biblioteca de comunicação I2C(Wire.h). */
+/** Função que roda as configurações iniciais do programa. \n
+  Roda somente uma vez durante toda a execução do programa. \n
+  Configura o monitor serial e a biblioteca de comunicação I2C(Wire.h). */
 void setup(){
   Serial.begin(9600);
   Wire.begin(0x52);                
   Wire.onRequest(requestEvent);  
 }
 
-/** Função que define as variáveis x e y que serão enviadas para a placa do hover board.
-  * Verifica e corrige os valores recebidos como parâmetros para os adequar às regras de funcionamento
- da placa do hover board. */
+/** Função que define as variáveis x e y que serão enviadas para a placa do hover board. \n
+  Verifica e corrige os valores recebidos como parâmetros para os adequar às regras de funcionamento
+  placa do hover board. */
 void control(float _speed, float _steer, float _limit){
   float  coefficient_speed, coefficient_steer;  
   coefficient_speed = (_speed/100) * abs(_limit);
@@ -59,8 +59,8 @@ void loop(){
 }
 
 /** Função que responde às chamadas da placa do hover board, utilizando o
- protocolo I2C.
-  * Utiliza a variável global vector para enviar os valores. */
+ protocolo I2C. \n
+ Utiliza a variável global vector para enviar os valores. */
 void requestEvent() {
   int i;
   vector[0] = x;
@@ -71,8 +71,8 @@ void requestEvent() {
 }
 
 /** Função que reseta os flags da leitura após receber a comunicação pelo protocolo
- UART. 
- * Indica que a leitura foi finalizada. */
+ UART. \n
+ Indica que a leitura foi finalizada. */
 void readinfo(){
       information = "";
       stringComplete = false;  

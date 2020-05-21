@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-#####################
-#----> Imports <----#
-#####################
-
 import os
 import sys
 import rospy
@@ -11,30 +7,18 @@ import time
 from std_msgs.msg import String
 from launcherVariables import LauncherVariables
 
-###################################
-#----> Inicializações do ROS <----#
-###################################
-
-os.system("roscore& ") #Inicia o ROS
+#Inicialização do ROS
+os.system("roscore& ")
 time.sleep(8)
 os.system("clear && echo 'ROS has been successfully initialized'& ")
 
-################################
-#----> Definições Globais <----#
-################################
-
+## Nó da classe no ROS. anonymous=True faz com que o nome do nó da classe seja registrado como anônimo.
 rospy.init_node('Controller', anonymous=True)
 
-###############################
-#----> Variáveis Globais <----#
-###############################
-
+## Variável que controla a publicação de textos no tópico da Controller.
 pubController = rospy.Publisher('Controller', String, queue_size=10)
 
-############################
-#----> Loop principal <----#
-############################
-
+## Função que Recebe todas as variáveis inicias e inicia os módulos que foram requeridos.
 def mainLoop():
     global pubController
     launcher = LauncherVariables()
