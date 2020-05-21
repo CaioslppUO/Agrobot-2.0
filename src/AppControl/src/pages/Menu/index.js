@@ -1,73 +1,76 @@
-import React,{Component} from 'react';
-import { View,Text,TouchableOpacity,BackHandler } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, BackHandler } from 'react-native';
 
 import styles from './styles';
 
 export default class Menu extends Component {
-    //Opções do controlador de navegação de páginas 
-    static navigationOptions =  {
-        title: "Menu",
-        headerTitleStyle: {
-            flexGrow: 1,
-            marginLeft: '35%'
-        }
-    };
-
-    UNSAFE_componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.backPressed);
+  //Opções do controlador de navegação de páginas 
+  static navigationOptions = {
+    title: "Menu",
+    headerTitleStyle: {
+      flexGrow: 1,
+      marginLeft: '35%'
     }
+  };
 
-    componentWillUnmount(){
-        BackHandler.removeEventListener('hardwareBackPress', this.backPressed)
-    }
+  componentWillMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => { });
+  }
 
-    render(){
-        return (
-            <>
-            {/*View principal*/}
-            <View style={styles.mainView}>
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.backPressed)
+  }
 
-                {/*View dos botões*/}
-                <View style={styles.buttonsView}>
-                    {/*Botão do controle manual*/}
-                    <TouchableOpacity
-                    style={styles.menuButton}
-                    onPress={() => {this.props.navigation.navigate('Main')}}>
-                        <Text style={styles.buttonText}>Control</Text>
-                    </TouchableOpacity>
+  render() {
+    return (
+      <>
+        {/*View principal*/}
+        <View style={styles.mainContainer}>
 
-                    {/*Botão do menu de configuração*/}
-                    <TouchableOpacity
-                    style={styles.menuButton}
-                    onPress={() => {this.props.navigation.navigate('Config')}}>
-                        <Text style={styles.buttonText}>Config</Text>
-                    </TouchableOpacity>
+          {/*View dos botões*/}
+          <View style={styles.buttonContainer}>
+            {/*Botão do controle manual*/}
+            <TouchableOpacity
+              style={styles.Button}
+              onPress={() => { this.props.navigation.navigate('Main') }}>
+              <Text style={styles.buttonText}>Controle</Text>
 
-                    {/*Botão de debug*/}
-                    <TouchableOpacity
-                    style={styles.menuButton}
-                    onPress={() => {this.props.navigation.navigate('Automatic')}}>
-                        <Text style={styles.buttonText}>Auto Config</Text>
-                    </TouchableOpacity>
+            </TouchableOpacity>
 
-                    {/*Botão de sair*/}
-                    <TouchableOpacity
-                    style={styles.exitButton}
-                    onPress={() => {
-                        BackHandler.exitApp()
-                    }}>
-                        <Text style={styles.buttonText}>Exit</Text>
-                    </TouchableOpacity>
+            {/*Botão do menu de configuração*/}
+            <TouchableOpacity
+              style={styles.Button}
+              onPress={() => { this.props.navigation.navigate('Config') }}>
+              <Text style={styles.buttonText}>Configuração</Text>
+            </TouchableOpacity>
 
-                </View>
+            {/*Botão de debug*/}
+            <TouchableOpacity
+              style={styles.Button}
+              onPress={() => { this.props.navigation.navigate('Automatic') }}>
+              <Text style={styles.buttonText}>Configuração Modo Automático</Text>
+            </TouchableOpacity>
 
-                {/*View da versão*/}
-                <View style={styles.versionView}>
-                    <Text style={styles.versionText}>V {global.version}</Text>
-                </View>
-            </View>
-            </>
-        );
-    }
+          </View>
+
+
+          {/*Botão de sair*/}
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => {
+              BackHandler.exitApp()
+            }}>
+            <Text style={styles.buttonText}>Sair</Text>
+          </TouchableOpacity>
+
+          {/*View da versão*/}
+          <View style={styles.containerVersion}>
+            <Text style={styles.versionText}>V {global.version}</Text>
+          </View>
+
+        </View>
+      </>
+    );
+  }
 }
 

@@ -1,118 +1,136 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, ScrollView } from 'react-native';
 import styles from './styles';
 
 export default class Automatic extends Component {
 
-    //Opções do controlador de navegação de páginas 
-    static navigationOptions = {
-        title: "Auto Config Interface",
-        headerTitleStyle: {
-            flexGrow: 1,
-            marginLeft: '18%'
-        }
-    };
-
-    //Variáveis da classe
-    state = {
-        limit_auto: global.limit_auto,
-        tickDefault_auto: global.tickDefault_auto,
-        steerDefault_auto: global.steerDefault_auto,
-        speedDefault_auto: global.speedDefault_auto,
-        shiftDirection_auto: global.shiftDirection_auto
-    };
-
-    render() {
-        function sendMsg(limit, tickDefault, steerDefault, speedDefault, shiftDirection) {
-            new WebSocket('http://' + global.serverIp + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-                speedDefault + "$" + shiftDirection)
-        }
-
-        return (
-            <>
-                {/*View principal*/}
-                <View style={styles.mainView}>
-
-                    <Text style={styles.parameters}>Parameters</Text>
-                    {/*View dos campos de preenchimento de comunicação*/}
-                    <View style={styles.boxesView}>
-                        <TextInput
-                            style={styles.firstBoxText}
-                            placeholder="Limit:"
-                            onChangeText={(text) => {
-                                this.setState({ limit_auto: text })
-                            }
-                            }
-                        />
-
-                        <TextInput
-                            style={styles.boxText}
-                            placeholder="SteerDefault:"
-                            onChangeText={(text) => {
-                                this.setState({ steerDefault_auto: text })
-                            }
-                            }
-                        />
-
-                        <TextInput
-                            style={styles.boxText}
-                            placeholder="SpeedDefault:"
-                            onChangeText={(text) => {
-                                this.setState({ speedDefault_auto: text })
-                            }
-                            }
-                        />
-
-                        <TextInput
-                            style={styles.boxText}
-                            placeholder="tickDefault:"
-                            onChangeText={(text) => {
-                                this.setState({ tickDefault_auto: text })
-                            }
-                            }
-                        />
-
-                        <TextInput
-                            style={styles.boxText}
-                            placeholder="ShiftDirection:"
-                            onChangeText={(text) => {
-                                this.setState({ shiftDirection_auto: text })
-                            }
-                            }
-                        />
-
-                    </View>
-
-                    {/*View do botão de salvar*/}
-                    <View style={styles.saveView}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                let lastLimit = global.limit_auto
-                                let lastTick = global.tickDefault_auto
-                                let lastSteer = global.steerDefault_auto
-                                let lastSpeed = global.speedDefault_auto
-                                let lastShift = global.shiftDirection_auto
-
-                                global.limit_auto = this.state.limit_auto
-                                global.tickDefault_auto = this.state.tickDefault_auto
-                                global.steerDefault_auto = this.state.steerDefault_auto
-                                global.speedDefault_auto = this.state.speedDefault_auto
-                                global.shiftDirection_auto = this.state.shiftDirection_auto
-
-                                sendMsg(this.state.limit_auto,this.state.tickDefault_auto,this.state.steerDefault_auto,this.state.speedDefault_auto,this.state.shiftDirection_auto)
-                                this.props.navigation.navigate('Main')
-                            }}
-                        >
-                            <Text style={styles.saveText}>Save</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    {/*View da versão*/}
-                    <View style={styles.versionView}>
-                        <Text style={styles.versionText}>V {global.version}</Text>
-                    </View>
-                </View>
-            </>
-        );
+  //Opções do controlador de navegação de páginas 
+  static navigationOptions = {
+    title: "Configuração do Modo Automático",
+    alignContent: 'center',
+    headerTitleStyle: {
+      flexGrow: 1,
+      fontSize : 15
     }
+  };
+
+  //Variáveis da classe
+  state = {
+    limit_auto: global.limit_auto,
+    tickDefault_auto: global.correction_movements,
+    steerDefault_auto: global.steer_auto,
+    speedDefault_auto: global.speed_auto,
+    shiftDirection_auto: global.correction_factor,
+    move_time_auto: global.move_time_auto,
+    stop_time_auto: global.stop_time_auto,
+    detect_distance: global.detect_distance
+  };
+
+  render() {
+    return (
+      <>
+      <ScrollView
+        showsVerticalScrollIndicator={false}>
+        {/*View principal*/}
+        <View style={styles.mainContainer}>
+
+          <Text style={styles.parameters}>Parâmetros</Text>
+          
+          {/*View dos campos de preenchimento de comunicação*/}
+          <View style={styles.BoxesContainer}>
+            <TextInput
+              style={styles.boxText}
+                placeholder={"Limite: " + this.state.limit_auto}
+                onEndEditing={(text) => {
+                  this.setState({ limit_auto: text.nativeEvent.text })
+                }}
+            />
+            <TextInput
+              style={styles.boxText}
+              placeholder={"Direção: " + this.state.steerDefault_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ steerDefault_auto: text.nativeEvent.text })
+              }}
+            />
+            <TextInput
+              style={styles.boxText}
+              placeholder={"Velocidade: " + this.state.speedDefault_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ speedDefault_auto: text.nativeEvent.text })
+              }}
+            />
+            <TextInput
+              style={styles.boxText}
+              placeholder={"Nº de Movimentos de correção: " + this.state.tickDefault_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ tickDefault_auto: text.nativeEvent.text })
+              }}
+            />
+            <TextInput
+              style={styles.boxText}
+              placeholder={"Fator de Correção: " + this.state.shiftDirection_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ shiftDirection_auto: text.nativeEvent.text })
+              }}
+            />
+            <TextInput
+              style={styles.boxText}
+              placeholder={"Distância de Colisão(m): " + this.state.detect_distance}
+              onSubmitEditing={(text) => {
+                this.setState({ detect_distance: text.nativeEvent.text })
+              }}
+            />
+            <TextInput
+              style={styles.boxText}
+              placeholder={"Andar por(seg): " + this.state.move_time_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ move_time_auto: text.nativeEvent.text })
+              }}
+            />
+            <TextInput
+              style={styles.boxText}
+              placeholder={"Parar por(seg): " + this.state.stop_time_auto}
+              onSubmitEditing={(text) => {
+                this.setState({ stop_time_auto: text.nativeEvent.text })
+              }}
+            />
+          </View>
+          
+          {/*View do botão de salvar*/}
+          <View style={styles.saveButton}>
+            <TouchableOpacity
+              onPress={() => {
+                let lastLimit = global.limit_auto
+                let lastTick = global.correction_movements
+                let lastSteer = global.steer_auto
+                let lastSpeed = global.speed_auto
+                let lastShift = global.correction_factor
+                let lastMoveTime = global.move_time_auto
+                let lastStopTime = global.stop_time_auto
+                let lastDetectDist = global.detect_distance
+                global.limit_auto = this.state.limit_auto
+                global.correction_movements = this.state.tickDefault_auto
+                global.steer_auto = this.state.steerDefault_auto
+                global.speed_auto = this.state.speedDefault_auto
+                global.correction_factor = this.state.shiftDirection_auto
+                global.move_time_auto = parseFloat(this.state.move_time_auto) * 1000
+                global.stop_time_auto = parseFloat(this.state.stop_time_auto) * 1000
+                global.detect_distance = this.state.detect_distance
+                this.props.navigation.navigate('Main')
+              }}
+            >
+              <Text style={styles.saveText}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
+          
+          {/*View da versão*/}
+          <View style={styles.versionContainer}>
+            <Text style={styles.versionText}>V {global.version}</Text>
+          </View>
+        
+        </View>
+        </ScrollView>
+      </>
+    );
+  }
 }

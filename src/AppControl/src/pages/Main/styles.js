@@ -1,14 +1,20 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  menuButtonView:{
-    marginLeft: '87%'
+  menuButton: {
+    alignItems:'flex-end'
   },
   joystickView: {
-    marginTop: "15%",
-    flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
+    height: 260
+  },
+  area: {
+    marginTop: 7,
+    width: 25,
+    height: 25,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   wrapperView: {
     backgroundColor: '#ffffff'
@@ -16,104 +22,82 @@ export default StyleSheet.create({
   handlerView: {
     backgroundColor: '#3495EB'
   },
-  mainView: {
+  mainContainer: {
     backgroundColor: '#ffffff',
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
-  powerButtonsView:{
+  powerButtonsContainer: {
     flexDirection: 'row',
-    marginTop: '10%',
-    marginBottom: '5%'
+    alignItems: 'center',
+    justifyContent: 'space-around'
   },
-  powerButtonText:{
-    textAlign: 'center',
-    padding: 8
+  containerButtons: {
+    height: 120
   },
-  pulverizerButtonText: {
-    textAlign: 'center',
+  ButtonText: {
+    fontSize: 11,
+    textAlign: 'center'
   },
-  buttonMenu: {
-    height: 40,
-    width: 50,
-  },
-  menuButtonText: {
-    textAlign: 'center',
-    marginTop: '7%'
-  },
-  sliderView: {
-    width: '100%',
-    height: 65,
-    justifyContent: 'center',
+  sliderContainer: {
+    height: 70,
     flexDirection: 'column',
   },
-  backgroundsliderText: {
-    width: 40,
-    flexDirection: 'row'
-  },
   slider: {
-    transform: [{scaleX: 2.0}, {scaleY: 2.0}],
+    transform: [{ scaleX: 2.0 }, { scaleY: 2.0 }],
     marginLeft: '22%',
     marginRight: '23%',
-    justifyContent: 'flex-end'
-  },
-  changeSpeedButtonLess: {
     justifyContent: 'flex-end'
   },
   speedText: {
     fontSize: 20,
     justifyContent: 'center',
-    marginLeft:'5%',
+    marginLeft: '5%',
     margin: 5
   },
-  lessButtonText:{
+  sinalText: {
     fontSize: 35,
-    height: 50,
-    width: 40,
-    marginLeft: 10,
-    margin: -5
-  },
-  moreButtonText: {
-    fontSize: 35,
-    height: 50,
-    width: 50,
-    marginLeft: 10,
-    margin: -3
+    margin: -7
   },
   topBarSliderView: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-around'
   },
   logosView: {
     flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    height: 90,
+    width: '100%',
   },
   logoUnioeste: {
-    marginLeft:10,
+    // height: '50%',
+    height: 40,
+    width: 100,
+    // width: '25%',
   },
   logoPti: {
-    height: 50,
-    width: 110,
+    height: 45,
+    width: 100,
   },
   logoLabiot: {
-    height: 70,
-    width: 70,
-    marginBottom:10,
+    height: 50,
+    width: 50,
+    marginBottom: 10,
   },
-  versionView: {
-    alignContent: 'flex-end'
+  logoItaipu: {
+    height: 40,
+    width: 50,
   },
   versionText: {
     color: '#02535c',
     fontSize: 10,
   },
-  containerLogoVersion:{
-    justifyContent: 'space-between',
+  containerLogoVersion: {
+    justifyContent: 'space-around',
     alignItems: 'flex-end',
-    flexDirection: 'row',
-    height: 110,
+    flexDirection: 'column',
+    height: 100,
   }
 });

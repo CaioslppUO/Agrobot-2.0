@@ -1,4 +1,4 @@
-#Wed May 13 18:22:24 BRT 2020
+#Wed May 20 14:07:30 BRT 2020
 base.0=/home/caioslpp/git/Agrobot-2.0/src/AppControl/android/app/build/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex
