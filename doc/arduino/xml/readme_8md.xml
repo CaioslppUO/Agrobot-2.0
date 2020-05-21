@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.19">
+  <compounddef id="readme_8md" kind="file" language="Markdown">
+    <compoundname>readme.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Código<sp/>do<sp/>Arduino<sp/>para<sp/>controlar<sp/>o<sp/>robô:</highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Este<sp/>código<sp/>permite<sp/>que<sp/>o<sp/>Arduino<sp/>receba<sp/>informações<sp/>a<sp/>partir<sp/>da<sp/>comunicação<sp/>UART<sp/>com<sp/>o<sp/>Raspberry<sp/>e<sp/>as<sp/>evie<sp/>para<sp/>a<sp/>placa<sp/>do<sp/>Hover<sp/>Board<sp/>através<sp/>da<sp/>comunicação<sp/>I2C.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">#<sp/>Protocolo<sp/>utilizado<sp/>para<sp/>a<sp/>comunicação<sp/>do<sp/>Raspberry<sp/>com<sp/>o<sp/>Arduino<sp/>através<sp/>do<sp/>UART:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>É<sp/>necessário<sp/>enviar<sp/>para<sp/>o<sp/>Arduino<sp/>através<sp/>do<sp/>UART<sp/>três<sp/>variáveis,<sp/>seguindo<sp/>o<sp/>padrão:<sp/>speed;steer;limit;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>O<sp/>formato<sp/>é<sp/>exatamente<sp/>o<sp/>descrito<sp/>acima,<sp/>com<sp/>as<sp/>três<sp/>variáveis<sp/>e<sp/>três<sp/>ponto<sp/>e<sp/>vírgulas<sp/>separando-as</highlight></codeline>
+<codeline><highlight class="normal"><sp/>*<sp/>São<sp/>necessárias<sp/>três<sp/>variáveis<sp/>para<sp/>controlar<sp/>o<sp/>robô:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Speed.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Steer.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Limit.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Speed<sp/>aceita<sp/>valores<sp/>entre<sp/>-100<sp/>e<sp/>+100.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/>0<sp/>significa<sp/>parado.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>+100<sp/>significa<sp/>potência<sp/>total<sp/>para<sp/>frente.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>-100<sp/>significa<sp/>potência<sp/>total<sp/>para<sp/>trás.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>*<sp/>Steer<sp/>aceita<sp/>valores<sp/>entre<sp/>-100<sp/>e<sp/>+100.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/>0<sp/>significa<sp/>ir<sp/>para<sp/>frente.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>+100<sp/>significa<sp/>ir<sp/>para<sp/>a<sp/>direita.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>-100<sp/>significa<sp/>ir<sp/>para<sp/>a<sp/>esquerda.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/>*<sp/>Limit<sp/>aceita<sp/>valores<sp/>entre<sp/>0<sp/>e<sp/>+100.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/>0<sp/>significa<sp/>sem<sp/>potência<sp/>para<sp/>as<sp/>rodas.</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>*<sp/>+100<sp/>Significa<sp/>potência<sp/>total<sp/>para<sp/>as<sp/>rodas.</highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/>---</highlight></codeline>
+<codeline><highlight class="normal"><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/>#<sp/>Recebendo<sp/>os<sp/>valores<sp/>por<sp/>UART:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>O<sp/>protocolo<sp/>implementado<sp/>é:<sp/>ABCD;ABCD;ABCD<sp/>onde<sp/>ABCD<sp/>são<sp/>números<sp/>com<sp/>os<sp/>seguintes<sp/>significados:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>O<sp/>número<sp/>A<sp/>é<sp/>o<sp/>sinal,<sp/>com<sp/>duas<sp/>opções<sp/>possíveis.<sp/>1<sp/>significa<sp/>que<sp/>o<sp/>número<sp/>é<sp/>positivo(+).<sp/>0<sp/>significa<sp/>que<sp/>o<sp/>númeor<sp/>é<sp/>negativo(-).<sp/>BCD<sp/>são<sp/>números<sp/>que<sp/>definem<sp/>a<sp/>velocidade,<sp/>a<sp/>direção<sp/>e<sp/>o<sp/>limite.<sp/>É<sp/>necessário<sp/>que<sp/>todas<sp/>as<sp/>letras(ABCD)<sp/>sejam<sp/>preenchidas,<sp/>mesmo<sp/>que<sp/>com<sp/>o<sp/>valor<sp/>0.</highlight></codeline>
+<codeline></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal"><sp/><sp/>*<sp/>Exêmplo<sp/>de<sp/>uso:</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Para<sp/>enviar<sp/>80%<sp/>de<sp/>velocidade,<sp/>virando<sp/>100%<sp/>para<sp/>a<sp/>esquerda,<sp/>com<sp/>50%<sp/>da<sp/>potência<sp/>máxima,<sp/>é<sp/>necessário<sp/>enviar<sp/>o<sp/>seguinte<sp/>comando:<sp/>1080;0100;1050;</highlight></codeline>
+    </programlisting>
+    <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/readme.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.19">
+  <compounddef id="md__home_caioslpp_git_Agrobot-2_80_src_arduino_readme" kind="page">
+    <compoundname>md__home_caioslpp_git_Agrobot-2.0_src_arduino_readme</compoundname>
+    <title>Código do Arduino para controlar o robô:</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Este código permite que o Arduino receba informações a partir da comunicação UART com o Raspberry e as evie para a placa do Hover Board através da comunicação I2C.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+<sect1 id="md__home_caioslpp_git_Agrobot-2_80_src_arduino_readme_1autotoc_md2">
+<title>Protocolo utilizado para a comunicação do Raspberry com o Arduino através do UART:</title>
+<para><itemizedlist>
+<listitem><para>É necessário enviar para o Arduino através do UART três variáveis, seguindo o padrão: speed;steer;limit;<itemizedlist>
+<listitem><para>O formato é exatamente o descrito acima, com as três variáveis e três ponto e vírgulas separando-as</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>São necessárias três variáveis para controlar o robô:<itemizedlist>
+<listitem><para>Speed.</para>
+</listitem><listitem><para>Steer.</para>
+</listitem><listitem><para>Limit.</para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+<para>Speed aceita valores entre -100 e +100.<itemizedlist>
+<listitem><para>0 significa parado.</para>
+</listitem><listitem><para>+100 significa potência total para frente.</para>
+</listitem><listitem><para>-100 significa potência total para trás.</para>
+</listitem></itemizedlist>
+</para>
+<para>Steer aceita valores entre -100 e +100.<itemizedlist>
+<listitem><para>0 significa ir para frente.</para>
+</listitem><listitem><para>+100 significa ir para a direita.</para>
+</listitem><listitem><para>-100 significa ir para a esquerda.</para>
+</listitem></itemizedlist>
+</para>
+<para>Limit aceita valores entre 0 e +100.<itemizedlist>
+<listitem><para>0 significa sem potência para as rodas.</para>
+</listitem><listitem><para>+100 Significa potência total para as rodas.</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect1>
+<sect1 id="md__home_caioslpp_git_Agrobot-2_80_src_arduino_readme_1autotoc_md4">
+<title>Recebendo os valores por UART:</title>
+<para><itemizedlist>
+<listitem><para>O protocolo implementado é: ABCD;ABCD;ABCD onde ABCD são números com os seguintes significados:<itemizedlist>
+<listitem><para>O número A é o sinal, com duas opções possíveis. 1 significa que o número é positivo(+). 0 significa que o númeor é negativo(-). BCD são números que definem a velocidade, a direção e o limite. É necessário que todas as letras(ABCD) sejam preenchidas, mesmo que com o valor 0.</para>
+</listitem></itemizedlist>
+</para>
+</listitem><listitem><para>Exêmplo de uso:<itemizedlist>
+<listitem><para>Para enviar 80% de velocidade, virando 100% para a esquerda, com 50% da potência máxima, é necessário enviar o seguinte comando: 1080;0100;1050; </para>
+</listitem></itemizedlist>
+</para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

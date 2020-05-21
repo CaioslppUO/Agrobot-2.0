@@ -1,0 +1,387 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.19">
+  <compounddef id="main_8ino" kind="file" language="C++">
+    <compoundname>main.ino</compoundname>
+    <includes local="no">Wire.h</includes>
+    <includes local="no">math.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>Wire.h</label>
+      </node>
+      <node id="1">
+        <label>/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino</label>
+        <link refid="main_8ino"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>math.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="main_8ino_1a4b34db6d32e5be7b2c14850d77760360" prot="public" static="no">
+        <name>STD_X</name>
+        <initializer>130</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Valor padrão de direção 0 do robô. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="5" column="9" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="main_8ino_1a43fefdf2655f594c8a49e6d81147a87d" prot="public" static="no">
+        <name>STD_Y</name>
+        <initializer>123</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Valor padrão de velocidade 0 do robô. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="7" column="9" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável utilizada para manipular qual será o x enviado para o robô. Significa a direção enviada. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="10" column="5" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável utilizada para manipular qual será o u enviado para o robô. Significa a velocidade enviada. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="13" column="5" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8ino_1a04caa6dcdf90645ea95e5f3281d780cd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Speed</definition>
+        <argsstring></argsstring>
+        <name>Speed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável &apos;virtual&apos; que controla a velocidade do robô </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="16" column="5" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8ino_1a708891e917f5094fa0804de4af0a3445" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Steer</definition>
+        <argsstring></argsstring>
+        <name>Steer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável &apos;virtual&apos; que controla a direção do robô </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="18" column="5" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8ino_1a6fac9866655c7ad72f728800ed0e3e98" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Limit</definition>
+        <argsstring></argsstring>
+        <name>Limit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável &apos;virtual&apos; que controla o limite do robô </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="20" column="5" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" prot="public" static="no" mutable="no">
+        <type>String</type>
+        <definition>String information</definition>
+        <argsstring></argsstring>
+        <name>information</name>
+        <initializer>= &quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável para manipular a informação recebida pelo protocolo UART. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="23" column="8" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8ino_1a8e11b08cd342a578ccb21907bfa37402" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool stringComplete</definition>
+        <argsstring></argsstring>
+        <name>stringComplete</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável utilizada para saber quando começa e quando termina uma mensagem enviada pelo UART. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="27" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8ino_1aa2b595980684c340a31a7875ce11644e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t vector[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>vector</name>
+        <initializer>= {218, 130, 0, 1, 0, 1}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variável utilizada para enviar as informações para a placa do hover board. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="30" column="9" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="main_8ino_1a4fc01d736fe50cf5b977f755b675f11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Função que roda as configurações iniciais do programa. Roda somente uma vez durante toda a execução do programa. Configura o monitor serial e a biblioteca de comunicação I2C(Wire.h). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="35" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="35" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="main_8ino_1af8326c5f56b72ca7e09b3101514f1a3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void control</definition>
+        <argsstring>(float _speed, float _steer, float _limit)</argsstring>
+        <name>control</name>
+        <param>
+          <type>float</type>
+          <declname>_speed</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_steer</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>_limit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Função que define as variáveis x e y que serão enviadas para a placa do hover board. Verifica e corrige os valores recebidos como parâmetros para os adequar às regras de funcionamento da placa do hover board. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="44" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="44" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="main_8ino_1afe461d27b9c48d5921c00d521181f12f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void loop</definition>
+        <argsstring>()</argsstring>
+        <name>loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Função que executa em Loop a leitura pelo protocolo UART(Raspberry-&gt;arduino) e a escrita pelo protocolo I2C(Arduino-&gt;hover board). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="57" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="57" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="main_8ino_1ac10b80b8aaeaf66cecbf0bb5eff5ae33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void requestEvent</definition>
+        <argsstring>()</argsstring>
+        <name>requestEvent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Função que responde às chamadas da placa do hover board, utilizando o protocolo I2C. Utiliza a variável global vector para enviar os valores. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="64" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="64" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="main_8ino_1a90872048bafeb9b26f383f6dcb98b539" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void readinfo</definition>
+        <argsstring>()</argsstring>
+        <name>readinfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Função que reseta os flags da leitura após receber a comunicação pelo protocolo UART. Indica que a leitura foi finalizada. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="76" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="76" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="main_8ino_1ae6dc3d16071afd7076911d79962660a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void readUart</definition>
+        <argsstring>()</argsstring>
+        <name>readUart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Função que trata as mensagens recebidas pelo UART e chama a função control. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="82" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="82" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="main_8ino_1af98a493eca41f334866d9f1626cc64c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EventSerial</definition>
+        <argsstring>()</argsstring>
+        <name>EventSerial</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Função que se comunica com o Raspberry pelo protocolo UART. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" line="120" column="6" bodyfile="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino" bodystart="120" bodyend="128"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;Wire.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor">#define<sp/>STD_X<sp/>130</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor">#define<sp/>STD_Y<sp/>123</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" kindref="member">x</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" kindref="member">y</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a04caa6dcdf90645ea95e5f3281d780cd" kindref="member">Speed</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a708891e917f5094fa0804de4af0a3445" kindref="member">Steer</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a6fac9866655c7ad72f728800ed0e3e98" kindref="member">Limit</ref>;<sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal">String<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a8e11b08cd342a578ccb21907bfa37402" kindref="member">stringComplete</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal">uint8_t<sp/><ref refid="main_8ino_1aa2b595980684c340a31a7875ce11644e" kindref="member">vector</ref>[6]<sp/>=<sp/>{218,<sp/>130,<sp/>0,<sp/>1,<sp/>0,<sp/>1};</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a4fc01d736fe50cf5b977f755b675f11d" kindref="member">setup</ref>(){</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>Serial.begin(9600);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>Wire.begin(0x52);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>Wire.onRequest(<ref refid="main_8ino_1ac10b80b8aaeaf66cecbf0bb5eff5ae33" kindref="member">requestEvent</ref>);<sp/><sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1af8326c5f56b72ca7e09b3101514f1a3a" kindref="member">control</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>_speed,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>_steer,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>_limit){</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/>coefficient_speed,<sp/>coefficient_steer;<sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>coefficient_speed<sp/>=<sp/>(_speed/100)<sp/>*<sp/>abs(_limit);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>coefficient_steer<sp/>=<sp/>(_steer/100)<sp/>*<sp/>abs(_limit);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><ref refid="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" kindref="member">y</ref><sp/>=<sp/><ref refid="main_8ino_1a43fefdf2655f594c8a49e6d81147a87d" kindref="member">STD_Y</ref><sp/>+<sp/><sp/>coefficient_speed;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" kindref="member">y</ref><sp/>&lt;<sp/>35)<sp/><ref refid="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" kindref="member">y</ref><sp/>=<sp/>35;<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" kindref="member">y</ref><sp/>&gt;<sp/>230)<sp/><ref refid="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" kindref="member">y</ref><sp/>=<sp/>230;<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><ref refid="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" kindref="member">x</ref><sp/>=<sp/><ref refid="main_8ino_1a4b34db6d32e5be7b2c14850d77760360" kindref="member">STD_X</ref><sp/>+<sp/><sp/>coefficient_steer;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" kindref="member">x</ref><sp/>&lt;<sp/>35)<sp/><ref refid="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" kindref="member">x</ref><sp/>=<sp/>35;<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" kindref="member">x</ref><sp/>&gt;<sp/>230)<sp/><ref refid="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" kindref="member">x</ref><sp/>=<sp/>230;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1afe461d27b9c48d5921c00d521181f12f" kindref="member">loop</ref>(){<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><ref refid="main_8ino_1ae6dc3d16071afd7076911d79962660a2" kindref="member">readUart</ref>();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1ac10b80b8aaeaf66cecbf0bb5eff5ae33" kindref="member">requestEvent</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="main_8ino_1aa2b595980684c340a31a7875ce11644e" kindref="member">vector</ref>[0]<sp/>=<sp/><ref refid="main_8ino_1a6150e0515f7202e2fb518f7206ed97dc" kindref="member">x</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="main_8ino_1aa2b595980684c340a31a7875ce11644e" kindref="member">vector</ref>[1]<sp/>=<sp/><ref refid="main_8ino_1a0a2f84ed7838f07779ae24c5a9086d33" kindref="member">y</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>6;<sp/>i++){</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>Wire.write(<ref refid="main_8ino_1aa2b595980684c340a31a7875ce11644e" kindref="member">vector</ref>,6);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1a90872048bafeb9b26f383f6dcb98b539" kindref="member">readinfo</ref>(){</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a8e11b08cd342a578ccb21907bfa37402" kindref="member">stringComplete</ref><sp/>=<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">;<sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1ae6dc3d16071afd7076911d79962660a2" kindref="member">readUart</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>String<sp/>temp;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>sinal;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><ref refid="main_8ino_1af98a493eca41f334866d9f1626cc64c5" kindref="member">EventSerial</ref>();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="main_8ino_1a8e11b08cd342a578ccb21907bfa37402" kindref="member">stringComplete</ref>){</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.print(</highlight><highlight class="stringliteral">&quot;Info<sp/>=<sp/>{&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.print(<ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>Serial.println(</highlight><highlight class="stringliteral">&quot;}&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>temp=</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>sinal<sp/>=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[0]<sp/>-<sp/>48;<sp/></highlight><highlight class="comment">//<sp/>1<sp/>se<sp/>o<sp/>sinal<sp/>for<sp/>igual<sp/>a<sp/>&apos;1&apos;<sp/>e<sp/>0<sp/>se<sp/>o<sp/>sinal<sp/>for<sp/>igual<sp/>a<sp/>&apos;0&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[1];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[2];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[3];</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a04caa6dcdf90645ea95e5f3281d780cd" kindref="member">Speed</ref><sp/>=<sp/>temp.toInt();</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!sinal)<sp/><ref refid="main_8ino_1a04caa6dcdf90645ea95e5f3281d780cd" kindref="member">Speed</ref><sp/>*=<sp/>-1;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>temp=</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>sinal<sp/>=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[5]<sp/>-<sp/>48;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[6];</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[7];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[8];</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a708891e917f5094fa0804de4af0a3445" kindref="member">Steer</ref><sp/>=<sp/>temp.toInt();</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!sinal)<sp/><ref refid="main_8ino_1a708891e917f5094fa0804de4af0a3445" kindref="member">Steer</ref><sp/>*=<sp/>-1;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>temp=</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>sinal<sp/>=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[10]<sp/>-<sp/>48;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[11];</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[12];</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>+=<sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref>[13];</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a6fac9866655c7ad72f728800ed0e3e98" kindref="member">Limit</ref><sp/>=<sp/>temp.toInt();</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!sinal)<sp/><ref refid="main_8ino_1a6fac9866655c7ad72f728800ed0e3e98" kindref="member">Limit</ref><sp/>*=<sp/>-1;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8ino_1af8326c5f56b72ca7e09b3101514f1a3a" kindref="member">control</ref>(<ref refid="main_8ino_1a04caa6dcdf90645ea95e5f3281d780cd" kindref="member">Speed</ref>,<ref refid="main_8ino_1a708891e917f5094fa0804de4af0a3445" kindref="member">Steer</ref>,<ref refid="main_8ino_1a6fac9866655c7ad72f728800ed0e3e98" kindref="member">Limit</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a90872048bafeb9b26f383f6dcb98b539" kindref="member">readinfo</ref>();<sp/></highlight><highlight class="comment">//<sp/>Reseta<sp/>os<sp/>flags<sp/>para<sp/>a<sp/>próxima<sp/>leitura</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8ino_1af98a493eca41f334866d9f1626cc64c5" kindref="member">EventSerial</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Serial.available())<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>inChar<sp/>=<sp/>(char)Serial.read();</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a6d8ad146b9f7b79127f1f463f888fd43" kindref="member">information</ref><sp/>+=<sp/>inChar;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(inChar<sp/>==<sp/></highlight><highlight class="charliteral">&apos;;&apos;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8ino_1a8e11b08cd342a578ccb21907bfa37402" kindref="member">stringComplete</ref><sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/caioslpp/git/Agrobot-2.0/src/arduino/main.ino"/>
+  </compounddef>
+</doxygen>
