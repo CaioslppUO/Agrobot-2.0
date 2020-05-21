@@ -1,0 +1,159 @@
+\hypertarget{main_8ino}{}\doxysection{/home/caioslpp/git/\+Agrobot-\/2.0/src/arduino/main.ino File Reference}
+\label{main_8ino}\index{/home/caioslpp/git/Agrobot-\/2.0/src/arduino/main.ino@{/home/caioslpp/git/Agrobot-\/2.0/src/arduino/main.ino}}
+{\ttfamily \#include $<$Wire.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8ino_a4b34db6d32e5be7b2c14850d77760360}{S\+T\+D\+\_\+X}}~130
+\item 
+\#define \mbox{\hyperlink{main_8ino_a43fefdf2655f594c8a49e6d81147a87d}{S\+T\+D\+\_\+Y}}~123
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8ino_a4fc01d736fe50cf5b977f755b675f11d}{setup}} ()
+\item 
+void \mbox{\hyperlink{main_8ino_af8326c5f56b72ca7e09b3101514f1a3a}{control}} (float \+\_\+speed, float \+\_\+steer, float \+\_\+limit)
+\item 
+void \mbox{\hyperlink{main_8ino_afe461d27b9c48d5921c00d521181f12f}{loop}} ()
+\item 
+void \mbox{\hyperlink{main_8ino_ac10b80b8aaeaf66cecbf0bb5eff5ae33}{request\+Event}} ()
+\item 
+void \mbox{\hyperlink{main_8ino_a90872048bafeb9b26f383f6dcb98b539}{readinfo}} ()
+\item 
+void \mbox{\hyperlink{main_8ino_ae6dc3d16071afd7076911d79962660a2}{read\+Uart}} ()
+\item 
+void \mbox{\hyperlink{main_8ino_af98a493eca41f334866d9f1626cc64c5}{Event\+Serial}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8ino_a6150e0515f7202e2fb518f7206ed97dc}{x}}
+\item 
+int \mbox{\hyperlink{main_8ino_a0a2f84ed7838f07779ae24c5a9086d33}{y}}
+\item 
+int \mbox{\hyperlink{main_8ino_a04caa6dcdf90645ea95e5f3281d780cd}{Speed}}
+\item 
+int \mbox{\hyperlink{main_8ino_a708891e917f5094fa0804de4af0a3445}{Steer}}
+\item 
+int \mbox{\hyperlink{main_8ino_a6fac9866655c7ad72f728800ed0e3e98}{Limit}}
+\item 
+String \mbox{\hyperlink{main_8ino_a6d8ad146b9f7b79127f1f463f888fd43}{information}} = \char`\"{}\char`\"{}
+\item 
+bool \mbox{\hyperlink{main_8ino_a8e11b08cd342a578ccb21907bfa37402}{string\+Complete}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{main_8ino_aa2b595980684c340a31a7875ce11644e}{vector}} \mbox{[}6\mbox{]} = \{218, 130, 0, 1, 0, 1\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8ino_a4b34db6d32e5be7b2c14850d77760360}\label{main_8ino_a4b34db6d32e5be7b2c14850d77760360}} 
+\index{main.ino@{main.ino}!STD\_X@{STD\_X}}
+\index{STD\_X@{STD\_X}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{STD\_X}{STD\_X}}
+{\footnotesize\ttfamily \#define S\+T\+D\+\_\+X~130}
+
+Valor padrão de direção 0 do robô. \mbox{\Hypertarget{main_8ino_a43fefdf2655f594c8a49e6d81147a87d}\label{main_8ino_a43fefdf2655f594c8a49e6d81147a87d}} 
+\index{main.ino@{main.ino}!STD\_Y@{STD\_Y}}
+\index{STD\_Y@{STD\_Y}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{STD\_Y}{STD\_Y}}
+{\footnotesize\ttfamily \#define S\+T\+D\+\_\+Y~123}
+
+Valor padrão de velocidade 0 do robô. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8ino_af8326c5f56b72ca7e09b3101514f1a3a}\label{main_8ino_af8326c5f56b72ca7e09b3101514f1a3a}} 
+\index{main.ino@{main.ino}!control@{control}}
+\index{control@{control}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{control()}{control()}}
+{\footnotesize\ttfamily void control (\begin{DoxyParamCaption}\item[{float}]{\+\_\+speed,  }\item[{float}]{\+\_\+steer,  }\item[{float}]{\+\_\+limit }\end{DoxyParamCaption})}
+
+Função que define as variáveis x e y que serão enviadas para a placa do hover board. Verifica e corrige os valores recebidos como parâmetros para os adequar às regras de funcionamento da placa do hover board. \mbox{\Hypertarget{main_8ino_af98a493eca41f334866d9f1626cc64c5}\label{main_8ino_af98a493eca41f334866d9f1626cc64c5}} 
+\index{main.ino@{main.ino}!EventSerial@{EventSerial}}
+\index{EventSerial@{EventSerial}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{EventSerial()}{EventSerial()}}
+{\footnotesize\ttfamily void Event\+Serial (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que se comunica com o Raspberry pelo protocolo U\+A\+RT. \mbox{\Hypertarget{main_8ino_afe461d27b9c48d5921c00d521181f12f}\label{main_8ino_afe461d27b9c48d5921c00d521181f12f}} 
+\index{main.ino@{main.ino}!loop@{loop}}
+\index{loop@{loop}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{loop()}{loop()}}
+{\footnotesize\ttfamily void loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que executa em Loop a leitura pelo protocolo U\+A\+RT(Raspberry-\/$>$arduino) e a escrita pelo protocolo I2C(Arduino-\/$>$hover board). \mbox{\Hypertarget{main_8ino_a90872048bafeb9b26f383f6dcb98b539}\label{main_8ino_a90872048bafeb9b26f383f6dcb98b539}} 
+\index{main.ino@{main.ino}!readinfo@{readinfo}}
+\index{readinfo@{readinfo}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{readinfo()}{readinfo()}}
+{\footnotesize\ttfamily void readinfo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que reseta os flags da leitura após receber a comunicação pelo protocolo U\+A\+RT. Indica que a leitura foi finalizada. \mbox{\Hypertarget{main_8ino_ae6dc3d16071afd7076911d79962660a2}\label{main_8ino_ae6dc3d16071afd7076911d79962660a2}} 
+\index{main.ino@{main.ino}!readUart@{readUart}}
+\index{readUart@{readUart}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{readUart()}{readUart()}}
+{\footnotesize\ttfamily void read\+Uart (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que trata as mensagens recebidas pelo U\+A\+RT e chama a função control. \mbox{\Hypertarget{main_8ino_ac10b80b8aaeaf66cecbf0bb5eff5ae33}\label{main_8ino_ac10b80b8aaeaf66cecbf0bb5eff5ae33}} 
+\index{main.ino@{main.ino}!requestEvent@{requestEvent}}
+\index{requestEvent@{requestEvent}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{requestEvent()}{requestEvent()}}
+{\footnotesize\ttfamily void request\+Event (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que responde às chamadas da placa do hover board, utilizando o protocolo I2C. Utiliza a variável global vector para enviar os valores. \mbox{\Hypertarget{main_8ino_a4fc01d736fe50cf5b977f755b675f11d}\label{main_8ino_a4fc01d736fe50cf5b977f755b675f11d}} 
+\index{main.ino@{main.ino}!setup@{setup}}
+\index{setup@{setup}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void setup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que roda as configurações iniciais do programa. Roda somente uma vez durante toda a execução do programa. Configura o monitor serial e a biblioteca de comunicação I2C(Wire.\+h). 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8ino_a6d8ad146b9f7b79127f1f463f888fd43}\label{main_8ino_a6d8ad146b9f7b79127f1f463f888fd43}} 
+\index{main.ino@{main.ino}!information@{information}}
+\index{information@{information}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{information}{information}}
+{\footnotesize\ttfamily String information = \char`\"{}\char`\"{}}
+
+Variável para manipular a informação recebida pelo protocolo U\+A\+RT. \mbox{\Hypertarget{main_8ino_a6fac9866655c7ad72f728800ed0e3e98}\label{main_8ino_a6fac9866655c7ad72f728800ed0e3e98}} 
+\index{main.ino@{main.ino}!Limit@{Limit}}
+\index{Limit@{Limit}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{Limit}{Limit}}
+{\footnotesize\ttfamily int Limit}
+
+Variável \textquotesingle{}virtual\textquotesingle{} que controla o limite do robô \mbox{\Hypertarget{main_8ino_a04caa6dcdf90645ea95e5f3281d780cd}\label{main_8ino_a04caa6dcdf90645ea95e5f3281d780cd}} 
+\index{main.ino@{main.ino}!Speed@{Speed}}
+\index{Speed@{Speed}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{Speed}{Speed}}
+{\footnotesize\ttfamily int Speed}
+
+Variável \textquotesingle{}virtual\textquotesingle{} que controla a velocidade do robô \mbox{\Hypertarget{main_8ino_a708891e917f5094fa0804de4af0a3445}\label{main_8ino_a708891e917f5094fa0804de4af0a3445}} 
+\index{main.ino@{main.ino}!Steer@{Steer}}
+\index{Steer@{Steer}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{Steer}{Steer}}
+{\footnotesize\ttfamily int Steer}
+
+Variável \textquotesingle{}virtual\textquotesingle{} que controla a direção do robô \mbox{\Hypertarget{main_8ino_a8e11b08cd342a578ccb21907bfa37402}\label{main_8ino_a8e11b08cd342a578ccb21907bfa37402}} 
+\index{main.ino@{main.ino}!stringComplete@{stringComplete}}
+\index{stringComplete@{stringComplete}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{stringComplete}{stringComplete}}
+{\footnotesize\ttfamily bool string\+Complete}
+
+Variável utilizada para saber quando começa e quando termina uma mensagem enviada pelo U\+A\+RT. \mbox{\Hypertarget{main_8ino_aa2b595980684c340a31a7875ce11644e}\label{main_8ino_aa2b595980684c340a31a7875ce11644e}} 
+\index{main.ino@{main.ino}!vector@{vector}}
+\index{vector@{vector}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{vector}{vector}}
+{\footnotesize\ttfamily uint8\+\_\+t vector\mbox{[}6\mbox{]} = \{218, 130, 0, 1, 0, 1\}}
+
+Variável utilizada para enviar as informações para a placa do hover board. \mbox{\Hypertarget{main_8ino_a6150e0515f7202e2fb518f7206ed97dc}\label{main_8ino_a6150e0515f7202e2fb518f7206ed97dc}} 
+\index{main.ino@{main.ino}!x@{x}}
+\index{x@{x}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily int x}
+
+Variável utilizada para manipular qual será o x enviado para o robô. Significa a direção enviada. \mbox{\Hypertarget{main_8ino_a0a2f84ed7838f07779ae24c5a9086d33}\label{main_8ino_a0a2f84ed7838f07779ae24c5a9086d33}} 
+\index{main.ino@{main.ino}!y@{y}}
+\index{y@{y}!main.ino@{main.ino}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily int y}
+
+Variável utilizada para manipular qual será o u enviado para o robô. Significa a velocidade enviada. 

@@ -1,29 +1,46 @@
 #include <Wire.h>
 #include <math.h>
 
-//X e Y padrões
+/** Valor padrão de direção 0 do robô. */
 #define STD_X 130
+/** Valor padrão de velocidade 0 do robô. */
 #define STD_Y 123
 
-//Variáveis globais
-int x,y;
-int Speed,Steer,Limit; 
-String information="";
+/** Variável utilizada para manipular qual será o x enviado para o robô. Significa a direção enviada. */
+int x;
+
+/** Variável utilizada para manipular qual será o u enviado para o robô. Significa a velocidade enviada. */
+int y;
+
+/** Variável 'virtual' que controla a velocidade do robô */
+int Speed;
+/** Variável 'virtual' que controla a direção do robô */
+int Steer;
+/** Variável 'virtual' que controla o limite do robô */
+int Limit; 
+
+/** Variável para manipular a informação recebida pelo protocolo UART. */
+String information = "";
+
+/** Variável utilizada para saber quando começa e quando termina uma mensagem
+ enviada pelo UART. */
 bool stringComplete;
 
-//Vetor enviado pela comunicação I2C
+/** Variável utilizada para enviar as informações para a placa do hover board. */
 uint8_t vector[6] = {218, 130, 0, 1, 0, 1};
 
-//Configurações iniciais
+/** Função que roda as configurações iniciais do programa.
+  * Roda somente uma vez durante toda a execução do programa.
+  * Configura o monitor serial e a biblioteca de comunicação I2C(Wire.h). */
 void setup(){
   Serial.begin(9600);
-    
-  //i2c
   Wire.begin(0x52);                
   Wire.onRequest(requestEvent);  
 }
 
-//Função que verifica se a velocidade, a direção e o limite estão corretos, e depois define as variáveis globais x e y
+/** Função que define as variáveis x e y que serão enviadas para a placa do hover board.
+  * Verifica e corrige os valores recebidos como parâmetros para os adequar às regras de funcionamento
+ da placa do hover board. */
 void control(float _speed, float _steer, float _limit){
   float  coefficient_speed, coefficient_steer;  
   coefficient_speed = (_speed/100) * abs(_limit);
@@ -35,12 +52,15 @@ void control(float _speed, float _steer, float _limit){
  
 }
 
-//Lê o canal de comunicação UART e executa o tratamento para os dados recebidos
+/** Função que executa em Loop a leitura pelo protocolo UART(Raspberry->arduino)
+ e a escrita pelo protocolo I2C(Arduino->hover board). */
 void loop(){ 
   readUart();
 }
 
-//Envia informação para a placa do hover board quando requisitado
+/** Função que responde às chamadas da placa do hover board, utilizando o
+ protocolo I2C.
+  * Utiliza a variável global vector para enviar os valores. */
 void requestEvent() {
   int i;
   vector[0] = x;
@@ -50,13 +70,15 @@ void requestEvent() {
   }
 }
 
-//Função auxiliar para tratar a comunicação UART
+/** Função que reseta os flags da leitura após receber a comunicação pelo protocolo
+ UART. 
+ * Indica que a leitura foi finalizada. */
 void readinfo(){
       information = "";
       stringComplete = false;  
 }
 
-//Traduz a mensagem recebida pelo UART e as envia para a placa do hover board
+/** Função que trata as mensagens recebidas pelo UART e chama a função control. */
 void readUart() {
   String temp;
   char sinal;
@@ -66,7 +88,7 @@ void readUart() {
     Serial.print(information);
     Serial.println("}");
     temp="";
-    sinal = information[0] - 48; //1 se o sinal for igual a '1' e 0 se o sinal for igual a '0'
+    sinal = information[0] - 48; // 1 se o sinal for igual a '1' e 0 se o sinal for igual a '0'
     temp += information[1];
     temp += information[2];
     temp += information[3];
@@ -90,11 +112,11 @@ void readUart() {
     if(!sinal) Limit *= -1;
     
     control(Speed,Steer,Limit);
-    readinfo(); //Reseta os flags para a próxima leitura
+    readinfo(); // Reseta os flags para a próxima leitura
   }
 }
 
-//recebe o sinal pelo UART e o salva
+/** Função que se comunica com o Raspberry pelo protocolo UART. */
 void EventSerial() {
   while (Serial.available()) {
     char inChar = (char)Serial.read();

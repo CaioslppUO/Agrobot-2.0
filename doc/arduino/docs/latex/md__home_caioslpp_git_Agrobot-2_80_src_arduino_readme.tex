@@ -1,0 +1,54 @@
+
+\begin{DoxyItemize}
+\item Este código permite que o Arduino receba informações a partir da comunicação U\+A\+RT com o Raspberry e as evie para a placa do Hover Board através da comunicação I2C.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__home_caioslpp_git_Agrobot-2_80_src_arduino_readme_autotoc_md2}{}\doxysection{Protocolo utilizado para a comunicação do Raspberry com o Arduino através do U\+A\+R\+T\+:}\label{md__home_caioslpp_git_Agrobot-2_80_src_arduino_readme_autotoc_md2}
+
+\begin{DoxyItemize}
+\item É necessário enviar para o Arduino através do U\+A\+RT três variáveis, seguindo o padrão\+: speed;steer;limit;
+\begin{DoxyItemize}
+\item O formato é exatamente o descrito acima, com as três variáveis e três ponto e vírgulas separando-\/as
+\end{DoxyItemize}
+\item São necessárias três variáveis para controlar o robô\+:
+\begin{DoxyItemize}
+\item Speed.
+\item Steer.
+\item Limit.
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+Speed aceita valores entre -\/100 e +100.
+\begin{DoxyItemize}
+\item 0 significa parado.
+\item +100 significa potência total para frente.
+\item -\/100 significa potência total para trás.
+\end{DoxyItemize}
+
+Steer aceita valores entre -\/100 e +100.
+\begin{DoxyItemize}
+\item 0 significa ir para frente.
+\item +100 significa ir para a direita.
+\item -\/100 significa ir para a esquerda.
+\end{DoxyItemize}
+
+Limit aceita valores entre 0 e +100.
+\begin{DoxyItemize}
+\item 0 significa sem potência para as rodas.
+\item +100 Significa potência total para as rodas.
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__home_caioslpp_git_Agrobot-2_80_src_arduino_readme_autotoc_md4}{}\doxysection{Recebendo os valores por U\+A\+R\+T\+:}\label{md__home_caioslpp_git_Agrobot-2_80_src_arduino_readme_autotoc_md4}
+
+\begin{DoxyItemize}
+\item O protocolo implementado é\+: A\+B\+CD;A\+B\+CD;A\+B\+CD onde A\+B\+CD são números com os seguintes significados\+:
+\begin{DoxyItemize}
+\item O número A é o sinal, com duas opções possíveis. 1 significa que o número é positivo(+). 0 significa que o númeor é negativo(-\/). B\+CD são números que definem a velocidade, a direção e o limite. É necessário que todas as letras(\+A\+B\+C\+D) sejam preenchidas, mesmo que com o valor 0.
+\end{DoxyItemize}
+\item Exêmplo de uso\+:
+\begin{DoxyItemize}
+\item Para enviar 80\% de velocidade, virando 100\% para a esquerda, com 50\% da potência máxima, é necessário enviar o seguinte comando\+: 1080;0100;1050; 
+\end{DoxyItemize}
+\end{DoxyItemize}
