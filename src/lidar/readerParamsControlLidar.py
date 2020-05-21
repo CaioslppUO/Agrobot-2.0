@@ -15,14 +15,14 @@ def callback(data):
   global dadosWrite
   dadosNo = str(data.data).split('$')
 
-  dadosWrite['limit'] = int(dadosNo[0])
-  dadosWrite['tickDefault'] = int(dadosNo[1])
-  dadosWrite['steerDefault'] = int(dadosNo[2])
-  dadosWrite['speedDefault'] = int(dadosNo[3])
-  dadosWrite['shiftDirection'] = int(dadosNo[4])
-  dadosWrite['uv'] = float(dadosNo[5])
-  dadosWrite['walkBy'] = int(dadosNo[6])
-  dadosWrite['stopBy'] = int(dadosNo[7])
+  dadosWrite['limit'] = dadosNo[0]
+  dadosWrite['tickDefault'] = dadosNo[1]
+  dadosWrite['steerDefault'] = dadosNo[2]
+  dadosWrite['speedDefault'] = dadosNo[3]
+  dadosWrite['shiftDirection'] = dadosNo[4]
+  dadosWrite['uv'] = dadosNo[5]
+  dadosWrite['walkBy'] = dadosNo[6]
+  dadosWrite['stopBy'] = dadosNo[7]
 
   writeJson()
 

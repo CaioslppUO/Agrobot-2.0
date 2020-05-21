@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import time
-from threading import Thread
 import rospy
 from std_msgs.msg import String
 import json
@@ -14,6 +13,7 @@ correctdir = "None"
 leftArea = "None"
 rightArea = "None"
 centerArea = "None"
+walk = True
 
 def readJson():
     with open('parameters.json','r') as file:
@@ -21,11 +21,11 @@ def readJson():
 
 def setSpeed(speednew):
     global speed
-    speed = speednew
+    speed = int(speednew)
 
 def setSteer(steernew):
     global steer
-    steer = steernew
+    steer = int(steernew)
 
 def checkTick():
     global tick
@@ -50,10 +50,10 @@ def correctDirection():
     if(tick == 1):
         setSteer(dataDefault['steerDefault'])
     elif(correctdir == "right"):
-        setSteer(dataDefault['steerDefault'] - dataDefault['shiftDirection'])
+        setSteer(int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection']))
     else:
-        setSteer(dataDefault['steerDefault'] + dataDefault['shiftDirection'])
-    tick = tick - 1
+        setSteer(int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection']))
+    tick = int(tick) - 1
     
 def setCorrection():
     global leftArea,rightArea,tick,correctdir,dataDefault
@@ -66,7 +66,7 @@ def setCorrection():
 
 def checkAuto():
     global dataDefault
-    if(dataDefault['limit'] == 0 and dataDefault['tickDefault'] == 0 and dataDefault['steerDefault'] == 0 and dataDefault['speedDefault'] == 0 and dataDefault['shiftDirection'] == 0 ):
+    if(int(dataDefault['limit']) == 0 and int(dataDefault['tickDefault']) == 0 and int(dataDefault['steerDefault']) == 0 and int(dataDefault['speedDefault']) == 0 and int(dataDefault['shiftDirection']) == 0 ):
         return False
     return True
 
@@ -74,18 +74,37 @@ def readFile(data):
     global dataDefault
     dataDefault = readJson()
 
-def callback(data):
-    global dataDefault,leftArea,rightArea,steer,centerArea
-    if(checkAuto()):
-        pointDirection = str(data.data).split('$')
-        leftArea = pointDirection[0]
-        centerArea = pointDirection[1]
-        rightArea = pointDirection[2]
+def setWalk(data):
+    global walk
+    if(data.data == 'walk'):
+        walk = True
+    else:
+        walk = False
 
-        checkFoward()
-        commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(dataDefault['uv'])
+def callback(data):
+    global dataDefault,leftArea,rightArea,steer,centerArea,walk
+    rospy.Subscriber('/Walk', String, SetWalk)
+    if(walk):
+        if(checkAuto()):
+            pointDirection = str(data.data).split('$')
+            leftArea = pointDirection[0]
+            centerArea = pointDirection[1]
+            rightArea = pointDirection[2]
+
+            checkFoward()
+            commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(dataDefault['uv'])
+            pubControlCommand.publish(commandToPublish)
+            rospy.Subscriber('/writeFile', String, readFile)
+        else:
+            commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
+            pubControlCommand.publish(commandToPublish)
+            rospy.Subscriber('/writeFile', String, readFile)
+    else:
+        commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$" + str(dataDefault['uv'])
         pubControlCommand.publish(commandToPublish)
         rospy.Subscriber('/writeFile', String, readFile)
+
+
             
 def main():
     sub = rospy.Subscriber('/Lidar', String, callback)
