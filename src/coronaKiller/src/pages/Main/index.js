@@ -141,7 +141,7 @@ export default class Main extends Component {
                   global.comunication_interval = global.comunication_interval + 1
                 }
                 if (this.state.autoMode != 0) {
-                  this.setState({ buttonOnOffAuto: '#99a7ad' })
+                  this.setState({ buttonOnOffAuto: buttonAutoOff })
                   this.setState({ autoMode: 0 })
                 }
               }}
