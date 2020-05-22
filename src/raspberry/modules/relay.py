@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Módulo que gerencia o envio dos comandos para os relés.
+"""
+
 #####################
 #----> Imports <----#
 #####################
@@ -14,19 +18,18 @@ from std_msgs.msg import String
 #----> Definições Globais <----#
 ################################
 
+## Definição do modo do GPIO
 GPIO.setmode(GPIO.BOARD)
+## Desabilitando os warnings do GPIO
 GPIO.setwarnings(False)
 
 #########################
 #----> Classe Relay <----#
 #########################
 
+## Classe que gerencia os relés.
 class Relay():
-    #Envia o signal recebido para ligar ou desligar a placa A
-    #Entrada: Sinal recebido(0 ou 1)
-    #Retorno: Nenhum
-    #Pré-condição: Nenhuma
-    #Pós-condição: O sinal recebido é enviado para a placa A. Em caso de sinal inválido, o sinal 0 será enviado
+    ## Método que envia um sinal para o relé da placa A do hover board.
     def sendSignalToBoardOne(self,signal):
         if(signal == 1):
             GPIO.setup(38, GPIO.OUT)
@@ -40,11 +43,7 @@ class Relay():
             GPIO.setup(38, GPIO.OUT)
             GPIO.output(38, GPIO.LOW)
 
-    #Envia o signal recebido para ligar ou desligar a placa B
-    #Entrada: Sinal recebido(0 ou 1)
-    #Retorno: Nenhum
-    #Pré-condição: Nenhuma
-    #Pós-condição: O sinal recebido é enviado para a placa B. Em caso de sinal inválido, o sinal 0 será enviado
+    ## Método que envia um sinal para o relé da placa B do hover board.
     def sendSignalToBoardTwo(self,signal):
         if(signal == 1):
             GPIO.setmode(GPIO.BOARD)
@@ -60,11 +59,7 @@ class Relay():
             GPIO.setup(40, GPIO.OUT)
             GPIO.output(40, GPIO.LOW)
 
-    #Envia o signal recebido para ligar ou desligar o pulverizador
-    #Entrada: Sinal recebido(0 ou 1)
-    #Retorno: Nenhum
-    #Pré-condição: Nenhuma
-    #Pós-condição: O sinal recebido é enviado para o pulverizador. Em caso de sinal inválido, o sinal 0 será enviado
+    ## Método que envia um sinal para o relé do pulverizador/uv.
     def sendSignalToPulverizer(self,signal):
         if(signal == 1):
             GPIO.setmode(GPIO.BOARD)
@@ -78,11 +73,7 @@ class Relay():
             GPIO.setup(35, GPIO.OUT)
             GPIO.output(35, GPIO.LOW)
 
-    #Trata os dados recebidos pelo listenner
-    #Entrada: Dados recebidos pelo listenner
-    #Retorno: Nenhum
-    #Pŕe-condição: Nenhuma
-    #Pós-condição: Caso a string recebida seja válida, o sinal recebido é enviado para o relé enviado pela mensagem
+    ## Método que trata os comandos recebidos pelo listener.
     def callback(self,data):
         cbAux = str(data.data).split(":")
         if(cbAux[0] == "sendSignalToPulverizer"):
@@ -92,11 +83,7 @@ class Relay():
         elif(cbAux[0] == "sendSignalToBoardOne"):
             self.sendSignalToBoardOne(int(cbAux[1]))
     
-    #Escuta o tópico do relé executa a rotina necessária para tratar os dados
-    #Entrada: Nenhuma
-    #Retorno: Nenhum
-    #Pŕe-condição: Nenhuma
-    #Pós-condição: Ao escutar qualquer mensagem do tópico do relé, a envia para a rotina correta
+    ## Método que escuta do tópico Relay e processa os comandos recebidos.
     def listener(self):
         rospy.init_node('Relay', anonymous=True) 
         rospy.Subscriber("Relay", String, self.callback)   
