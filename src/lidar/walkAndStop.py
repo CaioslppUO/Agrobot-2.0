@@ -5,16 +5,20 @@ import time
 
 walktTime = 0
 stopTime = 0
+
+##Lê as varaiveis que vem do App em um arquivo .json
 def readJson():
-    with open('parameters.json','r') as file:
-        return json.load(file)
+  with open('parameters.json','r') as file:
+    return json.load(file)
 
+##Faz a chamada de função para ler o arquivo .json e as devidas atribuições
 def readFile(data):
-    global walktTime,stopTime
-    dataDefault = readJson()
-    walktTime = int(dataDefault['walkBy'])
-    stopTime = int(dataDefault['stopBy'])
+  global walktTime,stopTime
+  dataDefault = readJson()
+  walktTime = int(dataDefault['walkBy'])
+  stopTime = int(dataDefault['stopBy'])
 
+##Contme toda a alogica de andar ,parar e escrever no topico
 def main():
   global walktTime,stopTime
   rospy.Subscriber('/writeFile', String, readFile)
@@ -27,7 +31,7 @@ def main():
     pubControlCommand.publish("walk")
   rospy.spin()
 
-
+##Declaração do nó Walk
 rospy.init_node('Walk', anonymous=True)
 pubControlCommand = rospy.Publisher("Walk", String,queue_size=10)
 main()

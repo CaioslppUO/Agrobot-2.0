@@ -11,38 +11,30 @@ from std_msgs.msg import String
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
 
-###############################
-#----> Variáveis Globais <----#
-###############################
 
-msg = None
+
+##Declaração do nó
 pubWebServer = rospy.Publisher('ParamServer', String, queue_size=10)
 rospy.init_node('ParamServer', anonymous=True)
 
-####################################
-#----> Classe Request Handler <----#
-####################################
 
+##Classe Request Handler
 class RequestHandler_httpd(BaseHTTPRequestHandler):
-    #Faz o manejo da mensagem quando existe uma conexão com o app
-    #Entrada: Nenhuma
-    #Retorno: Nenhum
-    #Pré-condição: Nenhuma
-    #Pós-condição: Caso exista comunicação com app, a mensagem recebida é enviada para o tópico ROS
+    ##Faz o manejo da mensagem quando existe uma conexão com o app
+    #Caso exista comunicação com app, a mensagem recebida é enviada para o tópico ROS
     def do_GET(self):
-        global msg,pubWebServer
+        global pubWebServer
         webServerRequest = None
         webServerRequest = self.requestline
         webServerRequest = webServerRequest[5 : int(len(webServerRequest)-9)]
-        msg = str(webServerRequest) #Raw message recieved from smartphone app
+        #Mensagem que vem do App de celular.
+        msg = str(webServerRequest) 
         pubWebServer.publish(str(msg))
         msg = None
         return
 
-##############################
-#----> Classe Web Server <----#
-##############################
 
+##Classe Web Server
 class ParamServer():
     def __init__(self):
         try:
@@ -55,10 +47,8 @@ class ParamServer():
         except:
             pass
 
-#######################
-#----> Loop Principal <----#
-#######################
-  
+
+##Loop Principal  
 if __name__ == '__main__':
     try:
         paramServer = ParamServer()
