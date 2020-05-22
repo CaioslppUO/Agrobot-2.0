@@ -187,9 +187,9 @@ export default class Main extends Component {
             {/*Botão parar robô*/}
             <View style={styles.powerButtonsContainer}>
               <TouchableOpacity
-                style={{ backgroundColor: '#cc1414', borderRadius: 115, height: 62, width: 200, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderColor: '#c90000', borderRadius: 115, height: 62, width: 200, borderWidth: 3, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffAuto: '#99a7ad' })
+                  this.setState({ buttonOnOffAuto: buttonAutoOff })
                   stopRobot()
                   this.setState({ autoMode: 0 })
                 }}>
