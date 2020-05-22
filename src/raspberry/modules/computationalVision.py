@@ -5,29 +5,35 @@ import cv2
 import rospy
 from std_msgs.msg import String
 
-msg = None
+##Declaração do nó ComputationalVision
 pub = rospy.Publisher('ComputationalVision', String, queue_size=10)
 rospy.init_node('ComputationalVision', anonymous=True)
 
+##Variavel que armazena o limite do robô
 limit = 50
-pulverize = 0
-powerB = 0
-powerA = 0
-priority = 7
-
+##Variavel que armazena a velocidade do robô
 speed = 0
+##Variavel que armazena a direção do robô
 steer = 0
 
-#prioridade 7
-#priority*speed$val*steer$val*limit$val*powerA$0*powerB$0*pulverize$0
+
+##Função que verifica o valor da direção
+#Retorna verdadeiro caso for esquerda, e falso caso for direita
 def DirectionValue(value):
 	return value < 0
+
+##Função que retorna a velocidade que o robô deve ter com base no que tem na tela
 def Velocity(MaxValue,ActualValue):
 	return MaxValue/ActualValue
+
+##Função que verifica se o rosto ja esta na area central
+#Retorana verdadeiro se estiver, e false caso contrario
 def DeadArea(pt1,safe1,safe2):
 	return (pt1[0] > safe1[0] and pt1[0] < safe2[0])
 
+##Função que manipula a direção do robô com base no rosto da pessoa
 def AjustAngle(pt1,size):
+	global speed,steer, limit
 	direction = False
 	vel = 0
 	direction = DirectionValue(pt1[0] - size)
@@ -41,14 +47,11 @@ def AjustAngle(pt1,size):
 		vel = Velocity(pt1[0]-size,size)
 	speed = int((100*vel)/0.5)
 
-#priority*speed$val*steer$val*limit$val*powerA$0*powerB$0*pulverize$0
-	msg = "{:0}*speed${:1}*steer${:2}*limit${:4}*powerA${:5}*powerB${:6}*pulverize${:7}".format(priority,speed,steer,limit,powerA,powerB,pulverize)
+	msg = "5*speed$"+str(speed)+"*steer$"+str(steer)+"*limit$"+str(limit)+"*powerA$0*powerB$0*pulverize$0"
 	pub.Publisher(msg)
 	msg = None
-	# print(direction)
-	# print(vel)
 
-
+##Função que detecta o rosto da pessoa, e o centro da tela
 def enableVision():
 	face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 	FaceCenterX = 0
@@ -57,11 +60,13 @@ def enableVision():
 		_, frame = cv2.VideoCapture(0).read()
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 		faces = face_cascade.detectMultiScale(gray, 1.3, 5)
-		(ScrenCenterX,ScrenCenterY) = ( frame.shape[1] // 2, frame.shape[0] // 2 )#Pega o centro da tela
+		#Pega o centro da tela
+		(ScrenCenterX,ScrenCenterY) = ( frame.shape[1] // 2, frame.shape[0] // 2 )
 		# cv2.circle(frame,(ScrenCenterX,ScrenCenterY) , 2 , (0,0,255),2 )#Desenha um circulo no centro da tela
 		# cv2.rectangle(frame,(ScrenCenterX-80,ScrenCenterY-80),(ScrenCenterX+80,ScrenCenterY+80),(255,0,0),2)#Desenha um retangulo na area morta
 		for (x,y,w,h) in faces:
-			(FaceCenterX,FaceCenterY) = (( x+w // 2 ),( y+h // 2)) #Pega o valor do ponto central do rosto
+			#Pega o valor do ponto central do rosto
+			(FaceCenterX,FaceCenterY) = (( x+w // 2 ),( y+h // 2)) 
 			# cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2) #Desenha um retangulo no rosto
 			# cv2.circle(frame,(FaceCenterX,FaceCenterY),2,(255,255,0),2)#Desenha um circulo no centro do rosto
 			# cv2.line(frame,(FaceCenterX,FaceCenterY),(ScrenCenterX,ScrenCenterY), (255,0,0) )#Desenha uma linha do centro do rosto ao centro da tela
