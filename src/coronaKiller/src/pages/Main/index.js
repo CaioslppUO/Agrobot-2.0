@@ -12,10 +12,11 @@ const LabiotImg = require('../../resources/labiot.png')
 const ptiImg = require('../../resources/pti.png')
 const unioesteImg = require('../../resources/unioeste.png')
 const itaipuImg = require('../../resources/Itaipu.png')
-const buttonUvOn = require('../../resources/lampada_acesa.png')
-const buttonUvOff = require('../../resources/lampada_apagada.png')
-const buttonOn = require('../../resources/botaoOn.png')
-const buttonOff = require('../../resources/botaoOff.png')
+
+const buttonUvOn = require('../../resources/lampadaOn.png')
+const buttonUvOff = require('../../resources/lampadaOff.png')
+const buttonPowerOn = require('../../resources/botaoOn.png')
+const buttonPowerOff = require('../../resources/botaoOff.png')
 const buttonAutoOff = require('../../resources/autoOff.png')
 const buttonAutoOn = require('../../resources/autoOn.png')
 
@@ -27,9 +28,9 @@ export default class Main extends Component {
   //Variáveis globais da classe
   state = {
     speedSliderValue: 50,
-    buttonOnOffPower: buttonOff,
-    buttonOnOffUv: buttonUvOff,
-    buttonOnOffAuto: buttonAutoOff,
+    buttonPower: buttonPowerOff,
+    buttonUv: buttonUvOff,
+    buttonAuto: buttonAutoOff,
     buttonStop: '#cc1414',
     autoMode: 0
   };
@@ -57,7 +58,7 @@ export default class Main extends Component {
 
     //Envia a mensagem de controle automático para o webserver de parâmetros
     function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection, move_time_auto, stop_time_auto) {
-      new WebSocket('http://' + "192.168.1.121" + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
+      new WebSocket('http://' + global.serverIp_auto + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
         speedDefault + "$" + shiftDirection + "$" + global.uv + "$" + global.detect_distance + "$" + move_time_auto + "$" + stop_time_auto)
     }
 
@@ -141,7 +142,7 @@ export default class Main extends Component {
                   global.comunication_interval = global.comunication_interval + 1
                 }
                 if (this.state.autoMode != 0) {
-                  this.setState({ buttonOnOffAuto: buttonAutoOff })
+                  this.setState({ buttonAuto: buttonAutoOff })
                   this.setState({ autoMode: 0 })
                 }
               }}
@@ -155,31 +156,31 @@ export default class Main extends Component {
               <TouchableOpacity
                 style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffPower: this.state.buttonOnOffPower == buttonOff ? buttonOn : buttonOff })
+                  this.setState({ buttonPower: this.state.buttonPower == buttonPowerOff ? buttonPowerOn : buttonPowerOff })
                   powerButtonPressed()
                 }}>
-                <Image source={this.state.buttonOnOffPower}></Image>
+                <Image source={this.state.buttonPower}></Image>
               </TouchableOpacity>
 
               {/*Botão da lâmpada UV*/}
               <TouchableOpacity
                 style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffUv: this.state.buttonOnOffUv == buttonUvOff ? buttonUvOn : buttonUvOff })
+                  this.setState({ buttonUv: this.state.buttonUv == buttonUvOff ? buttonUvOn : buttonUvOff })
                   uvButtonPressed()
                 }}>
-                <Image source={this.state.buttonOnOffUv}></Image>
+                <Image source={this.state.buttonUv}></Image>
               </TouchableOpacity>
 
               {/*Botão ligar modo automático*/}
               <TouchableOpacity
                 style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == buttonAutoOff ? buttonAutoOn : buttonAutoOff })
+                  this.setState({ buttonAuto: this.state.buttonAuto == buttonAutoOff ? buttonAutoOn : buttonAutoOff })
                   automaticButtonPressed(this.state.autoMode)
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
                 }}>
-                <Image source={this.state.buttonOnOffAuto}></Image>
+                <Image source={this.state.buttonAuto}></Image>
               </TouchableOpacity>
 
             </View>
@@ -189,7 +190,7 @@ export default class Main extends Component {
               <TouchableOpacity
                 style={{ borderColor: '#c90000', borderRadius: 115, height: 62, width: 200, borderWidth: 3, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffAuto: buttonAutoOff })
+                  this.setState({ buttonAuto: buttonAutoOff })
                   stopRobot()
                   this.setState({ autoMode: 0 })
                 }}>

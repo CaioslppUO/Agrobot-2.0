@@ -48,7 +48,7 @@ export default class Menu extends Component {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => { this.props.navigation.navigate('Automatic') }}>
-              <Text style={styles.buttonText}>Configuração Modo Automático</Text>
+              <Text style={styles.buttonText}>Configuração Automático</Text>
             </TouchableOpacity>
 
           </View>

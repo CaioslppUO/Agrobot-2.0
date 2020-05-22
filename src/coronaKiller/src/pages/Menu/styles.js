@@ -28,7 +28,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     textAlign: 'center',
     backgroundColor: '#89c5d6',
-    borderRadius: 10,
+    borderRadius: 200,
     marginTop: 40,
     width: 300
   },
@@ -36,6 +36,6 @@ export default StyleSheet.create({
     fontSize: 35,
     textAlign: 'center',
     backgroundColor: '#89c5d6',
-    borderRadius: 10
+    borderRadius: 200
   },
 });
