@@ -9,6 +9,7 @@ from std_msgs.msg import String
 pub = rospy.Publisher('ComputationalVision', String, queue_size=10)
 rospy.init_node('ComputationalVision', anonymous=True)
 
+
 ##Variavel que armazena o limite do robô
 limit = 50
 ##Variavel que armazena a velocidade do robô
