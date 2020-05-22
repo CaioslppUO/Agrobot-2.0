@@ -12,6 +12,12 @@ const LabiotImg = require('../../resources/labiot.png')
 const ptiImg = require('../../resources/pti.png')
 const unioesteImg = require('../../resources/unioeste.png')
 const itaipuImg = require('../../resources/Itaipu.png')
+const buttonUvOn = require('../../resources/lampada_acesa.png')
+const buttonUvOff = require('../../resources/lampada_apagada.png')
+const buttonOn = require('../../resources/botaoOn.png')
+const buttonOff = require('../../resources/botaoOff.png')
+const buttonAutoOff = require('../../resources/autoOff.png')
+const buttonAutoOn = require('../../resources/autoOn.png')
 
 /* 
  * Página principal
@@ -21,9 +27,9 @@ export default class Main extends Component {
   //Variáveis globais da classe
   state = {
     speedSliderValue: 50,
-    buttonOnOffPower: '#99a7ad',
-    buttonOnOffUv: '#99a7ad',
-    buttonOnOffAuto: '#99a7ad',
+    buttonOnOffPower: buttonOff,
+    buttonOnOffUv: buttonUvOff,
+    buttonOnOffAuto: buttonAutoOff,
     buttonStop: '#cc1414',
     autoMode: 0
   };
@@ -147,33 +153,33 @@ export default class Main extends Component {
             <View style={styles.powerButtonsContainer}>
               {/*Botão da placa A*/}
               <TouchableOpacity
-                style={{ backgroundColor: this.state.buttonOnOffPower, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffPower: this.state.buttonOnOffPower == '#99a7ad' ? '#3cc761' : '#99a7ad' })
+                  this.setState({ buttonOnOffPower: this.state.buttonOnOffPower == buttonOff ? buttonOn : buttonOff })
                   powerButtonPressed()
                 }}>
-                <Text style={styles.ButtonText}>Ligar Robô</Text>
+                <Image source={this.state.buttonOnOffPower}></Image>
               </TouchableOpacity>
 
               {/*Botão da lâmpada UV*/}
               <TouchableOpacity
-                style={{ backgroundColor: this.state.buttonOnOffUv, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffUv: this.state.buttonOnOffUv == '#99a7ad' ? '#3cc761' : '#99a7ad' })
+                  this.setState({ buttonOnOffUv: this.state.buttonOnOffUv == buttonUvOff ? buttonUvOn : buttonUvOff })
                   uvButtonPressed()
                 }}>
-                <Text style={styles.ButtonText}>Ligar UV</Text>
+                <Image source={this.state.buttonOnOffUv}></Image>
               </TouchableOpacity>
 
               {/*Botão ligar modo automático*/}
               <TouchableOpacity
-                style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
+                  this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == buttonAutoOff ? buttonAutoOn : buttonAutoOff })
                   automaticButtonPressed(this.state.autoMode)
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
                 }}>
-                <Text style={styles.ButtonText}>Modo Automático</Text>
+                <Image source={this.state.buttonOnOffAuto}></Image>
               </TouchableOpacity>
 
             </View>
