@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+""" 
+Programa que gerencia quais e como serão executados todos os módulos do sistema.
+"""
+
 import os
 import sys
 import rospy

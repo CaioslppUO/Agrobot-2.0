@@ -3,25 +3,28 @@ global.speed = 0
 global.steer = 0
 global.limit = 50
 global.minPulverizeSpeed = 0
-global.priority = 0
 
 //Variáveis de energia(liga/desliga)
-global.powerA = 0
-global.powerB = 0
+global.power = 0
 global.pulverizer = 0
 
 //Variáveis de comunicação
 global.serverIp = '192.168.1.2'
-global.port = '8080'
-global.delay = 50
+global.port_manual = '8080'
+global.comunication_delay = 50
+global.comunication_interval = 0
 
 //Variáveis de controle automático
+global.speed_auto = -26
+global.steer_auto = -3
 global.limit_auto = 50
-global.tickDefault_auto = 3 
-global.steerDefault_auto = -3
-global.speedDefault_auto = -26
-global.shiftDirection_auto = 5
+global.correction_movements = 5
+global.correction_factor = 10
+
 global.port_auto = '8082'
+global.move_time_auto = 0
+global.stop_time_auto = 0
+global.detect_distance = 1.2
 
 //Variáveis de informação
-global.version = '2.3.0'
+global.version = '2.3.1'
