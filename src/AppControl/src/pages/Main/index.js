@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { View, TouchableOpacity, Text, Slider, Image, PermissionsAndroid } from 'react-native'
+import { View, TouchableOpacity, Text, Slider, Image, PermissionsAndroid, Picker } from 'react-native'
 import AxisPad from 'react-native-axis-pad';
 import NavigationActions from 'react-navigation/src/NavigationActions';
 import styles from './styles';
@@ -7,11 +7,19 @@ import styles from './styles';
 /**
  * Constantes de imagens
  */
-const menuImg = require('../../resources/menu.png')
 const LabiotImg = require('../../resources/labiot.png')
 const ptiImg = require('../../resources/pti.png')
 const unioesteImg = require('../../resources/unioeste.png')
 const itaipuImg = require('../../resources/Itaipu.png')
+
+const buttonPulverizeOn = require('../../resources/sprayOn.png')
+const buttonPulverizeOff = require('../../resources/sprayOff.png')
+const buttonPowerOnA = require('../../resources/botaoOnA.png')
+const buttonPowerOffA = require('../../resources/botaoOffA.png')
+const buttonPowerOnB = require('../../resources/botaoOnB.png')
+const buttonPowerOffB = require('../../resources/botaoOffB.png')
+const buttonAutoOff = require('../../resources/autoOff.png')
+const buttonAutoOn = require('../../resources/autoOn.png')
 
 /* 
  * Página principal
@@ -21,11 +29,14 @@ export default class Main extends Component {
   //Variáveis globais da classe
   state = {
     speedSliderValue: 50,
-    buttonOnOffPower: '#99a7ad',
-    buttonOnOffPulverizer: '#99a7ad',
-    buttonOnOffAuto: '#99a7ad',
+    buttonPowerA: buttonPowerOffA,
+    buttonPowerB: buttonPowerOffB,
+    buttonPulverizador: buttonPulverizeOff,
+    buttonAuto: buttonAutoOff,
     buttonStop: '#cc1414',
-    autoMode: 0
+    autoMode: 0,
+    pickerItem: 0,
+    pickerValue: 0
   };
 
   //Opções do controlador de navegação de páginas 
@@ -43,44 +54,55 @@ export default class Main extends Component {
     console.disableYellowBox = true;
 
     //Envia a mensagem de controle manual para o webServerManual
-    function sendToWebServerManual(speed, steer, limit, power, uv) {
+    function sendToWebServerManual(speed, steer, limit, powerA, powerB, pulverize) {
       new WebSocket('http://' + global.serverIp + ':' + global.port_manual + '/' + 0 + '*'
-        + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit + '*powerA$' + power + '*powerB$' + 0
-        + '*pulverize$' + global.pulverizer)
+        + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit + '*powerA$' + powerA + '*powerB$' + powerB
+        + '*pulverize$' + pulverize)
     }
 
     //Envia a mensagem de controle automático para o webserver de parâmetros
     function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection, move_time_auto, stop_time_auto) {
-      new WebSocket('http://' + "192.168.1.121" + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-        speedDefault + "$" + shiftDirection + "$" + global.pulverizer + "$" + global.detect_distance + "$" + move_time_auto + "$" + stop_time_auto)
+      new WebSocket('http://' + global.serverIp_auto + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
+        speedDefault + "$" + shiftDirection + "$" + global.pulverize + "$" + global.detect_distance + "$" + move_time_auto + "$" + stop_time_auto)
     }
 
     //Envia o sinal para o relé ligar ou desligar
     function sendSignalToRelay(relay_id) {
-      if (relay_id == 'Power') {
-        sendToWebServerManual(0, 0, 0, 1, global.pulverizer)
+      if (relay_id === 'PowerA') {
+        sendToWebServerManual(0, 0, 0, 1, 0, 0)
+      } else if (relay_id === 'PowerB') {
+        sendToWebServerManual(0, 0, 0, 0, 1, 0)
       }
     }
 
     //Função que pega os valores de x e y do JoyStick e os envia para o robô
-    function sendManualCommand(x, y, uv) {
+    function sendManualCommand(x, y) {
       global.speed = -Math.round(y * 100)
       global.steer = Math.round(x * 100)
-      setTimeout(() => {
-        sendToWebServerManual(global.speed, global.steer, global.limit, 0, global.uv)
-      }, global.comunication_delay)
+      if (global.speed >= global.minPulverizeSpeed) {
+        setTimeout(() => {
+          sendToWebServerManual(global.speed, global.steer, global.limit, 0, 0, global.pulverize)
+        }, global.comunication_delay)
+      } else {
+        setTimeout(() => {
+          sendToWebServerManual(global.speed, global.steer, global.limit, 0, 0, 0)
+        }, global.comunication_delay)
+      }
     }
 
-    //Função que envia os valores corretos para ligar a placa do robô
-    function powerButtonPressed() {
-      sendSignalToRelay('Power')
+    //Função que envia os valores corretos para ligar a placa A do robô
+    function powerAButtonPressed() {
+      sendSignalToRelay('PowerA')
     }
 
-    //Função que envia os valores corretos para ligar a lâmpada UV
-    function uvButtonPressed(uv) {
-      global.uv = global.uv == 0 ? 1 : 0
-      sendToWebServerManual(0, 0, 0, 0, global.uv)
-      sendToParamServer(global.limit_auto, global.correction_movements, global.steer_auto, global.speed_auto, global.correction_factor, global.move_time_auto, global.stop_time_auto)
+    //Função que envia os valores corretos para ligar a placa B do robô
+    function powerBButtonPressed() {
+      sendSignalToRelay('PowerB')
+    }
+
+    //Função que envia os valores corretos para ligar o pulverizador
+    function pulverizeButtonPressed() {
+      global.pulverize = global.pulverize == 0 ? 1 : 0
     }
 
     //Função que liga/desliga o modo de controle automático
@@ -96,7 +118,7 @@ export default class Main extends Component {
 
     //Função que para o robô
     function stopRobot() {
-      sendToWebServerManual(0, 0, 0, 0, 0, global.uv)
+      sendToWebServerManual(0, 0, 0, 0, 0, global.pulverize)
       sendToParamServer(0, 0, 0, 0, 0, 0, 0)
     }
 
@@ -108,11 +130,19 @@ export default class Main extends Component {
           {/*View do botão do menu*/}
           <View style={styles.menuButton}>
             {/*Botão do menu*/}
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Menu') }}>
-              <Image
-                source={menuImg}
-              />
-            </TouchableOpacity>
+            <Picker
+              style={{ height: 30, width: 150 }}
+              selectedValue={this.state.pickerItem}
+              onValueChange={(itemValue, itemPosition) => {
+                this.setState({ pickerValue: itemValue, pickerItem: itemPosition })
+                this.props.navigation.navigate(itemValue)
+              }
+              }
+            >
+              <Picker.Item label="Controlar" value="Main" />
+              <Picker.Item label="Configuração Manual" value="Config" />
+              <Picker.Item label="Configuração Automática" value="Automatic" />
+            </Picker>
           </View>
 
           {/* View do joystick */}
@@ -125,7 +155,6 @@ export default class Main extends Component {
               autoCenter={false}
               resetOnRelease={true}
               onValue={({ x, y }) => {
-                if()
                 if (global.comunication_interval === 5) {
                   sendManualCommand(x, y)
                   global.comunication_interval = 0
@@ -136,7 +165,7 @@ export default class Main extends Component {
                   global.comunication_interval = global.comunication_interval + 1
                 }
                 if (this.state.autoMode != 0) {
-                  this.setState({ buttonOnOffAuto: '#99a7ad' })
+                  this.setState({ buttonAuto: buttonAutoOff })
                   this.setState({ autoMode: 0 })
                 }
               }}
@@ -148,33 +177,43 @@ export default class Main extends Component {
             <View style={styles.powerButtonsContainer}>
               {/*Botão da placa A*/}
               <TouchableOpacity
-                style={{ backgroundColor: this.state.buttonOnOffPower, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffPower: this.state.buttonOnOffPower == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                  powerButtonPressed()
+                  this.setState({ buttonPowerA: this.state.buttonPowerA == buttonPowerOffA ? buttonPowerOnA : buttonPowerOffA })
+                  powerAButtonPressed()
                 }}>
-                <Text style={styles.ButtonText}>Ligar Robô</Text>
+                <Image source={this.state.buttonPowerA}></Image>
               </TouchableOpacity>
 
-              {/*Botão da lâmpada UV*/}
+              {/*Botão da placa B*/}
               <TouchableOpacity
-                style={{ backgroundColor: this.state.buttonOnOffUv, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffUv: this.state.buttonOnOffUv == '#99a7ad' ? '#3cc761' : '#99a7ad' })
-                  uvButtonPressed()
+                  this.setState({ buttonPowerB: this.state.buttonPowerB == buttonPowerOffB ? buttonPowerOnB : buttonPowerOffB })
+                  powerBButtonPressed()
                 }}>
-                <Text style={styles.ButtonText}>Ligar UV</Text>
+                <Image source={this.state.buttonPowerB}></Image>
+              </TouchableOpacity>
+
+              {/*Botão do pulverizador*/}
+              <TouchableOpacity
+                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
+                onPress={() => {
+                  this.setState({ buttonPulverizador: this.state.buttonPulverizador == buttonPulverizeOff ? buttonPulverizeOn : buttonPulverizeOff })
+                  pulverizeButtonPressed()
+                }}>
+                <Image source={this.state.buttonPulverizador}></Image>
               </TouchableOpacity>
 
               {/*Botão ligar modo automático*/}
               <TouchableOpacity
-                style={{ backgroundColor: this.state.buttonOnOffAuto, borderRadius: 115, height: 42, width: 100, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffAuto: this.state.buttonOnOffAuto == '#99a7ad' ? '#3cc761' : '#99a7ad' })
+                  this.setState({ buttonAuto: this.state.buttonAuto == buttonAutoOff ? buttonAutoOn : buttonAutoOff })
                   automaticButtonPressed(this.state.autoMode)
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
                 }}>
-                <Text style={styles.ButtonText}>Modo Automático</Text>
+                <Image source={this.state.buttonAuto}></Image>
               </TouchableOpacity>
 
             </View>
@@ -182,9 +221,9 @@ export default class Main extends Component {
             {/*Botão parar robô*/}
             <View style={styles.powerButtonsContainer}>
               <TouchableOpacity
-                style={{ backgroundColor: '#cc1414', borderRadius: 115, height: 62, width: 200, borderWidth: 2, alignItems: 'center', justifyContent: 'center' }}
+                style={{ borderColor: '#c90000', borderRadius: 115, height: 62, width: 200, borderWidth: 3, alignItems: 'center', justifyContent: 'center' }}
                 onPress={() => {
-                  this.setState({ buttonOnOffAuto: '#99a7ad' })
+                  this.setState({ buttonAuto: buttonAutoOff })
                   stopRobot()
                   this.setState({ autoMode: 0 })
                 }}>

@@ -64,6 +64,15 @@ export default class Config extends Component {
                             }
                             }
                         />
+
+                        <TextInput
+                            style={styles.textDefault}
+                            placeholder={"Vel. mínima para pulv.: " + this.state.minPSpeed}
+                            onEndEditing={(text) => {
+                                this.setState({ minPSpeed: text.nativeEvent.text })
+                            }
+                            }
+                        />
                         {/*View do botão de salvar*/}
                         <View style={styles.saveContainer}>
                             <TouchableOpacity

@@ -30,14 +30,16 @@ export default StyleSheet.create({
   powerButtonsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    padding: 5
   },
   containerButtons: {
     height: 120
   },
   ButtonText: {
-    fontSize: 11,
-    textAlign: 'center'
+    fontSize: 15,
+    textAlign: 'center',
+    color: '#c90000'
   },
   sliderContainer: {
     height: 70,
