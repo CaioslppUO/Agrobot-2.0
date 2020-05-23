@@ -33,7 +33,7 @@ export default class Menu extends Component {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => { this.props.navigation.navigate('Main') }}>
-              <Text style={styles.buttonText}>Controle</Text>
+              <Text style={styles.buttonText}>Controlar</Text>
 
             </TouchableOpacity>
 
@@ -41,7 +41,7 @@ export default class Menu extends Component {
             <TouchableOpacity
               style={styles.Button}
               onPress={() => { this.props.navigation.navigate('Config') }}>
-              <Text style={styles.buttonText}>Configuração</Text>
+              <Text style={styles.buttonText}>Configuração Manual</Text>
             </TouchableOpacity>
 
             {/*Botão de debug*/}

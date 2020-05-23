@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { View, TouchableOpacity, Text, Slider, Image, PermissionsAndroid } from 'react-native'
+import { View, TouchableOpacity, Text, Slider, Image, PermissionsAndroid, Picker } from 'react-native'
 import AxisPad from 'react-native-axis-pad';
 import NavigationActions from 'react-navigation/src/NavigationActions';
 import styles from './styles';
@@ -32,7 +32,9 @@ export default class Main extends Component {
     buttonUv: buttonUvOff,
     buttonAuto: buttonAutoOff,
     buttonStop: '#cc1414',
-    autoMode: 0
+    autoMode: 0,
+    pickerItem: 0,
+    pickerValue: 0
   };
 
   //Opções do controlador de navegação de páginas 
@@ -115,174 +117,182 @@ export default class Main extends Component {
           {/*View do botão do menu*/}
           <View style={styles.menuButton}>
             {/*Botão do menu*/}
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate('Menu') }}>
-              <Image
-                source={menuImg}
-              />
-            </TouchableOpacity>
+            <Picker
+              style={{height: 30, width: 150}}
+              selectedValue={this.state.pickerItem}
+              onValueChange={(itemValue, itemPosition) => {
+                this.setState({ pickerValue: itemValue, pickerItem: itemPosition })
+                this.props.navigation.navigate(itemValue)
+              }
+              }
+            >
+              <Picker.Item label="Controlar" value="Main" />
+              <Picker.Item label="Configuração Manual" value="Config" />
+              <Picker.Item label="Configuração Automática" value="Automatic" />  
+            </Picker>
           </View>
 
-          {/* View do joystick */}
-          <View style={styles.joystickView}>
-            <AxisPad
-              size={190}
-              handlerSize={135}
-              handlerStyle={styles.handlerView}
-              wrapperStyle={styles.wrapperView}
-              autoCenter={false}
-              resetOnRelease={true}
-              onValue={({ x, y }) => {
-                if (global.comunication_interval === 5) {
-                  sendManualCommand(x, y)
-                  global.comunication_interval = 0
-                } else {
-                  if (x == 0 && y == 0) {
-                    sendManualCommand(0, 0)
+            {/* View do joystick */}
+            <View style={styles.joystickView}>
+              <AxisPad
+                size={190}
+                handlerSize={135}
+                handlerStyle={styles.handlerView}
+                wrapperStyle={styles.wrapperView}
+                autoCenter={false}
+                resetOnRelease={true}
+                onValue={({ x, y }) => {
+                  if (global.comunication_interval === 5) {
+                    sendManualCommand(x, y)
+                    global.comunication_interval = 0
+                  } else {
+                    if (x == 0 && y == 0) {
+                      sendManualCommand(0, 0)
+                    }
+                    global.comunication_interval = global.comunication_interval + 1
                   }
-                  global.comunication_interval = global.comunication_interval + 1
-                }
-                if (this.state.autoMode != 0) {
-                  this.setState({ buttonAuto: buttonAutoOff })
-                  this.setState({ autoMode: 0 })
-                }
-              }}
-            />
-          </View>
-
-          {/* View dos botoes*/}
-          <View style={styles.containerButtons}>
-            <View style={styles.powerButtonsContainer}>
-              {/*Botão da placa A*/}
-              <TouchableOpacity
-                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
-                onPress={() => {
-                  this.setState({ buttonPower: this.state.buttonPower == buttonPowerOff ? buttonPowerOn : buttonPowerOff })
-                  powerButtonPressed()
-                }}>
-                <Image source={this.state.buttonPower}></Image>
-              </TouchableOpacity>
-
-              {/*Botão da lâmpada UV*/}
-              <TouchableOpacity
-                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
-                onPress={() => {
-                  this.setState({ buttonUv: this.state.buttonUv == buttonUvOff ? buttonUvOn : buttonUvOff })
-                  uvButtonPressed()
-                }}>
-                <Image source={this.state.buttonUv}></Image>
-              </TouchableOpacity>
-
-              {/*Botão ligar modo automático*/}
-              <TouchableOpacity
-                style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
-                onPress={() => {
-                  this.setState({ buttonAuto: this.state.buttonAuto == buttonAutoOff ? buttonAutoOn : buttonAutoOff })
-                  automaticButtonPressed(this.state.autoMode)
-                  this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
-                }}>
-                <Image source={this.state.buttonAuto}></Image>
-              </TouchableOpacity>
-
-            </View>
-
-            {/*Botão parar robô*/}
-            <View style={styles.powerButtonsContainer}>
-              <TouchableOpacity
-                style={{ borderColor: '#c90000', borderRadius: 115, height: 62, width: 200, borderWidth: 3, alignItems: 'center', justifyContent: 'center' }}
-                onPress={() => {
-                  this.setState({ buttonAuto: buttonAutoOff })
-                  stopRobot()
-                  this.setState({ autoMode: 0 })
-                }}>
-                <Text style={styles.ButtonText}>PARAR</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* View do slider*/}
-          <View style={styles.sliderContainer}>
-            {/* View dos botoes + e - e do valor de speed */}
-            <View style={styles.topBarSliderView}>
-
-              {/* Botão de - para diminuir o valor do slider */}
-              <TouchableOpacity
-                style={styles.area}
-                onPress={() => {
-                  if (this.state.speedSliderValue > 0) {
-                    global.limit = this.state.speedSliderValue - 1
-                    this.setState({ speedSliderValue: this.state.speedSliderValue - 1 })
+                  if (this.state.autoMode != 0) {
+                    this.setState({ buttonAuto: buttonAutoOff })
+                    this.setState({ autoMode: 0 })
                   }
                 }}
-              >
-                <Text style={styles.sinalText}>-</Text>
-              </TouchableOpacity>
+              />
+            </View>
 
-              <Text style={styles.speedText}>Velocidade {this.state.speedSliderValue}% </Text>
+            {/* View dos botoes*/}
+            <View style={styles.containerButtons}>
+              <View style={styles.powerButtonsContainer}>
+                {/*Botão da placa A*/}
+                <TouchableOpacity
+                  style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
+                  onPress={() => {
+                    this.setState({ buttonPower: this.state.buttonPower == buttonPowerOff ? buttonPowerOn : buttonPowerOff })
+                    powerButtonPressed()
+                  }}>
+                  <Image source={this.state.buttonPower}></Image>
+                </TouchableOpacity>
 
-              {/* Botão de + para aumentar o valor do slider */}
-              <TouchableOpacity
-                style={styles.area}
-                onPress={() => {
-                  if (this.state.speedSliderValue < 100) {
-                    global.limit = this.state.speedSliderValue + 1
-                    this.setState({ speedSliderValue: this.state.speedSliderValue + 1 })
+                {/*Botão da lâmpada UV*/}
+                <TouchableOpacity
+                  style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
+                  onPress={() => {
+                    this.setState({ buttonUv: this.state.buttonUv == buttonUvOff ? buttonUvOn : buttonUvOff })
+                    uvButtonPressed()
+                  }}>
+                  <Image source={this.state.buttonUv}></Image>
+                </TouchableOpacity>
+
+                {/*Botão ligar modo automático*/}
+                <TouchableOpacity
+                  style={{ borderRadius: 200, height: 70, borderWidth: 1, width: 70, alignItems: 'center', justifyContent: 'center' }}
+                  onPress={() => {
+                    this.setState({ buttonAuto: this.state.buttonAuto == buttonAutoOff ? buttonAutoOn : buttonAutoOff })
+                    automaticButtonPressed(this.state.autoMode)
+                    this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 })
+                  }}>
+                  <Image source={this.state.buttonAuto}></Image>
+                </TouchableOpacity>
+
+              </View>
+
+              {/*Botão parar robô*/}
+              <View style={styles.powerButtonsContainer}>
+                <TouchableOpacity
+                  style={{ borderColor: '#c90000', borderRadius: 115, height: 62, width: 200, borderWidth: 3, alignItems: 'center', justifyContent: 'center' }}
+                  onPress={() => {
+                    this.setState({ buttonAuto: buttonAutoOff })
+                    stopRobot()
+                    this.setState({ autoMode: 0 })
+                  }}>
+                  <Text style={styles.ButtonText}>PARAR</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* View do slider*/}
+            <View style={styles.sliderContainer}>
+              {/* View dos botoes + e - e do valor de speed */}
+              <View style={styles.topBarSliderView}>
+
+                {/* Botão de - para diminuir o valor do slider */}
+                <TouchableOpacity
+                  style={styles.area}
+                  onPress={() => {
+                    if (this.state.speedSliderValue > 0) {
+                      global.limit = this.state.speedSliderValue - 1
+                      this.setState({ speedSliderValue: this.state.speedSliderValue - 1 })
+                    }
+                  }}
+                >
+                  <Text style={styles.sinalText}>-</Text>
+                </TouchableOpacity>
+
+                <Text style={styles.speedText}>Velocidade {this.state.speedSliderValue}% </Text>
+
+                {/* Botão de + para aumentar o valor do slider */}
+                <TouchableOpacity
+                  style={styles.area}
+                  onPress={() => {
+                    if (this.state.speedSliderValue < 100) {
+                      global.limit = this.state.speedSliderValue + 1
+                      this.setState({ speedSliderValue: this.state.speedSliderValue + 1 })
+                    }
+                  }}>
+                  <Text style={styles.sinalText}>+</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/*Slider*/}
+              <Slider
+                maximumValue={100}
+                minimumValue={0}
+                value={this.state.speedSliderValue}
+                onValueChange={
+                  speedSliderValue => {
+                    global.limit = speedSliderValue
+                    this.setState({ speedSliderValue })
                   }
-                }}>
-                <Text style={styles.sinalText}>+</Text>
-              </TouchableOpacity>
-            </View>
-
-            {/*Slider*/}
-            <Slider
-              maximumValue={100}
-              minimumValue={0}
-              value={this.state.speedSliderValue}
-              onValueChange={
-                speedSliderValue => {
-                  global.limit = speedSliderValue
-                  this.setState({ speedSliderValue })
                 }
-              }
-              style={styles.slider}
-              step={1}
-            />
-
-          </View>
-
-          {/* View de logo e versão */}
-          <View style={styles.containerLogoVersion}>
-
-            {/* View das logos */}
-            <View style={styles.logosView}>
-
-              <Image
-                style={styles.logoUnioeste}
-                source={unioesteImg}
-              />
-              <Image
-                style={styles.logoLabiot}
-                source={LabiotImg}
-              />
-              <Image
-                style={styles.logoPti}
-                source={ptiImg}
-              />
-              <Image
-                style={styles.logoItaipu}
-                source={itaipuImg}
+                style={styles.slider}
+                step={1}
               />
 
             </View>
 
-            {/*View da versão*/}
-            <View>
-              <Text style={styles.versionText}>V {global.version}</Text>
+            {/* View de logo e versão */}
+            <View style={styles.containerLogoVersion}>
+
+              {/* View das logos */}
+              <View style={styles.logosView}>
+
+                <Image
+                  style={styles.logoUnioeste}
+                  source={unioesteImg}
+                />
+                <Image
+                  style={styles.logoLabiot}
+                  source={LabiotImg}
+                />
+                <Image
+                  style={styles.logoPti}
+                  source={ptiImg}
+                />
+                <Image
+                  style={styles.logoItaipu}
+                  source={itaipuImg}
+                />
+
+              </View>
+
+              {/*View da versão*/}
+              <View>
+                <Text style={styles.versionText}>V {global.version}</Text>
+              </View>
+
             </View>
 
           </View>
-
-        </View>
       </>
-    );
-  }
+        );
+      }
 }
