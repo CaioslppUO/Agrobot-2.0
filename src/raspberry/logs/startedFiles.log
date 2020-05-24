@@ -1,4 +1,4 @@
-CommandPriorityDecider: Started
-WebServer: Started
-CommandAssembler: Started
 Controller: Started
+CommandPriorityDecider: Started
+CommandAssembler: Started
+WebServer: Started

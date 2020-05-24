@@ -1,7 +1,9 @@
 #!/bin/bash
 
-pkill ros
-pkill python3
-pkill python
+sudo pkill ros
+sudo pkill python3
+sudo pkill python
+
+clear
 
 echo "O sistema ROS foi finalizado com sucesso!"
