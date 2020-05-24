@@ -16,15 +16,15 @@ os.system("roscore& ")
 time.sleep(8)
 os.system("clear && echo 'Roscore has been successfully initialized'& ")
 
+## Variável que controla a publicação de logs
+pubLog = rospy.Publisher('Log', String, queue_size=10)
+
 ## Nó da classe no ROS. anonymous=True faz com que o nome do nó da classe seja registrado como anônimo.
 rospy.init_node('Controller', anonymous=True)
 
-## Variável que controla a publicação de textos no tópico da Controller.
-pubController = rospy.Publisher('Controller', String, queue_size=10)
-
 ## Função que Recebe todas as variáveis inicias e inicia os módulos que foram requeridos.
 def mainLoop():
-    global pubController
+    global pubLog
     launcher = LauncherVariables()
     serverIp,enableUart,enableRelay,uartAmount,enableFaceDetect,rootPath = launcher.variableSeparator(sys.argv)
 
@@ -46,6 +46,7 @@ def mainLoop():
 
     #Inicializa os módulos que foram requeridos
     os.system(launchMsg)
+    pubLog.publish("startedFile$Controller")
     time.sleep(5)
     
     #Mostra na tela quais módulos foram abertos
