@@ -7,8 +7,8 @@ Programa que gerencia quais e como serão executados todos os módulos do sistem
 import os
 import sys
 import rospy
-import time
 from std_msgs.msg import String
+import time
 from launcherVariables import LauncherVariables
 
 #Inicialização do ROS
@@ -42,7 +42,7 @@ def mainLoop():
     if(enableUart == "True"):
         launchMsg += "python3 " + rootPath + "modules/controlRobot.py " + str(uartAmount) + "& "
     if(enableFaceDetect == "True"):
-        launchMsg += "python3 " + rootPath + "modules/coputationalVision.py& "
+        launchMsg += "python3 " + rootPath + "modules/computationalVision.py& "
 
     #Inicializa os módulos que foram requeridos
     os.system(launchMsg)
@@ -50,8 +50,11 @@ def mainLoop():
     time.sleep(5)
     
     #Mostra na tela quais módulos foram abertos
-    print('Open modules: \n')
+    print('\n -> Open modules: \n')
     os.system('cat ' + rootPath + "logs/startedFiles.log")
+
+    print('\n\n -> Errors: \n')
+    os.system('cat ' + rootPath + "logs/errors.log")
 
     #Indica a situação atual do sistema
     print('\nStatus: Running')
@@ -64,4 +67,5 @@ if __name__ == "__main__":
     try:
         mainLoop()
     except KeyboardInterrupt:
+        pubLog.publish("error$Warning$Program finalized")
         print('Program finalized')

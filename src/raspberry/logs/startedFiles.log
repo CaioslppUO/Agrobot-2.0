@@ -1,0 +1,7 @@
+Controller: Started
+CommandPriorityDecider: Started
+ControlRobot: Started
+CommandAssembler: Started
+Relay: Started
+WebServer: Started
+ComputationalVision: Started

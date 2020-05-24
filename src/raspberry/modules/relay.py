@@ -10,8 +10,6 @@ Módulo que gerencia o envio dos comandos para os relés.
 
 import time
 import rospy
-import RPi.GPIO as GPIO
-
 from std_msgs.msg import String
 
 ################################
@@ -19,11 +17,20 @@ from std_msgs.msg import String
 ################################
 
 pubLog = rospy.Publisher('Log', String, queue_size=10)
+rospy.init_node("Relay", anonymous=True)
 
-## Definição do modo do GPIO
-GPIO.setmode(GPIO.BOARD)
-## Desabilitando os warnings do GPIO
-GPIO.setwarnings(False)
+try: 
+    import RPi.GPIO as GPIO
+except:
+    pubLog.publish("error$Warning$Could not include RPi.GPIO as GPIO in raspberry/modules/relay.py")
+
+try:
+    ## Definição do modo do GPIO
+    GPIO.setmode(GPIO.BOARD)
+    ## Desabilitando os warnings do GPIO
+    GPIO.setwarnings(False)
+except:
+    pubLog.publish('error$Warning$Could not set up GPIO configs in raspberry/modules/relay.py')
 
 #########################
 #----> Classe Relay <----#
@@ -79,11 +86,20 @@ class Relay():
     def callback(self,data):
         cbAux = str(data.data).split(":")
         if(cbAux[0] == "sendSignalToPulverizer"):
-            self.sendSignalToPulverizer(int(cbAux[1]))
+            try:
+                self.sendSignalToPulverizer(int(cbAux[1]))
+            except:
+                pubLog.publish('error$Warning$Could not send signal to pulverizer in raspberry/modules/relay.py')
         elif(cbAux[0] == "sendSignalToBoardTwo"):
-            self.sendSignalToBoardTwo(int(cbAux[1]))
+            try:
+                self.sendSignalToBoardTwo(int(cbAux[1]))
+            except:
+                pubLog.publish('error$Warning$Could not send signal to board two in raspberry/modules/relay.py')
         elif(cbAux[0] == "sendSignalToBoardOne"):
-            self.sendSignalToBoardOne(int(cbAux[1]))
+            try:
+                self.sendSignalToBoardOne(int(cbAux[1]))
+            except:
+                pubLog.publish('error$Warning$Could not send signal to board one in raspberry/modules/relay.py')
     
     ## Método que escuta do tópico Relay e processa os comandos recebidos.
     def listener(self):

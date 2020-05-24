@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import numpy as np
-import cv2
 import rospy
 from std_msgs.msg import String
 
@@ -9,6 +7,15 @@ from std_msgs.msg import String
 pub = rospy.Publisher('ComputationalVision', String, queue_size=10)
 pubLog = rospy.Publisher('Log', String, queue_size=10)
 rospy.init_node('ComputationalVision', anonymous=True)
+
+try:
+	import numpy as np
+except:
+	pubLog.publish("error$Warning$Could not import numpy as np in raspberry/modules/computationalVision.py")
+try: 
+	import cv2
+except:
+	pubLog.publish("error$Warning$Could not import cv2 in raspberry/modules/computationalVision.py")
 
 
 ##Variavel que armazena o limite do robô
@@ -35,7 +42,7 @@ def DeadArea(pt1,safe1,safe2):
 
 ##Função que manipula a direção do robô com base no rosto da pessoa
 def AjustAngle(pt1,size):
-	global speed,steer, limit
+	global speed,steer,limit,pub
 	direction = False
 	vel = 0
 	direction = DirectionValue(pt1[0] - size)
@@ -50,7 +57,10 @@ def AjustAngle(pt1,size):
 	speed = int((100*vel)/0.5)
 
 	msg = "5*speed$"+str(speed)+"*steer$"+str(steer)+"*limit$"+str(limit)+"*powerA$0*powerB$0*pulverize$0"
-	pub.Publisher(msg)
+	try:
+		pub.Publisher(msg)
+	except:
+		pubLog.publish("error$Warning$Could not publish AjustAngle msg in raspberry/modules/computationalVision.py")
 	msg = None
 
 ##Função que detecta o rosto da pessoa, e o centro da tela
@@ -77,9 +87,15 @@ def enableVision():
 		# cv2.imshow('frame',frame)
 		key = cv2.waitKey(10)
 		if key == 27:
-			break        
-	cap.release()
+			break    
+	try:
+		cap.release()
+	except:
+		pubLog.publish("error$Warning$cap variable doesn't exist in raspberry/modules/computationalVision.py")
 	cv2.destroyAllWindows()
 
-pubLog('startedFile$ComputationalVision')
-enableVision()
+try:
+	pubLog.publish('startedFile$ComputationalVision')
+	enableVision()
+except:
+	pubLog.publish('error$Fatal$Could not run computationalVision.py')

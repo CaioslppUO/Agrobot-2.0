@@ -1,0 +1,5 @@
+[Warning] Error trying to set 1 Uart
+[Warning] Could not include RPi.GPIO as GPIO in raspberry/modules/relay.py
+[Warning] Could not set up GPIO configs in raspberry/modules/relay.py
+[Warning] Could not import cv2 in raspberry/modules/computationalVision.py
+[Fatal] Could not run computationalVision.py

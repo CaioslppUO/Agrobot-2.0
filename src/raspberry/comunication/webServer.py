@@ -66,6 +66,7 @@ class WebServer():
             self.serverThread.daemon = True #O servidor é fechado ao fechar o programa
             self.serverThread.start()
         except:
+            pubLog.publish("error$Fatal$WebServer could not run.")
             pass
 
 ############################
@@ -79,4 +80,5 @@ if __name__ == '__main__':
         while not rospy.is_shutdown():
             rospy.spin()
     except rospy.ROSInterruptException:
+        pubLog.publish("error$Fatal$WebServer stoped working.")
         pass

@@ -59,7 +59,7 @@ def setUart(uartAmount):
                     timeout=1
                 )
             except:
-                print('Error trying to set 1 Uart')
+                pubLog.publish("error$Warning$Error trying to set 1 Uart")
     elif(uartAmount == 2):
         try:
             uart0 = serial.Serial(
@@ -80,7 +80,7 @@ def setUart(uartAmount):
                 timeout=1
             )
         except:
-            print('Error trying to set 2 Uarts')
+            pubLog.publish("error$Warning$Error trying to set 2 Uarts")
             pass
 
 ##################################
@@ -96,7 +96,6 @@ class ControlRobot():
         self.steer = "0000"
         ## Variável utilizada para enviar o limite. O primeiro valor é o sinal do número: 0 Negativo e 1 Positivo.
         self.limit = "0000"
-        self.pub = rospy.Publisher('LOGRODANDO', String, queue_size=10)
 
         try:
             self.uartAmount = sys.argv[1]
@@ -150,15 +149,13 @@ class ControlRobot():
         try:
             if(int(self.uartAmount) == 1):  
                 uart0.write(str.encode(text))
-                self.pub.publish("Command send to arduino: " + str(text) + " Using " + str(self.uartAmount) + " Uarts")
             elif(int(self.uartAmount) == 2):
                 uart0.write(str.encode(text))
                 uart1.write(str.encode(text))
             else:
-                self.pub.publish("Command send to arduino: None, Using " + str(self.uartAmount) + " Uarts")
-            time.sleep(0.02)
+                time.sleep(0.02)
         except:
-            self.pub.publish("Uart Error")
+            pubLog.publish("error$Fatal$UART error")
 
     ## Método que escuta do tópico ControlRobot para tratar os comandos recebidos.
     def listenValues(self):

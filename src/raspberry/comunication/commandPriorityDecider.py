@@ -116,4 +116,5 @@ try:
     pubLog.publish('startedFile$CommandPriorityDecider')
     comunication.listenCommands()
 except:
+    pubLog.publish("error$Fatal$CommandPriorityDecider could not run.")
     pass
