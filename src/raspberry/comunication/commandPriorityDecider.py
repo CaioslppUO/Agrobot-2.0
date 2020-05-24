@@ -16,6 +16,7 @@ from commandStandardizer import CommandStandardizer
 #----> Definições Globais <----#
 ################################
 
+pubLog = rospy.Publisher('Log', String, queue_size=10)
 rospy.init_node('CommandPriorityDecider', anonymous=True)
 
 #################################
@@ -112,6 +113,7 @@ class Comunication():
 
 try:
     comunication = Comunication()
+    pubLog.publish('startedFile$CommandPriorityDecider')
     comunication.listenCommands()
 except:
     pass

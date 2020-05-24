@@ -6,6 +6,7 @@ Módulo que permite o controle do robô por meio do terminal.
 È necessário rodar esse programa em um terminal no qual o roscore esteja definido/rodando.
 """
 
+pubLog = rospy.Publisher('Log', String, queue_size=10)
 rospy.init_node('PcManual', anonymous=True)
 pubPc = rospy.Publisher('PcManual', String, queue_size=10)
 
@@ -105,4 +106,5 @@ def main():
         get()
 
 if __name__=='__main__':
+        pubLog.publish('startedFile$ManualControl')
         main()

@@ -19,6 +19,7 @@ from std_msgs.msg import String
 #----> Definições Globais <----#
 ################################
 
+pubLog = rospy.Publisher('Log', String, queue_size=10)
 rospy.init_node('ControlRobot', anonymous=True) 
 
 ###############################
@@ -169,5 +170,6 @@ class ControlRobot():
 
 if __name__ == '__main__':
     control = ControlRobot()
+    pubLog.publish('startedFile$ControlRobot')
     control.listenValues()
     rospy.spin()

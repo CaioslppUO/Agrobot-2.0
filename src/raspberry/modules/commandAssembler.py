@@ -15,6 +15,7 @@ from std_msgs.msg import String
 #----> Definições Globais <----#
 ################################
 
+pubLog = rospy.Publisher('Log', String, queue_size=10)
 rospy.init_node('CommandDecider', anonymous=True) 
 
 #################################
@@ -54,4 +55,5 @@ class ControlMode():
 
 if __name__ == '__main__':
     control = ControlMode()
+    pubLog.publish('startedFile$CommandAssembler')
     control.listenComunication()

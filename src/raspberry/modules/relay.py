@@ -18,6 +18,8 @@ from std_msgs.msg import String
 #----> Definições Globais <----#
 ################################
 
+pubLog = rospy.Publisher('Log', String, queue_size=10)
+
 ## Definição do modo do GPIO
 GPIO.setmode(GPIO.BOARD)
 ## Desabilitando os warnings do GPIO
@@ -95,4 +97,5 @@ class Relay():
 
 if __name__ == '__main__':
     relay = Relay()
+    pubLog.publish('startedFile$Relay')
     relay.listener()

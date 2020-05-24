@@ -21,6 +21,7 @@ from threading import Thread
 
 msg = None
 pubWebServer = rospy.Publisher('WebServerManual', String, queue_size=10)
+pubLog = rospy.Publisher('Log', String, queue_size=10)
 rospy.init_node('WebServerManual', anonymous=True)
 
 ####################################
@@ -74,6 +75,7 @@ class WebServer():
 if __name__ == '__main__':
     try:
         webServer = WebServer()
+        pubLog.publish('startedFile$WebServer')
         while not rospy.is_shutdown():
             rospy.spin()
     except rospy.ROSInterruptException:

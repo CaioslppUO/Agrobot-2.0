@@ -7,6 +7,7 @@ from std_msgs.msg import String
 
 ##Declaração do nó ComputationalVision
 pub = rospy.Publisher('ComputationalVision', String, queue_size=10)
+pubLog = rospy.Publisher('Log', String, queue_size=10)
 rospy.init_node('ComputationalVision', anonymous=True)
 
 
@@ -80,4 +81,5 @@ def enableVision():
 	cap.release()
 	cv2.destroyAllWindows()
 
+pubLog('startedFile$ComputationalVision')
 enableVision()

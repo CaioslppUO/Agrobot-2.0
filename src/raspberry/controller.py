@@ -14,7 +14,7 @@ from launcherVariables import LauncherVariables
 #Inicialização do ROS
 os.system("roscore& ")
 time.sleep(8)
-os.system("clear && echo 'ROS has been successfully initialized'& ")
+os.system("clear && echo 'Roscore has been successfully initialized'& ")
 
 ## Nó da classe no ROS. anonymous=True faz com que o nome do nó da classe seja registrado como anônimo.
 rospy.init_node('Controller', anonymous=True)
@@ -29,6 +29,9 @@ def mainLoop():
     serverIp,enableUart,enableRelay,uartAmount,enableFaceDetect,rootPath = launcher.variableSeparator(sys.argv)
 
     #Define quais módulos base serão inicializados
+    os.system("python3 " + rootPath + "modules/logs.py& ")
+    print('Startind modules...')
+    time.sleep(10)
     launchMsg = "python3 " + rootPath + "comunication/webServer.py " + serverIp + "& "
     launchMsg += "python3 " + rootPath + "comunication/commandPriorityDecider.py& "
     launchMsg += "python3 " + rootPath + "modules/commandAssembler.py& "
@@ -43,11 +46,18 @@ def mainLoop():
 
     #Inicializa os módulos que foram requeridos
     os.system(launchMsg)
+    time.sleep(5)
+    
+    #Mostra na tela quais módulos foram abertos
+    print('Open modules: \n')
+    os.system('cat ' + rootPath + "logs/startedFiles.log")
 
+    #Indica a situação atual do sistema
+    print('\nStatus: Running')
+    
     #Mensagem de log
-    logPublish = "Modules were started"
     while not rospy.is_shutdown():
-        pubController.publish(logPublish)
+        a = -1
 
 if __name__ == "__main__":
     try:
