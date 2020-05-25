@@ -15,7 +15,7 @@ global.comunication_interval = 0
 
 //Variáveis de controle automático
 global.speed_auto = -26
-global.steer_auto = -3
+global.steer_auto = -2
 global.limit_auto = 50
 global.correction_movements = 5
 global.correction_factor = 15
@@ -27,4 +27,4 @@ global.stop_time_auto = 0
 global.detect_distance = 1.5
 
 //Variáveis de informação
-global.version = '0.3.5'
+global.version = '0.3.6'
