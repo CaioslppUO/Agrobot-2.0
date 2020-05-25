@@ -115,8 +115,8 @@ def setVariables(data):
 def callback(data):
     global dataDefault,leftArea,rightArea,steer,centerArea,walk,uv
     rospy.Subscriber('/Walk', String, setWalk)
-    if(walk):
-        if(checkAuto()):
+    if(checkAuto()):
+        if(walk):
             pointDirection = str(data.data).split('$')
             leftArea = pointDirection[0]
             centerArea = pointDirection[1]
@@ -126,12 +126,12 @@ def callback(data):
             commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(uv)
             pubControlCommand.publish(commandToPublish)
         else:
-            commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
+            commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$" + str(dataDefault['uv'])
             pubControlCommand.publish(commandToPublish)
-        rospy.Subscriber('/ParamServer',String,setVariables)
     else:
-        commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$" + str(dataDefault['uv'])
+        commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
         pubControlCommand.publish(commandToPublish)
+    rospy.Subscriber('/ParamServer',String,setVariables)
 
 
 ##Função principal          
