@@ -3,10 +3,9 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
     mainContainer: {
       backgroundColor: '#ffffff',
-      flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'space-between' ,
+      justifyContent: 'space-around' ,
   },
   textInputContainer: {
       flexDirection: 'column',
@@ -37,7 +36,6 @@ export default StyleSheet.create({
       fontSize: 30,
       color: '#596e9c',
       fontWeight: 'bold',
-      marginTop: 50
   },
   versionContainer: {
     alignItems:'flex-end',
@@ -47,4 +45,7 @@ export default StyleSheet.create({
   	color: '#02535c',
   	fontSize: 10
   },
+  espassamento: {
+    height: 60
+  }
 });

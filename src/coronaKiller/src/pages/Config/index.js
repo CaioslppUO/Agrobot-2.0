@@ -34,7 +34,7 @@ export default class Config extends Component {
             <>
                 {/*View principal*/}
                 <View style={styles.mainContainer}>
-
+                    <View style={styles.espassamento}/>
                     <Text style={styles.comunication}>Comunicação</Text>
                     {/*View dos campos de preenchimento de comunicação*/}
                     <View style={styles.textInputContainer}>
