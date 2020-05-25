@@ -113,8 +113,8 @@ export default class Automatic extends Component {
                 global.steer_auto = this.state.steerDefault_auto
                 global.speed_auto = this.state.speedDefault_auto
                 global.correction_factor = this.state.shiftDirection_auto
-                global.move_time_auto = parseFloat(this.state.move_time_auto) * 1000
-                global.stop_time_auto = parseFloat(this.state.stop_time_auto) * 1000
+                global.move_time_auto = this.state.move_time_auto
+                global.stop_time_auto = this.state.stop_time_auto
                 global.detect_distance = this.state.detect_distance
                 this.props.navigation.navigate('Main')
               }}
