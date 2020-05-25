@@ -36,10 +36,13 @@ def selectPoints(vet,range,centralPoint):
 
 ##Le o fator de distancia de colisão que vem do app
 def callBackParamServer(data):
-  global collisionDistance
-  dadosNo = str(data.data).split('$')
-  collisionDistance = float(dadosNo[6])
-
+    global collisionDistance
+    if(str(data.data) != ''):
+        vet = str(data.data).split('*')
+        for variable in vet :
+            newVariable = variable.split('$')
+            if(newVariable[0] == 'detect'):
+                collisionDistance = float(newVariable[1])
 
 ##callback da chamada do topico do scan
 #faz as devidas chamadas de funções e publica os resultadoss no topico Lidar
