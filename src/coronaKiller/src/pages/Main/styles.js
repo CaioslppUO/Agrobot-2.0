@@ -31,7 +31,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    padding: 5
   },
   containerButtons: {
     height: 120
