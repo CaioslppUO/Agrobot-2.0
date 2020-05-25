@@ -53,15 +53,30 @@ export default class Main extends Component {
 
     //Envia a mensagem de controle manual para o webServerManual
     function sendToWebServerManual(speed, steer, limit, power, uv) {
-      new WebSocket('http://' + global.serverIp + ':' + global.port_manual + '/' + 0 + '*'
-        + 'speed$' + speed + '*steer$' + steer + '*limit$' + limit + '*powerA$' + power + '*powerB$' + 0
-        + '*pulverize$' + global.uv)
+      command = 'http://' + global.serverIp + ':' + global.port_manual + '/'
+      + 0 + '*'
+      + 'speed$' + speed + '*'
+      + 'steer$' + steer + '*'
+      + 'limit$' + limit + '*'
+      + 'powerA$' + power + '*'
+      + 'powerB$' + 0 + '*'
+      + 'pulverize$' + global.uv
+      new WebSocket(command)
     }
 
     //Envia a mensagem de controle automático para o webserver de parâmetros
     function sendToParamServer(limit, tickDefault, steerDefault, speedDefault, shiftDirection, move_time_auto, stop_time_auto) {
-      new WebSocket('http://' + global.serverIp_auto + ':' + global.port_auto + '/' + limit + "$" + tickDefault + "$" + steerDefault + "$" +
-        speedDefault + "$" + shiftDirection + "$" + global.uv + "$" + global.detect_distance + "$" + move_time_auto + "$" + stop_time_auto)
+      command = 'http://' + global.serverIp_auto + ':' + global.port_auto + '/'
+      + 'limit$' + limit + '*'
+      + 'tick$' + tickDefault + '*'
+      + 'steer$' + steerDefault + '*'
+      + 'speed$' + speedDefault + '*'
+      + 'shift$' + shiftDirection + '*'
+      + 'uv$' + global.uv + '*'
+      + 'detect$' + global.detect_distance + '*'
+      + 'move$' + move_time_auto + '*'
+      + 'stop$' + stop_time_auto
+      new WebSocket(command)
     }
 
     //Envia o sinal para o relé ligar ou desligar
@@ -154,6 +169,7 @@ export default class Main extends Component {
                   if (this.state.autoMode != 0) {
                     this.setState({ buttonAuto: buttonAutoOff })
                     this.setState({ autoMode: 0 })
+                    sendToParamServer(0, 0, 0, 0, 0, 0, 0)
                   }
                 }}
               />
