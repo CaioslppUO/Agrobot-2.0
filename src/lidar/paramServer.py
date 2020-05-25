@@ -51,6 +51,7 @@ class ParamServer():
 ##Loop Principal  
 if __name__ == '__main__':
     try:
+        rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$paramServer")
         paramServer = ParamServer()
         while not rospy.is_shutdown():
             rospy.spin()

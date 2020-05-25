@@ -69,5 +69,6 @@ def getClosestObject(Vet):
 ##Declara um novo nó
 rospy.init_node('lidar_values', anonymous=True)
 pubProcessedData = rospy.Publisher("Lidar", String,queue_size=10)
+rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$lidarReader")
 sub = rospy.Subscriber('/scan', LaserScan, callback)
 rospy.spin()

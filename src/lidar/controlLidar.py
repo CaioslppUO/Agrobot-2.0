@@ -152,4 +152,5 @@ dataDefault['speedDefault'] = 0
 dataDefault['shiftDirection'] = 0
 dataDefault['uv'] = 0
 rospy.Subscriber('/ParamServer',String,setVariables)
+rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$controlLidar")
 main()

@@ -32,6 +32,7 @@ rospy.init_node('Walk', anonymous=True)
 pubControlCommand = rospy.Publisher("Walk", String,queue_size=10)
 walkTime = 0
 stopTime = 0
+rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$walkAndStop")
 try:
   main()
 except KeyboardInterrupt:
