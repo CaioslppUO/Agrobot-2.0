@@ -123,7 +123,7 @@ def callback(data):
             rightArea = pointDirection[2]
 
             checkFoward()
-            commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(uv))
+            commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(uv)
             pubControlCommand.publish(commandToPublish)
         else:
             commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
