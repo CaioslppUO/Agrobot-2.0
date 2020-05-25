@@ -5,9 +5,9 @@ export default StyleSheet.create({
     alignItems:'flex-end'
   },
   joystickView: {
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    height: 260
+    height: '45%'
   },
   area: {
     marginTop: 7,
@@ -33,12 +33,21 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
   },
   containerButtons: {
-    height: 120
+    height: 150,
+    justifyContent: 'space-around'
   },
   ButtonText: {
     fontSize: 15,
     textAlign: 'center',
     color: '#c90000'
+  },
+  buttonAction: {
+    borderRadius: 200, 
+    height: 70, 
+    borderWidth: 1, 
+    width: 70, 
+    alignItems: 'center', 
+    justifyContent: 'center' 
   },
   sliderContainer: {
     height: 70,
