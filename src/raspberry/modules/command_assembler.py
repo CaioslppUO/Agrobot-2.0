@@ -59,7 +59,7 @@ class Control_mode():
 if __name__ == '__main__':
     try:
         control = Control_mode()
-        const_pub_log.publish('startedFile$CommandAssembler')
+        const_pub_log.publish('startedFile$command_assembler')
         control.listen_commands()
     except:
         const_pub_log.publish("error$Fatal$Could not run command_assembler.py.")

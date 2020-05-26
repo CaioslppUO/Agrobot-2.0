@@ -5,25 +5,6 @@ Módulo que gerencia a padronização dos comandos recebidos.
 """
 
 # ------------- #
-# -> Imports <- #
-# ------------- #
-
-import rospy
-from std_msgs.msg import String
-
-# ---------------- #
-# -> Constantes <- #
-# ---------------- #
-
-const_pub_log = rospy.Publisher("log", String, queue_size=10)
-
-# ------------------- #
-# -> Configurações <- #
-# ------------------- #
-
-rospy.init_node("command_standardizer", anonymous=True)
-
-# ------------- #
 # -> Classes <- #
 # ------------- #
 
@@ -91,7 +72,7 @@ class Command_standardizer():
                 elif(parameter == "pulverize"):
                     pulverizer = value
             except:
-                const_pub_log.publish("error$Warning$Error while trying to split the msg from command priority decider.")
+                pass
             index = index + 1
         try:
             return speed,steer,limit,power_a,power_b,pulverizer
