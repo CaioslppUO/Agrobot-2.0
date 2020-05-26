@@ -27,4 +27,4 @@ global.stop_time_auto = 0;
 global.detect_distance = 1.5;
 
 //Variáveis de informação
-global.version = "0.3.8";
+global.version = "0.3.9";

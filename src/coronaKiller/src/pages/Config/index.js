@@ -14,7 +14,11 @@ export default class Config extends Component {
     serverIp: global.serverIp,
     port: global.port_manual,
     minPSpeed: global.minPulverizeSpeed,
-    delay: global.comunication_delay
+    delay: global.comunication_delay,
+    serverIp_temp: global.serverIp,
+    port_temp: global.port_manual,
+    minPSpeed_temp: global.minPulverizeSpeed,
+    delay_temp: global.comunication_delay
   };
 
   //Opções do controlador de navegação de páginas
@@ -50,7 +54,10 @@ export default class Config extends Component {
               style={styles.textDefault}
               placeholder={"IP do robô: " + this.state.serverIp}
               onEndEditing={text => {
-                this.setState({ serverIp: text.nativeEvent.text });
+               this.setState({ serverIp: text.nativeEvent.text });
+              }}
+              onChangeText={text => {
+                this.setState({ serverIp_temp: text });
               }}
             />
 
@@ -60,6 +67,9 @@ export default class Config extends Component {
               onEndEditing={text => {
                 this.setState({ port: text.nativeEvent.text });
               }}
+              onChangeText={text => {
+                this.setState({ port_temp: text });
+              }}
             />
 
             <TextInput
@@ -68,33 +78,18 @@ export default class Config extends Component {
               onEndEditing={text => {
                 this.setState({ delay: text.nativeEvent.text });
               }}
+              onChangeText={text => {
+                this.setState({ delay_temp: text });
+              }}
             />
           </View>
           {/*View do botão de salvar*/}
           <View style={styles.saveContainer}>
             <TouchableOpacity
               onPress={() => {
-                let lastIp = global.serverIp;
-                let lastMPS = global.minPulverizeSpeed;
-                let lastDelay = global.comunication_delay;
-                global.minPulverizeSpeed = this.state.minPSpeed;
-                global.serverIp = this.state.serverIp;
-                global.port_manual = this.state.port;
-                global.comunication_delay = parseFloat(this.state.delay);
-
-                if (global.serverIp.split(".").length != 4) {
-                  alert("Invalid IP");
-                  global.serverIp = lastIp;
-                }
-
-                if (
-                  global.minPulverizeSpeed < 0 ||
-                  global.minPulverizeSpeed > 100
-                ) {
-                  alert("Invalid Min Pulverize speed");
-                  global.minPulverizeSpeed = lastMPS;
-                }
-
+                global.serverIp = this.state.serverIp_temp;
+                global.port_manual = this.state.port_temp;
+                global.comunication_delay = parseFloat(this.state.delay_temp);
                 this.props.navigation.navigate("Main");
               }}
             >
