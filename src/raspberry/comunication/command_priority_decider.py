@@ -10,7 +10,7 @@ Módulo que gerencia qual comando terá prioridade de execução e o envia para 
 
 import rospy
 from std_msgs.msg import String
-from commandStandardizer import CommandStandardizer
+from command_standardizer import CommandStandardizer
 
 ################################
 #----> Definições Globais <----#

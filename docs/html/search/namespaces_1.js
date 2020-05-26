@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['launchervariables_134',['launcherVariables',['../namespacelauncherVariables.html',1,'']]]
+  ['launchervariables_145',['launcherVariables',['../namespacelauncherVariables.html',1,'']]],
+  ['logs_146',['logs',['../namespacelogs.html',1,'']]]
 ];

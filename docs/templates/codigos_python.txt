@@ -1,0 +1,73 @@
+-> Nomeclaturas:
+
+    * nomeclatura de variáveis: nome_da_variavel
+    * nomeclatura de classes: Nome_da_classe
+    * nomeclatura de funções: nome_da_funcao
+    * nomeclatura de métodos: nome_do_metodo
+    * nomeclatura de constantes: const_nome_da_constante
+    * nomeclatura de topicos ros: nome_do_topico
+    * nomeclatura de arquivos: nome_do_arquivo.py
+
+-> Comentários:
+
+    * ##: Comentário que vai para a documentação externa ao código.
+    * #: Documentação interna do código.
+    * ## : Comentário de múltiplas linhas para documentação externa.
+      # ... \n
+      #
+    * # : Comentário de múltiplas linhas para documentação interna. 
+      #
+      #
+
+-> Regras gerais:
+
+    * Somente utilizar variáveis globais para constantes.
+    * Caso o arquivo não contenha alguma das estruturas definidas abaixo, não colocar os Comentários
+      que indicam a estrutura. Ex: # -> Imports <- #
+
+-> Formatação do arquivo:
+
+    #!/usr/bin/env python3
+
+    """
+    Descrição do que faz o arquivo.
+    """
+
+    # ------------- #
+    # -> Imports <- #
+    # ------------- #
+
+    import x,y,z,w,k,a,b,c,d ...
+    from blabla import blablala
+    from blablabla, import bla
+
+    # ---------------- #
+    # -> Constantes <- #
+    # ---------------- #
+
+    const_bla = bla
+
+    # ------------------- #
+    # -> Configurações <- #
+    # ------------------- #
+
+    bla.setWarnings(True)
+
+    # ------------- #
+    # -> Funções <- #
+    # ------------- #
+
+    def func(): ...
+
+    # ------------- #
+    # -> Classes <- #
+    # ------------- #
+
+    class Bla(): ...
+
+    # ------------------------ #
+    # -> Execução de código <- #
+    # ------------------------ #
+
+    bla = Bla()
+    bla.blablabla()
