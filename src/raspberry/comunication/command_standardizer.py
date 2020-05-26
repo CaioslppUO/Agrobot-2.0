@@ -7,7 +7,7 @@ Módulo que gerencia a padronização dos comandos recebidos.
 #########################################
 
 ## Classe que gerência a padronização dos comandos recebidos
-class CommandStandardizer():        
+class Command_standardizer():        
     ## Método que checa se o valor da variável speed está dentro dos limites aceitáveis.
     # Caso não esteja, corrige o valor e o retorna. \n
     # Caso esteja, somente retorna o valor recebido.
@@ -81,7 +81,7 @@ class CommandStandardizer():
     ## Método que trata o comando recebido, separando e verificando todas as variáveis.
     # Retorna None caso algum erro ocorra. \n
     # Retorna um vetor com as variáveis separadas pelo símbolo $. Já corrigidas e verificadas.
-    def webServerMsgHandler(self,msg):
+    def msg_handler(self,msg):
         if(msg != None):
             speed,steer,limit,powerA,powerB,pulver = self.webServerMsgSpliter(msg) 
             speed,steer,limit,powerA,powerB,pulver = self.webServerMsgCheck(speed,steer,limit,powerA,powerB,pulver)  
