@@ -4,81 +4,69 @@
 Módulo que gerencia a comunicação com o app de celular de controle manual.
 """
 
-#####################
-#----> Imports <----#
-#####################
+# ------------- #
+# -> Imports <- #
+# ------------- #
 
-import rospy
-import sys
-
+import rospy,sys
 from std_msgs.msg import String
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
 
-###############################
-#----> Variáveis Globais <----#
-###############################
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
 
-msg = None
-pubWebServer = rospy.Publisher('WebServerManual', String, queue_size=10)
-pubLog = rospy.Publisher('Log', String, queue_size=10)
-rospy.init_node('WebServerManual', anonymous=True)
+const_pub_web_server = rospy.Publisher('web_server_manual', String, queue_size=10)
+const_pub_log = rospy.Publisher('log', String, queue_size=10)
 
-####################################
-#----> Classe Request Handler <----#
-####################################
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
+
+rospy.init_node('web_server_manual', anonymous=True)
+
+# ------------- #
+# -> Classes <- #
+# ------------- #
 
 ## Classe que gerencia os requests feito no servidor http.
 class RequestHandler_httpd(BaseHTTPRequestHandler):
     ## Método que trata o GET feito pelo app de controle manual.
     def do_GET(self):
-        newClientConnectionAttenpts = 0
-        clientAdress = None
-        webServerRequest = None
-        global msg,pubWebServer
-        webServerRequest = self.requestline
-        if(clientAdress == None or newClientConnectionAttenpts >= 15):
-            clientAdress = self.client_address[0]
-        if(clientAdress == self.client_address[0]):
-            newClientConnectionAttenpts = 0
-            webServerRequest = webServerRequest[5 : int(len(webServerRequest)-9)]
-            msg = str(webServerRequest) #Raw message recieved from smartphone app
-            pubWebServer.publish(str(msg))
-            msg = None
-            return
-        else:
-            newClientConnectionAttenpts = newClientConnectionAttenpts + 1
-
-##############################
-#----> Classe Web Server <----#
-##############################
+        web_server_request = None
+        msg = None
+        web_server_request = self.requestline
+        web_server_request = web_server_request[5 : int(len(web_server_request)-9)]
+        msg = str(web_server_request) #Mensagem crua recebida do app
+        const_pub_web_server.publish(str(msg))
+        return
 
 ## Classe que gerencia o servidor http
-class WebServer():
+class Web_server():
     ## Método que inicializa as variáveis e o servidor
     def __init__(self):
         try:
             ## Ip no qual será aberto o servidor.
-            self.serverIp = sys.argv[1]
-            self.server_address_httpd = (self.serverIp,8080)
+            self.server_ip = sys.argv[1]
+            self.server_address_httpd = (self.server_ip,8080)
             httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
-            self.serverThread = Thread(target=httpd.serve_forever)
-            self.serverThread.daemon = True #O servidor é fechado ao fechar o programa
-            self.serverThread.start()
+            self.server_thread = Thread(target=httpd.serve_forever)
+            self.server_thread.daemon = True #O servidor é fechado ao fechar o programa
+            self.server_thread.start()
         except:
-            pubLog.publish("error$Fatal$WebServer could not run.")
+            const_pub_log.publish("error$Fatal$Web_server.py could not run.")
             pass
 
-############################
-#----> Loop Principal <----#
-############################
+# ------------------------ #
+# -> Execução de código <- #
+# ------------------------ #
   
 if __name__ == '__main__':
     try:
-        webServer = WebServer()
-        pubLog.publish('startedFile$WebServer')
+        web_server = Web_server()
+        const_pub_log.publish('startedFile$web_server.py')
         while not rospy.is_shutdown():
             rospy.spin()
     except rospy.ROSInterruptException:
-        pubLog.publish("error$Fatal$WebServer stoped working.")
-        pass
+        const_pub_log.publish("error$Fatal$web_server stoped working.")

@@ -113,7 +113,7 @@ class Comunication():
 
 try:
     comunication = Comunication()
-    const_pub_log.publish('startedFile$CommandPriorityDecider')
+    const_pub_log.publish('startedFile$command_priority_decider.py')
     comunication.listen_commands()
 except:
     const_pub_log.publish("error$Fatal$CommandPriorityDecider could not run.")
