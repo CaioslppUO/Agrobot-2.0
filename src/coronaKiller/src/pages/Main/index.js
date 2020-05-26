@@ -262,7 +262,7 @@ export default class Main extends Component {
                 style={styles.buttonAction}
                 onPress={() => {
                   this.setState({
-                    buttonUv: this.state.buttonUv == "#000" ? "#ffaa00" : "#000"
+                    buttonUv: this.state.buttonUv == "#000" ? "#993399" : "#000"
                   });
                   uvButtonPressed();
                 }}
