@@ -1,54 +1,48 @@
-import sys,tty,termios,rospy
-from std_msgs.msg import String
+#!/usr/bin/env python3
 
 """
 Módulo que permite o controle do robô por meio do terminal.
 È necessário rodar esse programa em um terminal no qual o roscore esteja definido/rodando.
 """
 
-pubLog = rospy.Publisher('Log', String, queue_size=10)
-rospy.init_node('PcManual', anonymous=True)
-pubPc = rospy.Publisher('PcManual', String, queue_size=10)
+# ------------- #
+# -> Imports <- #
+# ------------- #
 
-## Variável que controla a velocidade.
-speed = 0
-## Variável que controla a direção.
-steer = 0
-## Variável que controla o limite.
-limit = 50
-## Variável que controla a placa A do hover board.
-pa = 0
-## Variável que controla a placa B do hover board.
-pb = 0
-## Variável que controla o pulverizador/uv.
-pc = 0
+import sys,tty,termios,rospy
+from std_msgs.msg import String
 
-## Classe que gerencia a captura de teclas pelo terminal.
-class _Getch:
-        ## Método que captura as teclas apertadas no terminal.
-    def __call__(self):
-            fd = sys.stdin.fileno()
-            old_settings = termios.tcgetattr(fd)
-            try:
-                tty.setraw(sys.stdin.fileno())
-                ch = sys.stdin.read(3)
-            finally:
-                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-            return ch
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
+
+const_pub_log = rospy.Publisher('log', String, queue_size=10)
+const_pub_pc = rospy.Publisher('pc_manual', String, queue_size=10)
+
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
+
+rospy.init_node('pc_manual', anonymous=True)
+
+# ------------- #
+# -> Funções <- #
+# ------------- #
 
 ## Função que envia os comandos para o robô.
-def sendCommand():
-        global speed,steer,limit,pa,pb,pc
+def send_command(speed,steer,limit,pa,pb,pc):
         command = "0*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(limit) + "*powerA$" + str(pa) + "*powerB$" + str(pb) + "*pulverize$" + str(pc)
-        pubPc.publish(command)
+        const_pub_pc.publish(command)
 
 ## Função que recebe e processa os comandos enviados pelo terminal.
 def get():
-        global speed,steer,limit,pa,pb,pc
+        inkey = _Getch()
+        speed = 0
+        steer = 0
+        limit = 0
         pa = 0
         pb = 0
         pc = 0
-        inkey = _Getch()
         while(1):
                 k=inkey()
                 if k!='':break
@@ -84,9 +78,10 @@ def get():
                 speed = 0
                 steer = 0
                 limit = 0
-                sendCommand()
+                send_command(speed,steer,limit,pa,pb,pc)
                 exit(0)
-        sendCommand()
+        send_command(speed,steer,limit,pa,pb,pc)
+        return speed,steer,limit
 
 ## Função que imprime as instruções na tela e roda o código.
 def main():
@@ -100,11 +95,36 @@ def main():
     print("Setas cima e baixo: Controlam o velocidade")
     print("Setas esq e dir: Controlam o velocidade")
     while(1):
+        speed,steer,limit = get()
         print("speed: " + str(speed))
         print("steer: " + str(steer))
         print("limit: " + str(limit))
-        get()
+
+
+# ------------- #
+# -> Classes <- #
+# ------------- #
+
+## Classe que gerencia a captura de teclas pelo terminal.
+class _Getch:
+        ## Método que captura as teclas apertadas no terminal.
+    def __call__(self):
+            fd = sys.stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            try:
+                tty.setraw(sys.stdin.fileno())
+                ch = sys.stdin.read(3)
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            return ch
+
+# ------------------------- #
+# -> Execução de códigos <- #
+# ------------------------- #
 
 if __name__=='__main__':
-        pubLog.publish('startedFile$ManualControl')
-        main()
+        try:
+            const_pub_log.publish('startedFile$ManualControl')
+            main()
+        except:
+            const_pub_log.publish("error$Fatal$Could not start manual_control.py.")
