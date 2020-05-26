@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/caioslpp/git/Agrobot-2.0/src/AppControl/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
+            "outputFile": "/home/lucas/git/Agrobot-2.0/src/AppControl/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "/home/caioslpp/.gradle/caches/transforms-2/files-2.1/7bea4d2f03d7619509d4d6588aa7e389/res/values-v23/values-v23.xml",
+                    "source": "/home/lucas/.gradle/caches/transforms-2/files-2.1/099a162487b572f7c3ffaa750585cc05/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,19,32,33,34,35,36",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4",
