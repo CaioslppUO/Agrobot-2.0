@@ -53,6 +53,20 @@
 
     bla.setWarnings(True)
 
+    # -------------------------- #
+    # -> Imports Condicionais <- #
+    # -------------------------- #
+
+    try:
+        import bla
+    except:
+        blaa
+
+    try:
+        from blabla import bla
+    except:
+        blaa
+
     # ------------- #
     # -> Funções <- #
     # ------------- #
