@@ -40,7 +40,10 @@ export default class Config extends Component {
         {/*View principal*/}
         <View style={styles.mainContainer}>
           <View style={styles.espassamento} />
-          <Text style={styles.comunication}>Comunicação</Text>
+          <View style={styles.containerCommunication}>
+            <Text style={styles.comunication}>Comunicação</Text>
+          </View>
+
           {/*View dos campos de preenchimento de comunicação*/}
           <View style={styles.textInputContainer}>
             <TextInput
@@ -66,37 +69,37 @@ export default class Config extends Component {
                 this.setState({ delay: text.nativeEvent.text });
               }}
             />
-            {/*View do botão de salvar*/}
-            <View style={styles.saveContainer}>
-              <TouchableOpacity
-                onPress={() => {
-                  let lastIp = global.serverIp;
-                  let lastMPS = global.minPulverizeSpeed;
-                  let lastDelay = global.comunication_delay;
-                  global.minPulverizeSpeed = this.state.minPSpeed;
-                  global.serverIp = this.state.serverIp;
-                  global.port_manual = this.state.port;
-                  global.comunication_delay = parseFloat(this.state.delay);
+          </View>
+          {/*View do botão de salvar*/}
+          <View style={styles.saveContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                let lastIp = global.serverIp;
+                let lastMPS = global.minPulverizeSpeed;
+                let lastDelay = global.comunication_delay;
+                global.minPulverizeSpeed = this.state.minPSpeed;
+                global.serverIp = this.state.serverIp;
+                global.port_manual = this.state.port;
+                global.comunication_delay = parseFloat(this.state.delay);
 
-                  if (global.serverIp.split(".").length != 4) {
-                    alert("Invalid IP");
-                    global.serverIp = lastIp;
-                  }
+                if (global.serverIp.split(".").length != 4) {
+                  alert("Invalid IP");
+                  global.serverIp = lastIp;
+                }
 
-                  if (
-                    global.minPulverizeSpeed < 0 ||
-                    global.minPulverizeSpeed > 100
-                  ) {
-                    alert("Invalid Min Pulverize speed");
-                    global.minPulverizeSpeed = lastMPS;
-                  }
+                if (
+                  global.minPulverizeSpeed < 0 ||
+                  global.minPulverizeSpeed > 100
+                ) {
+                  alert("Invalid Min Pulverize speed");
+                  global.minPulverizeSpeed = lastMPS;
+                }
 
-                  this.props.navigation.navigate("Main");
-                }}
-              >
-                <Text style={styles.saveText}>Salvar</Text>
-              </TouchableOpacity>
-            </View>
+                this.props.navigation.navigate("Main");
+              }}
+            >
+              <Text style={styles.saveText}>Salvar</Text>
+            </TouchableOpacity>
           </View>
 
           {/*View da versão*/}

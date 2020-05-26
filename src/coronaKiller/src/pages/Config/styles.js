@@ -3,13 +3,13 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   mainContainer: {
     backgroundColor: "#ffffff",
+    flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "space-around"
+    justifyContent: "space-between"
   },
   textInputContainer: {
     flexDirection: "column",
-    height: 550,
     alignItems: "center"
   },
   textDefault: {
@@ -21,10 +21,10 @@ export default StyleSheet.create({
     width: 310
   },
   saveContainer: {
-    marginTop: 150,
     height: 90,
     width: 150
   },
+  containerCommunication: {},
   saveText: {
     fontSize: 35,
     borderWidth: 1,
@@ -44,8 +44,5 @@ export default StyleSheet.create({
   versionText: {
     color: "#02535c",
     fontSize: 10
-  },
-  espassamento: {
-    height: 60
   }
 });
