@@ -1,17 +1,38 @@
+#!/usr/bin/env python3
+
 """
 Módulo que gerencia a padronização dos comandos recebidos.
 """
 
-#########################################
-#----> Classe Command Standardizer <----#
-#########################################
+# ------------- #
+# -> Imports <- #
+# ------------- #
 
-## Classe que gerência a padronização dos comandos recebidos
+import rospy
+from std_msgs.msg import String
+
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
+
+const_pub_log = rospy.Publisher("log", String, queue_size=10)
+
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
+
+rospy.init_node("command_standardizer", anonymous=True)
+
+# ------------- #
+# -> Classes <- #
+# ------------- #
+
+## Classe que gerência a padronização dos comandos recebidos.
 class Command_standardizer():        
     ## Método que checa se o valor da variável speed está dentro dos limites aceitáveis.
     # Caso não esteja, corrige o valor e o retorna. \n
     # Caso esteja, somente retorna o valor recebido.
-    def checkSpeed(self,speed):
+    def check_speed(self,speed):
         if(speed < -100):
             return -100
         if(speed > 100):
@@ -21,7 +42,7 @@ class Command_standardizer():
     ## Método que checa se o valor da variável steer está dentro dos limites aceitáveis.
     # Caso não esteja, corrige o valor e o retorna. \n
     # Caso esteja, somente retorna o valor recebido.
-    def checkSteer(self,steer):
+    def check_steer(self,steer):
         if(steer < -100):
             return -100
         if(steer > 100):
@@ -31,7 +52,7 @@ class Command_standardizer():
     ## Método que checa se o valor da variável limit está dentro dos limites aceitáveis.
     # Caso não esteja, corrige o valor e o retorna. \n
     # Caso esteja, somente retorna o valor recebido.
-    def checkLimit(self,limit):
+    def check_limit(self,limit):
         if(limit < 0):
             return 0
         if(limit > 100):
@@ -41,23 +62,22 @@ class Command_standardizer():
     ## Método que checa se o valor da signal speed está dentro dos limites aceitáveis.
     # Caso não esteja, corrige o valor e o retorna. \n
     # Caso esteja, somente retorna o valor recebido.
-    def checkRelays(self,signal):
+    def check_relays(self,signal):
         if(signal != 0 and signal != 1):
             return 0
         return signal
 
     ## Método que executa todas as verificações das variáveis de controle do robô e retorna o resultado.
-    def webServerMsgCheck(self,speed,steer,limit,powerA,powerB,pulverizer):
-        return self.checkSpeed(speed),self.checkSteer(steer),self.checkLimit(limit),self.checkRelays(powerA),self.checkRelays(powerB),self.checkRelays(pulverizer)
+    def msg_check(self,speed,steer,limit,power_a,power_b,pulverizer):
+        return self.check_speed(speed),self.check_steer(steer),self.check_limit(limit),self.check_relays(power_a),self.check_relays(power_b),self.check_relays(pulverizer)
 
     ## Método que recebe o comando em um vetor e separa as variáveis que serão checadas.
-    def webServerMsgSpliter(self,msg):
+    def msg_spliter(self,msg):
         index = 1
         while index < len(msg):
             try:
                 parameter = msg[index].split("$")[0]
                 value = int(msg[index].split("$")[1])
-
                 if(parameter == "speed"):
                     speed = value
                 elif(parameter == "steer"):
@@ -65,16 +85,16 @@ class Command_standardizer():
                 elif(parameter == "limit"):
                     limit = value
                 elif(parameter == "powerA"):
-                    powerA = value
+                    power_a = value
                 elif(parameter == "powerB"):
-                    powerB = value
+                    power_b = value
                 elif(parameter == "pulverize"):
                     pulverizer = value
             except:
-                pass
+                const_pub_log.publish("error$Warning$Error while trying to split the msg from command priority decider.")
             index = index + 1
         try:
-            return speed,steer,limit,powerA,powerB,pulverizer
+            return speed,steer,limit,power_a,power_b,pulverizer
         except:
             return 0,0,0,0,0,0
 
@@ -83,8 +103,8 @@ class Command_standardizer():
     # Retorna um vetor com as variáveis separadas pelo símbolo $. Já corrigidas e verificadas.
     def msg_handler(self,msg):
         if(msg != None):
-            speed,steer,limit,powerA,powerB,pulver = self.webServerMsgSpliter(msg) 
-            speed,steer,limit,powerA,powerB,pulver = self.webServerMsgCheck(speed,steer,limit,powerA,powerB,pulver)  
-            return str(speed) + "$" + str(steer) + "$" + str(limit) + "$" + str(powerA) + "$" + str(powerB) + "$" + str(pulver)
+            speed,steer,limit,power_a,power_b,pulver = self.msg_spliter(msg) 
+            speed,steer,limit,power_a,power_b,pulver = self.msg_check(speed,steer,limit,power_a,power_b,pulver)  
+            return str(speed) + "$" + str(steer) + "$" + str(limit) + "$" + str(power_a) + "$" + str(power_b) + "$" + str(pulver)
         else:
             return "None"

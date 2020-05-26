@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """ 
 Programa que gerencia as variáveis de inicialização do sistema.
