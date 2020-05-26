@@ -229,7 +229,7 @@ export default class Main extends Component {
                     global.comunication_interval + 1;
                 }
                 if (this.state.autoMode != 0) {
-                  this.setState({ buttonAuto: buttonAutoOff });
+                  this.setState({ buttonAuto: '#000' });
                   this.setState({ autoMode: 0 });
                   sendToParamServer(0, 0, 0, 0, 0, 0, 0);
                 }
