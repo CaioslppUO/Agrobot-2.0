@@ -4,43 +4,39 @@
 Módulo que gerencia a comunicação com os arduinos, enviando os comandos que serão enviados para o hover board.
 """
 
-#####################
-#----> Imports <----#
-#####################
+# ------------- #
+# -> Imports <- #
+# ------------- #
 
-import time
-import serial
-import sys
-import rospy
-
+import time,serial,sys,rospy
 from std_msgs.msg import String
 
-################################
-#----> Definições Globais <----#
-################################
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
 
-pubLog = rospy.Publisher('Log', String, queue_size=10)
-rospy.init_node('ControlRobot', anonymous=True) 
+const_pub_log = rospy.Publisher('log', String, queue_size=10)
+## Constante utilizada para acessar o conversor TTL 0
+const_uart_0 = None
+## Constante utilizada para acessar o conversor TTL 1
+const_uart_1 = None
 
-###############################
-#----> Variáveis Globais <----#
-###############################
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
 
-## Variável utilizada para acessar o conversor TTL 0
-uart0 = None
-## Variável utilizada para acessar o conversor TTL 1
-uart1 = None
+rospy.init_node('control_robot', anonymous=True) 
 
-#####################
-#----> Funções <----#
-#####################
+# ------------- #
+# -> Funções <- #
+# ------------- #
 
-## Função que define e instancia a comunicação com os conversores TTL baseado na variável uartAmount.
-def setUart(uartAmount):
-    global uart0,uart1
-    if(uartAmount == 1):
+## Função que define e instancia a comunicação com os conversores TTL baseado na variável uart_amount.
+def set_uart(uart_amount):
+    global const_uart_0,const_uart_1
+    if(uart_amount == 1):
         try:
-            uart0 = serial.Serial(
+            const_uart_0 = serial.Serial(
                 port='/dev/ttyUSB_CONVERSOR-0',
                 baudrate = 9600,
                 parity=serial.PARITY_NONE,
@@ -50,7 +46,7 @@ def setUart(uartAmount):
             )
         except:
             try:
-                uart0 = serial.Serial(
+                const_uart_0 = serial.Serial(
                     port='/dev/ttyUSB_CONVERSOR-1',
                     baudrate = 9600,
                     parity=serial.PARITY_NONE,
@@ -59,10 +55,10 @@ def setUart(uartAmount):
                     timeout=1
                 )
             except:
-                pubLog.publish("error$Warning$Error trying to set 1 Uart")
-    elif(uartAmount == 2):
+                const_pub_log.publish("error$Warning$Error trying to set 1 Uart.")
+    elif(uart_amount == 2):
         try:
-            uart0 = serial.Serial(
+            const_uart_0 = serial.Serial(
                 port='/dev/ttyUSB_CONVERSOR-0',
                 baudrate = 9600,
                 parity=serial.PARITY_NONE,
@@ -71,7 +67,7 @@ def setUart(uartAmount):
                 timeout=1
             )
 
-            uart1 = serial.Serial(
+            const_uart_1 = serial.Serial(
                 port='/dev/ttyUSB_CONVERSOR-1',
                 baudrate = 9600,
                 parity=serial.PARITY_NONE,
@@ -80,15 +76,14 @@ def setUart(uartAmount):
                 timeout=1
             )
         except:
-            pubLog.publish("error$Warning$Error trying to set 2 Uarts")
-            pass
+            const_pub_log.publish("error$Warning$Error trying to set 2 Uarts.")
 
-##################################
-#----> Classe Control Robot <----#
-##################################
+# ------------- #
+# -> Classes <- #
+# ------------- #
 
 ## Classe que gerência a comunicação com os arduinos.
-class ControlRobot():
+class Control_robot():
     def __init__(self):
         ## Variável utilizada para enviar a velocidade. O primeiro valor é o sinal do número: 0 Negativo e 1 Positivo.
         self.speed = "0000"
@@ -98,17 +93,17 @@ class ControlRobot():
         self.limit = "0000"
 
         try:
-            self.uartAmount = sys.argv[1]
+            self.uart_amount = sys.argv[1]
         except:
-            self.uartAmount = 0
+            self.uart_amount = 0
         try:
-            setUart(int(self.uartAmount))
+            set_uart(int(self.uart_amount))
         except:
-            pass
+            const_pub_log.publish("error$Warning$Could not set UART(s).")
 
     ## Método que transforma um valor inteiro para o padrão utilizado para enviar comandos ao arduino.
     # Padrão: SINAL_NÙMERO: o Sinal ocupa 1 posição, o número ocupa 3 posições.
-    def getValue(self, v):
+    def get_stand_value(self, v):
         if(v >= 0):
             r = '1'
         else:
@@ -121,19 +116,17 @@ class ControlRobot():
         return r
 
     ## Método que seta os valores das variáveis recebidas.
-    def setValues(self,speed,steer,limit):
-        self.speed = self.getValue(speed)
-        self.steer = self.getValue(steer)
-        self.limit = self.getValue(limit)
+    def set_values(self,speed,steer,limit):
+        self.speed = self.get_stand_value(speed)
+        self.steer = self.get_stand_value(steer)
+        self.limit = self.get_stand_value(limit)
 
     ## Método que responde ao recebimento de comandos que serão enviados aos arduinos.
     # Envia os comandos para os arduinos. \n
-    def callbackSetValues(self,data):
-        global uart0,uart1
-        cbAux = str(data.data).split("$")
-
+    def callback_set_values(self,msg):
+        info = str(msg.data).split("$")
         try:
-            self.setValues(int(cbAux[0]),int(cbAux[1]),int(cbAux[2]))
+            self.set_values(int(info[0]),int(info[1]),int(info[2]))
         except:
             self.speed = 0
             self.steer = 0
@@ -147,26 +140,29 @@ class ControlRobot():
         text += ';'
 
         try:
-            if(int(self.uartAmount) == 1):  
-                uart0.write(str.encode(text))
-            elif(int(self.uartAmount) == 2):
-                uart0.write(str.encode(text))
-                uart1.write(str.encode(text))
+            if(int(self.uart_amount) == 1):  
+                const_uart_0.write(str.encode(text))
+            elif(int(self.uart_amount) == 2):
+                const_uart_0.write(str.encode(text))
+                const_uart_1.write(str.encode(text))
             else:
                 time.sleep(0.02)
         except:
-            pubLog.publish("error$Fatal$UART error")
+            const_pub_log.publish("error$Fatal$UART error.")
 
-    ## Método que escuta do tópico ControlRobot para tratar os comandos recebidos.
-    def listenValues(self):
-        rospy.Subscriber("ControlRobot", String, self.callbackSetValues)  
+    ## Método que escuta do tópico Control_robot para tratar os comandos recebidos.
+    def listen_values(self):
+        rospy.Subscriber("control_robot", String, self.callback_set_values)  
 
-#######################
-#----> Main Loop <----#
-#######################
+# ------------------------- #
+# -> Execução de códigos <- #
+# ------------------------- #
 
 if __name__ == '__main__':
-    control = ControlRobot()
-    pubLog.publish('startedFile$ControlRobot')
-    control.listenValues()
-    rospy.spin()
+    try: 
+        control = Control_robot()
+        const_pub_log.publish('startedFile$control_robot.py')
+        control.listen_values()
+        rospy.spin()
+    except:
+        const_pub_log.publish("error$Fatal$Could not run control_robot.py.")

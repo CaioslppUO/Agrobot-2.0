@@ -52,6 +52,7 @@
     # ------------------- #
 
     bla.setWarnings(True)
+    ble.start()
 
     # -------------------------- #
     # -> Imports Condicionais <- #
