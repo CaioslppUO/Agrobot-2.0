@@ -157,15 +157,6 @@ export default class Main extends Component {
     function uvButtonPressed(uv) {
       global.uv = global.uv == 0 ? 1 : 0;
       sendToWebServerManual(0, 0, 0, 0, global.uv);
-      sendToParamServer(
-        global.limit_auto,
-        global.correction_movements,
-        global.steer_auto,
-        global.speed_auto,
-        global.correction_factor,
-        global.move_time_auto,
-        global.stop_time_auto
-      );
     }
 
     //Função que liga/desliga o modo de controle automático
