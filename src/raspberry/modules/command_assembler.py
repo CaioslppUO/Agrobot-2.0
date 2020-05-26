@@ -4,56 +4,62 @@
 Módulo que gerencia a montageme e distribuição dos comandos para os devidos dispositivos(hardware).
 """
 
-#####################
-#----> Imports <----#
-#####################
+# ------------- #
+# -> Imports <- #
+# ------------- #
 
 import rospy
 from std_msgs.msg import String
 
-################################
-#----> Definições Globais <----#
-################################
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
 
-pubLog = rospy.Publisher('Log', String, queue_size=10)
-rospy.init_node('CommandDecider', anonymous=True) 
+const_pub_log = rospy.Publisher('log', String, queue_size=10)
 
-#################################
-#----> Classe Control Mode <----#
-#################################
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
+
+rospy.init_node('command_decider', anonymous=True) 
+
+# ------------- #
+# -> Classes <- #
+# ------------- #
 
 ## Classe que gerência o recebimento dos comandos, separação e envio para os devidos dispositivos.
-class ControlMode():
-    ## Método que inicializa os tópicos em que serão publicados comandos
+class Control_mode():
+    ## Método que inicializa os tópicos em que serão publicados comandos.
     def __init__(self):
-        self.pubRelay = rospy.Publisher('Relay', String, queue_size=10)
-        self.pubControlRobot = rospy.Publisher('ControlRobot', String, queue_size=10)
-        self.pubCommandDecider = rospy.Publisher('CommandDecider', String, queue_size=10)
+        self.pub_relay = rospy.Publisher('relay', String, queue_size=10)
+        self.pub_control_robot = rospy.Publisher('control_robot', String, queue_size=10)
 
     ## Método que envia os valores corretos para cada dispositivo.
-    def sendComands(self,speed,steer,limit,powerA,powerB,pulverizer):
-        self.pubControlRobot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
-        self.pubRelay.publish("sendSignalToBoardOne:" + str(powerA))
-        self.pubRelay.publish("sendSignalToBoardTwo:" + str(powerB))
-        self.pubRelay.publish("sendSignalToPulverizer:" + str(pulverizer))
+    def send_comands(self,speed,steer,limit,power_a,power_b,pulverizer):
+        self.pub_control_robot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
+        self.pub_relay.publish("sendSignalToBoardOne:" + str(power_a))
+        self.pub_relay.publish("sendSignalToBoardTwo:" + str(power_b))
+        self.pub_relay.publish("sendSignalToPulverizer:" + str(pulverizer))
 
     ## Método que trata os comandos recebidos.
-    def callbackComunication(self,data):
-        if(str(data.data) != "No connection established."):
-            cbAux = str(data.data).split("$")
-            self.sendComands(int(cbAux[0]), int(cbAux[1]), int(cbAux[2]), int(cbAux[3]), int(cbAux[4]), int(cbAux[5]))
-            self.pubCommandDecider.publish("manual")
+    def callback_comunication(self,msg):
+        if(str(msg.data) != "No connection established."):
+            info = str(msg.data).split("$")
+            self.send_comands(int(info[0]), int(info[1]), int(info[2]), int(info[3]), int(info[4]), int(info[5]))
     
     ## Método que escuta o tópico CommandPriorityDecider e chama a função que trata os comandos.
-    def listenComunication(self):
-        rospy.Subscriber("CommandPriorityDecider", String, self.callbackComunication)   
+    def listen_commands(self):
+        rospy.Subscriber("command_priority_decider", String, self.callback_comunication)   
         rospy.spin()
 
-############################
-#----> Loop Principal <----#
-############################
+# ------------------------ #
+# -> Execução de código <- #
+# ------------------------ #
 
 if __name__ == '__main__':
-    control = ControlMode()
-    pubLog.publish('startedFile$CommandAssembler')
-    control.listenComunication()
+    try:
+        control = Control_mode()
+        const_pub_log.publish('startedFile$CommandAssembler')
+        control.listen_commands()
+    except:
+        const_pub_log.publish("error$Fatal$Could not run command_assembler.py.")
