@@ -4,6 +4,22 @@ import time
 import rospy
 from std_msgs.msg import String
 
+## Constante que define o que significa 'andar reto' para o robô.
+const_default_foward = 0
+
+## Constante que serve como 'folga' para o processamento de andar reto.
+const_ignore_range = (5/100) * 360
+
+## Função que recebe o valor lido no acelerômetro e decide se tem que corrigir o movimento ou não.
+def choose_direction(msg):
+    value = int(msg.data)
+    if(value >= const_default_foward - const_ignore_range and value <= const_default_foward + const_ignore_range):
+        setSteer(dataDefault['steerDefault'])
+    elif(value < const_default_foward - const_ignore_range):
+        return setSteer(int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection']))
+    return setSteer(int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection']))
+
+
 ##Variavel que armazena a velocidade que será enviada para o robô
 speed = 0
 ##Variavel que armazena a direção que será enviada para o robô
@@ -55,7 +71,6 @@ def checkFoward():
         setSteer(0)
         setSpeed(0)
         uv = 0
-
 
 ##Função que ajusta a direção do robô baseado na leitura do sensor
 def correctDirection():
@@ -124,6 +139,7 @@ def callback(data):
             rightArea = pointDirection[2]
 
             checkFoward()
+            rospy.Subscriber('angulo', String, choose_direction)
             commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(dataDefault['limit']) + "*powerA$0*powerB$0*pulverize$" + str(uv)
             pubControlCommand.publish(commandToPublish)
         else:
