@@ -13,9 +13,16 @@ import rospy
 from std_msgs.msg import String
 
 
+
 # ---------------- #
 # -> Constantes <- #
 # ---------------- #
+
+## Constante que define o que significa 'andar reto' para o robô.
+const_default_foward = 0
+
+## Constante que serve como 'folga' para o processamento de andar reto.
+const_ignore_range = (5/100) * 360
 
 ##Variavel que armazena a velocidade que será enviada para o robô
 speed = 0
@@ -62,6 +69,15 @@ rospy.Publisher("Log",String,queue_size=10).publish("startedFile$controlLidar")
 # -> Funções <- #
 # ------------- #
 
+## Função que recebe o valor lido no acelerômetro e decide se tem que corrigir o movimento ou não.
+def choose_direction(msg):
+    value = int(msg.data)
+    if(value >= const_default_foward - const_ignore_range and value <= const_default_foward + const_ignore_range):
+        setSteer(dataDefault['steerDefault'])
+    elif(value < const_default_foward - const_ignore_range):
+        return setSteer(int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection']))
+    return setSteer(int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection']))
+
 ##Função que confere o clico de chamadas para direcionar o robô
 def check_tick(tick,steer):
     if(tick == 0):
@@ -81,7 +97,6 @@ def check_foward(speed,steer,uv,tick):
         steer = 0
         speed = 0
         uv = 0
-
 
 ##Função que ajusta a direção do robô baseado na leitura do sensor
 def correct_direction(tick,steer):
@@ -149,6 +164,7 @@ def callback(data):
             direct_area = pointDirection[2]
 
             check_foward(speed,steer,uv,tick)
+            rospy.Subscriber('angulo', String, choose_direction)
             commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(standart_data['limit']) + "*powerA$0*powerB$0*pulverize$" + str(uv)
             pubControlCommand.publish(commandToPublish)
         else:
