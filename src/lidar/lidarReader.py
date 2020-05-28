@@ -1,74 +1,102 @@
 #!/usr/bin/env python3
 
+"""
+Módulo que lê os dados do lidar, e processa eles.
+"""
+
+# ------------- #
+# -> Imports <- #
+# ------------- #
+
 import rospy
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import String
 
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
+
+
 ##Variavel de distancia para collisão, o codigo se baseia nela para mandar parar ou não
-collisionDistance = 1.5
+collision_distance = 1.5
 ##Ponto central do vetor de pontos
 mf = 0
 ##Angulo para o vetor de pontos
-angleRange = 16
+angle_range = 16
+
+pubProcessedData = rospy.Publisher("Lidar", String,queue_size=10)
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
+
+rospy.init_node('lidar_values', anonymous=True)
+rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$lidarReader")
+
+# ------------- #
+# -> Funções <- #
+# ------------- #
 
 ##Função que monta 3 vetores de pontos do lidar
 #Recebe um vetor com 360 pontos do lidar, o angulo que deve ler dele e da onde deve começar a ler
 #Retorna 3 vetores de pontos
-def selectPoints(vet,range,centralPoint):
+def select_points(vet,range,central_point):
     i = 0
-    RightVet = []
-    LeftVet = []
-    centerVet = []
-    centerVet.append(vet[centralPoint])
+    direct_vet = []
+    left_vet = []
+    center_vet = []
+    center_vet.append(vet[central_point])
     while(i < range/2):
-        centerVet.append(vet[centralPoint+i])
-        centerVet.append(vet[centralPoint-i])
+        center_vet.append(vet[central_point+i])
+        center_vet.append(vet[central_point-i])
         i=i+1
     i=0
-    RightVet.append(vet[centralPoint])
-    LeftVet.append(vet[centralPoint])
+    direct_vet.append(vet[central_point])
+    left_vet.append(vet[central_point])
     while(i < range):
-        RightVet.append(vet[centralPoint+i])
-        LeftVet.append(vet[centralPoint-i])
+        direct_vet.append(vet[central_point+i])
+        left_vet.append(vet[central_point-i])
         i = i+1
-    return RightVet,centerVet,LeftVet
+    return direct_vet,center_vet,left_vet
 
 
 ##Le o fator de distancia de colisão que vem do app
-def callBackParamServer(data):
-    global collisionDistance
+def callbabk_paramserver(data):
+    global collision_distance
     if(str(data.data) != ''):
         vet = str(data.data).split('*')
         for variable in vet :
             newVariable = variable.split('$')
             if(newVariable[0] == 'detect'):
-                collisionDistance = float(newVariable[1])
+                collision_distance = float(newVariable[1])
 
 ##callback da chamada do topico do scan
 #faz as devidas chamadas de funções e publica os resultadoss no topico Lidar
 def callback(msg):
-    global mf,angleRange
+    global mf,angle_range
     RVet = []
     LVet = []
     CVet = []
-    RVet,CVet,LVet = selectPoints(msg.ranges,angleRange,mf)
-    rospy.Subscriber('/ParamServer', String, callBackParamServer)
-    pubProcessedData.publish(str( getClosestObject(LVet) + "$" + getClosestObject(CVet) + "$" + getClosestObject(RVet) ))
+    RVet,CVet,LVet = select_points(msg.ranges,angle_range,mf)
+    rospy.Subscriber('/ParamServer', String, callbabk_paramserver)
+    pubProcessedData.publish(str( get_closet_object(LVet) + "$" + get_closet_object(CVet) + "$" + get_closet_object(RVet) ))
 
 ##Verifica se tem algo perto do robô/sensor
 #Rcebe um vetor de pontos
 #Retorna free caso não houver nada na frente, ou busy caso houver algum ponto muito perto
-def getClosestObject(Vet):
-    global collisionDistance
+def get_closet_object(Vet):
+    global collision_distance
     for testValue in Vet:
         if(not isinstance(testValue, str)):
-            if(testValue <= collisionDistance):
+            if(testValue <= collision_distance):
                 return "busy" 
     return "free"
 
-##Declara um novo nó
-rospy.init_node('lidar_values', anonymous=True)
-pubProcessedData = rospy.Publisher("Lidar", String,queue_size=10)
-rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$lidarReader")
-sub = rospy.Subscriber('/scan', LaserScan, callback)
-rospy.spin()
+def main():
+    sub = rospy.Subscriber('/scan', LaserScan, callback)
+    rospy.spin()
+
+try:
+    main()
+except KeyboardInterrupt:
+    rospy.Publisher("Log",String,queue_size=10).publish("error$Warning$Program finalized")
+    print('Program finalized')

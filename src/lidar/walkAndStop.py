@@ -1,39 +1,59 @@
+#!/usr/bin/env python3
+
+"""
+Modulo que cuidado do tempo que o robô fica parado e andando
+"""
+#####################
+#----> Imports <----#
+#####################
+
 import rospy
 from std_msgs.msg import String
 import time
 
-def setVariables(data):
-    global walkTime,stopTime
-    if(str(data.data) != ''):
-        vet = str(data.data).split('*')
-        for variable in vet :
-            newVariable = variable.split('$')
-            if(newVariable[0] == 'move'):
-                walkTime = int(newVariable[1])
-            elif(newVariable[0] == 'stop'):
-                stopTime = int(newVariable[1])
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
+pubControlCommand = rospy.Publisher("Walk", String,queue_size=10)
+walk_time = 0
+stop_time = 0
+
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
+rospy.init_node('Walk', anonymous=True)
+rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$walkAndStop")
+
+# ------------- #
+# -> Funções <- #
+# ------------- #
+
+def set_variable(data):
+  global walk_time,stop_time
+  if(str(data.data) != ''):
+      vet = str(data.data).split('*')
+      for variable in vet :
+          newVariable = variable.split('$')
+          if(newVariable[0] == 'move'):
+              walk_time = int(newVariable[1])
+          elif(newVariable[0] == 'stop'):
+              stop_time = int(newVariable[1])
 
 ##Contme toda a alogica de andar ,parar e escrever no topico
 def main():
-  global walkTime,stopTime
+  global walk_time,stop_time
   while not rospy.is_shutdown():
-    if(walkTime != 0 and stopTime != 0):
+    if(walk_time != 0 and stop_time != 0):
       pubControlCommand.publish("walk")
-      time.sleep(walkTime)
+      time.sleep(walk_time)
       pubControlCommand.publish("stop")
-      time.sleep(stopTime)
+      time.sleep(stop_time)
     else:
       pubControlCommand.publish("walk")  
-    rospy.Subscriber('/ParamServer',String,setVariables)
+    rospy.Subscriber('/ParamServer',String,set_variable)
 
-
-##Declaração do nó Walk
-rospy.init_node('Walk', anonymous=True)
-pubControlCommand = rospy.Publisher("Walk", String,queue_size=10)
-walkTime = 0
-stopTime = 0
-rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$walkAndStop")
 try:
   main()
 except KeyboardInterrupt:
-  pass
+  rospy.Publisher("Log",String,queue_size=10).publish("error$Warning$Program finalized")
+  print('Program finalized')

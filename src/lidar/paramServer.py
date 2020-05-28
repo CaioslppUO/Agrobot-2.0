@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Modulo que recebe os dados do App.
+"""
+
 #####################
 #----> Imports <----#
 #####################
@@ -11,11 +15,22 @@ from std_msgs.msg import String
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
 
-
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
 
 ##Declaração do nó
 pubWebServer = rospy.Publisher('ParamServer', String, queue_size=10)
+
+# ------------------- #
+# -> Configurações <- #
+# ------------------- #
+
 rospy.init_node('ParamServer', anonymous=True)
+
+# ------------- #
+# -> Classes <- #
+# ------------- #
 
 
 ##Classe Request Handler
@@ -47,7 +62,9 @@ class ParamServer():
         except:
             pass
 
-
+# ------------------------ #
+# -> Execução de código <- #
+# ------------------------ #
 ##Loop Principal  
 if __name__ == '__main__':
     try:
