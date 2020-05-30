@@ -3,60 +3,66 @@
 """
 Modulo que cuidado do tempo que o robô fica parado e andando
 """
-#####################
-#----> Imports <----#
-#####################
 
-import rospy
+# ------------- #
+# -> Imports <- #
+# ------------- #
+
+import rospy,time
 from std_msgs.msg import String
-import time
 
 # ---------------- #
 # -> Constantes <- #
 # ---------------- #
-pub_control_command = rospy.Publisher("Walk", String,queue_size=10)
-walk_time = 0
-stop_time = 0
+
+const_pub_control_command = rospy.Publisher("walk", String, queue_size=10)
+const_pub_log = rospy.Publisher("log", String, queue_size=10)
+
+const_walk_time = 0
+const_stop_time = 0
 
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
-rospy.init_node('Walk', anonymous=True)
-rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$walkAndStop")
+
+rospy.init_node('walk', anonymous=True)
 
 # ------------- #
 # -> Funções <- #
 # ------------- #
 
-def set_variable(data):
-  global walk_time,stop_time
-  if(str(data.data) != ''):
-      vet = str(data.data).split('*')
+## Função que seta as variáveis de andar por 'x' e parar por 'y'.
+def set_walk_by(msg):
+  global const_walk_time,const_stop_time
+  info = str(msg.data)
+  if(info != ''):
+      vet = info.split('*')
       for variable in vet :
           new_variable = variable.split('$')
           if(new_variable[0] == 'move'):
-              walk_time = int(new_variable[1])
+              const_walk_time = int(new_variable[1])
           elif(new_variable[0] == 'stop'):
-              stop_time = int(new_variable[1])
+              const_stop_time = int(new_variable[1])
 
-##Contme toda a alogica de andar ,parar e escrever no topico
+## Função que executa as rotinas de escutar os valores de walk e stop e os publica no tópico walk, seguindo o tempo fornecido para cada um.
 def main():
-  global walk_time,stop_time
   while not rospy.is_shutdown():
-    if(walk_time != 0 and stop_time != 0):
-      pub_control_command.publish("walk")
-      time.sleep(walk_time)
-      pub_control_command.publish("stop")
-      time.sleep(stop_time)
+    if(const_walk_time != 0 and const_stop_time != 0):
+      const_pub_control_command.publish("walk")
+      time.sleep(const_walk_time)
+      const_pub_control_command.publish("stop")
+      time.sleep(const_stop_time)
     else:
-      pub_control_command.publish("walk")  
-    rospy.Subscriber('/param_server',String,set_variable)
+      const_pub_control_command.publish("walk")  
+  
+    rospy.Subscriber('param_server',String,set_walk_by) # Nova leitura para verificar se os valores não foram alterados.
 
 # ------------------------ #
 # -> Execução de código <- #
 # ------------------------ #
+
 try:
+  const_pub_log.publish("startedFile$walk_and_stop.py")
   main()
 except KeyboardInterrupt:
-  rospy.Publisher("Log",String,queue_size=10).publish("error$Warning$Program finalized")
-  print('Program finalized')
+  const_pub_log.publish("error$Warning$walk_and_stop.py finalized.")
