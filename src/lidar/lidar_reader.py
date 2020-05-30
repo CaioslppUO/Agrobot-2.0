@@ -24,7 +24,7 @@ mf = 0
 ##Angulo para o vetor de pontos
 angle_range = 16
 
-pubProcessedData = rospy.Publisher("Lidar", String,queue_size=10)
+pub_processed_data = rospy.Publisher("Lidar", String,queue_size=10)
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
@@ -65,9 +65,9 @@ def callbabk_paramserver(data):
     if(str(data.data) != ''):
         vet = str(data.data).split('*')
         for variable in vet :
-            newVariable = variable.split('$')
-            if(newVariable[0] == 'detect'):
-                collision_distance = float(newVariable[1])
+            new_variable = variable.split('$')
+            if(new_variable[0] == 'detect'):
+                collision_distance = float(new_variable[1])
 
 ##callback da chamada do topico do scan
 #faz as devidas chamadas de funções e publica os resultadoss no topico Lidar
@@ -77,17 +77,17 @@ def callback(msg):
     LVet = []
     CVet = []
     RVet,CVet,LVet = select_points(msg.ranges,angle_range,mf)
-    rospy.Subscriber('/ParamServer', String, callbabk_paramserver)
-    pubProcessedData.publish(str( get_closet_object(LVet) + "$" + get_closet_object(CVet) + "$" + get_closet_object(RVet) ))
+    rospy.Subscriber('/param_server', String, callbabk_paramserver)
+    pub_processed_data.publish(str( get_closet_object(LVet) + "$" + get_closet_object(CVet) + "$" + get_closet_object(RVet) ))
 
 ##Verifica se tem algo perto do robô/sensor
 #Rcebe um vetor de pontos
 #Retorna free caso não houver nada na frente, ou busy caso houver algum ponto muito perto
 def get_closet_object(Vet):
     global collision_distance
-    for testValue in Vet:
-        if(not isinstance(testValue, str)):
-            if(testValue <= collision_distance):
+    for test_value in Vet:
+        if(not isinstance(test_value, str)):
+            if(test_value <= collision_distance):
                 return "busy" 
     return "free"
 
@@ -95,6 +95,9 @@ def main():
     sub = rospy.Subscriber('/scan', LaserScan, callback)
     rospy.spin()
 
+# ------------------------ #
+# -> Execução de código <- #
+# ------------------------ #
 try:
     main()
 except KeyboardInterrupt:

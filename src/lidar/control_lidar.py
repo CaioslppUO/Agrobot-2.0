@@ -46,14 +46,14 @@ central_area = "None"
 walk = True
 
 ##Variável que controla a publicação de textos no tópico da ControlLidar
-pubControlCommand = rospy.Publisher("ControlLidar", String,queue_size=10)
+pub_control_command = rospy.Publisher("control_lidar", String,queue_size=10)
 
 standart_data = {}
 standart_data['limit'] = 0
-standart_data['tickDefault'] = 0
-standart_data['steerDefault'] = 0
-standart_data['speedDefault'] = 0
-standart_data['shiftDirection'] = 0
+standart_data['tick_default'] = 0
+standart_data['steer_default'] = 0
+standart_data['speed_default'] = 0
+standart_data['shift_direction'] = 0
 standart_data['uv'] = 0
 
 # ------------------- #
@@ -61,8 +61,8 @@ standart_data['uv'] = 0
 # ------------------- #
 
 ##Inicialização do topico ControlLidar
-rospy.init_node('ControlLidar', anonymous=True)
-rospy.Subscriber('/ParamServer',String,set_variable)
+rospy.init_node('control_lidar', anonymous=True)
+rospy.Subscriber('/param_server',String,set_variable)
 rospy.Publisher("Log",String,queue_size=10).publish("startedFile$controlLidar")
 
 # ------------- #
@@ -70,13 +70,13 @@ rospy.Publisher("Log",String,queue_size=10).publish("startedFile$controlLidar")
 # ------------- #
 
 ## Função que recebe o valor lido no acelerômetro e decide se tem que corrigir o movimento ou não.
-def choose_direction(msg):
-    value = int(msg.data)
-    if(value >= const_default_foward - const_ignore_range and value <= const_default_foward + const_ignore_range):
-        setSteer(dataDefault['steerDefault'])
-    elif(value < const_default_foward - const_ignore_range):
-        return setSteer(int(dataDefault['steerDefault']) - int(dataDefault['shiftDirection']))
-    return setSteer(int(dataDefault['steerDefault']) + int(dataDefault['shiftDirection']))
+# def choose_direction(msg):
+    # value = int(msg.data)
+    # if(value >= const_default_foward - const_ignore_range and value <= const_default_foward + const_ignore_range):
+        # setSteer(dataDefault['steer_default'])
+    # elif(value < const_default_foward - const_ignore_range):
+        # return setSteer(int(dataDefault['steer_default']) - int(dataDefault['shift_direction']))
+    # return setSteer(int(dataDefault['steer_default']) + int(dataDefault['shift_direction']))
 
 ##Função que confere o clico de chamadas para direcionar o robô
 def check_tick(tick,steer):
@@ -90,7 +90,7 @@ def check_tick(tick,steer):
 def check_foward(speed,steer,uv,tick):
     global standart_data,central_area
     if( central_area == "free"):
-        speed = standart_data['speedDefault']
+        speed = standart_data['speed_default']
         uv = standart_data['uv']
         check_tick(tick,steer)
     else:
@@ -102,27 +102,27 @@ def check_foward(speed,steer,uv,tick):
 def correct_direction(tick,steer):
     global correct_for,standart_data
     if(tick == 1):
-        setSteer(standart_data['steerDefault'])
+        steer = standart_data['steer_default']
     elif(correct_for == "right"):
-        setSteer(int(standart_data['steerDefault']) - int(standart_data['shiftDirection']))
+        steer = (int(standart_data['steer_default']) - int(standart_data['shift_direction']))
     else:
-        setSteer(int(standart_data['steerDefault']) + int(standart_data['shiftDirection']))
+        steer = (int(standart_data['steer_default']) + int(standart_data['shift_direction']))
     tick = int(tick) - 1
     
 ##Função que lê os dados do sensor e fazz as devidas chamadas de funções
 def set_corretion(tick):
     global left_area,direct_area,correct_for,standart_data
     if(left_area == "busy"):
-        tick = standart_data['tickDefault']
+        tick = standart_data['tick_default']
         correct_for = "right"
     if(direct_area == "busy"):
-        tick = standart_data['tickDefault']
+        tick = standart_data['tick_default']
         correct_for = "left"
 
 ##Verifica se é para o robô andar, ou ficar parado
-def checkAuto():
+def check_auto():
     global standart_data
-    if(int(standart_data['limit']) == 0 and int(standart_data['tickDefault']) == 0 and int(standart_data['steerDefault']) == 0 and int(standart_data['speedDefault']) == 0 and int(standart_data['shiftDirection']) == 0 ):
+    if(int(standart_data['limit']) == 0 and int(standart_data['tick_default']) == 0 and int(standart_data['steer_default']) == 0 and int(standart_data['speed_default']) == 0 and int(standart_data['shift_direction']) == 0 ):
         return False
     return True
 
@@ -138,42 +138,42 @@ def set_variable(data):
     if(str(data.data) != ''):
         vet = str(data.data).split('*')
         for variable in vet :
-            newVariable = variable.split('$')
-            if(newVariable[0] == 'limit'):
-                standart_data['limit'] = newVariable[1]
-            elif(newVariable[0] == 'tick'):
-                standart_data['tickDefault'] = newVariable[1]
-            elif(newVariable[0] == 'steer'):
-                standart_data['steerDefault'] = newVariable[1]
-            elif(newVariable[0] == 'speed'):
-                standart_data['speedDefault'] = newVariable[1]
-            elif(newVariable[0] == 'shift'):
-                standart_data['shiftDirection'] = newVariable[1]
-            elif(newVariable[0] == 'uv'):
-                standart_data['uv'] = newVariable[1]
+            new_variable = variable.split('$')
+            if(new_variable[0] == 'limit'):
+                standart_data['limit'] = new_variable[1]
+            elif(new_variable[0] == 'tick'):
+                standart_data['tick_default'] = new_variable[1]
+            elif(new_variable[0] == 'steer'):
+                standart_data['steer_default'] = new_variable[1]
+            elif(new_variable[0] == 'speed'):
+                standart_data['speed_default'] = new_variable[1]
+            elif(new_variable[0] == 'shift'):
+                standart_data['shift_direction'] = new_variable[1]
+            elif(new_variable[0] == 'uv'):
+                standart_data['uv'] = new_variable[1]
 
 ##callback da leitura do topico /Lidar
 def callback(data):
     global standart_data,left_area,direct_area,central_area,walk,uv
     rospy.Subscriber('/Walk', String, setWalk, walk)
-    if(checkAuto()):
+    if(check_auto()):
         if(walk):
-            pointDirection = str(data.data).split('$')
-            left_area = pointDirection[0]
-            central_area = pointDirection[1]
-            direct_area = pointDirection[2]
+            point_direction = str(data.data).split('$')
+            left_area = point_direction[0]
+            central_area = point_direction[1]
+            direct_area = point_direction[2]
 
             check_foward(speed,steer,uv,tick)
             rospy.Subscriber('angulo', String, choose_direction)
-            commandToPublish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(standart_data['limit']) + "*powerA$0*powerB$0*pulverize$" + str(uv)
-            pubControlCommand.publish(commandToPublish)
+            command_to_publish = "5*speed$" + str(speed) + "*steer$" + str(steer) + "*limit$" + str(standart_data['limit']) + "*powerA$0*powerB$0*pulverize$" + str(uv)
+            pub_control_command.publish(command_to_publish)
         else:
-            commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$" + str(standart_data['uv'])
-            pubControlCommand.publish(commandToPublish)
+            command_to_publish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$" + str(standart_data['uv'])
+            pub_control_command.publish(command_to_publish)
     else:
-        commandToPublish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
-        pubControlCommand.publish(commandToPublish)
-    rospy.Subscriber('/ParamServer',String,set_variable)
+        command_to_publish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
+        pub_control_command.publish(command_to_publish)
+    rospy.Subscriber('/param_server',String,set_variable)
 
 ##Função principal          
 def main():

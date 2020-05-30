@@ -14,7 +14,7 @@ import time
 # ---------------- #
 # -> Constantes <- #
 # ---------------- #
-pubControlCommand = rospy.Publisher("Walk", String,queue_size=10)
+pub_control_command = rospy.Publisher("Walk", String,queue_size=10)
 walk_time = 0
 stop_time = 0
 
@@ -33,25 +33,28 @@ def set_variable(data):
   if(str(data.data) != ''):
       vet = str(data.data).split('*')
       for variable in vet :
-          newVariable = variable.split('$')
-          if(newVariable[0] == 'move'):
-              walk_time = int(newVariable[1])
-          elif(newVariable[0] == 'stop'):
-              stop_time = int(newVariable[1])
+          new_variable = variable.split('$')
+          if(new_variable[0] == 'move'):
+              walk_time = int(new_variable[1])
+          elif(new_variable[0] == 'stop'):
+              stop_time = int(new_variable[1])
 
 ##Contme toda a alogica de andar ,parar e escrever no topico
 def main():
   global walk_time,stop_time
   while not rospy.is_shutdown():
     if(walk_time != 0 and stop_time != 0):
-      pubControlCommand.publish("walk")
+      pub_control_command.publish("walk")
       time.sleep(walk_time)
-      pubControlCommand.publish("stop")
+      pub_control_command.publish("stop")
       time.sleep(stop_time)
     else:
-      pubControlCommand.publish("walk")  
-    rospy.Subscriber('/ParamServer',String,set_variable)
+      pub_control_command.publish("walk")  
+    rospy.Subscriber('/param_server',String,set_variable)
 
+# ------------------------ #
+# -> Execução de código <- #
+# ------------------------ #
 try:
   main()
 except KeyboardInterrupt:
