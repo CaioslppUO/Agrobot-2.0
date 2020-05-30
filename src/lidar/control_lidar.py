@@ -201,4 +201,3 @@ if __name__ == "__main__":
         rospy.spin()
     except KeyboardInterrupt:
         const_pub_log.publish("error$Warning$control_lidar.py finalized.")
-        print('Program finalized')

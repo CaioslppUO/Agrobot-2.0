@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Módulo que lê os dados do lidar, e processa eles.
+Módulo que lê os dados do lidar e processa eles.
 """
 
 # ------------- #
@@ -16,90 +16,83 @@ from std_msgs.msg import String
 # -> Constantes <- #
 # ---------------- #
 
+## Constante de distancia para collisão.
+# Indica a qual distância os objetos devem ser considerados como 'próximos'.
+const_detect_collision_distance = 1.5
+## Ponto central(Frente do robô) do vetor de pontos.
+const_center_point = 0
+## Ângulo ou número de pontos a serem pegos para o cálculo no vetor de pontos(Em cada direção).
+const_angle_range = 16
 
-##Variavel de distancia para collisão, o codigo se baseia nela para mandar parar ou não
-collision_distance = 1.5
-##Ponto central do vetor de pontos
-mf = 0
-##Angulo para o vetor de pontos
-angle_range = 16
+const_pub_processed_data = rospy.Publisher("lidar", String,queue_size=10)
+const_pub_log = rospy.Publisher("log", String, queue_size=10)
 
-pub_processed_data = rospy.Publisher("Lidar", String,queue_size=10)
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
 
 rospy.init_node('lidar_values', anonymous=True)
-rospy.Publisher("Log",Strin,queue_size=10).publish("startedFile$lidarReader")
 
 # ------------- #
 # -> Funções <- #
 # ------------- #
 
-##Função que monta 3 vetores de pontos do lidar
-#Recebe um vetor com 360 pontos do lidar, o angulo que deve ler dele e da onde deve começar a ler
-#Retorna 3 vetores de pontos
+## Função que monta 3 vetores de pontos lidos do vetor de pontos do lidar.
 def select_points(vet,range,central_point):
     i = 0
-    direct_vet = []
+    right_vet = []
     left_vet = []
     center_vet = []
+
     center_vet.append(vet[central_point])
     while(i < range/2):
         center_vet.append(vet[central_point+i])
         center_vet.append(vet[central_point-i])
         i=i+1
+
     i=0
-    direct_vet.append(vet[central_point])
+    right_vet.append(vet[central_point])
     left_vet.append(vet[central_point])
+
     while(i < range):
-        direct_vet.append(vet[central_point+i])
+        right_vet.append(vet[central_point+i])
         left_vet.append(vet[central_point-i])
         i = i+1
-    return direct_vet,center_vet,left_vet
 
+    return right_vet,center_vet,left_vet
 
-##Le o fator de distancia de colisão que vem do app
-def callbabk_paramserver(data):
-    global collision_distance
-    if(str(data.data) != ''):
-        vet = str(data.data).split('*')
+## Callback para o param_server. Lê e atualiza a distância de detecção de colisão.
+def callback_paramserver(msg):
+    global const_detect_collision_distance
+    info = str(msg.data)
+    if(info != ''):
+        vet = info.split('*')
         for variable in vet :
             new_variable = variable.split('$')
             if(new_variable[0] == 'detect'):
-                collision_distance = float(new_variable[1])
+                const_detect_collision_distance = float(new_variable[1])
 
-##callback da chamada do topico do scan
-#faz as devidas chamadas de funções e publica os resultadoss no topico Lidar
-def callback(msg):
-    global mf,angle_range
-    RVet = []
-    LVet = []
-    CVet = []
-    RVet,CVet,LVet = select_points(msg.ranges,angle_range,mf)
-    rospy.Subscriber('/param_server', String, callbabk_paramserver)
-    pub_processed_data.publish(str( get_closet_object(LVet) + "$" + get_closet_object(CVet) + "$" + get_closet_object(RVet) ))
+## Callback do topico do scan do lidar. Processa a mensagem recebida e publica o resultado no tópico lidar.
+def callback_lidar_scan(msg):
+    r_vet,c_vet,l_vet = select_points(msg.ranges,const_angle_range,const_center_point)
+    rospy.Subscriber('param_server', String, callback_paramserver)
+    const_pub_processed_data.publish(str( get_closet_object(l_vet) + "$" + get_closet_object(c_vet) + "$" + get_closet_object(r_vet) ))
 
-##Verifica se tem algo perto do robô/sensor
-#Rcebe um vetor de pontos
-#Retorna free caso não houver nada na frente, ou busy caso houver algum ponto muito perto
-def get_closet_object(Vet):
-    global collision_distance
-    for test_value in Vet:
+## Função que retorna se existe um objeto 'próximo' a um dos sensores do robô, baseado na distância de colisão.
+def get_closet_object(vet):
+    for test_value in vet:
         if(not isinstance(test_value, str)):
-            if(test_value <= collision_distance):
+            if(test_value <= const_detect_collision_distance):
                 return "busy" 
     return "free"
-
-def main():
-    sub = rospy.Subscriber('/scan', LaserScan, callback)
-    rospy.spin()
 
 # ------------------------ #
 # -> Execução de código <- #
 # ------------------------ #
+
 try:
-    main()
+    const_pub_log.publish("startedFile$lidar_reader.py")
+    rospy.Subscriber('scan', LaserScan, callback_lidar_scan)
+    rospy.spin()
 except KeyboardInterrupt:
-    rospy.Publisher("Log",String,queue_size=10).publish("error$Warning$Program finalized")
-    print('Program finalized')
+    const_pub_log.publish("error$Warning$lidar_reader.py finalized.")
