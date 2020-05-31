@@ -180,7 +180,8 @@ export default class Main extends Component {
 
     //Função que para o robô
     function stopRobot() {
-      sendToWebServerManual(0, 0, 0, 0, 0, global.uv);
+      global.uv = 0
+      sendToWebServerManual(0, 0, 0, 0, 0, 0);
       sendToParamServer(0, 0, 0, 0, 0, 0, 0);
     }
 
