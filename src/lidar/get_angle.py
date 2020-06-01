@@ -9,8 +9,10 @@ Modulo que pega os valores do sensor e publica
 # ------------- #
 
 from __future__ import print_function
-import time, sys, signal, atexit, math
-from upm import pyupm_bmm150 as sensorObj
+import time, sys, signal, atexit, math, rospy
+from std_msgs.msg import String
+from upm import pyupm_bmm150 as sensor_obj
+
 
 # ---------------- #
 # -> Constantes <- #
@@ -31,7 +33,7 @@ rospy.init_node('angle', anonymous=True)
 
 ## Função que executa as rotinas de pegar os valores do acelerômetro e publicar no tópico angle.
 def main():
-  sensor = sensorObj.BMM150(0, 0x13)
+  sensor = sensor_obj.BMM150(0, 0x13)
 
   def SIGINTHandler(signum, frame):
     raise SystemExit
