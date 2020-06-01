@@ -18,6 +18,14 @@ from launcher_variables import Launcher_variables
 
 ## Instância que controla a publicação de logs.
 const_pub_log = rospy.Publisher('log', String, queue_size=10)
+## Constante que pinta o texto de azul.
+const_blue = '\033[94m'
+## Constante que pinta o texto de verde.
+const_green = '\033[92m'
+## Constante que pinta o texto de vermelho.
+const_error = '\033[91m'
+## Constante finaliza a pintura do texto.
+const_end_color = '\033[0m'
 
 # ------------------- #
 # -> Configurações <- #
@@ -26,7 +34,7 @@ const_pub_log = rospy.Publisher('log', String, queue_size=10)
 # Inicialização do ROS.
 os.system("roscore& ")
 time.sleep(8)
-os.system("clear && echo '-> Roscore has been successfully initialized.'& ")
+os.system("clear& ")
 
 ## Iniciando o nó controller.
 rospy.init_node('controller', anonymous=True)
@@ -35,8 +43,14 @@ rospy.init_node('controller', anonymous=True)
 # -> Funções <- #
 # ------------- #
 
+## Função que pinta um texto com a cor passada como argumento e retorna o resultado.
+def set_color(color,text):
+    return color + text + const_end_color
+
 ## Função que processa as variáveis de inicialização e inicia os módulos que foram requeridos.
 def main_loop():
+    print(set_color(const_green,"[OK] "), end='')
+    print("Roscore has been successfully initialized.")
     # Classe que gerência as variáveis de inicialização.
     launcher = Launcher_variables()
     # Variáveis de inicialização.
@@ -47,7 +61,7 @@ def main_loop():
 
     # Define quais módulos base serão inicializados.
     os.system("python3 " + root_path + "modules/logs.py& ")
-    print('Startind modules ...')
+    print(set_color(const_blue,"Startind modules ..."))
     time.sleep(10)
 
     # Módulos principais(essênciais).
@@ -71,15 +85,15 @@ def main_loop():
     time.sleep(5)
     
     # Mostra na tela quais módulos foram abertos.
-    print('\n-> Open modules: \n')
+    print(set_color(const_blue,"\n-> Open modules: \n"))
     os.system('cat ' + root_path + "logs/startedFiles.log")
 
     # Mostra na tela os erros que ocorreram.
-    print('\n\n-> Errors: \n')
+    print(set_color(const_blue,"\n\n-> Errors: \n"))
     os.system('cat ' + root_path + "logs/errors.log")
 
     # Indica a situação atual do sistema.
-    print('\n-> Status: Running')
+    print("\n-> Status: " + set_color(const_green,"Running"))
     
     # Impede o terminal de finalizar.
     while not rospy.is_shutdown():

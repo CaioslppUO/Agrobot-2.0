@@ -39,7 +39,7 @@ def check_variables(server_ip,enable_uart,enable_relay,uart_amount,enable_face_d
         return False,set_color(const_error,"[Error] ") + "Invalid enable_face_detect."
     if(root_path == None):
         return False,set_color(const_error,"[Error] ") + "Invalid root_path."
-    return True,set_color(const_green,"-> Launcher variables were correctly initialized.")
+    return True,set_color(const_green,"[OK] ") + "Launcher variables were correctly initialized."
 
 # ------------- #
 # -> Classes <- #
