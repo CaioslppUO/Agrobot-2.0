@@ -4,25 +4,42 @@
 Programa que gerencia as variáveis de inicialização do sistema.
 """
 
+# ---------------- #
+# -> Constantes <- #
+# ---------------- #
+
+## Constante que pinta o texto de azul.
+const_blue = '\033[94m'
+## Constante que pinta o texto de verde.
+const_green = '\033[92m'
+## Constante que pinta o texto de vermelho.
+const_error = '\033[91m'
+## Constante finaliza a pintura do texto.
+const_end_color = '\033[0m'
+
 # ------------- #
 # -> Funções <- #
 # ------------- #
 
+## Função que pinta um texto com a cor passada como argumento e retorna o resultado.
+def set_color(color,text):
+    return color + text + const_end_color
+
 ## Função que checa se cada uma das variáveis recebidas é válida.
 def check_variables(server_ip,enable_uart,enable_relay,uart_amount,enable_face_detect,root_path):
     if(server_ip == None):
-        return False,"[Error] Invalid Server_ip."
+        return False,set_color(const_error,"[Error] ") + "Invalid server_ip."
     if(enable_uart == None):
-        return False,"[Error] Invalid Enable_uart."
+        return False,set_color(const_error,"[Error] ") + "Invalid enable_uart."
     if(enable_relay == None):
-        return False,"[Error] Invalid Enable_relay."
+        return False,set_color(const_error,"[Error] ") + "Invalid enable_relay."
     if(uart_amount == None):
-        return False,"[Error] Invalid Uart_amount."
+        return False,set_color(const_error,"[Error] ") + "Invalid uart_amount."
     if(enable_face_detect == None):
-        return False,"[Error] Invalid Enable_face_detect."
+        return False,set_color(const_error,"[Error] ") + "Invalid enable_face_detect."
     if(root_path == None):
-        return False,"[Error] Invalid Root_path."
-    return True,"-> Launcher variables were correctly initialized."
+        return False,set_color(const_error,"[Error] ") + "Invalid root_path."
+    return True,set_color(const_green,"-> Launcher variables were correctly initialized.")
 
 # ------------- #
 # -> Classes <- #
