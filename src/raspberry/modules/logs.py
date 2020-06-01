@@ -12,7 +12,6 @@ from std_msgs.msg import String
 # ---------------- #
 
 const_log_folder = '../logs/'
-
 const_started_files_path = const_log_folder + 'startedFiles.log'
 const_errors_file_path = const_log_folder + 'errors.log'
 
@@ -20,6 +19,7 @@ const_errors_file_path = const_log_folder + 'errors.log'
 # -> Configurações <- #
 # ------------------- #
 
+## Iniciando o nó log.
 rospy.init_node('log', anonymous=True)
 
 # ------------- #
@@ -41,7 +41,7 @@ def write_error(error_severity,error_msg):
 ## Função que escreve a mensagem de arquivo aberto no arquivo de log.
 def write_started(file_name):
     file_ = open(const_started_files_path, 'a')
-    file_.write(file_name + ': Started\n')
+    file_.write(" * " + file_name + '\n')
     file_.close()
 
 ## Função que trata a mensagem recebida pelo tópico de log.
@@ -53,7 +53,7 @@ def callback(msg):
     elif(info[0] == "error"):
         write_error(str(info[1]), str(info[2]))
 
-## Função que escuta o tópico de log
+## Função que escuta o tópico de log.
 def listen():
     rospy.Subscriber('log', String, callback)
     rospy.spin()
@@ -62,6 +62,7 @@ def listen():
 # -> Execução de códigos <- #
 # ------------------------- #
 
-#Limpando os arquivos de log
+# Limpando os arquivos de log.
 clean_log_files([const_started_files_path,const_errors_file_path])
+
 listen()
