@@ -1,3 +1,4 @@
 controller.py: Started
-web_server.py: Started
+command_priority_decider.py: Started
 command_assembler: Started
+web_server.py: Started

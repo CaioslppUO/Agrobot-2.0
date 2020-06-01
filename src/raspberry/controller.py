@@ -16,66 +16,74 @@ from launcher_variables import Launcher_variables
 # -> Constantes <- #
 # ---------------- #
 
-## Instância que controla a publicação de logs
+## Instância que controla a publicação de logs.
 const_pub_log = rospy.Publisher('log', String, queue_size=10)
 
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
 
-#Inicialização do ROS
+# Inicialização do ROS.
 os.system("roscore& ")
 time.sleep(8)
 os.system("clear && echo '-> Roscore has been successfully initialized.'& ")
 
-## Iniciando um nó ROS. anonymous=True faz com que o nome do nó da classe seja registrado como anônimo.
+## Iniciando o nó controller.
 rospy.init_node('controller', anonymous=True)
 
 # ------------- #
 # -> Funções <- #
 # ------------- #
 
-## Função que Recebe todas as variáveis inicias e inicia os módulos que foram requeridos.
+## Função que processa as variáveis de inicialização e inicia os módulos que foram requeridos.
 def main_loop():
+    # Classe que gerência as variáveis de inicialização.
     launcher = Launcher_variables()
+    # Variáveis de inicialização.
     server_ip,enable_uart,enable_relay,uart_amount,enable_faceDetect,root_path = launcher.variable_separator(sys.argv)
 
-    #Define quais módulos base serão inicializados
-    os.system("python3 " + root_path + "modules/logs.py& ")
-    print('Startind modules...')
-    time.sleep(10)
-    launch_msg = "python3 " + root_path + "comunication/web_server.py " + server_ip + "& "
-    launch_msg += "python3 " + root_path + "comunication/command_priority_decider.py& "
-    launch_msg += "python3 " + root_path + "modules/command_assembler.py& "
-    
-    #Define quais módulos opcionais serão inicializados
-    if(enable_relay == "True"):
-        launch_msg += "python3 " + root_path + "modules/relay.py& "
-    if(enable_uart == "True"):
-        launch_msg += "python3 " + root_path + "modules/control_robot.py " + str(uart_amount) + "& "
-    if(enable_faceDetect == "True"):
-        launch_msg += "python3 " + root_path + "modules/computational_vision.py& "
+    # Commando para executar um arquivo do projeto em python3.
+    run_py3 = "python3 " + root_path
 
-    #Inicializa os módulos que foram requeridos
+    # Define quais módulos base serão inicializados.
+    os.system("python3 " + root_path + "modules/logs.py& ")
+    print('Startind modules ...')
+    time.sleep(10)
+
+    # Módulos principais(essênciais).
+    launch_msg = run_py3 + "comunication/web_server.py " + server_ip + "& "
+    launch_msg += run_py3 + "comunication/command_priority_decider.py& "
+    launch_msg += run_py3 + "modules/command_assembler.py& "
+    
+    # Módulos opcionais.
+    if(enable_relay == "True"):
+        launch_msg += run_py3 + "modules/relay.py& "
+    if(enable_uart == "True"):
+        launch_msg += run_py3 + "modules/control_robot.py " + str(uart_amount) + "& "
+    if(enable_faceDetect == "True"):
+        launch_msg += run_py3 + "modules/computational_vision.py& "
+
+    # Inicializa os módulos que foram requeridos.
     os.system(launch_msg)
+    
+    # Publica no tópico de logs que o arquivo controller.py foi inicializado.
     const_pub_log.publish("startedFile$controller.py")
     time.sleep(5)
     
-    #Mostra na tela quais módulos foram abertos
-    print('\n -> Open modules: \n')
+    # Mostra na tela quais módulos foram abertos.
+    print('\n-> Open modules: \n')
     os.system('cat ' + root_path + "logs/startedFiles.log")
 
-    #Mostra na tela os erros que ocorreram
-    print('\n\n -> Errors: \n')
+    # Mostra na tela os erros que ocorreram.
+    print('\n\n-> Errors: \n')
     os.system('cat ' + root_path + "logs/errors.log")
 
-    #Indica a situação atual do sistema
-    print('\nStatus: Running')
+    # Indica a situação atual do sistema.
+    print('\n-> Status: Running')
     
-    #Impede o terminal de finalizar
+    # Impede o terminal de finalizar.
     while not rospy.is_shutdown():
-        a = 1
-        a = a - 1
+        rospy.spin()
 
 # ------------------------ #
 # -> Execução de código <- #
