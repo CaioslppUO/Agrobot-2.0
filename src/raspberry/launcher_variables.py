@@ -9,9 +9,7 @@ Programa que gerencia as variáveis de inicialização do sistema.
 # ------------- #
 
 ## Função que checa se cada uma das variáveis recebidas é válida.
-#  Caso seja inválida, retorna false e uma mensagem de erro. \n
-#  Caso seja válida, retorna true e uma mensagem de sucesso.
-def check_variables(server_ip,enable_uart,enable_relay,uart_amount,enable_faceDetect,root_path):
+def check_variables(server_ip,enable_uart,enable_relay,uart_amount,enable_face_detect,root_path):
     if(server_ip == None):
         return False,"[Error] Invalid Server_ip."
     if(enable_uart == None):
@@ -20,11 +18,11 @@ def check_variables(server_ip,enable_uart,enable_relay,uart_amount,enable_faceDe
         return False,"[Error] Invalid Enable_relay."
     if(uart_amount == None):
         return False,"[Error] Invalid Uart_amount."
-    if(enable_faceDetect == None):
-        return False,"[Error] Invalid Enable_faceDetect."
+    if(enable_face_detect == None):
+        return False,"[Error] Invalid Enable_face_detect."
     if(root_path == None):
         return False,"[Error] Invalid Root_path."
-    return True,"-> Launcher variables were initialized correctly."
+    return True,"-> Launcher variables were correctly initialized."
 
 # ------------- #
 # -> Classes <- #
@@ -42,7 +40,7 @@ class Launcher_variables():
         ## Quantidade de Conversores TTL que serão utilizados
         self.uart_amount = None
         ## Boolean para definir se a classe que gerẽncia a detecção de faces vai ou não estar habilitada
-        self.enable_faceDetect = None
+        self.enable_face_detect = None
         ## Caminho completo para a raiz do código fonte do robô: /home/USER/Agrobot-2.0/raspberry
         self.root_path = None
 
@@ -61,17 +59,16 @@ class Launcher_variables():
                 self.enable_relay = str(variable[1])
             elif(variable[0] == "uart_amount" and (int(variable[1]) == 0 or int(variable[1]) == 1 or int(variable[1]) == 2)):
                 self.uart_amount = int(variable[1])
-            elif(variable[0] == "enable_faceDetect"):
-                self.enable_faceDetect = str(variable[1])
+            elif(variable[0] == "enable_face_detect"):
+                self.enable_face_detect = str(variable[1])
             elif(variable[0] == "root_path"):
                 self.root_path = str(variable[1])
             i = i + 1
 
-        check_result,check_result_msg = check_variables(self.server_ip,self.enable_uart,self.enable_relay,self.uart_amount,self.enable_faceDetect,self.root_path)
+        check_result,check_result_msg = check_variables(self.server_ip,self.enable_uart,self.enable_relay,self.uart_amount,self.enable_face_detect,self.root_path)
         
+        print(check_result_msg)
         if(check_result == False):
-            print(check_result_msg)
             exit(0)
             
-        print(check_result_msg)
-        return self.server_ip,self.enable_uart,self.enable_relay,self.uart_amount,self.enable_faceDetect,self.root_path
+        return self.server_ip,self.enable_uart,self.enable_relay,self.uart_amount,self.enable_face_detect,self.root_path
