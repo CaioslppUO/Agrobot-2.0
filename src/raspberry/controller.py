@@ -109,3 +109,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         const_pub_log.publish("error$Warning$Program finalized")
         print('Program finalized')
+
