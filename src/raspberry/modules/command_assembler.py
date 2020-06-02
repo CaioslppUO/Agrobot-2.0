@@ -35,12 +35,31 @@ rospy.init_node('command_decider', anonymous=True)
 
 ## Classe que gerência o recebimento dos comandos, separação e envio para os devidos gerênciadores.
 class Assembler():
+    def __init__(self):
+        ## Variável que guarda o último sinal enviado ao relé do pulverizador.
+        # Utilizada para evitar o envio de comandos desnecessários pelos tópicos do ROS.
+        self.last_pulverize_signal = 0
+        ## Variável que guarda o último valor de speed.
+        # Utilizada para evitar o envio de comandos desnecessários pelos tópicos do ROS.
+        self.last_speed = 0
+        ## Variável que guarda o último valor de steer.
+        # Utilizada para evitar o envio de comandos desnecessários pelos tópicos do ROS.
+        self.last_steer = 0
+        ## Variável que guarda o último valor de limit.
+        # Utilizada para evitar o envio de comandos desnecessários pelos tópicos do ROS.
+        self.last_limit = 0
+        
     ## Método que envia os valores corretos para cada gerênciador.
     def send_comands(self,speed,steer,limit,power_a,power_b,pulverizer):
-        const_pub_control_robot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
-        const_pub_relay.publish("sendSignalToBoardOne$" + str(power_a))
-        const_pub_relay.publish("sendSignalToBoardTwo$" + str(power_b))
-        const_pub_relay.publish("sendSignalToPulverizer$" + str(pulverizer))
+        if(int(speed) != self.last_speed or int(steer) != self.last_steer or int(limit) != self.last_limit):
+            const_pub_control_robot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
+        if(int(power_a ) != 0):
+            const_pub_relay.publish("sendSignalToBoardOne$" + str(power_a))
+        if(int(power_b) != 0):
+            const_pub_relay.publish("sendSignalToBoardTwo$" + str(power_b))
+        if(int(pulverizer) != self.last_pulverize_signal):
+            self.last_pulverize_signal = int(pulverizer)
+            const_pub_relay.publish("sendSignalToPulverizer$" + str(pulverizer))
 
     ## Método que trata os comandos recebidos.
     def callback_comunication(self,msg):
