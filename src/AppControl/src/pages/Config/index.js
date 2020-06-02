@@ -14,7 +14,11 @@ export default class Config extends Component {
     serverIp: global.serverIp,
     port: global.port_manual,
     minPSpeed: global.minPulverizeSpeed,
-    delay: global.comunication_delay
+    delay: global.comunication_delay,
+    serverIp_temp: global.serverIp,
+    port_temp: global.port_manual,
+    minPSpeed_temp: global.minPulverizeSpeed,
+    delay_temp: global.comunication_delay
   };
 
   //Opções do controlador de navegação de páginas
@@ -52,6 +56,9 @@ export default class Config extends Component {
               onEndEditing={text => {
                 this.setState({ serverIp: text.nativeEvent.text });
               }}
+              onChangeText={text => {
+                this.setState({ serverIp_temp: text })
+              }}
             />
 
             <TextInput
@@ -59,6 +66,9 @@ export default class Config extends Component {
               placeholder={"Porta: " + this.state.port}
               onEndEditing={text => {
                 this.setState({ port: text.nativeEvent.text });
+              }}
+              onChangeText={text => {
+                this.setState({ port_temp: text })
               }}
             />
 
@@ -68,6 +78,9 @@ export default class Config extends Component {
               onEndEditing={text => {
                 this.setState({ delay: text.nativeEvent.text });
               }}
+              onChangeText={text => {
+                this.setState({ delay_temp: text })
+              }}
             />
 
             <TextInput
@@ -75,6 +88,9 @@ export default class Config extends Component {
               placeholder={"Vel. mínima para pulv.: " + this.state.minPSpeed}
               onEndEditing={text => {
                 this.setState({ minPSpeed: text.nativeEvent.text });
+              }}
+              onChangeText={text => {
+                this.setState({ minPSpeed_temp: text })
               }}
             />
           </View>
@@ -84,11 +100,10 @@ export default class Config extends Component {
               onPress={() => {
                 let lastIp = global.serverIp;
                 let lastMPS = global.minPulverizeSpeed;
-                let lastDelay = global.comunication_delay;
-                global.minPulverizeSpeed = this.state.minPSpeed;
-                global.serverIp = this.state.serverIp;
-                global.port_manual = this.state.port;
-                global.comunication_delay = parseFloat(this.state.delay);
+                global.minPulverizeSpeed = this.state.minPSpeed_temp;
+                global.serverIp = this.state.serverIp_temp;
+                global.port_manual = this.state.port_temp;
+                global.comunication_delay = parseFloat(this.state.delay_temp);
 
                 if (global.serverIp.split(".").length != 4) {
                   alert("Invalid IP");
