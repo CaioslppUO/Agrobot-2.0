@@ -15,12 +15,14 @@ from std_msgs.msg import String
 # -> Constantes <- #
 # ---------------- #
 
+## Instância que controla a publicação de logs.
 const_pub_log = rospy.Publisher('log', String, queue_size=10)
 
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
 
+## Inicializando o nó relay.
 rospy.init_node("relay", anonymous=True)
 
 # -------------------------- #
@@ -33,9 +35,9 @@ except:
     const_pub_log.publish("error$Warning$Could not include RPi.GPIO as GPIO in raspberry/modules/relay.py")
 
 try:
-    ## Definição do modo do GPIO
+    ## Definição do modo do GPIO.
     GPIO.setmode(GPIO.BOARD)
-    ## Desabilitando os warnings do GPIO
+    ## Desabilitando os warnings do GPIO.
     GPIO.setwarnings(False)
 except:
     const_pub_log.publish('error$Warning$Could not set up GPIO configs in raspberry/modules/relay.py')
@@ -92,7 +94,7 @@ class Relay():
 
     ## Método que trata os comandos recebidos pelo listener.
     def callback(self,msg):
-        info = str(msg.data).split(":")
+        info = str(msg.data).split("$")
         if(info[0] == "sendSignalToPulverizer"):
             try:
                 self.send_signal_to_pulverizer(int(info[1]))
@@ -109,7 +111,7 @@ class Relay():
             except:
                 const_pub_log.publish('error$Warning$Could not send signal to board one in raspberry/modules/relay.py')
     
-    ## Método que escuta do tópico Relay e processa os comandos recebidos.
+    ## Método que escuta do tópico relay e processa os comandos recebidos.
     def listener(self):
         rospy.Subscriber("relay", String, self.callback)   
         rospy.spin()

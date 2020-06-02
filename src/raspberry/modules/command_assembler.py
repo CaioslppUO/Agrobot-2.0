@@ -38,9 +38,9 @@ class Assembler():
     ## Método que envia os valores corretos para cada gerênciador.
     def send_comands(self,speed,steer,limit,power_a,power_b,pulverizer):
         const_pub_control_robot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
-        const_pub_relay.publish("sendSignalToBoardOne:" + str(power_a))
-        const_pub_relay.publish("sendSignalToBoardTwo:" + str(power_b))
-        const_pub_relay.publish("sendSignalToPulverizer:" + str(pulverizer))
+        const_pub_relay.publish("sendSignalToBoardOne$" + str(power_a))
+        const_pub_relay.publish("sendSignalToBoardTwo$" + str(power_b))
+        const_pub_relay.publish("sendSignalToPulverizer$" + str(pulverizer))
 
     ## Método que trata os comandos recebidos.
     def callback_comunication(self,msg):
