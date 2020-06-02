@@ -57,7 +57,7 @@ class Control_lidar():
         ## Variável que contém a informação se existe algum 'objeto' próximo ao sensor do meio.
         self.center_sensor = None
         ## Variável que controla a quantidade de movimentos de correção que serão aplicados.
-        self.ticks = 0
+        self.tick = 0
 
         ## Variável que controla os valores recebidos pelo app.
         self.standart_data = {}
@@ -89,14 +89,14 @@ class Control_lidar():
         if(self.tick == 1):
             self.steer = self.standart_data['steer_default']
         elif(self.correction_dir == "right"):
-            self.steer = int(self.standart_data['steer_default'] - int(self.standart_data['correction_magnitude'])
+            self.steer = int(self.standart_data['steer_default']) - int(self.standart_data['correction_magnitude'])
         else:
-            self.steer = int(self.standart_data['steer_default'] + int(self.standart_data['correction_magnitude'])
+            self.steer = int(self.standart_data['steer_default']) + int(self.standart_data['correction_magnitude'])
         self.tick = int(self.tick) - 1
 
     ## Método que verifica o valor do tick e decide se é ou não necessário realizar a leitura dos sensores e alterar o valor da direção.
     def check_tick(self):
-        if(self.tick == 0):
+        if(int(self.tick) == 0):
             self.define_correction_movement()
         else:
             self.set_steer()
@@ -143,7 +143,7 @@ class Control_lidar():
 
     ## Método que verifica se existe algum objeto 'próximo' ao sensor central do robô. Caso exista para o robô e desliga a lâmpada UV.
     def check_foward(self):
-        if(self.center_sensor == 'free')
+        if(self.center_sensor == 'free'):
             self.speed = self.standart_data['speed_default']
             self.uv = self.standart_data['uv']
             self.check_tick()
@@ -165,7 +165,7 @@ class Control_lidar():
     def move(self):
         if(self.check_move_permission()):
             if(self.walk):
-                self.check_foward(speed,steer,uv,tick)
+                self.check_foward()
                 rospy.Subscriber('angle', String, self.check_accelerometer) # verifica e ajusta a direção com base na leitura do acelerômetro.
                 command_to_publish = "5*speed$" + str(self.speed) + "*steer$" + str(self.steer) + "*limit$" + str(self.standart_data['limit']) + "*powerA$0*powerB$0*pulverize$" + str(self.uv)
                 const_pub_control_command.publish(command_to_publish)
