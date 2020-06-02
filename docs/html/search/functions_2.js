@@ -1,13 +1,16 @@
 var searchData=
 [
-  ['callback_168',['callback',['../classcommandPriorityDecider_1_1Comunication.html#a4eec66f7e76756498e95c289fac372fd',1,'commandPriorityDecider.Comunication.callback()'],['../classrelay_1_1Relay.html#adeb3a5791d94f8d555c887ed968eaace',1,'relay.Relay.callback()'],['../namespacelogs.html#a8edaec48f823693c6f0bff7b217343db',1,'logs.callback()']]],
-  ['callbackcomunication_169',['callbackComunication',['../classcommandAssembler_1_1ControlMode.html#abc10a6cf37ad0b17ab37e4026fe77130',1,'commandAssembler::ControlMode']]],
-  ['callbacksetvalues_170',['callbackSetValues',['../classcontrolRobot_1_1ControlRobot.html#a94e988f1413cfe94ecc5cf8be2f19e4f',1,'controlRobot::ControlRobot']]],
-  ['checklimit_171',['checkLimit',['../classcommandStandardizer_1_1CommandStandardizer.html#a6bf7d7e744df5d66c4fc33c7a31d5cc0',1,'commandStandardizer::CommandStandardizer']]],
-  ['checkrelays_172',['checkRelays',['../classcommandStandardizer_1_1CommandStandardizer.html#af749abb1869a6320f73a0ef9b639fb17',1,'commandStandardizer::CommandStandardizer']]],
-  ['checkspeed_173',['checkSpeed',['../classcommandStandardizer_1_1CommandStandardizer.html#afdf1e949daf04b745b52cbed158c04a8',1,'commandStandardizer::CommandStandardizer']]],
-  ['checksteer_174',['checkSteer',['../classcommandStandardizer_1_1CommandStandardizer.html#a8063bfa6987157552fb18a5b13ff8943',1,'commandStandardizer::CommandStandardizer']]],
-  ['checkvariables_175',['checkVariables',['../namespacelauncherVariables.html#af85c5f4f1fd1a80fbed51f69fedd5931',1,'launcherVariables']]],
-  ['cleanfiles_176',['cleanFiles',['../namespacelogs.html#a7c0cf13504de7129f9e1becdac4dbf61',1,'logs']]],
-  ['control_177',['control',['../main_8ino.html#af8326c5f56b72ca7e09b3101514f1a3a',1,'main.ino']]]
+  ['calc_5fvelocity_169',['calc_velocity',['../namespacecomputational__vision.html#aac01eb0085b1e59d71fbc793ae4655ad',1,'computational_vision']]],
+  ['callback_170',['callback',['../classcommand__priority__decider_1_1Comunication.html#aa94208d7c36ee3b1743d2b8a7a1ef3ce',1,'command_priority_decider.Comunication.callback()'],['../classrelay_1_1Relay.html#aeb8a76234b044d10ab9ae1952d449290',1,'relay.Relay.callback()'],['../namespacelogs.html#a8edaec48f823693c6f0bff7b217343db',1,'logs.callback()']]],
+  ['callback_5fcomunication_171',['callback_comunication',['../classcommand__assembler_1_1Assembler.html#a231eda721d7dbe14dcc0819d1c6e1ef7',1,'command_assembler::Assembler']]],
+  ['callback_5fset_5fvalues_172',['callback_set_values',['../classcontrol__robot_1_1Control__robot.html#acf828746478cfc63ca2e88d55ba0504c',1,'control_robot::Control_robot']]],
+  ['check_5fdead_5farea_173',['check_dead_area',['../namespacecomputational__vision.html#aea606bdc3460f08fbbcd900177e1bff9',1,'computational_vision']]],
+  ['check_5fdirection_5fvalue_174',['check_direction_value',['../namespacecomputational__vision.html#a34399c77de43154a7913ae6dc7adc569',1,'computational_vision']]],
+  ['check_5flimit_175',['check_limit',['../classcommand__standardizer_1_1Command__standardizer.html#a8c2cb30bf2d387d78366e44f417d98f4',1,'command_standardizer::Command_standardizer']]],
+  ['check_5frelays_176',['check_relays',['../classcommand__standardizer_1_1Command__standardizer.html#aebd614d6fca51e30ac8d6ecb943746ec',1,'command_standardizer::Command_standardizer']]],
+  ['check_5fspeed_177',['check_speed',['../classcommand__standardizer_1_1Command__standardizer.html#af1c887eabb03826a59df0bb1a9f14795',1,'command_standardizer::Command_standardizer']]],
+  ['check_5fsteer_178',['check_steer',['../classcommand__standardizer_1_1Command__standardizer.html#ae8b55749565643720d57dd120c9f0b78',1,'command_standardizer::Command_standardizer']]],
+  ['check_5fvariables_179',['check_variables',['../namespacelauncher__variables.html#abb0b7866b7cbafed316ed497ff6e9402',1,'launcher_variables']]],
+  ['clean_5flog_5ffiles_180',['clean_log_files',['../namespacelogs.html#ae94129f828ed54e3260077e024dad92e',1,'logs']]],
+  ['control_181',['control',['../main_8ino.html#af8326c5f56b72ca7e09b3101514f1a3a',1,'main.ino']]]
 ];

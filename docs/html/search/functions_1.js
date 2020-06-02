@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ajustangle_167',['AjustAngle',['../namespacecomputationalVision.html#a6057204ded4c414f506827d8ea79f0b5',1,'computationalVision']]]
+  ['ajust_5fangle_168',['ajust_angle',['../namespacecomputational__vision.html#abf205e1f0b2d0f9fe57215a197c79dee',1,'computational_vision']]]
 ];

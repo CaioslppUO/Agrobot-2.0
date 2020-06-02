@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['get_42',['get',['../namespacemanualControl.html#afc7926cec7ec746cb786d0c67f42384a',1,'manualControl']]],
-  ['getvalue_43',['getValue',['../classcontrolRobot_1_1ControlRobot.html#a60dd40c8f1707d77eb9f94126917b95f',1,'controlRobot::ControlRobot']]],
-  ['guaranteedcommands_44',['guaranteedCommands',['../classcommandPriorityDecider_1_1priorities.html#aac0d2308aff9b784c39fffdd0fe813cb',1,'commandPriorityDecider::priorities']]]
+  ['get_58',['get',['../namespacemanual__control.html#a6b967c62edeb1f38312354d008fcc4d8',1,'manual_control']]],
+  ['get_5fstand_5fvalue_59',['get_stand_value',['../classcontrol__robot_1_1Control__robot.html#acd0af2c1619121a5503fd6cd8f595ad6',1,'control_robot::Control_robot']]],
+  ['guaranteed_5fcommands_60',['guaranteed_commands',['../classcommand__priority__decider_1_1Priorities.html#a92910500a367e0f43700c64f4eff2f47',1,'command_priority_decider::Priorities']]]
 ];

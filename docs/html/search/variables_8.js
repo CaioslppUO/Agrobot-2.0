@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['rasp_5flidar_247',['rasp_lidar',['../classcommandPriorityDecider_1_1priorities.html#a6b75595bb83a8eae84ebf33045d2ba14',1,'commandPriorityDecider::priorities']]],
-  ['relay_248',['relay',['../namespacerelay.html#a51ecb2468f0542415378356fcfb8846f',1,'relay']]],
-  ['rootpath_249',['rootPath',['../classlauncherVariables_1_1LauncherVariables.html#abaa365a57f1974bddfef37936b88f03a',1,'launcherVariables::LauncherVariables']]]
+  ['rasp_5flidar_256',['rasp_lidar',['../classcommand__priority__decider_1_1Priorities.html#a9aa87220720f39de223ba1264d68bb8d',1,'command_priority_decider::Priorities']]],
+  ['relay_257',['relay',['../namespacerelay.html#a51ecb2468f0542415378356fcfb8846f',1,'relay']]],
+  ['remaining_5fcommands_258',['remaining_commands',['../classcommand__priority__decider_1_1Comunication.html#ac81ccbbfac4f7d42af24dafe0e78c974',1,'command_priority_decider::Comunication']]],
+  ['root_5fpath_259',['root_path',['../classlauncher__variables_1_1Launcher__variables.html#a4ff11f9c2a20d5cbdfbd6572fd899579',1,'launcher_variables::Launcher_variables']]]
 ];
