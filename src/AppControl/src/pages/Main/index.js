@@ -171,6 +171,9 @@ export default class Main extends Component {
     //Função que envia os valores corretos para ligar o pulverizador
     function pulverizeButtonPressed() {
       global.pulverize = global.pulverize == 0 ? 1 : 0;
+      if(global.pulverize == 0){
+        sendManualCommand(0,0)
+      }
     }
 
     //Função que liga/desliga o modo de controle automático
