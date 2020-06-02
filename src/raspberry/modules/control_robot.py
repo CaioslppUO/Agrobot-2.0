@@ -15,23 +15,25 @@ from std_msgs.msg import String
 # -> Constantes <- #
 # ---------------- #
 
+## Instância que controla a publicação de logs.
 const_pub_log = rospy.Publisher('log', String, queue_size=10)
-## Constante utilizada para acessar o conversor TTL 0
+## Constante utilizada para acessar o conversor TTL 0.
 const_uart_0 = None
-## Constante utilizada para acessar o conversor TTL 1
+## Constante utilizada para acessar o conversor TTL 1.
 const_uart_1 = None
 
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
 
+## Inicializando o nó control_robot.
 rospy.init_node('control_robot', anonymous=True) 
 
 # ------------- #
 # -> Funções <- #
 # ------------- #
 
-## Função que define e instancia a comunicação com os conversores TTL baseado na variável uart_amount.
+## Função que define e instancia a comunicação com os conversores TTL baseando-se na variável uart_amount.
 def set_uart(uart_amount):
     global const_uart_0,const_uart_1
     if(uart_amount == 1):
@@ -132,25 +134,20 @@ class Control_robot():
             self.steer = 0
             self.limit = 0
 
-        text = self.speed
-        text += ','
-        text += self.steer
-        text += ','
-        text += self.limit
-        text += ';'
+        command = self.speed + ',' + self.steer + ',' + self.limit + ';'
 
         try:
             if(int(self.uart_amount) == 1):  
-                const_uart_0.write(str.encode(text))
+                const_uart_0.write(str.encode(command))
             elif(int(self.uart_amount) == 2):
-                const_uart_0.write(str.encode(text))
-                const_uart_1.write(str.encode(text))
+                const_uart_0.write(str.encode(command))
+                const_uart_1.write(str.encode(command))
             else:
                 time.sleep(0.02)
         except:
             const_pub_log.publish("error$Fatal$UART error.")
 
-    ## Método que escuta do tópico Control_robot para tratar os comandos recebidos.
+    ## Método que escuta do tópico control_robot para tratar os comandos recebidos.
     def listen_values(self):
         rospy.Subscriber("control_robot", String, self.callback_set_values)  
 
