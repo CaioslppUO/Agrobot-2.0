@@ -15,14 +15,18 @@ from std_msgs.msg import String
 # -> Constantes <- #
 # ---------------- #
 
+## Instância que controla a publicação no tópico computational_vision.
 const_pub_computational_vision = rospy.Publisher('computational_vision', String, queue_size=10)
+## Instância que controla a publicação de logs.
 const_pub_log = rospy.Publisher('log', String, queue_size=10)
+## Constante que define o limite de velocidade para no robô.
 const_limit = 50
 
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
 
+## Inicializando o nó computational_vision.
 rospy.init_node('computational_vision', anonymous=True)
 
 # -------------------------- #
@@ -43,16 +47,14 @@ except:
 # ------------- #
 
 ## Função que verifica o valor da direção.
-# Retorna verdadeiro caso for esquerda, e falso caso for direita.
 def check_direction_value(value):
 	return value < 0
 
-## Função que retorna a velocidade que o robô deve ter com base no que tem na tela.
+## Função que retorna a velocidade que o robô deve ter com base na tela.
 def calc_velocity(max_value,actual_value):
 	return max_value/actual_value
 
-## Função que verifica se o rosto ja esta na area central.
-# Retorana verdadeiro se estiver, e false caso contrario.
+## Função que verifica se o rosto ja esta na area central da tela.
 def check_dead_area(pt1,safe1,safe2):
 	return (pt1[0] > safe1[0] and pt1[0] < safe2[0])
 
@@ -78,7 +80,7 @@ def ajust_angle(pt1,size,limit):
 		const_pub_log.publish("error$Warning$Could not publish ajust_angle msg in raspberry/modules/computationalVision.py")
 	msg = None
 
-## Função que detecta o rosto da pessoa, e o centro da tela.
+## Função que detecta o rosto da pessoa e o centro da tela.
 def enable_vision():
 	face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 	face_center_x = 0
