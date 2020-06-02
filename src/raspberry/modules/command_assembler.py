@@ -52,6 +52,9 @@ class Assembler():
     ## Método que envia os valores corretos para cada gerênciador.
     def send_comands(self,speed,steer,limit,power_a,power_b,pulverizer):
         if(int(speed) != self.last_speed or int(steer) != self.last_steer or int(limit) != self.last_limit):
+            self.last_speed = int(speed)
+            self.last_steer = int(steer)
+            self.last_limit = int(limit)
             const_pub_control_robot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
         if(int(power_a ) != 0):
             const_pub_relay.publish("sendSignalToBoardOne$" + str(power_a))
