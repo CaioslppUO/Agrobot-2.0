@@ -10,9 +10,7 @@ Módulo que gerencia a padronização dos comandos recebidos.
 
 ## Classe que gerência a padronização dos comandos recebidos.
 class Command_standardizer():        
-    ## Método que checa se o valor da variável speed está dentro dos limites aceitáveis.
-    # Caso não esteja, corrige o valor e o retorna. \n
-    # Caso esteja, somente retorna o valor recebido.
+    ## Método que corrige o valor da variável speed caso seja necessário.
     def check_speed(self,speed):
         if(speed < -100):
             return -100
@@ -20,9 +18,7 @@ class Command_standardizer():
             return 100
         return speed
 
-    ## Método que checa se o valor da variável steer está dentro dos limites aceitáveis.
-    # Caso não esteja, corrige o valor e o retorna. \n
-    # Caso esteja, somente retorna o valor recebido.
+    ## Método que corrige o valor da variável steer caso seja necessário.
     def check_steer(self,steer):
         if(steer < -100):
             return -100
@@ -30,9 +26,7 @@ class Command_standardizer():
             return 100
         return steer
 
-    ## Método que checa se o valor da variável limit está dentro dos limites aceitáveis.
-    # Caso não esteja, corrige o valor e o retorna. \n
-    # Caso esteja, somente retorna o valor recebido.
+    ## Método que corrige o valor da variável limit caso seja necessário.
     def check_limit(self,limit):
         if(limit < 0):
             return 0
@@ -40,9 +34,7 @@ class Command_standardizer():
             return 100
         return limit
 
-    ## Método que checa se o valor da signal speed está dentro dos limites aceitáveis.
-    # Caso não esteja, corrige o valor e o retorna. \n
-    # Caso esteja, somente retorna o valor recebido.
+    ## Método que corrige o valor da variável signal caso seja necessário.
     def check_relays(self,signal):
         if(signal != 0 and signal != 1):
             return 0
@@ -80,8 +72,6 @@ class Command_standardizer():
             return 0,0,0,0,0,0
 
     ## Método que trata o comando recebido, separando e verificando todas as variáveis.
-    # Retorna None caso algum erro ocorra. \n
-    # Retorna um vetor com as variáveis separadas pelo símbolo $. Já corrigidas e verificadas.
     def msg_handler(self,msg):
         if(msg != None):
             speed,steer,limit,power_a,power_b,pulver = self.msg_spliter(msg) 
