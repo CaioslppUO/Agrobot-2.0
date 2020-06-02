@@ -194,7 +194,8 @@ export default class Main extends Component {
 
     //Função que para o robô
     function stopRobot() {
-      sendToWebServerManual(0, 0, 0, 0, 0, global.pulverize);
+      global.pulverize = 0
+      sendToWebServerManual(0, 0, 0, 0, 0, 0);
       sendToParamServer(0, 0, 0, 0, 0, 0, 0);
     }
 
@@ -365,6 +366,7 @@ export default class Main extends Component {
                 }}
                 onPress={() => {
                   this.setState({ buttonAuto: "#000" });
+                  this.setState({ buttonPulverizador: "#000" });
                   stopRobot();
                   this.setState({ autoMode: 0 });
                 }}

@@ -26,7 +26,7 @@ global.serverIp_auto = "192.168.1.121";
 global.port_auto = "8082";
 global.move_time_auto = 0;
 global.stop_time_auto = 0;
-global.detect_distance = 1.2;
+global.detect_distance = 1.5;
 
 //Variáveis de informação
-global.version = "2.3.2";
+global.version = "2.3.3";
