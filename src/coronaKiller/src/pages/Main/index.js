@@ -304,6 +304,7 @@ export default class Main extends Component {
                 }}
                 onPress={() => {
                   this.setState({ buttonAuto: "#000" });
+                  this.setState({ buttonUv: "#000" });
                   stopRobot();
                   this.setState({ autoMode: 0 });
                 }}
