@@ -17,13 +17,16 @@ from threading import Thread
 # -> Constantes <- #
 # ---------------- #
 
+## Instância que controla a publicação no tópico web_server_manual.
 const_pub_web_server = rospy.Publisher('web_server_manual', String, queue_size=10)
+## Instância que controla a publicação de logs.
 const_pub_log = rospy.Publisher('log', String, queue_size=10)
 
 # ------------------- #
 # -> Configurações <- #
 # ------------------- #
 
+## Iniciando o nó web_server_manual.
 rospy.init_node('web_server_manual', anonymous=True)
 
 # ------------- #
@@ -38,13 +41,13 @@ class RequestHandler_httpd(BaseHTTPRequestHandler):
         msg = None
         web_server_request = self.requestline
         web_server_request = web_server_request[5 : int(len(web_server_request)-9)]
-        msg = str(web_server_request) #Mensagem crua recebida do app
-        const_pub_web_server.publish(str(msg))
+        msg = str(web_server_request) # Mensagem crua recebida do app.
+        const_pub_web_server.publish(msg)
         return
 
-## Classe que gerencia o servidor http
+## Classe que gerencia o servidor http.
 class Web_server():
-    ## Método que inicializa as variáveis e o servidor
+    ## Método que inicializa as variáveis e o servidor.
     def __init__(self):
         try:
             ## Ip no qual será aberto o servidor.
@@ -52,10 +55,10 @@ class Web_server():
             self.server_address_httpd = (self.server_ip,8080)
             httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
             self.server_thread = Thread(target=httpd.serve_forever)
-            self.server_thread.daemon = True #O servidor é fechado ao fechar o programa
+            self.server_thread.daemon = True # O servidor é fechado ao finalizar o programa.
             self.server_thread.start()
         except:
-            const_pub_log.publish("error$Fatal$Web_server.py could not run.")
+            const_pub_log.publish("error$Fatal$web_server.py could not run.")
             pass
 
 # ------------------------ #
@@ -69,4 +72,4 @@ if __name__ == '__main__':
         while not rospy.is_shutdown():
             rospy.spin()
     except rospy.ROSInterruptException:
-        const_pub_log.publish("error$Fatal$web_server stoped working.")
+        const_pub_log.publish("error$Fatal$web_server.py stoped working.")
