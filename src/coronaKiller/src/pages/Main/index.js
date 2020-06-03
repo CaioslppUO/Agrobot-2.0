@@ -182,7 +182,7 @@ export default class Main extends Component {
     function stopRobot() {
       global.uv = 0
       sendToWebServerManual(0, 0, 0, 0, 0, 0);
-      sendToParamServer(0, 0, 0, 0, 0, 0, 0);
+      sendToParamServer(0, 0, 0, 0, 0, -1, -1);
     }
 
     return (
