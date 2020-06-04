@@ -4,7 +4,8 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from "react-native";
 import styles from "./styles";
 
@@ -40,6 +41,14 @@ export default class Automatic extends Component {
   };
 
   render() {
+    storeData = async (name, value) => {
+      try {
+        await AsyncStorage.setItem(name, value);
+      } catch (error) {
+        alert("Erro ao salvar a variável " + name + ". Erro: " + error)
+      }
+    }
+
     return (
       <>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -149,6 +158,16 @@ export default class Automatic extends Component {
                   global.move_time_auto = this.state.move_time_auto_temp;
                   global.stop_time_auto = this.state.stop_time_auto_temp;
                   global.detect_distance = this.state.detect_distance_temp;
+                  
+                  storeData("limit_auto",this.state.limit_auto_temp)
+                  storeData("correction_movements",this.state.tickDefault_auto_temp)
+                  storeData("steer_auto",this.state.steerDefault_auto_temp)
+                  storeData("speed_auto",this.state.speedDefault_auto_temp)
+                  storeData("correction_factor",this.state.shiftDirection_auto_temp)
+                  storeData("move_time_auto",this.state.move_time_auto_temp)
+                  storeData("stop_time_auto",this.state.stop_time_auto_temp)
+                  storeData("detect_distance",this.state.detect_distance_temp)
+
                   this.props.navigation.navigate("Main");
                 }}
               >

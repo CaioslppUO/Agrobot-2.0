@@ -4,7 +4,8 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  BackHandler
+  BackHandler,
+  AsyncStorage
 } from "react-native";
 import styles from "./styles";
 
@@ -31,7 +32,7 @@ export default class Config extends Component {
   };
 
   componentWillMount() {
-    BackHandler.addEventListener("hardwareBackPress", () => {});
+    BackHandler.addEventListener("hardwareBackPress", () => { });
   }
 
   componentWillUnmount() {
@@ -39,6 +40,15 @@ export default class Config extends Component {
   }
 
   render() {
+    // Guarda as variáveis na memória.
+    storeData = async (name, value) => {
+      try {
+        await AsyncStorage.setItem(name, value);
+      } catch (error) { 
+        alert("Erro ao salvar a variável " + name)
+      }
+    }
+
     return (
       <>
         {/*View principal*/}
@@ -54,7 +64,7 @@ export default class Config extends Component {
               style={styles.textDefault}
               placeholder={"IP do robô: " + this.state.serverIp}
               onEndEditing={text => {
-               this.setState({ serverIp: text.nativeEvent.text });
+                this.setState({ serverIp: text.nativeEvent.text });
               }}
               onChangeText={text => {
                 this.setState({ serverIp_temp: text });
@@ -90,6 +100,10 @@ export default class Config extends Component {
                 global.serverIp = this.state.serverIp_temp;
                 global.port_manual = this.state.port_temp;
                 global.comunication_delay = parseFloat(this.state.delay_temp);
+                
+                storeData("serverIp", this.state.serverIp_temp)
+                storeData("port_manual", this.state.port_temp)
+                storeData("comunication_delay", this.state.delay_temp)
                 this.props.navigation.navigate("Main");
               }}
             >
