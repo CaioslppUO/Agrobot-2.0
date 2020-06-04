@@ -45,7 +45,7 @@ export default class Config extends Component {
       try {
         await AsyncStorage.setItem(name, value);
       } catch (error) { 
-        alert("Erro ao salvar a variável " + name)
+        alert("Erro ao salvar a variável " + name + ". " + error)
       }
     }
 
