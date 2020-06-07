@@ -29,7 +29,7 @@ global.stop_time_auto = 0;
 global.detect_distance = 1.5;
 
 //Variáveis de informação
-global.version = "0.5.4";
+global.version = "0.5.7";
 
 async function setValue(name,default_value){
     res = await AsyncStorage.getItem(name);
@@ -45,7 +45,7 @@ retrieveData = async () => {
         // Manual
         global.serverIp = await setValue("serverIp","192.168.1.2")
         global.port_manual = await setValue("port_manual","8080")
-        global.comunication_delay = await setValue("comunication_delay","50")
+        global.comunication_delay = parseInt(await setValue("comunication_delay","50"))
 
         // Automático
         global.speed_auto = await setValue("speed_auto","-26")

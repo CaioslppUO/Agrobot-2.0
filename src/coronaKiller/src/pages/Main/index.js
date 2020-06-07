@@ -145,7 +145,7 @@ export default class Main extends Component {
           0,
           global.uv
         );
-      }, global.comunication_delay);
+      },parseInt(global.comunication_delay));
     }
 
     //Função que envia os valores corretos para ligar a placa do robô

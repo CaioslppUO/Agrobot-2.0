@@ -103,7 +103,7 @@ export default class Config extends Component {
                 
                 storeData("serverIp", this.state.serverIp_temp)
                 storeData("port_manual", this.state.port_temp)
-                storeData("comunication_delay", this.state.delay_temp)
+                storeData("comunication_delay",toString (this.state.delay_temp))
                 this.props.navigation.navigate("Main");
               }}
             >
