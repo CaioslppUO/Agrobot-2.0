@@ -10,7 +10,7 @@
 
 ---
 
-**Erros com a rede wifi**
+**Erros com a rede wifi:**
 
    -> [A rede wifi não aparece.](www.google.com.br)
 
@@ -18,8 +18,20 @@
 
 ---
 
-**Erros com o robô**
+**Erros com o robô:**
 
    -> [O robô fica apitando.](www.google.com.br)
 
-   -> [O robô anda sozinho ao ligar a placa.](www.google.com.br) 
+   -> [O robô anda sozinho ao ligar a placa.](www.google.com.br)
+
+   -> [O robô não liga.](www.google.com.br)
+
+---
+
+**Erros com hardware:** 
+
+   -> [O arduino fica resetando.](www.google.com.br)
+
+   -> [Os relés não funcionam.](www.google.com.br)
+
+   -> [O raspberry não liga,](www.google.com.br)
