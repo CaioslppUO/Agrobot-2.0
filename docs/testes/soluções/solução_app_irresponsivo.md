@@ -21,8 +21,11 @@
 
     * O programa do robô não está rodando. Verificar utilizando o comando rostopic list, deverá aparecer um tópico com nome web_server.
 
+    * Ao utilizar o comando 'rostopic echo /web_server' deverá ser impresso na tela o que o raspberry está recebendo do app.
+
     * As variáveis de ambiente do ROS estão erradas.
 
     * Verificar o status do serviço que inicializa o programa, nele é possível ver um log de erros, caso ocorram. Comando: sudo systemctl status autoStartRobotCore.
 
     * Verificar o arquivo de logs do programa localizado na pasta: raspberry/logs/errors.log.
+
