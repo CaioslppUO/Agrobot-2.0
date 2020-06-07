@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['webservermsgcheck_195',['webServerMsgCheck',['../classcommandStandardizer_1_1CommandStandardizer.html#a4f3b4ff980a1df119f88da95d9e5e837',1,'commandStandardizer::CommandStandardizer']]],
-  ['webservermsghandler_196',['webServerMsgHandler',['../classcommandStandardizer_1_1CommandStandardizer.html#aada388f861a6677d6d200a3d495805c8',1,'commandStandardizer::CommandStandardizer']]],
-  ['webservermsgspliter_197',['webServerMsgSpliter',['../classcommandStandardizer_1_1CommandStandardizer.html#a4cca2ed5f2002b6fa928935ad3db6e5e',1,'commandStandardizer::CommandStandardizer']]]
+  ['variable_5fseparator_215',['variable_separator',['../classlauncher__variables_1_1Launcher__variables.html#a93e1f220cc91d28575485a63d75cc2f5',1,'launcher_variables::Launcher_variables']]]
 ];

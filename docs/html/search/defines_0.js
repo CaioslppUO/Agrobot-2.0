@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['std_5fx_243',['STD_X',['../main_8ino.html#a4b34db6d32e5be7b2c14850d77760360',1,'main.ino']]],
-  ['std_5fy_244',['STD_Y',['../main_8ino.html#a43fefdf2655f594c8a49e6d81147a87d',1,'main.ino']]]
+  ['std_5fx_272',['STD_X',['../main_8ino.html#a4b34db6d32e5be7b2c14850d77760360',1,'main.ino']]],
+  ['std_5fy_273',['STD_Y',['../main_8ino.html#a43fefdf2655f594c8a49e6d81147a87d',1,'main.ino']]]
 ];

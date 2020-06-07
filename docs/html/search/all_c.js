@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['uart0_105',['uart0',['../namespacecontrolRobot.html#a1a9b375c04e0df401d195b7537bd1ced',1,'controlRobot']]],
-  ['uart1_106',['uart1',['../namespacecontrolRobot.html#ae0d78142df3459c6af722b12a2f89a34',1,'controlRobot']]],
-  ['uartamount_107',['uartAmount',['../classlauncherVariables_1_1LauncherVariables.html#a3d3033c3517018555b89c1022792df97',1,'launcherVariables.LauncherVariables.uartAmount()'],['../classcontrolRobot_1_1ControlRobot.html#a033aed123a25efb5df0aa2a2086fdf15',1,'controlRobot.ControlRobot.uartAmount()']]]
+  ['uart_5famount_123',['uart_amount',['../classlauncher__variables_1_1Launcher__variables.html#a0c93bb29151806e21f2dc3d8c8ae71c1',1,'launcher_variables.Launcher_variables.uart_amount()'],['../classcontrol__robot_1_1Control__robot.html#a543922eccc1e9c6e95947c8024cfa478',1,'control_robot.Control_robot.uart_amount()']]]
 ];

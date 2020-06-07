@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['get_168',['get',['../namespacemanualControl.html#afc7926cec7ec746cb786d0c67f42384a',1,'manualControl']]],
-  ['getvalue_169',['getValue',['../classcontrolRobot_1_1ControlRobot.html#a60dd40c8f1707d77eb9f94126917b95f',1,'controlRobot::ControlRobot']]]
+  ['get_185',['get',['../namespacemanual__control.html#a6b967c62edeb1f38312354d008fcc4d8',1,'manual_control']]],
+  ['get_5fstand_5fvalue_186',['get_stand_value',['../classcontrol__robot_1_1Control__robot.html#acd0af2c1619121a5503fd6cd8f595ad6',1,'control_robot::Control_robot']]]
 ];

@@ -1,7 +1,4 @@
-Controller: Started
-CommandPriorityDecider: Started
-ControlRobot: Started
-CommandAssembler: Started
-Relay: Started
-WebServer: Started
-ComputationalVision: Started
+ * controller.py
+ * command_assembler
+ * command_priority_decider.py
+ * web_server.py
