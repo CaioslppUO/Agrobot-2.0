@@ -1,1 +1,1 @@
-**Solução para o arduino resetando**
+**Soluções para o arduino resetando**
