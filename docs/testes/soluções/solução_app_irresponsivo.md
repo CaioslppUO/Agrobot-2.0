@@ -13,6 +13,8 @@
 
     * Verificar se a distância do celular para o raspberry não é superior a 30 metros. Acima dessa distância não é garantido que a conexão funcione. 
 
+    * Desligue o 3g ou 4g. Em alguns modelos de celular, estar com os dados móveis ligados atrapalha o controle do robô.
+
 -> **No raspberry:**
 
     * O raspberry está desligado.
