@@ -1,5 +1,7 @@
 -> Nomeclaturas:
 
+    * Todos os nomes devem estar em inglês.
+
     * nomeclatura de variáveis: nome_da_variavel
     * nomeclatura de classes: Nome_da_classe
     * nomeclatura de funções: nome_da_funcao

@@ -8,6 +8,7 @@ import {
   PermissionsAndroid,
   Picker
 } from "react-native";
+
 import AxisPad from "react-native-axis-pad";
 import NavigationActions from "react-navigation/src/NavigationActions";
 import styles from "./styles";
