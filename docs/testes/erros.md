@@ -4,4 +4,4 @@
 
 **Erros com o App:**
     
-    [O robô não responde aos comandos do app](soluções/solução_app_irresponsivo.md)
+   [O robô não responde aos comandos do app](soluções/solução_app_irresponsivo.md)
