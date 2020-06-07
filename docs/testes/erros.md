@@ -6,32 +6,32 @@
     
    -> [O robô não responde aos comandos do app.](soluções/solução_app_irresponsivo.md)
    
-   -> [Erro com visual/funcionalidade do app.](www.google.com.br)
+   -> [Erro com visual/funcionalidade do app.](soluções/solução_erro_visual_app.md)
 
 ---
 
 **Erros com a rede wifi:**
 
-   -> [A rede wifi não aparece.](www.google.com.br)
+   -> [A rede wifi não aparece.](soluções/solução_wifi_off.md)
 
-   -> [Senha errada.](www.google.com.br)
+   -> [Senha errada.](soluções/solução_senha_errada.md)
 
 ---
 
 **Erros com o robô:**
 
-   -> [O robô fica apitando.](www.google.com.br)
+   -> [O robô fica apitando.](soluções/solução_robo_apitando.md)
 
-   -> [O robô anda sozinho ao ligar a placa.](www.google.com.br)
+   -> [O robô anda sozinho ao ligar a placa.](soluções/solução_andando_sozinho.md)
 
-   -> [O robô não liga.](www.google.com.br)
+   -> [O robô não liga.](soluções/solução_robo_nao_liga.md)
 
 ---
 
 **Erros com hardware:** 
 
-   -> [O arduino fica resetando.](www.google.com.br)
+   -> [O arduino fica resetando.](soluções/solução_arduino_resetando.md)
 
-   -> [Os relés não funcionam.](www.google.com.br)
+   -> [Os relés não funcionam.](soluções/solução_rele_off.md)
 
-   -> [O raspberry não liga,](www.google.com.br)
+   -> [O raspberry não liga,](soluções/solução_raspberry_off.md)
