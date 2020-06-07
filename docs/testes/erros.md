@@ -1,4 +1,4 @@
-**Lista de Erros e as possíveis soluções**
+**Lista de erros e as possíveis soluções**
 
 ---
 
