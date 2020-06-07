@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['main_58',['main',['../namespacemanualControl.html#a57f53bd7ad40ecbc34f922b365c2b727',1,'manualControl']]],
-  ['main_2eino_59',['main.ino',['../main_8ino.html',1,'']]],
-  ['mainloop_60',['mainLoop',['../namespacecontroller.html#a8b1f2ed0a3bb25964169e69840da0527',1,'controller']]],
-  ['manual_5fapp_61',['manual_app',['../classcommandPriorityDecider_1_1priorities.html#a9bd8647cd7b45f22bf1a0a26039d27f2',1,'commandPriorityDecider::priorities']]],
-  ['manual_5fpc_62',['manual_pc',['../classcommandPriorityDecider_1_1priorities.html#aa971db55009437fd6198f18762ddd98b',1,'commandPriorityDecider::priorities']]],
-  ['manualcontrol_63',['manualControl',['../namespacemanualControl.html',1,'']]],
-  ['manualcontrol_2epy_64',['manualControl.py',['../manualControl_8py.html',1,'']]],
-  ['msg_65',['msg',['../classcommandPriorityDecider_1_1Comunication.html#a83ceede24c7639fcf299a4e4b7c70e30',1,'commandPriorityDecider.Comunication.msg()'],['../namespacewebServer.html#a0d3d384a44ddec57dbd1d542134ead7f',1,'webServer.msg()']]]
+  ['main_81',['main',['../namespacemanual__control.html#a24da81fb89bc03fdf53def545534034a',1,'manual_control']]],
+  ['main_2eino_82',['main.ino',['../main_8ino.html',1,'']]],
+  ['main_5floop_83',['main_loop',['../namespacecontroller.html#a79130c370ce0fa373e3e8c5dcd949b18',1,'controller']]],
+  ['manual_5fapp_84',['manual_app',['../classcommand__priority__decider_1_1Priorities.html#a1e7f53c007f9be47d6370d06d422267e',1,'command_priority_decider::Priorities']]],
+  ['manual_5fcontrol_85',['manual_control',['../namespacemanual__control.html',1,'']]],
+  ['manual_5fcontrol_2epy_86',['manual_control.py',['../manual__control_8py.html',1,'']]],
+  ['manual_5fpc_87',['manual_pc',['../classcommand__priority__decider_1_1Priorities.html#a76fd3e5ce26afe7280fd2fd8e83baf42',1,'command_priority_decider::Priorities']]],
+  ['msg_88',['msg',['../classcommand__priority__decider_1_1Comunication.html#a2ff07108bc4c16fb2e9c153095b896a6',1,'command_priority_decider::Comunication']]],
+  ['msg_5fcheck_89',['msg_check',['../classcommand__standardizer_1_1Command__standardizer.html#a099a8dfe197f1d9f128727e6fb4abc84',1,'command_standardizer::Command_standardizer']]],
+  ['msg_5fhandler_90',['msg_handler',['../classcommand__standardizer_1_1Command__standardizer.html#aa3849fe0804573ac70e0f7d26d4a2967',1,'command_standardizer::Command_standardizer']]],
+  ['msg_5fspliter_91',['msg_spliter',['../classcommand__standardizer_1_1Command__standardizer.html#a3bebe4ed12991d1b9bca8a8464b4e986',1,'command_standardizer::Command_standardizer']]]
 ];

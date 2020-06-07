@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['webserver_111',['WebServer',['../classwebServer_1_1WebServer.html',1,'webServer.WebServer'],['../namespacewebServer.html',1,'webServer'],['../namespacewebServer.html#a2321951806c0818e728b2dc92ba0c00b',1,'webServer.webServer()']]],
-  ['webserver_2epy_112',['webServer.py',['../webServer_8py.html',1,'']]],
-  ['webservermsgcheck_113',['webServerMsgCheck',['../classcommandStandardizer_1_1CommandStandardizer.html#a4f3b4ff980a1df119f88da95d9e5e837',1,'commandStandardizer::CommandStandardizer']]],
-  ['webservermsghandler_114',['webServerMsgHandler',['../classcommandStandardizer_1_1CommandStandardizer.html#aada388f861a6677d6d200a3d495805c8',1,'commandStandardizer::CommandStandardizer']]],
-  ['webservermsgspliter_115',['webServerMsgSpliter',['../classcommandStandardizer_1_1CommandStandardizer.html#a4cca2ed5f2002b6fa928935ad3db6e5e',1,'commandStandardizer::CommandStandardizer']]]
+  ['web_5fserver_126',['Web_server',['../classweb__server_1_1Web__server.html',1,'web_server.Web_server'],['../namespaceweb__server.html',1,'web_server'],['../namespaceweb__server.html#a1000eb58e57d3cee687e2dfd0d7ca842',1,'web_server.web_server()']]],
+  ['web_5fserver_2epy_127',['web_server.py',['../web__server_8py.html',1,'']]],
+  ['write_5ferror_128',['write_error',['../namespacelogs.html#ae22025a517787267d10b8d1889d23467',1,'logs']]],
+  ['write_5fstarted_129',['write_started',['../namespacelogs.html#aa0b442e21e09f7b6c8a257a13be2d116',1,'logs']]]
 ];

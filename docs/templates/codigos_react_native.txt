@@ -1,0 +1,59 @@
+-> Nomeclaturas:
+
+    * Todos os nomes devem estar em inglês.
+
+    * nomeclatura de variáveis: nomeDaVariavel
+    * nomeclatura de funções: nomeDaFunção
+    * nomeclatura de métodos: nomeDoMetodo
+    * nomeclatura de classes: NomeDaClasse
+    * nomeclatura de arquivos: NomeDoArquivo.extensao
+    * nomeclatura de constantes: NOME_DA_CONSTANTE
+    * nomeclatura de componentes: NomeDoComponente
+    * nomeclatura em html: NomeDoComponente
+    * nomeclatura de constantes de estilo: NOME_DA_CONSTANTE
+
+-> Comentários:
+
+    * Utilizar somente comentários com o // para código em javascript.
+    * Utilizar /* COMENTÁRIO */ para comentar códigos html.
+
+-> Protocolo de comunicação app -> raspberry:
+
+    * Padrão: 0*speed$(value)*steer$(value)*limit$(value)*powerA$(value)*powerB$(value)*pulverize$(value)
+    * '*' É utilizado como separador de variáveis.
+    * '$' É utilizado como separador do nome da variável para o valor da variável.
+    * Não existe ordem para as variáveis, é necessário identificar qual ela é pelo seu nome.
+    * O valor 0* no início da mensagem era utilizado antigamente para definir a prioridade, teoricamente não é mais necessário, mas ainda não foi testado.
+
+-> Regras gerais:
+
+    * Somente utilizar variáveis globais como variáveis para configurações.
+    * Sempre verificar se os valores de entrada nos inputs(configurações) são permitidos e, caso não sejam, printar mensagem de erro e ignorar os valores.
+    * Sempre fazer cast de tipos na hora da atribuição dos valores.
+    * Não misturar códigos html com códigos javascript. Tudo deve ser realizado por meio de chamada de função.
+    * Todos os textos expostos na tela para o usuário devem vir a partir de um arquivo de configuração, utilizando uma variável para selecionar o idioma.
+    * Toda tela do app deve ter o versionamento na parte mais inferior e à direita.
+
+-> Formatação dos arquivos:
+
+    // ------- //
+    // Imports //
+    // ------- //
+
+    import ...
+    import ,,,
+    import ...
+
+    // ---------- //
+    // Constantes //
+    // ---------- //
+
+    CONSTANTE_1
+    CONSTANTE_2
+
+    // ------- //
+    // Classes //
+    // ------- //
+
+    export default class Nome_da_classe{}...
+    

@@ -1,3 +1,0 @@
-[Warning] Error trying to set 1 Uart
-[Warning] Could not import cv2 in raspberry/modules/computationalVision.py
-[Fatal] Could not run computationalVision.py

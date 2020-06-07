@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['listencommands_170',['listenCommands',['../classcommandPriorityDecider_1_1Comunication.html#a7bd000a5edb79a1eb2867f2bcfe311c2',1,'commandPriorityDecider::Comunication']]],
-  ['listencomputationalvision_171',['listenComputationalVision',['../classcommandPriorityDecider_1_1Comunication.html#a4517da9d486bfc6db553bebac82b0efc',1,'commandPriorityDecider::Comunication']]],
-  ['listencomunication_172',['listenComunication',['../classcommandAssembler_1_1ControlMode.html#a12a640544931d238e258492decc2664c',1,'commandAssembler::ControlMode']]],
-  ['listencontrollidar_173',['listenControlLidar',['../classcommandPriorityDecider_1_1Comunication.html#abacc92b03f51e0f2a819501d51a36264',1,'commandPriorityDecider::Comunication']]],
-  ['listener_174',['listener',['../classrelay_1_1Relay.html#a6562d5fbf9d5be735c260d16b806ea1d',1,'relay::Relay']]],
-  ['listenoutdoorcontrols_175',['listenOutdoorControls',['../classcommandPriorityDecider_1_1Comunication.html#a8a4ffbac4ce83c444e23e715694e94f1',1,'commandPriorityDecider::Comunication']]],
-  ['listenpcmanual_176',['listenPcManual',['../classcommandPriorityDecider_1_1Comunication.html#a2311babe03af1337a5fd5139c114b287',1,'commandPriorityDecider::Comunication']]],
-  ['listenvalues_177',['listenValues',['../classcontrolRobot_1_1ControlRobot.html#a0b3cccdede5aaf7ff46ab23c3a94ce99',1,'controlRobot::ControlRobot']]],
-  ['listenwebservermanual_178',['listenWebServerManual',['../classcommandPriorityDecider_1_1Comunication.html#ad98067295b097fc0dea3d5aa1596653b',1,'commandPriorityDecider::Comunication']]],
-  ['loop_179',['loop',['../main_8ino.html#afe461d27b9c48d5921c00d521181f12f',1,'main.ino']]]
+  ['listen_187',['listen',['../namespacelogs.html#a51b42db9e9a1de46e44e4c8c0e35e078',1,'logs']]],
+  ['listen_5fcommands_188',['listen_commands',['../classcommand__priority__decider_1_1Comunication.html#a1164b6868fcb5121279945ec8489cb4a',1,'command_priority_decider.Comunication.listen_commands()'],['../classcommand__assembler_1_1Assembler.html#aab757c82c20cdd676641d3f243d54810',1,'command_assembler.Assembler.listen_commands()']]],
+  ['listen_5fcomputational_5fvision_189',['listen_computational_vision',['../classcommand__priority__decider_1_1Comunication.html#ac1f3af684f89bc7c031b05a70cf4abf5',1,'command_priority_decider::Comunication']]],
+  ['listen_5fcontrol_5flidar_190',['listen_control_lidar',['../classcommand__priority__decider_1_1Comunication.html#abed6394382779635d290663d46bed131',1,'command_priority_decider::Comunication']]],
+  ['listen_5foutdoor_5fcontrols_191',['listen_outdoor_controls',['../classcommand__priority__decider_1_1Comunication.html#a494fef45269bf87c049988b83074b947',1,'command_priority_decider::Comunication']]],
+  ['listen_5fpc_5fmanual_192',['listen_pc_manual',['../classcommand__priority__decider_1_1Comunication.html#ad12b8b9de61d0bf0993eac3388ad8de1',1,'command_priority_decider::Comunication']]],
+  ['listen_5fvalues_193',['listen_values',['../classcontrol__robot_1_1Control__robot.html#a796c2db23242fd5c42eca1ec95e90ce7',1,'control_robot::Control_robot']]],
+  ['listen_5fweb_5fserver_5fmanual_194',['listen_web_server_manual',['../classcommand__priority__decider_1_1Comunication.html#abc2a215060d7b43984ac68425501c1de',1,'command_priority_decider::Comunication']]],
+  ['listener_195',['listener',['../classrelay_1_1Relay.html#a6562d5fbf9d5be735c260d16b806ea1d',1,'relay::Relay']]],
+  ['loop_196',['loop',['../main_8ino.html#afe461d27b9c48d5921c00d521181f12f',1,'main.ino']]]
 ];
