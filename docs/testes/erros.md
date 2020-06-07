@@ -2,7 +2,7 @@
 
 ---
 
-**Erros com o App:**
+**Erros com o app:**
     
    -> [O robô não responde aos comandos do app.](soluções/solução_app_irresponsivo.md)
    
@@ -10,8 +10,16 @@
 
 ---
 
-**Erros com a rede Wifi**
+**Erros com a rede wifi**
 
    -> [A rede wifi não aparece.](www.google.com.br)
 
-   -> [Senha errada.](www.google.com.br) 
+   -> [Senha errada.](www.google.com.br)
+
+---
+
+**Erros com o robô**
+
+   -> [O robô fica apitando.](www.google.com.br)
+
+   -> [O robô anda sozinho ao ligar a placa.](www.google.com.br) 
