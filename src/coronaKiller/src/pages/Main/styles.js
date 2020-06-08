@@ -7,7 +7,7 @@ export default StyleSheet.create({
   joystickView: {
     justifyContent: "center",
     alignItems: "center",
-    height: "45%"
+    height: "47%"
   },
   area: {
     marginTop: 7,

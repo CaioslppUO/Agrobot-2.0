@@ -6,7 +6,8 @@ import {
   Slider,
   Image,
   PermissionsAndroid,
-  Picker
+  Picker,
+  Dimensions
 } from "react-native";
 
 import AxisPad from "react-native-axis-pad";
@@ -146,7 +147,7 @@ export default class Main extends Component {
           0,
           global.uv
         );
-      },parseInt(global.comunication_delay));
+      }, global.comunication_delay);
     }
 
     //Função que envia os valores corretos para ligar a placa do robô
@@ -181,11 +182,14 @@ export default class Main extends Component {
 
     //Função que para o robô
     function stopRobot() {
-      global.uv = 0
+      global.uv = 0;
       sendToWebServerManual(0, 0, 0, 0, 0, 0);
       sendToParamServer(0, 0, 0, 0, 0, -1, -1);
     }
-
+    const handlerSizeJoystick = parseInt(
+      Dimensions.get("window").height * 0.17
+    );
+    const sizeJoystick = parseInt(Dimensions.get("window").height * 0.25);
     return (
       <>
         {/*View principal*/}
@@ -213,8 +217,8 @@ export default class Main extends Component {
           {/* View do joystick */}
           <View style={styles.joystickView}>
             <AxisPad
-              size={180}
-              handlerSize={120}
+              size={sizeJoystick}
+              handlerSize={handlerSizeJoystick}
               handlerStyle={styles.handlerView}
               wrapperStyle={styles.wrapperView}
               autoCenter={false}
@@ -231,7 +235,7 @@ export default class Main extends Component {
                     global.comunication_interval + 1;
                 }
                 if (this.state.autoMode != 0) {
-                  this.setState({ buttonAuto: '#000' });
+                  this.setState({ buttonAuto: "#000" });
                   this.setState({ autoMode: 0 });
                   sendToParamServer(0, 0, 0, 0, 0, 0, 0);
                 }
