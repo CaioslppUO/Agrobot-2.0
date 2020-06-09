@@ -187,7 +187,7 @@ export default class Main extends Component {
       sendToParamServer(0, 0, 0, 0, 0, -1, -1);
     }
     const handlerSizeJoystick = parseInt(
-      Dimensions.get("window").height * 0.17
+      Dimensions.get("window").height * 0.15
     );
     const sizeJoystick = parseInt(Dimensions.get("window").height * 0.25);
     return (
