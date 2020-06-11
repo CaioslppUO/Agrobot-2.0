@@ -5,7 +5,6 @@ import {
   Text,
   Slider,
   Image,
-  PermissionsAndroid,
   Picker,
   Dimensions
 } from "react-native";

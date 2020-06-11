@@ -5,8 +5,8 @@ import {
   Text,
   Slider,
   Image,
-  PermissionsAndroid,
-  Picker
+  Picker,
+  Dimensions,
 } from "react-native";
 import AxisPad from "react-native-axis-pad";
 import NavigationActions from "react-navigation/src/NavigationActions";
@@ -35,7 +35,7 @@ export default class Main extends Component {
     buttonAuto: "#000",
     autoMode: 0,
     pickerItem: 0,
-    pickerValue: 0
+    pickerValue: 0,
   };
 
   //Opções do controlador de navegação de páginas
@@ -44,8 +44,8 @@ export default class Main extends Component {
     headerTitleStyle: {
       textAlign: "center",
       alignSelf: "center",
-      flexGrow: 1
-    }
+      flexGrow: 1,
+    },
   };
 
   //Renderização do componente
@@ -171,7 +171,7 @@ export default class Main extends Component {
     //Função que envia os valores corretos para ligar o pulverizador
     function pulverizeButtonPressed() {
       global.pulverize = global.pulverize == 0 ? 1 : 0;
-        sendManualCommand(0,0)  
+      sendManualCommand(0, 0);
     }
 
     //Função que liga/desliga o modo de controle automático
@@ -195,11 +195,14 @@ export default class Main extends Component {
 
     //Função que para o robô
     function stopRobot() {
-      global.pulverize = 0
+      global.pulverize = 0;
       sendToWebServerManual(0, 0, 0, 0, 0, 0);
       sendToParamServer(0, 0, 0, 0, 0, 0, 0);
     }
-
+    const handlerSizeJoystick = parseInt(
+      Dimensions.get("window").height * 0.15
+    );
+    const sizeJoystick = parseInt(Dimensions.get("window").height * 0.25);
     return (
       <>
         {/*View principal*/}
@@ -213,7 +216,7 @@ export default class Main extends Component {
               onValueChange={(itemValue, itemPosition) => {
                 this.setState({
                   pickerValue: itemValue,
-                  pickerItem: itemPosition
+                  pickerItem: itemPosition,
                 });
                 this.props.navigation.navigate(itemValue);
               }}
@@ -227,8 +230,8 @@ export default class Main extends Component {
           {/* View do joystick */}
           <View style={styles.joystickView}>
             <AxisPad
-              size={180}
-              handlerSize={120}
+              size={sizeJoystick}
+              handlerSize={handlerSizeJoystick}
               handlerStyle={styles.handlerView}
               wrapperStyle={styles.wrapperView}
               autoCenter={false}
@@ -263,12 +266,12 @@ export default class Main extends Component {
                   borderWidth: 1,
                   width: 70,
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
                 onPress={() => {
                   this.setState({
                     buttonPowerA:
-                      this.state.buttonPowerA == "#000" ? "#0f0" : "#000"
+                      this.state.buttonPowerA == "#000" ? "#0f0" : "#000",
                   });
                   powerAButtonPressed();
                 }}
@@ -288,12 +291,12 @@ export default class Main extends Component {
                   borderWidth: 1,
                   width: 70,
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
                 onPress={() => {
                   this.setState({
                     buttonPowerB:
-                      this.state.buttonPowerB == "#000" ? "#0f0" : "#000"
+                      this.state.buttonPowerB == "#000" ? "#0f0" : "#000",
                   });
                   powerBButtonPressed();
                 }}
@@ -313,12 +316,12 @@ export default class Main extends Component {
                   borderWidth: 1,
                   width: 70,
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
                 onPress={() => {
                   this.setState({
                     buttonPulverizador:
-                      this.state.buttonPulverizador == "#000" ? "#0f0" : "#000"
+                      this.state.buttonPulverizador == "#000" ? "#0f0" : "#000",
                   });
                   pulverizeButtonPressed();
                 }}
@@ -338,12 +341,12 @@ export default class Main extends Component {
                   borderWidth: 1,
                   width: 70,
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
                 onPress={() => {
                   this.setState({
                     buttonAuto:
-                      this.state.buttonAuto == "#000" ? "#0f0" : "#000"
+                      this.state.buttonAuto == "#000" ? "#0f0" : "#000",
                   });
                   automaticButtonPressed(this.state.autoMode);
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 });
@@ -363,7 +366,7 @@ export default class Main extends Component {
                   width: 200,
                   borderWidth: 3,
                   alignItems: "center",
-                  justifyContent: "center"
+                  justifyContent: "center",
                 }}
                 onPress={() => {
                   this.setState({ buttonAuto: "#000" });
@@ -388,7 +391,7 @@ export default class Main extends Component {
                   if (this.state.speedSliderValue > 0) {
                     global.limit = this.state.speedSliderValue - 1;
                     this.setState({
-                      speedSliderValue: this.state.speedSliderValue - 1
+                      speedSliderValue: this.state.speedSliderValue - 1,
                     });
                   }
                 }}
@@ -407,7 +410,7 @@ export default class Main extends Component {
                   if (this.state.speedSliderValue < 100) {
                     global.limit = this.state.speedSliderValue + 1;
                     this.setState({
-                      speedSliderValue: this.state.speedSliderValue + 1
+                      speedSliderValue: this.state.speedSliderValue + 1,
                     });
                   }
                 }}
@@ -421,7 +424,7 @@ export default class Main extends Component {
               maximumValue={100}
               minimumValue={0}
               value={this.state.speedSliderValue}
-              onValueChange={speedSliderValue => {
+              onValueChange={(speedSliderValue) => {
                 global.limit = speedSliderValue;
                 this.setState({ speedSliderValue });
               }}
