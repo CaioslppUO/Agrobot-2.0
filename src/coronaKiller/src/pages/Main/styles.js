@@ -11,8 +11,8 @@ export default StyleSheet.create({
   },
   area: {
     marginTop: 7,
-    width: 25,
-    height: 25,
+    width: 35,
+    height: 35,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -54,10 +54,10 @@ export default StyleSheet.create({
     flexDirection: "column"
   },
   slider: {
-    transform: [{ scaleX: 2.0 }, { scaleY: 2.0 }],
-    marginLeft: "22%",
-    marginRight: "23%",
-    justifyContent: "flex-end"
+    width: "100%",
+    height: "20%",
+    justifyContent: "flex-end",
+    alignContent: "center"
   },
   speedText: {
     fontSize: 20,

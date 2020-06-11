@@ -32,7 +32,7 @@ export default class Config extends Component {
   };
 
   componentWillMount() {
-    BackHandler.addEventListener("hardwareBackPress", () => { });
+    BackHandler.addEventListener("hardwareBackPress", () => {});
   }
 
   componentWillUnmount() {
@@ -44,10 +44,10 @@ export default class Config extends Component {
     storeData = async (name, value) => {
       try {
         await AsyncStorage.setItem(name, value);
-      } catch (error) { 
-        alert("Erro ao salvar a variável " + name + ". " + error)
+      } catch (error) {
+        alert("Erro ao salvar a variável " + name + ". " + error);
       }
-    }
+    };
 
     return (
       <>
@@ -100,10 +100,13 @@ export default class Config extends Component {
                 global.serverIp = this.state.serverIp_temp;
                 global.port_manual = this.state.port_temp;
                 global.comunication_delay = parseFloat(this.state.delay_temp);
-                
-                storeData("serverIp", this.state.serverIp_temp)
-                storeData("port_manual", this.state.port_temp)
-                storeData("comunication_delay",toString (this.state.delay_temp))
+
+                storeData("serverIp", this.state.serverIp_temp);
+                storeData("port_manual", this.state.port_temp);
+                storeData(
+                  "comunication_delay",
+                  toString(this.state.delay_temp)
+                );
                 this.props.navigation.navigate("Main");
               }}
             >
