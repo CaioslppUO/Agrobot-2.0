@@ -20,6 +20,9 @@ portsOk = False
 autoStartRobot = False
 accesPOk = False
 
+cleanFile = "w"
+insertFile = "a"
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -39,12 +42,10 @@ def printOk(msg):
 def run(command):
     subprocess.call(command,shell=True,executable='/bin/bash')
 
-def echoToFile(filePath,msg,overWrite):
-    if(overWrite == True):
-        command = "sudo echo > " + filePath + " '" + msg + "'"
-    else:
-        command = "sudo echo >> " + filePath + " '" + msg + "'"
-    run(command)
+def writeFile(filePath,msg,overWrite):
+    file = open(filePath, overWrite)
+    file.writelines(msg)
+    file.close()
 
 def installLidar():
     global lidarRepo
@@ -69,39 +70,51 @@ def newAccessPoint():
     command = "sudo systemctl stop dnsmasq"
     run(command)
 
-    echoToFile("/etc/dhcpcd.conf","denyinterfaces wlan0",False)
+    fileContent = list()
 
-    echoToFile("/etc/network/interfaces","allow-hotplug wlan0",True)
-    echoToFile("/etc/network/interfaces","iface wlan0 inet static",False)
-    echoToFile("/etc/network/interfaces","address 192.168.1.2",False)
-    echoToFile("/etc/network/interfaces","netmask 255.255.255.0",False)
-    echoToFile("/etc/network/interfaces","network 192.168.1.1",False)
-    echoToFile("/etc/network/interfaces","broadcast 192.168.1.255",False)
+    writeFile("denyinterfaces wlan0\n","/etc/dhcpcd.conf",insertFile)
 
-    echoToFile("/etc/hostapd/hostapd.conf","interface=wlan0",True)
-    echoToFile("/etc/hostapd/hostapd.conf","driver=nl80211",False)
-    echoToFile("/etc/hostapd/hostapd.conf","ssid="+wifiName,False)
-    echoToFile("/etc/hostapd/hostapd.conf","hw_mode=g",False)
-    echoToFile("/etc/hostapd/hostapd.conf","channel=6",False)
-    echoToFile("/etc/hostapd/hostapd.conf","macaddr_acl=0",False)
-    echoToFile("/etc/hostapd/hostapd.conf","auth_algs=1",False)
-    echoToFile("/etc/hostapd/hostapd.conf","ignore_broadcast_ssid=0",False)
-    echoToFile("/etc/hostapd/hostapd.conf","wpa=2",False)
-    echoToFile("/etc/hostapd/hostapd.conf","wpa_passphrase="+wifiPassword,False)
-    echoToFile("/etc/hostapd/hostapd.conf","wpa_key_mgmt=WPA-PSK",False)
-    echoToFile("/etc/hostapd/hostapd.conf","rsn_pairwise=CCMP",False)
+    fileContent.append("\nallow-hotplug wlan0\n")
+    fileContent.append("iface wlan0 inet static\n")
+    fileContent.append("address 192.168.1.2\n")
+    fileContent.append("netmask 255.255.255.0\n")
+    fileContent.append("network 192.168.1.1\n")
+    fileContent.append("broadcast 192.168.1.255\n")
+    writeFile(fileContent,"/etc/network/interfaces",cleanFile)
+    fileContent.clear()
+    
+    fileContent.append("interface=wlan0\n")
+    fileContent.append("driver=nl80211\n")
+    fileContent.append("ssid="+wifiName+"\n")
+    fileContent.append("hw_mode=g\n")
+    fileContent.append("channel=6\n")
+    fileContent.append("macaddr_acl=0\n")
+    fileContent.append("auth_algs=1\n")
+    fileContent.append("ignore_broadcast_ssid=0\n")
+    fileContent.append("wpa=2\n")
+    fileContent.append("wpa_passphrase="+wifiPassword+"\n")
+    fileContent.append("wpa_key_mgmt=WPA-PSK\n")
+    fileContent.append("rsn_pairwise=CCMP\n")
+    writeFile(fileContent,"/etc/hostapd/hostapd.conf",cleanFile)
+    fileContent.clear()
 
-    echoToFile("/etc/default/hostapd","DAEMON_CONF='/etc/hostapd/hostapd.conf'",False)
+    fileContent.append("\nDAEMON_CONF='/etc/hostapd/hostapd.conf'\n")
+    writeFile(fileContent,"/etc/default/hostapd",insertFile)
+    fileContent.clear()
 
-    echoToFile("/etc/dnsmasq.conf","interface=wlan0",True)
-    echoToFile("/etc/dnsmasq.conf","listen-address=192.168.1.2",False)
-    echoToFile("/etc/dnsmasq.conf","bind-interfaces",False)
-    echoToFile("/etc/dnsmasq.conf","server=8.8.8.8",False)
-    echoToFile("/etc/dnsmasq.conf","domain-needed",False)
-    echoToFile("/etc/dnsmasq.conf","bogus-priv",False)
-    echoToFile("/etc/dnsmasq.conf","dhcp-range=192.168.1.120,192.168.1.254,12h",False)
+    fileContent.append("interface=wlan0\n")
+    fileContent.append("listen-address=192.168.1.2\n")
+    fileContent.append("bind-interfaces\n")
+    fileContent.append("server=8.8.8.8\n")
+    fileContent.append("domain-needed\n")
+    fileContent.append("bogus-priv\n")
+    fileContent.append("dhcp-range=192.168.1.120,192.168.1.254,12h\n")
+    writeFile(fileContent,"/etc/dnsmasq.conf",cleanFile)
+    fileContent.clear()
 
-    echoToFile("/etc/sysctl.conf","net.ipv4.ip_forward=1",False)
+    fileContent.append("\nnet.ipv4.ip_forward=1")
+    writeFile(fileContent,"/etc/sysctl.conf",insertFile)
+    fileContent.clear()
 
     command = "sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE"
     run(command)
@@ -112,8 +125,10 @@ def newAccessPoint():
     command = "sudo sh -c 'iptables-save > /etc/iptables.ipv4.nat'"
     run(command)
 
-    echoToFile("/usr/bin/resetssh.sh","iptables-restore < /etc/iptables.ipv4.nat",False)
-    echoToFile("/usr/bin/resetssh.sh","/usr/sbin/hostapd /etc/hostapd/hostapd.conf",False)
+    fileContent.append("\niptables-restore < /etc/iptables.ipv4.nat")
+    fileContent.append("\n/usr/sbin/hostapd /etc/hostapd/hostapd.conf")
+    writeFile(fileContent,"/usr/bin/resetssh.sh",insertFile)
+    fileContent.clear()
 
     command = "sudo apt-get install ponte-utils"
     run(command)
@@ -131,6 +146,8 @@ def updateSystem():
     run(command)
     command = "sudo apt autoremove -y && sudo apt upgrade -y"
     run(command)
+    command = "sudo apt-get install vim"
+    run(command)
     run("clear")
     printOk("Update de sistema")
 
@@ -144,9 +161,15 @@ def installGPIO():
 def installI2C():
     print(bcolors.OKGREEN + "Instalando e configurando o I2C" + bcolors.ENDC)
     run("sudo raspi-config")
-    echoToFile("/dev/modules","i2c-bcm2835",False)
-    echoToFile("/dev/modules","i2c-dev",False)
-    echoToFile("/boot/config.txt","dtparam=i2c1=on",False)
+    fileContent = list()
+    
+    fileContent.append("i2c-bcm2835")
+    fileContent.append("i2c-dev")
+    writeFile(fileContent,"/dev/modules",insertFile)
+    fileContent.clear()
+
+    writeFile("dtparam=i2c1=on","/boot/config.txt",insertFile)
+    
     command = "sudo apt-get install -y python-smbus i2c-tools"
     run(command)
     run("clear")
@@ -159,18 +182,26 @@ def installandConfigureSSH():
     print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
     command = "sudo apt-get install -y openssh*"
     run(command)
-    echoToFile("/usr/bin/resetssh.sh","service ssh restart",True)
+
+    fileContent = list()
+
+    writeFile("service ssh restart","/usr/bin/resetssh.sh",cleanFile)
+
     command = "sudo chmod +x /usr/bin/resetssh.sh"
     run(command)
-    echoToFile("/etc/systemd/system/restartssh.service","[Unit]",True)
-    echoToFile("/etc/systemd/system/restartssh.service","Description=Starts ssh",False)
-    echoToFile("/etc/systemd/system/restartssh.service","",False)
-    echoToFile("/etc/systemd/system/restartssh.service","[Service]",False)
-    echoToFile("/etc/systemd/system/restartssh.service","Type=simple",False)
-    echoToFile("/etc/systemd/system/restartssh.service","ExecStart=/bin/bash /usr/bin/resetssh.sh",False)
-    echoToFile("/etc/systemd/system/restartssh.service","",False)
-    echoToFile("/etc/systemd/system/restartssh.service","[Install]",False)
-    echoToFile("/etc/systemd/system/restartssh.service","WantedBy=multi-user.target",False)
+
+    fileContent.append("[Unit]\n")
+    fileContent.append("Description=Starts ssh\n")
+    fileContent.append("\n")
+    fileContent.append("[Service]\n")
+    fileContent.append("Type=simple\n")
+    fileContent.append("ExecStart=/bin/bash /usr/bin/resetssh.sh\n")
+    fileContent.append("\n")
+    fileContent.append("[Install]\n")
+    fileContent.append("WantedBy=multi-user.target\n")
+    writeFile(fileContent,"/etc/systemd/system/restartssh.service",cleanFile)
+    fileContent.clear()
+
     command = "sudo chmod 644 /etc/systemd/system/restartssh.service"
     run(command)
     command = "sudo systemctl start restartssh"
@@ -208,18 +239,25 @@ def fixBugs():
 
 def setAutoStartRobotCore():
     print(bcolors.OKGREEN + "Configurando a inicialização automática do robô" + bcolors.ENDC)
-    echoToFile("/usr/bin/autoStartRobotCore.sh","source /opt/ros/melodic/setup.bash && /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/./run_ROBOT.sh",True)
+
+    writeFile("source /opt/ros/melodic/setup.bash && /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/./run_ROBOT.sh","/usr/bin/autoStartRobotCore.sh",cleanFile)
     command = "sudo chmod +x /usr/bin/autoStartRobotCore.sh"
     run(command)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","[Unit]",True)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","Description=Starts ssh",False)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","",False)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","[Service]",False)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","Type=simple",False)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","ExecStart=/bin/bash /usr/bin/autoStartRobotCore.sh",False)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","",False)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","[Install]",False)
-    echoToFile("/etc/systemd/system/autoStartRobotCore.service","WantedBy=multi-user.target",False)
+
+    fileContent = list()
+    
+    fileContent.append("[Unit]")
+    fileContent.append("Description=Starts ssh")
+    fileContent.append("")
+    fileContent.append("[Service]")
+    fileContent.append("Type=simple")
+    fileContent.append("ExecStart=/bin/bash /usr/bin/autoStartRobotCore.sh")
+    fileContent.append("")
+    fileContent.append("[Install]")
+    fileContent.append("WantedBy=multi-user.target")
+    writeFile(fileContent,"/usr/bin/autoStartRobotCore.sh",cleanFile)
+    fileContent.clear()
+
     command = "sudo chmod 644 /etc/systemd/system/autoStartRobotCore.service"
     run(command)
     command = "sudo systemctl enable autoStartRobotCore"
@@ -279,11 +317,10 @@ def main():
     gpioOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,installGPIO,'Erro ao instalar o GPIO')
     i2cOk = showQuestion(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,installI2C,'Erro ao instalar o I2C')
     repoOk = showQuestion(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,downloadRepo,'Erro ao baixar o repositório remoto')
-    lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?***È NECESSÀRIO TER O ROS INSTALADO***' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
     autoStartRobot = showQuestion(bcolors.OKBLUE + "Configurando a inicialização automática do robô" + bcolors.ENDC,setAutoStartRobotCore,'Erro ao Configurar a inicialização automática do robô')
     accesPOk = showQuestion(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,newAccessPoint,'Erro ao configurar o AcessPoint')
+    lidarOk = showQuestion(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?***È NECESSÀRIO TER O ROS INSTALADO***' + bcolors.ENDC,installLidar,'Erro ao configurar o AcessPoint')
     
     log()
-
 
 main()
