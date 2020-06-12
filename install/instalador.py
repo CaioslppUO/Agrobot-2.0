@@ -177,6 +177,10 @@ def installI2C():
 
 def addUserSerialPorts():
     run("sudo usermod -a -G dialout " + user)
+    fileContent = list()
+    fileContent.append("SUBSYSTEM=='tty', KERNELS=='1-1.4:1.0', SYMLINK+='ttyUSB_CONVERSOR-0'\n")
+    fileContent.append("SUBSYSTEM=='tty', KERNELS=='1-1.5:1.0', SYMLINK+='ttyUSB_CONVERSOR-1'\n")
+    writeFile(fileContent,"/etc/udev/rules.d/99-usb-serial.rules",cleanFile)
 
 def installandConfigureSSH():
     print(bcolors.OKGREEN + "Instalando e configurando o SSH" + bcolors.ENDC)
@@ -298,18 +302,20 @@ def showQuestion(msg,function,errorMsg):
         except:
             run("clear")
             print(bcolors.FAIL + errorMsg + bcolors.ENDC)
-            echoToFile("./log",errorMsg,False)
+            writeFile("./log",errorMsg,insertFile)
+            
             time.sleep(1)
             return False
     run("clear")
 
 def main():
     run("clear")
-    echoToFile("./log","",True)
+    writeFile("./log","",cleanFile)
     fixBugs()
 
     global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobot
     addUserSerialPorts()
+
     portsOk = True
 
     updtOk = showQuestion(bcolors.OKBLUE + "Fazer update no sistema?" + bcolors.ENDC, updateSystem,'Erro ao dar update no sistema')
