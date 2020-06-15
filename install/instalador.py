@@ -6,25 +6,25 @@ import subprocess
 
 wifi_name = "Agrobot4"
 wifi_password = "rapisbere"
-repository_agrobot = "https://github.com/CaioslppUO/Agrobot-2.0"
-repository_lidar = "https://github.com/robopeak/rplidar_ros"
-user = "$USER"
+const_repository_agrobot = "https://github.com/CaioslppUO/Agrobot-2.0"
+const_repository_lidar = "https://github.com/robopeak/rplidar_ros"
+const_user = "$USER"
 
 #Flags para Log
-gpioOk = False
-i2cOk = False
-sshOk = False
-lidarOk = False
-repoOk = False
-updtOk = False
-portsOk = False
+gpio_task_check = False
+i2c_task_check = False
+ssh_task_check = False
+lidar_task_check = False
+repo_task_check = False
+updt_task_check = False
+ports_task_check = False
 autoStartRobot = False
-accesPOk = False
+acces_task_check = False
 
 #Abre um arquivo novo, ou limpa o arquivo existente
-clean_file = "w"
+const_clean_file = "w"
 #Insere no arquivo, ou cria um arquivo
-insert_file = "a"
+const_insert_file = "a"
 
 #Classe que guarda os padrões de cores usadas nos logs
 class bcolors:
@@ -38,7 +38,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 #printa OK em verde
-def printOk(msg):
+def print_ok(msg):
     run("clear")
     print(bcolors.OKGREEN + msg + " " + " OK " + bcolors.ENDC)
     time.sleep(1)
@@ -57,7 +57,7 @@ def write_file(file_path,msg,mode):
 #Faz a instalação do do lidar na maquina.
 def install_lidar():
     print(bcolors.OKGREEN + 'Instalando a biblioteca de ROS para o RPLidar' + bcolors.ENDC)
-    command = "cd ~/catkin_ws/src && sudo -u labiot git clone " + repository_lidar
+    command = "cd ~/catkin_ws/src && sudo -u labiot git clone " + const_repository_lidar
     run(command)
     print(bcolors.WARNING +  "********************************************************************************************************************************************" + bcolors.ENDC)
     print(bcolors.WARNING +  'Para terminar a instalação entre no diretório: ~/catkin_ws e digite o comando: catkin_make -j 1 e após o comando ser executado, aperte ctrl+d' + bcolors.ENDC)
@@ -65,7 +65,7 @@ def install_lidar():
     command = "sudo -u labiot -s"
     run(command)
     run("clear")
-    printOk("Instalação do Lidar")
+    print_ok("Instalação do Lidar")
 
 #Torna o raspberry em um accespoint
 def create_acess_point():
@@ -80,7 +80,7 @@ def create_acess_point():
 
     file_content = list()
 
-    write_file("denyinterfaces wlan0\n","/etc/dhcpcd.conf",insert_file)
+    write_file("denyinterfaces wlan0\n","/etc/dhcpcd.conf",const_insert_file)
 
     file_content.append("\nallow-hotplug wlan0\n")
     file_content.append("iface wlan0 inet static\n")
@@ -88,7 +88,7 @@ def create_acess_point():
     file_content.append("netmask 255.255.255.0\n")
     file_content.append("network 192.168.1.1\n")
     file_content.append("broadcast 192.168.1.255\n")
-    write_file(file_content,"/etc/network/interfaces",clean_file)
+    write_file(file_content,"/etc/network/interfaces",const_clean_file)
     file_content.clear()
     
     file_content.append("interface=wlan0\n")
@@ -103,11 +103,11 @@ def create_acess_point():
     file_content.append("wpa_passphrase="+wifi_password+"\n")
     file_content.append("wpa_key_mgmt=WPA-PSK\n")
     file_content.append("rsn_pairwise=CCMP\n")
-    write_file(file_content,"/etc/hostapd/hostapd.conf",clean_file)
+    write_file(file_content,"/etc/hostapd/hostapd.conf",const_clean_file)
     file_content.clear()
 
     file_content.append("\nDAEMON_CONF='/etc/hostapd/hostapd.conf'\n")
-    write_file(file_content,"/etc/default/hostapd",insert_file)
+    write_file(file_content,"/etc/default/hostapd",const_insert_file)
     file_content.clear()
 
     file_content.append("interface=wlan0\n")
@@ -117,11 +117,11 @@ def create_acess_point():
     file_content.append("domain-needed\n")
     file_content.append("bogus-priv\n")
     file_content.append("dhcp-range=192.168.1.120,192.168.1.254,12h\n")
-    write_file(file_content,"/etc/dnsmasq.conf",clean_file)
+    write_file(file_content,"/etc/dnsmasq.conf",const_clean_file)
     file_content.clear()
 
     file_content.append("\nnet.ipv4.ip_forward=1")
-    write_file(file_content,"/etc/sysctl.conf",insert_file)
+    write_file(file_content,"/etc/sysctl.conf",const_insert_file)
     file_content.clear()
 
     command = "sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE"
@@ -135,7 +135,7 @@ def create_acess_point():
 
     file_content.append("\niptables-restore < /etc/iptables.ipv4.nat")
     file_content.append("\n/usr/sbin/hostapd /etc/hostapd/hostapd.conf")
-    write_file(file_content,"/usr/bin/resetssh.sh",insert_file)
+    write_file(file_content,"/usr/bin/resetssh.sh",const_insert_file)
     file_content.clear()
 
     command = "sudo apt-get install ponte-utils"
@@ -146,7 +146,7 @@ def create_acess_point():
     run(command)
     
     run("clear")
-    printOk("Access Point")
+    print_ok("Access Point")
 
 #da update e upgrade no S.O
 def update_system():
@@ -158,7 +158,7 @@ def update_system():
     command = "sudo apt-get install vim"
     run(command)
     run("clear")
-    printOk("Update de sistema")
+    print_ok("Update de sistema")
 
 #Faz a instalação das libs para usar os pinos GPIO
 def install_GPIO():
@@ -166,7 +166,7 @@ def install_GPIO():
     command = "sudo apt-get install -y rpi.gpio"
     run(command)
     run("clear")
-    printOk("Instalação do GPIO")
+    print_ok("Instalação do GPIO")
 
 #Ativa e configura o i2C do rasp
 def install_I2c():
@@ -176,15 +176,15 @@ def install_I2c():
     
     file_content.append("i2c-bcm2835")
     file_content.append("i2c-dev")
-    write_file(file_content,"/dev/modules",insert_file)
+    write_file(file_content,"/dev/modules",const_insert_file)
     file_content.clear()
 
-    write_file("dtparam=i2c1=on","/boot/config.txt",insert_file)
+    write_file("dtparam=i2c1=on","/boot/config.txt",const_insert_file)
     
     command = "sudo apt-get install -y python-smbus i2c-tools"
     run(command)
     run("clear")
-    printOk("Instalação do I2C")
+    print_ok("Instalação do I2C")
 
 #Da permissão ao usuario poder acessar as portas serial, e altera o nome das mesmas para o uso do ttl
 def serial_ports_configuration():
@@ -192,7 +192,7 @@ def serial_ports_configuration():
     file_content = list()
     file_content.append("SUBSYSTEM=='tty', KERNELS=='1-1.4:1.0', SYMLINK+='ttyUSB_CONVERSOR-0'\n")
     file_content.append("SUBSYSTEM=='tty', KERNELS=='1-1.5:1.0', SYMLINK+='ttyUSB_CONVERSOR-1'\n")
-    write_file(file_content,"/etc/udev/rules.d/99-usb-serial.rules",clean_file)
+    write_file(file_content,"/etc/udev/rules.d/99-usb-serial.rules",const_clean_file)
 
 #Instala e configura o ssh na maquina
 def to_set_up_ssh():
@@ -202,7 +202,7 @@ def to_set_up_ssh():
 
     file_content = list()
 
-    write_file("service ssh restart","/usr/bin/resetssh.sh",clean_file)
+    write_file("service ssh restart","/usr/bin/resetssh.sh",const_clean_file)
 
     command = "sudo chmod +x /usr/bin/resetssh.sh"
     run(command)
@@ -216,7 +216,7 @@ def to_set_up_ssh():
     file_content.append("\n")
     file_content.append("[Install]\n")
     file_content.append("WantedBy=multi-user.target\n")
-    write_file(file_content,"/etc/systemd/system/restartssh.service",clean_file)
+    write_file(file_content,"/etc/systemd/system/restartssh.service",const_clean_file)
     file_content.clear()
 
     command = "sudo chmod 644 /etc/systemd/system/restartssh.service"
@@ -230,34 +230,37 @@ def to_set_up_ssh():
     command = "sudo dpkg-reconfigure openssh-server"
     run(command)
     run("clear")
-    printOk("Instalação do SSH")
+    print_ok("Instalação do SSH")
 
 #Faz a download do repositorio do projeto
 def download_repository():
     print(bcolors.OKGREEN + "Iniciando o download do repositiório remoto do robô" + bcolors.ENDC)
     command = "sudo apt install git"
     run(command)
-    command = "git clone " + repository_agrobot
+    command = "git clone " + const_repository_agrobot
     run(command)
     command = "cd Agrobot-2.0 && git checkout raspberry-ros-stable && clear"
     run(command)
     run("clear")
-    printOk("Download do repositório")
+    print_ok("Download do repositório")
 
+#Retorna OK em verde ou NO em vermelhor
 def set_verified_color(var):
     if(var == True):
         return bcolors.OKBLUE + "OK" + bcolors.ENDC
     else:
         return bcolors.FAIL + "NO" + bcolors.ENDC
 
+#arruma possiveis problemas de pacotes com o gerenciador de pacotes
 def fix_bugs():
     command = "sudo echo 'linux-firmware-raspi2 hold' | sudo dpkg --set-selections"
     run(command)
 
+#Cria o script que executa o programa na hora que o rasp liga
 def set_auto_start_robot_core():
     print(bcolors.OKGREEN + "Configurando a inicialização automática do robô" + bcolors.ENDC)
 
-    write_file("source /opt/ros/melodic/setup.bash && /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/./run_ROBOT.sh","/usr/bin/autoStartRobotCore.sh",clean_file)
+    write_file("source /opt/ros/melodic/setup.bash && /home/labiot/Agrobot-2.0/src/raspberryRos/runnables/./run_ROBOT.sh","/usr/bin/autoStartRobotCore.sh",const_clean_file)
     command = "sudo chmod +x /usr/bin/autoStartRobotCore.sh"
     run(command)
 
@@ -272,7 +275,7 @@ def set_auto_start_robot_core():
     file_content.append("")
     file_content.append("[Install]")
     file_content.append("WantedBy=multi-user.target")
-    write_file(file_content,"/usr/bin/autoStartRobotCore.sh",clean_file)
+    write_file(file_content,"/usr/bin/autoStartRobotCore.sh",const_clean_file)
     file_content.clear()
 
     command = "sudo chmod 644 /etc/systemd/system/autoStartRobotCore.service"
@@ -280,20 +283,20 @@ def set_auto_start_robot_core():
     command = "sudo systemctl enable autoStartRobotCore"
     run(command)
     run("clear")
-    printOk("Configuração da inicialização automática do robô")
+    print_ok("Configuração da inicialização automática do robô")
 
 #Printa o log final do script
 def log():
     run("clear")
     print(bcolors.OKGREEN + 'Resumo da instalação: ' + bcolors.ENDC)
-    print('UpdateSystem: ' + set_verified_color(updtOk))
-    print('SSH: ' + set_verified_color(sshOk))
-    print('GPIO: ' + set_verified_color(gpioOk))
-    print('I2C: ' + set_verified_color(i2cOk))
-    print('Repositório do GIT: ' + set_verified_color(repoOk))
-    print('Lidar: ' + set_verified_color(lidarOk))
-    print('AccessPoint: ' + set_verified_color(accesPOk))
-    print('UsbPortConfig: ' + set_verified_color(portsOk))
+    print('UpdateSystem: ' + set_verified_color(updt_task_check))
+    print('SSH: ' + set_verified_color(ssh_task_check))
+    print('GPIO: ' + set_verified_color(gpio_task_check))
+    print('I2C: ' + set_verified_color(i2c_task_check))
+    print('Repositório do GIT: ' + set_verified_color(repo_task_check))
+    print('Lidar: ' + set_verified_color(lidar_task_check))
+    print('AccessPoint: ' + set_verified_color(acces_task_check))
+    print('UsbPortConfig: ' + set_verified_color(ports_task_check))
     print("Iniciar Automáticamente o robô: " + set_verified_color(autoStartRobot))
 
 #Menu do script
@@ -315,7 +318,7 @@ def show_question(msg,function,errorMsg):
         except:
             run("clear")
             print(bcolors.FAIL + errorMsg + bcolors.ENDC)
-            write_file("./log",errorMsg,insert_file)
+            write_file("./log",errorMsg,const_insert_file)
             
             time.sleep(1)
             return False
@@ -324,22 +327,22 @@ def show_question(msg,function,errorMsg):
 #Função principal, faz a chamada de todas as funções do script, e seta os flags
 def main():
     run("clear")
-    write_file("./log","",clean_file)
+    write_file("./log","",const_clean_file)
     fix_bugs()
 
-    global gpioOk,i2cOk,sshOk,lidarOk,repoOk,updtOk,portsOk,autoStartRobot
+    global gpio_task_check,i2c_task_check,ssh_task_check,lidar_task_check,repo_task_check,updt_task_check,ports_task_check,autoStartRobot,acces_task_check
     serial_ports_configuration()
 
-    portsOk = True
+    ports_task_check = True
 
-    updtOk = show_question(bcolors.OKBLUE + "Fazer update no sistema?" + bcolors.ENDC, update_system,'Erro ao dar update no sistema')
-    sshOk = show_question(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,to_set_up_ssh,'Erro ao instalar o SSH')
-    gpioOk = show_question(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,install_GPIO,'Erro ao instalar o GPIO')
-    i2cOk = show_question(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,install_I2c,'Erro ao instalar o I2C')
-    repoOk = show_question(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,download_repository,'Erro ao baixar o repositório remoto')
-    accesPOk = show_question(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,create_acess_point,'Erro ao configurar o AcessPoint')
+    updt_task_check = show_question(bcolors.OKBLUE + "Fazer update no sistema?" + bcolors.ENDC, update_system,'Erro ao dar update no sistema')
+    ssh_task_check = show_question(bcolors.OKBLUE + 'Instalar e configurar o ssh?' + bcolors.ENDC,to_set_up_ssh,'Erro ao instalar o SSH')
+    gpio_task_check = show_question(bcolors.OKBLUE + 'Instalar e configurar o GPIO?' + bcolors.ENDC,install_GPIO,'Erro ao instalar o GPIO')
+    i2c_task_check = show_question(bcolors.OKBLUE + 'Instalar e configurar o I2C?' + bcolors.ENDC,install_I2c,'Erro ao instalar o I2C')
+    repo_task_check = show_question(bcolors.OKBLUE + 'Baixar o repositório do robô?' + bcolors.ENDC,download_repository,'Erro ao baixar o repositório remoto')
+    acces_task_check = show_question(bcolors.OKBLUE + 'Configurar o RASP como access point?' + bcolors.ENDC,create_acess_point,'Erro ao configurar o AcessPoint')
     autoStartRobot = show_question(bcolors.OKBLUE + "Configurando a inicialização automática do robô" + bcolors.ENDC,set_auto_start_robot_core,'Erro ao Configurar a inicialização automática do robô')
-    lidarOk = show_question(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?***È NECESSÀRIO TER O ROS INSTALADO***' + bcolors.ENDC,install_lidar,'Erro ao configurar o AcessPoint')
+    lidar_task_check = show_question(bcolors.OKBLUE + 'Instalar a biblioteca do RPLidar?***È NECESSÀRIO TER O ROS INSTALADO***' + bcolors.ENDC,install_lidar,'Erro ao configurar o AcessPoint')
     
     log()
 
