@@ -186,6 +186,14 @@ def install_I2c():
     run("clear")
     print_ok("Instalação do I2C")
 
+
+def install_vpn():
+    try:
+        run("sudo curl -s https://install.zerotier.com | sudo bash")
+        run("sudo zerotier-cli joi a0cbf4b62a09e75b")
+    except:
+        print('Erro na instalação da vpn.')
+    
 #Da permissão ao usuario poder acessar as portas serial, e altera o nome das mesmas para o uso do ttl
 def serial_ports_configuration():
     run("sudo usermod -a -G dialout " + const_user)
@@ -229,6 +237,7 @@ def to_set_up_ssh():
     run(command)
     command = "sudo dpkg-reconfigure openssh-server"
     run(command)
+    install_vpn()
     run("clear")
     print_ok("Instalação do SSH")
 
