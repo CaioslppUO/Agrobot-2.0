@@ -48,6 +48,10 @@ export default class Main extends Component {
     }
   };
 
+  componentWillMount(){
+    this.props.navigation.navigate("Connection");
+  }
+
   //Renderização do componente
   render() {
     console.disableYellowBox = true;
