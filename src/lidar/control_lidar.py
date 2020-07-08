@@ -172,10 +172,7 @@ class Control_lidar():
             else:
                 command_to_publish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$" + str(self.standart_data['uv'])
                 const_pub_control_command.publish(command_to_publish)
-        else:
-            command_to_publish = "5*speed$0*steer$0*limit$0*powerA$0*powerB$0*pulverize$0"
-            const_pub_control_command.publish(command_to_publish)
-
+                
     ## Método callback para a leitura do lidar.
     # O envio de comandos ao robô é baseado na velocidade de leitura do lidar.
     def callback_lidar(self,msg):
