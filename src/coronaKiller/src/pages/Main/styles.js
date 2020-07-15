@@ -9,7 +9,7 @@ export default StyleSheet.create({
     alignItems: "center",
     height: "47%"
   },
-  area: {
+  incDecArea: {
     marginTop: 7,
     width: 35,
     height: 35,
@@ -36,12 +36,12 @@ export default StyleSheet.create({
     height: 150,
     justifyContent: "space-around"
   },
-  ButtonText: {
+  stopButtonText: {
     fontSize: 15,
     textAlign: "center",
     color: "#c90000"
   },
-  buttonAction: {
+  actionButton: {
     borderRadius: 200,
     height: 70,
     borderWidth: 1,
@@ -65,7 +65,7 @@ export default StyleSheet.create({
     marginLeft: "5%",
     margin: 5
   },
-  sinalText: {
+  incDecText: {
     fontSize: 35,
     margin: -7
   },
@@ -82,10 +82,8 @@ export default StyleSheet.create({
     width: "100%"
   },
   logoUnioeste: {
-    // height: '50%',
     height: 40,
     width: 100
-    // width: '25%',
   },
   logoPti: {
     height: 45,
