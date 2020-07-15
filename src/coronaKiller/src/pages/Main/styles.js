@@ -74,18 +74,28 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around"
   },
+  versionText: {
+    color: "#02535c",
+    fontSize: 10
+  },
+  containerLogoVersion: {
+    justifyContent: "space-around",
+    alignItems: "flex-end",
+    flexDirection: "column",
+    height: 125
+  },
+
   logosView: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    height: 90,
-    width: "100%"
+    height: 55,
+    width: "100%",
+    flexWrap: "wrap"
   },
   logoUnioeste: {
-    // height: '50%',
     height: 40,
     width: 100
-    // width: '25%',
   },
   logoPti: {
     height: 45,
@@ -100,14 +110,16 @@ export default StyleSheet.create({
     height: 40,
     width: 50
   },
-  versionText: {
-    color: "#02535c",
-    fontSize: 10
+  logoHmcc: {
+    height: 50,
+    width: 90
   },
-  containerLogoVersion: {
-    justifyContent: "space-around",
-    alignItems: "flex-end",
-    flexDirection: "column",
-    height: 100
+  logoMunicipal: {
+    height: 50,
+    width: 41
+  },
+  logoReceita: {
+    height: 45,
+    width: 85
   }
 });

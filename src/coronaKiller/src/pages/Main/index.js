@@ -22,6 +22,9 @@ const LabiotImg = require("../../resources/labiot.png");
 const ptiImg = require("../../resources/pti.png");
 const unioesteImg = require("../../resources/unioeste.png");
 const itaipuImg = require("../../resources/Itaipu.png");
+const hmcc = require("../../resources/hmcc.jpeg");
+const municipal = require("../../resources/municipal.png");
+const receitaFederal = require("../../resources/receitaFederal.png");
 
 /*
  * Página principal
@@ -48,7 +51,7 @@ export default class Main extends Component {
     }
   };
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.navigation.navigate("Connection");
   }
 
@@ -380,6 +383,11 @@ export default class Main extends Component {
               <Image style={styles.logoLabiot} source={LabiotImg} />
               <Image style={styles.logoPti} source={ptiImg} />
               <Image style={styles.logoItaipu} source={itaipuImg} />
+            </View>
+            <View style={styles.logosView}>
+              <Image style={styles.logoHmcc} source={hmcc} />
+              <Image style={styles.logoMunicipal} source={municipal} />
+              <Image style={styles.logoReceita} source={receitaFederal} />
             </View>
             {/*View da versão*/}
             <View>
