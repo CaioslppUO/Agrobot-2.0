@@ -87,7 +87,7 @@ export default StyleSheet.create({
 
   logosView: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
     height: 55,
     width: "100%",
