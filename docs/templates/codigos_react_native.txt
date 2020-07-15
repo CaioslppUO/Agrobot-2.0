@@ -7,10 +7,9 @@
     * nomeclatura de métodos: nomeDoMetodo
     * nomeclatura de classes: NomeDaClasse
     * nomeclatura de arquivos: nomeDoArquivo.extensao
-    * nomeclatura de constantes: NOME_DA_CONSTANTE
     * nomeclatura de componentes: NomeDoComponente
     * nomeclatura em html: NomeDoComponente
-    * nomeclatura de constantes de estilo: NOME_DA_CONSTANTE
+    * nomeclatura de constantes e constantes de estilo: constNomeDaConstante
 
 -> Comentários:
 

@@ -1,65 +1,63 @@
 import { AsyncStorage } from "react-native";
 
-//Variáveis de controle globais
+//Variáveis de controle globais.
 global.speed = 0;
 global.steer = 0;
 global.limit = 50;
 
-//Variáveis de energia(liga/desliga)
+//Variáveis de energia(liga/desliga).
 global.power = 0;
 global.uv = 0;
 
-//Variáveis de comunicação
+//Variáveis de comunicação.
 global.serverIp = "192.168.1.2";
-global.port_manual = "8080";
-global.comunication_delay = 50;
-global.comunication_interval = 0;
+global.portManual = "8080";
+global.comunicationDelay = 50;
+global.comunicationInterval = 0;
 
-//Variáveis de controle automático
-global.speed_auto = -26;
-global.steer_auto = -2;
-global.limit_auto = 50;
-global.correction_movements = 5;
-global.correction_factor = 15;
+//Variáveis de controle automático.
+global.speedAuto = -26;
+global.steerAuto = -2;
+global.limitAuto = 50;
+global.correctionMovements = 5;
+global.correctionFactor = 15;
 
-global.serverIp_auto = "192.168.1.121";
-global.port_auto = "8082";
-global.move_time_auto = 0;
-global.stop_time_auto = 0;
-global.detect_distance = 1.5;
+global.serverIpAuto = "192.168.1.121";
+global.portAuto = "8082";
+global.moveTimeAuto = 0;
+global.stopTimeAuto = 0;
+global.detectDistance = 1.5;
 
-//Variáveis de informação
+//Variáveis de informação.
 global.version = "0.5.9";
 
-async function setValue(name, default_value) {
-  res = await AsyncStorage.getItem(name);
-  if (res != null) {
-    return res;
+async function setValue(name, defaultValue) {
+  result = await AsyncStorage.getItem(name);
+  if (result != null) {
+    return result;
   }
-  return default_value;
+  return defaultValue;
 }
 
-// Recupera as variáveis
+// Recupera as variáveis.
 retrieveData = async () => {
   try {
     // Manual
     global.serverIp = await setValue("serverIp", "192.168.1.2");
-    global.port_manual = await setValue("port_manual", "8080");
-    global.comunication_delay = parseInt(
-      await setValue("comunication_delay", "50")
-    );
+    global.portManual = await setValue("portManual", "8080");
+    global.comunicationDelay = parseInt(await setValue("comunicationDelay", "50"));
 
     // Automático
-    global.speed_auto = await setValue("speed_auto", "-26");
-    global.steer_auto = await setValue("steer_auto", "-2");
-    global.limit_auto = await setValue("limit_auto", "50");
-    global.correction_movements = await setValue("correction_movements", "5");
-    global.correction_factor = await setValue("correction_factor", "15");
-    global.move_time_auto = await setValue("move_time_auto", "0");
-    global.stop_time_auto = await setValue("stop_time_auto", "0");
-    global.detect_distance = await setValue("detect_distance", "1.5");
+    global.speedAuto = await setValue("speedAuto", "-26");
+    global.steerAuto = await setValue("steerAuto", "-2");
+    global.limitAuto = await setValue("limitAuto", "50");
+    global.correctionMovements = await setValue("correctionMovements", "5");
+    global.correctionFactor = await setValue("correctionFactor", "15");
+    global.moveTimeAuto = await setValue("moveTimeAuto", "0");
+    global.stopTimeAuto = await setValue("stopTimeAuto", "0");
+    global.detectDistance = await setValue("detectDistance", "1.5");
   } catch (error) {}
 };
 
-// Recuperando as variáveis
+// Recuperando as variáveis previamente guardadas.
 retrieveData();
