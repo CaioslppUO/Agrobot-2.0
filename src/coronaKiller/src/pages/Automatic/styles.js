@@ -7,7 +7,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between"
   },
-  BoxesContainer: {
+  boxesContainer: {
     flexDirection: "column",
     width: 300
   },
@@ -35,7 +35,6 @@ export default StyleSheet.create({
     color: "#596e9c",
     fontWeight: "bold"
   },
-
   versionContainer: {
     alignItems: "flex-end",
     width: "100%"
