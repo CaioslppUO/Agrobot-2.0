@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {View,TextInput,TouchableOpacity,Text,BackHandler,AsyncStorage
 } from "react-native";
-import styles from "./styles";
+import Styles from "./styles";
 
 export default class Config extends Component {
   //Variáveis da classe
@@ -47,21 +47,21 @@ export default class Config extends Component {
     return (
       <>
         {/*View principal*/}
-        <View style={styles.mainContainer}>
+        <View style={Styles.mainContainer}>
 
           <View style={} />
 
-          <View style={styles.containerCommunication}>
+          <View style={Styles.containerCommunication}>
 
-            <Text style={styles.comunication}>Comunicação</Text>
+            <Text style={Styles.comunication}>Comunicação</Text>
 
           </View>
 
           {/*View dos campos de preenchimento de comunicação*/}
-          <View style={styles.textInputContainer}>
+          <View style={Styles.textInputContainer}>
 
             <TextInput
-              style={styles.inputText}
+              style={Styles.inputText}
               placeholder={"IP do robô: " + this.state.serverIp}
               onEndEditing={text => {
                 this.setState({ serverIp: text.nativeEvent.text });
@@ -72,7 +72,7 @@ export default class Config extends Component {
             />
 
             <TextInput
-              style={styles.inputText}
+              style={Styles.inputText}
               placeholder={"Porta: " + this.state.port}
               onEndEditing={text => {
                 this.setState({ port: text.nativeEvent.text });
@@ -83,7 +83,7 @@ export default class Config extends Component {
             />
 
             <TextInput
-              style={styles.inputText}
+              style={Styles.inputText}
               placeholder={"Tempo de resposta(ms): " + this.state.delay}
               onEndEditing={text => {
                 this.setState({ delay: text.nativeEvent.text });
@@ -96,7 +96,7 @@ export default class Config extends Component {
           </View>
 
           {/*View do botão de salvar*/}
-          <View style={styles.saveContainer}>
+          <View style={Styles.saveContainer}>
 
             <TouchableOpacity
               onPress={() => {
@@ -110,15 +110,15 @@ export default class Config extends Component {
                 this.props.navigation.navigate("Main");
               }}
             >
-              <Text style={styles.saveText}>Salvar</Text>
+              <Text style={Styles.saveText}>Salvar</Text>
             </TouchableOpacity>
 
           </View>
 
           {/*View da versão*/}
-          <View style={styles.versionContainer}>
+          <View style={Styles.versionContainer}>
 
-            <Text style={styles.versionText}>V {global.version}</Text>
+            <Text style={Styles.versionText}>V {global.version}</Text>
 
           </View>
 

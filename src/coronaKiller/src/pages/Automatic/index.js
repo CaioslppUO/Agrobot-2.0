@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {View,TextInput,TouchableOpacity,Text,ScrollView,AsyncStorage
 } from "react-native";
-import styles from "./styles";
+import Styles from "./styles";
 
 export default class Automatic extends Component {
   //Opções do controlador de navegação de páginas
@@ -48,15 +48,15 @@ export default class Automatic extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
 
           {/*View principal*/}
-          <View style={styles.mainContainer}>
+          <View style={Styles.mainContainer}>
 
-            <Text style={styles.parameters}>Parâmetros</Text>
+            <Text style={Styles.parameters}>Parâmetros</Text>
 
             {/*View dos campos de preenchimento de comunicação*/}
-            <View style={styles.boxesContainer}>
+            <View style={Styles.boxesContainer}>
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={"Limite: " + this.state.limitAuto}
                 onEndEditing={text => {
                   this.setState({ limitAuto: text.nativeEvent.text });
@@ -67,7 +67,7 @@ export default class Automatic extends Component {
               />
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={"Direção: " + this.state.steerDefaultAuto}
                 onSubmitEditing={text => {
                   this.setState({ steerDefaultAuto: text.nativeEvent.text });
@@ -78,7 +78,7 @@ export default class Automatic extends Component {
               />
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={"Velocidade: " + this.state.speedDefaultAuto}
                 onSubmitEditing={text => {
                   this.setState({ speedDefaultAuto: text.nativeEvent.text });
@@ -89,7 +89,7 @@ export default class Automatic extends Component {
               />
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={
                   "Nº de Movimentos de correção: " + this.state.tickDefaultAuto
                 }
@@ -102,7 +102,7 @@ export default class Automatic extends Component {
               />
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={
                   "Fator de Correção: " + this.state.shiftDirectionAuto
                 }
@@ -115,7 +115,7 @@ export default class Automatic extends Component {
               />
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={
                   "Distância de Colisão(m): " + this.state.detectDistance
                 }
@@ -128,7 +128,7 @@ export default class Automatic extends Component {
               />
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={"Andar por(seg): " + this.state.moveTimeAuto}
                 onSubmitEditing={text => {
                   this.setState({ moveTimeAuto: text.nativeEvent.text });
@@ -139,7 +139,7 @@ export default class Automatic extends Component {
               />
 
               <TextInput
-                style={styles.boxText}
+                style={Styles.boxText}
                 placeholder={"Parar por(seg): " + this.state.stopTimeAuto}
                 onSubmitEditing={text => {
                   this.setState({ stopTimeAuto: text.nativeEvent.text });
@@ -152,7 +152,7 @@ export default class Automatic extends Component {
             </View>
 
             {/*View do botão de salvar*/}
-            <View style={styles.saveButton}>
+            <View style={Styles.saveButton}>
 
               <TouchableOpacity
                 onPress={() => {
@@ -177,15 +177,15 @@ export default class Automatic extends Component {
                   this.props.navigation.navigate("Main");
                 }}
               >
-                <Text style={styles.saveText}>Salvar</Text>
+                <Text style={Styles.saveText}>Salvar</Text>
               </TouchableOpacity>
 
             </View>
 
             {/*View da versão*/}
-            <View style={styles.versionContainer}>
+            <View style={Styles.versionContainer}>
 
-              <Text style={styles.versionText}>V {global.version}</Text>
+              <Text style={Styles.versionText}>V {global.version}</Text>
 
             </View>
 
