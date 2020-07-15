@@ -6,7 +6,7 @@
     * nomeclatura de funções: nomeDaFunção
     * nomeclatura de métodos: nomeDoMetodo
     * nomeclatura de classes: NomeDaClasse
-    * nomeclatura de arquivos: NomeDoArquivo.extensao
+    * nomeclatura de arquivos: nomeDoArquivo.extensao
     * nomeclatura de constantes: NOME_DA_CONSTANTE
     * nomeclatura de componentes: NomeDoComponente
     * nomeclatura em html: NomeDoComponente
@@ -36,24 +36,12 @@
 
 -> Formatação dos arquivos:
 
-    // ------- //
-    // Imports //
-    // ------- //
-
     import ...
     import ,,,
     import ...
 
-    // ---------- //
-    // Constantes //
-    // ---------- //
-
     CONSTANTE_1
     CONSTANTE_2
-
-    // ------- //
-    // Classes //
-    // ------- //
 
     export default class Nome_da_classe{}...
     
