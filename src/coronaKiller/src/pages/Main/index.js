@@ -379,15 +379,15 @@ export default class Main extends Component {
           <View style={styles.containerLogoVersion}>
             {/* View das logos */}
             <View style={styles.logosView}>
-              <Image style={styles.logoUnioeste} source={unioesteImg} />
-              <Image style={styles.logoLabiot} source={LabiotImg} />
-              <Image style={styles.logoPti} source={ptiImg} />
-              <Image style={styles.logoItaipu} source={itaipuImg} />
+              <Image style={styles.logoReceita} source={receitaFederal} />
+              <Image style={styles.logoMunicipal} source={municipal} />
+              <Image style={styles.logoHmcc} source={hmcc} />
             </View>
             <View style={styles.logosView}>
-              <Image style={styles.logoHmcc} source={hmcc} />
-              <Image style={styles.logoMunicipal} source={municipal} />
-              <Image style={styles.logoReceita} source={receitaFederal} />
+              <Image style={styles.logoLabiot} source={LabiotImg} />
+              <Image style={styles.logoUnioeste} source={unioesteImg} />
+              <Image style={styles.logoPti} source={ptiImg} />
+              <Image style={styles.logoItaipu} source={itaipuImg} />
             </View>
             {/*View da versão*/}
             <View>
