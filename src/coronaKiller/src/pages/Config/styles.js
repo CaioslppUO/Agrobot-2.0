@@ -12,7 +12,7 @@ export default StyleSheet.create({
     flexDirection: "column",
     alignItems: "center"
   },
-  textDefault: {
+  inputText: {
     alignItems: "flex-start",
     marginTop: 10,
     fontSize: 20,

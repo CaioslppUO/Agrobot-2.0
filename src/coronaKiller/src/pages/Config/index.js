@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  BackHandler,
-  AsyncStorage
+import {View,TextInput,TouchableOpacity,Text,BackHandler,AsyncStorage
 } from "react-native";
 import styles from "./styles";
 
@@ -13,13 +7,13 @@ export default class Config extends Component {
   //Variáveis da classe
   state = {
     serverIp: global.serverIp,
-    port: global.port_manual,
+    port: global.portManual,
     minPSpeed: global.minPulverizeSpeed,
-    delay: global.comunication_delay,
-    serverIp_temp: global.serverIp,
-    port_temp: global.port_manual,
-    minPSpeed_temp: global.minPulverizeSpeed,
-    delay_temp: global.comunication_delay
+    delay: global.comunicationDelay,
+    serverIpTemp: global.serverIp,
+    portTemp: global.portManual,
+    minPSpeedTemp: global.minPulverizeSpeed,
+    delayTemp: global.comunicationDelay
   };
 
   //Opções do controlador de navegação de páginas
@@ -40,6 +34,7 @@ export default class Config extends Component {
   }
 
   render() {
+
     // Guarda as variáveis na memória.
     storeData = async (name, value) => {
       try {
@@ -53,71 +48,80 @@ export default class Config extends Component {
       <>
         {/*View principal*/}
         <View style={styles.mainContainer}>
-          <View style={styles.espassamento} />
+
+          <View style={} />
+
           <View style={styles.containerCommunication}>
+
             <Text style={styles.comunication}>Comunicação</Text>
+
           </View>
 
           {/*View dos campos de preenchimento de comunicação*/}
           <View style={styles.textInputContainer}>
+
             <TextInput
-              style={styles.textDefault}
+              style={styles.inputText}
               placeholder={"IP do robô: " + this.state.serverIp}
               onEndEditing={text => {
                 this.setState({ serverIp: text.nativeEvent.text });
               }}
               onChangeText={text => {
-                this.setState({ serverIp_temp: text });
+                this.setState({ serverIpTemp: text });
               }}
             />
 
             <TextInput
-              style={styles.textDefault}
+              style={styles.inputText}
               placeholder={"Porta: " + this.state.port}
               onEndEditing={text => {
                 this.setState({ port: text.nativeEvent.text });
               }}
               onChangeText={text => {
-                this.setState({ port_temp: text });
+                this.setState({ portTemp: text });
               }}
             />
 
             <TextInput
-              style={styles.textDefault}
+              style={styles.inputText}
               placeholder={"Tempo de resposta(ms): " + this.state.delay}
               onEndEditing={text => {
                 this.setState({ delay: text.nativeEvent.text });
               }}
               onChangeText={text => {
-                this.setState({ delay_temp: text });
+                this.setState({ delayTemp: text });
               }}
             />
+
           </View>
+
           {/*View do botão de salvar*/}
           <View style={styles.saveContainer}>
+
             <TouchableOpacity
               onPress={() => {
-                global.serverIp = this.state.serverIp_temp;
-                global.port_manual = this.state.port_temp;
-                global.comunication_delay = parseFloat(this.state.delay_temp);
+                global.serverIp = this.state.serverIpTemp;
+                global.portManual = this.state.portTemp;
+                global.comunicationDelay = parseFloat(this.state.delayTemp);
 
-                storeData("serverIp", this.state.serverIp_temp);
-                storeData("port_manual", this.state.port_temp);
-                storeData(
-                  "comunication_delay",
-                  toString(this.state.delay_temp)
-                );
+                storeData("serverIp", this.state.serverIpTemp);
+                storeData("portManual", this.state.portTemp);
+                storeData("comunicationDelay",toString(this.state.delayTemp));
                 this.props.navigation.navigate("Main");
               }}
             >
               <Text style={styles.saveText}>Salvar</Text>
             </TouchableOpacity>
+
           </View>
 
           {/*View da versão*/}
           <View style={styles.versionContainer}>
+
             <Text style={styles.versionText}>V {global.version}</Text>
+
           </View>
+
         </View>
       </>
     );
