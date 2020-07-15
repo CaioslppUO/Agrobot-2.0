@@ -41,7 +41,7 @@ export default StyleSheet.create({
         width: '80%',
         alignItems: 'flex-start',
     },
-    textTutorial:{
+    tutorialText:{
         fontSize: 20,
         paddingBottom: '2%',
         textAlign: 'left'
@@ -52,35 +52,35 @@ export default StyleSheet.create({
         alignItems: "center",
         height: 90,
         width: "100%"
-      },
-      logoUnioeste: {
+    },
+    logoUnioeste: {
         // height: '50%',
         height: 40,
         width: 100
         // width: '25%',
-      },
-      logoPti: {
+    },
+    logoPti: {
         height: 45,
         width: 100
-      },
-      logoLabiot: {
+    },
+    logoLabiot: {
         height: 50,
         width: 50,
         marginBottom: 10
-      },
-      logoItaipu: {
+    },
+    logoItaipu: {
         height: 40,
         width: 50
-      },
-      versionText: {
+    },
+    versionText: {
         color: "#02535c",
         fontSize: 10,
-      },
-      containerLogoVersion: {
+    },
+    containerLogoVersion: {
         justifyContent: "space-around",
         alignItems: "flex-end",
         flexDirection: "column",
         height: 100,
         width: '100%'
-      }
+    }
 });
