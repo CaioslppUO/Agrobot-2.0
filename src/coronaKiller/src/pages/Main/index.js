@@ -62,7 +62,7 @@ export default class Main extends Component {
     },
     headerLeft: () => (
       <Picker
-      style={{ height: 30, width: 150 }}
+      style={{ height: 30, width: 150, color: "#ffffff" }}
       selectedValue={0}
       onValueChange={(itemValue, itemPosition) => {
         global.props.navigation.navigate(itemValue)
