@@ -30,15 +30,23 @@ export default class Connection extends Component {
   render() {
     //Envia a mensagem de controle manual para o webServerManual
     function sendToWebServerManual() {
-      command =
+      speed = 0
+      for(i = 0; i<250; i++){
+        if(speed === 0){
+          speed = 1
+        }else{
+          speed = 0
+        }
+        command =
         "http://" +
         global.serverIp +
         ":" +
         global.port_manual +
         "/0*speed$" +
-        0 +
+        speed +
         "*steer$0*limit$0*powerA$0*powerB$0*pulverize$0";
-      new WebSocket(command);
+        new WebSocket(command);
+      }
     }
     return (
       <>
