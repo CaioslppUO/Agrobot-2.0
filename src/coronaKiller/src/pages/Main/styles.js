@@ -25,7 +25,7 @@ export default StyleSheet.create({
   mainContainer: {
     backgroundColor: "#ffffff",
     flex: 1,
-    justifyContent: "space-around"
+    justifyContent: "space-between"
   },
   powerButtonsContainer: {
     flexDirection: "row",
@@ -33,7 +33,7 @@ export default StyleSheet.create({
     justifyContent: "space-around"
   },
   containerButtons: {
-    height: 150,
+    height: 140,
     justifyContent: "space-around"
   },
   ButtonText: {
@@ -50,14 +50,12 @@ export default StyleSheet.create({
     justifyContent: "center"
   },
   sliderContainer: {
-    height: 70,
+    height: 50,
     flexDirection: "column"
   },
   slider: {
     width: "100%",
-    height: "20%",
-    justifyContent: "flex-end",
-    alignContent: "center"
+    height: "20%"
   },
   speedText: {
     fontSize: 20,

@@ -15,7 +15,7 @@ global.port_manual = "8080";
 global.comunication_delay = 50;
 global.comunication_interval = 0;
 
-global.props = 0
+global.props = 0;
 
 //Variáveis de controle automático
 global.speed_auto = -26;
@@ -31,7 +31,7 @@ global.stop_time_auto = 0;
 global.detect_distance = 1.5;
 
 //Variáveis de informação
-global.version = "0.6.1";
+global.version = "0.6.2";
 
 async function setValue(name, default_value) {
   res = await AsyncStorage.getItem(name);

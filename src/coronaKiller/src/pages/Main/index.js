@@ -27,7 +27,6 @@ const hmcc = require("../../resources/hmcc.jpeg");
 const municipal = require("../../resources/municipal.png");
 const receitaFederal = require("../../resources/receitaFederal.png");
 
-
 /*
  * Página principal
  */
@@ -44,12 +43,12 @@ export default class Main extends Component {
   };
 
   func = function name() {
-    alert("bla")
-  }
+    alert("bla");
+  };
 
   componentWillMount() {
     this.props.navigation.navigate("Connection");
-    global.props = this.props
+    global.props = this.props;
   }
 
   //Opções do controlador de navegação de páginas
@@ -62,18 +61,18 @@ export default class Main extends Component {
     },
     headerLeft: () => (
       <Picker
-      style={{ height: 30, width: 150, color: "#ffffff" }}
-      selectedValue={0}
-      onValueChange={(itemValue, itemPosition) => {
-        global.props.navigation.navigate(itemValue)
-      }}
+        style={{ height: 30, width: 150, color: "#ffffff" }}
+        selectedValue={0}
+        onValueChange={(itemValue, itemPosition) => {
+          global.props.navigation.navigate(itemValue);
+        }}
       >
         <Picker.Item label="Controlar" value="Main" />
         <Picker.Item label="Configuração Manual" value="Config" />
         <Picker.Item label="Configuração Automática" value="Automatic" />
       </Picker>
-    ),
-};
+    )
+  };
 
   //Renderização do componente
   render() {
@@ -220,11 +219,6 @@ export default class Main extends Component {
       <>
         {/*View principal*/}
         <View style={styles.mainContainer}>
-          {/*View do botão do menu*/}
-          <View style={styles.menuButton}>
-            
-          </View>
-
           {/* View do joystick */}
           <View style={styles.joystickView}>
             <AxisPad
