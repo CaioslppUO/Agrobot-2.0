@@ -6,7 +6,8 @@ import {
   Slider,
   Image,
   Picker,
-  Dimensions
+  Dimensions,
+  Button
 } from "react-native";
 
 import AxisPad from "react-native-axis-pad";
@@ -26,6 +27,7 @@ const hmcc = require("../../resources/hmcc.jpeg");
 const municipal = require("../../resources/municipal.png");
 const receitaFederal = require("../../resources/receitaFederal.png");
 
+
 /*
  * Página principal
  */
@@ -41,6 +43,15 @@ export default class Main extends Component {
     pickerValue: 0
   };
 
+  func = function name() {
+    alert("bla")
+  }
+
+  componentWillMount() {
+    this.props.navigation.navigate("Connection");
+    global.props = this.props
+  }
+
   //Opções do controlador de navegação de páginas
   static navigationOptions = {
     title: "Controle",
@@ -48,12 +59,21 @@ export default class Main extends Component {
       textAlign: "center",
       alignSelf: "center",
       flexGrow: 1
-    }
-  };
-
-  componentWillMount() {
-    this.props.navigation.navigate("Connection");
-  }
+    },
+    headerLeft: () => (
+      <Picker
+      style={{ height: 30, width: 150 }}
+      selectedValue={0}
+      onValueChange={(itemValue, itemPosition) => {
+        global.props.navigation.navigate(itemValue)
+      }}
+      >
+        <Picker.Item label="Controlar" value="Main" />
+        <Picker.Item label="Configuração Manual" value="Config" />
+        <Picker.Item label="Configuração Automática" value="Automatic" />
+      </Picker>
+    ),
+};
 
   //Renderização do componente
   render() {
@@ -202,22 +222,7 @@ export default class Main extends Component {
         <View style={styles.mainContainer}>
           {/*View do botão do menu*/}
           <View style={styles.menuButton}>
-            {/*Botão do menu*/}
-            <Picker
-              style={{ height: 30, width: 150 }}
-              selectedValue={this.state.pickerItem}
-              onValueChange={(itemValue, itemPosition) => {
-                this.setState({
-                  pickerValue: itemValue,
-                  pickerItem: itemPosition
-                });
-                this.props.navigation.navigate(itemValue);
-              }}
-            >
-              <Picker.Item label="Controlar" value="Main" />
-              <Picker.Item label="Configuração Manual" value="Config" />
-              <Picker.Item label="Configuração Automática" value="Automatic" />
-            </Picker>
+            
           </View>
 
           {/* View do joystick */}

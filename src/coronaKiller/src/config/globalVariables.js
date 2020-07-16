@@ -15,6 +15,8 @@ global.port_manual = "8080";
 global.comunication_delay = 50;
 global.comunication_interval = 0;
 
+global.props = 0
+
 //Variáveis de controle automático
 global.speed_auto = -26;
 global.steer_auto = -2;
