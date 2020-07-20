@@ -9,6 +9,10 @@ import {
 } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
+import Src from "./src"
+
+// Classe que controla o código fonte.
+const src = new Src()
 
 export default class Automatic extends Component {
   //Opções do controlador de navegação de páginas
@@ -42,14 +46,6 @@ export default class Automatic extends Component {
   };
 
   render() {
-    storeData = async (name, value) => {
-      try {
-        await AsyncStorage.setItem(name, value);
-      } catch (error) {
-        alert("Erro ao salvar a variável " + name + ". Erro: " + error);
-      }
-    };
-
     return (
       <>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -167,20 +163,20 @@ export default class Automatic extends Component {
                   global.stopTimeAuto = this.state.stopTimeAutoTemp;
                   global.detectDistance = this.state.detectDistanceTemp;
 
-                  storeData("limitAuto", this.state.limitAutoTemp);
-                  storeData(
+                  src.storeData("limitAuto", this.state.limitAutoTemp);
+                  src.storeData(
                     "correctionMovements",
                     this.state.tickDefaultAutoTemp
                   );
-                  storeData("steerAuto", this.state.steerDefaultAutoTemp);
-                  storeData("speedAuto", this.state.speedDefaultAutoTemp);
-                  storeData(
+                  src.storeData("steerAuto", this.state.steerDefaultAutoTemp);
+                  src.storeData("speedAuto", this.state.speedDefaultAutoTemp);
+                  src.storeData(
                     "correctionFactor",
                     this.state.shiftDirectionAutoTemp
                   );
-                  storeData("moveTimeAuto", this.state.moveTimeAutoTemp);
-                  storeData("stopTimeAuto", this.state.stopTimeAutoTemp);
-                  storeData("detectDistance", this.state.detectDistanceTemp);
+                  src.storeData("moveTimeAuto", this.state.moveTimeAutoTemp);
+                  src.storeData("stopTimeAuto", this.state.stopTimeAutoTemp);
+                  src.storeData("detectDistance", this.state.detectDistanceTemp);
 
                   this.props.navigation.navigate("Main");
                 }}
