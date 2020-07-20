@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../styles";
 
 export default StyleSheet.create({
   menuButton: {
@@ -16,14 +17,15 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
+
   wrapperView: {
-    backgroundColor: "#ffffff"
+    backgroundColor: colors.backgroudDefault
   },
   handlerView: {
-    backgroundColor: "#3495EB"
+    backgroundColor: colors.internalJoystick
   },
   mainContainer: {
-    backgroundColor: "#ffffff",
+    backgroundColor: colors.backgroudDefault,
     flex: 1,
     justifyContent: "space-around"
   },
@@ -39,10 +41,23 @@ export default StyleSheet.create({
   stopButtonText: {
     fontSize: 15,
     textAlign: "center",
-    color: "#c90000"
+    color: colors.buttonRed
+  },
+  stopButton: {
+    borderColor: colors.buttonRed,
+    borderRadius: 115,
+    height: 62,
+    width: 200,
+    borderWidth: 3,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  picker: {
+    height: 30,
+    width: 150
   },
   actionButton: {
-    borderRadius: 200,
+    borderRadius: 180,
     height: 70,
     borderWidth: 1,
     width: 70,
@@ -73,39 +88,5 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around"
-  },
-  logosView: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    height: 90,
-    width: "100%"
-  },
-  logoUnioeste: {
-    height: 40,
-    width: 100
-  },
-  logoPti: {
-    height: 45,
-    width: 100
-  },
-  logoLabiot: {
-    height: 50,
-    width: 50,
-    marginBottom: 10
-  },
-  logoItaipu: {
-    height: 40,
-    width: 50
-  },
-  versionText: {
-    color: "#02535c",
-    fontSize: 10
-  },
-  containerLogoVersion: {
-    justifyContent: "space-around",
-    alignItems: "flex-end",
-    flexDirection: "column",
-    height: 100
   }
 });

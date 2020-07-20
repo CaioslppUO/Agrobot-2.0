@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import { colors } from "../../styles";
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -26,21 +26,13 @@ export default StyleSheet.create({
   saveText: {
     fontSize: 30,
     borderWidth: 1,
-    backgroundColor: "#89c5d6",
+    backgroundColor: colors.buttonBlue,
     textAlign: "center",
     borderRadius: 10
   },
   parameters: {
     fontSize: 30,
-    color: "#596e9c",
+    color: colors.title,
     fontWeight: "bold"
-  },
-  versionContainer: {
-    alignItems: "flex-end",
-    width: "100%"
-  },
-  versionText: {
-    color: "#02535c",
-    fontSize: 10
   }
 });

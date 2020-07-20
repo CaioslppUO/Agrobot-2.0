@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
-
+import { colors } from "../../styles";
 export default StyleSheet.create({
   mainContainer: {
-    backgroundColor: "#ffffff",
+    backgroundColor: colors.backgroudDefault,
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
@@ -24,25 +24,16 @@ export default StyleSheet.create({
     height: 90,
     width: 150
   },
-  containerCommunication: {},
   saveText: {
     fontSize: 35,
     borderWidth: 1,
-    backgroundColor: "#89c5d6",
+    backgroundColor: colors.buttonBlue,
     textAlign: "center",
     borderRadius: 10
   },
   comunication: {
     fontSize: 30,
-    color: "#596e9c",
+    color: colors.title,
     fontWeight: "bold"
-  },
-  versionContainer: {
-    alignItems: "flex-end",
-    width: "100%"
-  },
-  versionText: {
-    color: "#02535c",
-    fontSize: 10
   }
 });

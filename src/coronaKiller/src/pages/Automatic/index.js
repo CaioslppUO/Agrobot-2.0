@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import {View,TextInput,TouchableOpacity,Text,ScrollView,AsyncStorage
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  AsyncStorage
 } from "react-native";
 import Styles from "./styles";
+import Footer from "../../footer";
 
 export default class Automatic extends Component {
   //Opções do controlador de navegação de páginas
@@ -39,22 +46,19 @@ export default class Automatic extends Component {
       try {
         await AsyncStorage.setItem(name, value);
       } catch (error) {
-        alert("Erro ao salvar a variável " + name + ". Erro: " + error)
+        alert("Erro ao salvar a variável " + name + ". Erro: " + error);
       }
-    }
+    };
 
     return (
       <>
         <ScrollView showsVerticalScrollIndicator={false}>
-
           {/*View principal*/}
           <View style={Styles.mainContainer}>
-
             <Text style={Styles.parameters}>Parâmetros</Text>
 
             {/*View dos campos de preenchimento de comunicação*/}
             <View style={Styles.boxesContainer}>
-
               <TextInput
                 style={Styles.boxText}
                 placeholder={"Limite: " + this.state.limitAuto}
@@ -62,7 +66,7 @@ export default class Automatic extends Component {
                   this.setState({ limitAuto: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ limitAutoTemp: text })
+                  this.setState({ limitAutoTemp: text });
                 }}
               />
 
@@ -73,7 +77,7 @@ export default class Automatic extends Component {
                   this.setState({ steerDefaultAuto: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ steerDefaultAutoTemp: text })
+                  this.setState({ steerDefaultAutoTemp: text });
                 }}
               />
 
@@ -84,7 +88,7 @@ export default class Automatic extends Component {
                   this.setState({ speedDefaultAuto: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ speedDefaultAutoTemp: text })
+                  this.setState({ speedDefaultAutoTemp: text });
                 }}
               />
 
@@ -97,7 +101,7 @@ export default class Automatic extends Component {
                   this.setState({ tickDefaultAuto: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ tickDefaultAutoTemp: text })
+                  this.setState({ tickDefaultAutoTemp: text });
                 }}
               />
 
@@ -110,7 +114,7 @@ export default class Automatic extends Component {
                   this.setState({ shiftDirectionAuto: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ shiftDirectionAutoTemp: text })
+                  this.setState({ shiftDirectionAutoTemp: text });
                 }}
               />
 
@@ -123,7 +127,7 @@ export default class Automatic extends Component {
                   this.setState({ detectDistance: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ detectDistanceTemp: text })
+                  this.setState({ detectDistanceTemp: text });
                 }}
               />
 
@@ -134,7 +138,7 @@ export default class Automatic extends Component {
                   this.setState({ moveTimeAuto: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ moveTimeAutoTemp: text })
+                  this.setState({ moveTimeAutoTemp: text });
                 }}
               />
 
@@ -145,15 +149,13 @@ export default class Automatic extends Component {
                   this.setState({ stopTimeAuto: text.nativeEvent.text });
                 }}
                 onChangeText={text => {
-                  this.setState({ stopTimeAutoTemp: text })
+                  this.setState({ stopTimeAutoTemp: text });
                 }}
               />
-
             </View>
 
             {/*View do botão de salvar*/}
             <View style={Styles.saveButton}>
-
               <TouchableOpacity
                 onPress={() => {
                   global.limitAuto = this.state.limitAutoTemp;
@@ -164,33 +166,31 @@ export default class Automatic extends Component {
                   global.moveTimeAuto = this.state.moveTimeAutoTemp;
                   global.stopTimeAuto = this.state.stopTimeAutoTemp;
                   global.detectDistance = this.state.detectDistanceTemp;
-                  
-                  storeData("limitAuto",this.state.limitAutoTemp)
-                  storeData("correctionMovements",this.state.tickDefaultAutoTemp)
-                  storeData("steerAuto",this.state.steerDefaultAutoTemp)
-                  storeData("speedAuto",this.state.speedDefaultAutoTemp)
-                  storeData("correctionFactor",this.state.shiftDirectionAutoTemp)
-                  storeData("moveTimeAuto",this.state.moveTimeAutoTemp)
-                  storeData("stopTimeAuto",this.state.stopTimeAutoTemp)
-                  storeData("detectDistance",this.state.detectDistanceTemp)
+
+                  storeData("limitAuto", this.state.limitAutoTemp);
+                  storeData(
+                    "correctionMovements",
+                    this.state.tickDefaultAutoTemp
+                  );
+                  storeData("steerAuto", this.state.steerDefaultAutoTemp);
+                  storeData("speedAuto", this.state.speedDefaultAutoTemp);
+                  storeData(
+                    "correctionFactor",
+                    this.state.shiftDirectionAutoTemp
+                  );
+                  storeData("moveTimeAuto", this.state.moveTimeAutoTemp);
+                  storeData("stopTimeAuto", this.state.stopTimeAutoTemp);
+                  storeData("detectDistance", this.state.detectDistanceTemp);
 
                   this.props.navigation.navigate("Main");
                 }}
               >
                 <Text style={Styles.saveText}>Salvar</Text>
               </TouchableOpacity>
-
             </View>
 
-            {/*View da versão*/}
-            <View style={Styles.versionContainer}>
-
-              <Text style={Styles.versionText}>V {global.version}</Text>
-
-            </View>
-
+            <Footer />
           </View>
-
         </ScrollView>
       </>
     );

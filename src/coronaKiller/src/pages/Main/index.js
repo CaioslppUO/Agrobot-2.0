@@ -1,24 +1,19 @@
-import React, { Component, useState } from "react";
-import { View,TouchableOpacity,Text,Slider,Image,Picker,Dimensions
+import React, { Component } from "react";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Slider,
+  Image,
+  Picker,
+  Dimensions
 } from "react-native";
 
 import AxisPad from "react-native-axis-pad";
-import NavigationActions from "react-navigation/src/NavigationActions";
 import Styles from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Footer from "../../footer";
 
-/**
- * Constantes de imagens
- */
-
-const constLabiotImg = require("../../resources/labiot.png");
-const constPtiImg = require("../../resources/pti.png");
-const constUnioesteImg = require("../../resources/unioeste.png");
-const constItaipuImg = require("../../resources/Itaipu.png");
-
-/*
- * Página principal
- */
 export default class Main extends Component {
   //Variáveis globais da classe
   state = {
@@ -41,7 +36,7 @@ export default class Main extends Component {
     }
   };
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.navigation.navigate("Connection");
   }
 
@@ -81,8 +76,14 @@ export default class Main extends Component {
 
     //Envia a mensagem de controle automático para o webserver de parâmetros
     function sendToParamServer(
-      limit,tickDefault,steerDefault,speedDefault,shiftDirection,moveTimeAuto,stopTimeAuto
-    ){
+      limit,
+      tickDefault,
+      steerDefault,
+      speedDefault,
+      shiftDirection,
+      moveTimeAuto,
+      stopTimeAuto
+    ) {
       command =
         "http://" +
         global.serverIpAuto +
@@ -177,20 +178,20 @@ export default class Main extends Component {
       sendToParamServer(0, 0, 0, 0, 0, -1, -1);
     }
 
-    const JoystickHandlerSize = parseInt(Dimensions.get("window").height * 0.15);
+    const JoystickHandlerSize = parseInt(
+      Dimensions.get("window").height * 0.15
+    );
     const JoystickSize = parseInt(Dimensions.get("window").height * 0.25);
 
     return (
       <>
         {/*View principal*/}
         <View style={Styles.mainContainer}>
-
           {/*View do botão do menu*/}
           <View style={Styles.menuButton}>
-
             {/*Botão do menu*/}
             <Picker
-              style={{ height: 30, width: 150 }}
+              style={Styles.picker}
               selectedValue={this.state.menuItem}
               onValueChange={(itemValue, itemPosition) => {
                 this.setState({
@@ -204,12 +205,10 @@ export default class Main extends Component {
               <Picker.Item label="Configuração Manual" value="Config" />
               <Picker.Item label="Configuração Automática" value="Automatic" />
             </Picker>
-
           </View>
 
           {/* View do joystick */}
           <View style={Styles.joystickView}>
-
             <AxisPad
               size={JoystickSize}
               handlerSize={JoystickHandlerSize}
@@ -225,8 +224,7 @@ export default class Main extends Component {
                   if (joystick_x == 0 && joystick_y == 0) {
                     sendManualCommand(0, 0);
                   }
-                  global.comunicationInterval =
-                    global.comunicationInterval + 1;
+                  global.comunicationInterval = global.comunicationInterval + 1;
                 }
                 if (this.state.autoMode != 0) {
                   this.setState({ buttonAutoColor: "#000" });
@@ -235,19 +233,19 @@ export default class Main extends Component {
                 }
               }}
             />
-
           </View>
 
           {/* View dos botoes*/}
           <View style={Styles.containerButtons}>
-
             <View style={Styles.powerButtonsContainer}>
-
               {/*Botão da placa A*/}
               <TouchableOpacity
                 style={Styles.actionButton}
                 onPress={() => {
-                  this.setState({ buttonPowerColor: this.state.buttonPowerColor == "#f00" ? "#0f0" : "#f00" });
+                  this.setState({
+                    buttonPowerColor:
+                      this.state.buttonPowerColor == "#f00" ? "#0f0" : "#f00"
+                  });
                   powerButtonPressed();
                 }}
               >
@@ -262,7 +260,10 @@ export default class Main extends Component {
               <TouchableOpacity
                 style={Styles.actionButton}
                 onPress={() => {
-                  this.setState({ buttonUvColor: this.state.buttonUvColor == "#000" ? "#993399" : "#000" });
+                  this.setState({
+                    buttonUvColor:
+                      this.state.buttonUvColor == "#000" ? "#993399" : "#000"
+                  });
                   uvButtonPressed();
                 }}
               >
@@ -277,28 +278,22 @@ export default class Main extends Component {
               <TouchableOpacity
                 style={Styles.actionButton}
                 onPress={() => {
-                  this.setState({ buttonAutoColor: this.state.buttonAutoColor == "#000" ? "#0f0" : "#000" });
+                  this.setState({
+                    buttonAutoColor:
+                      this.state.buttonAutoColor == "#000" ? "#0f0" : "#000"
+                  });
                   automaticButtonPressed(this.state.autoMode);
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 });
                 }}
               >
                 <Icon name="car" size={30} color={this.state.buttonAutoColor} />
               </TouchableOpacity>
-
             </View>
 
             {/*Botão parar robô*/}
             <View style={Styles.powerButtonsContainer}>
               <TouchableOpacity
-                style={{
-                  borderColor: "#c90000",
-                  borderRadius: 115,
-                  height: 62,
-                  width: 200,
-                  borderWidth: 3,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
+                style={Styles.stopButton}
                 onPress={() => {
                   this.setState({ buttonAutoColor: "#000" });
                   this.setState({ buttonUvColor: "#000" });
@@ -308,17 +303,13 @@ export default class Main extends Component {
               >
                 <Text style={Styles.stopButtonText}>PARAR</Text>
               </TouchableOpacity>
-
             </View>
-
           </View>
 
           {/* View do slider*/}
           <View style={Styles.sliderContainer}>
-
             {/* View dos botoes + e - e do valor de speed */}
             <View style={Styles.topBarSliderView}>
-
               {/* Botão de - para diminuir o valor do slider */}
               <TouchableOpacity
                 style={Styles.incDecArea}
@@ -352,7 +343,6 @@ export default class Main extends Component {
               >
                 <Text style={Styles.incDecText}>+</Text>
               </TouchableOpacity>
-              
             </View>
 
             {/*Slider*/}
@@ -367,31 +357,9 @@ export default class Main extends Component {
               style={Styles.slider}
               step={1}
             />
-
           </View>
 
-          {/* View de logo e versão */}
-          <View style={Styles.containerLogoVersion}>
-
-            {/* View das logos */}
-            <View style={Styles.logosView}>
-
-              <Image style={Styles.logoUnioeste} source={constUnioesteImg} />
-              <Image style={Styles.logoLabiot} source={constLabiotImg} />
-              <Image style={Styles.logoPti} source={constPtiImg} />
-              <Image style={Styles.logoItaipu} source={constItaipuImg} />
-
-            </View>
-
-            {/*View da versão*/}
-            <View>
-
-              <Text style={Styles.versionText}>V {global.version}</Text>
-
-            </View>
-
-          </View>
-
+          <Footer />
         </View>
       </>
     );

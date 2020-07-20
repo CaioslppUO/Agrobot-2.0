@@ -1,7 +1,14 @@
 import React, { Component } from "react";
-import {View,TextInput,TouchableOpacity,Text,BackHandler,AsyncStorage
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  BackHandler,
+  AsyncStorage
 } from "react-native";
 import Styles from "./styles";
+import Footer from "../../footer";
 
 export default class Config extends Component {
   //Variáveis da classe
@@ -34,7 +41,6 @@ export default class Config extends Component {
   }
 
   render() {
-
     // Guarda as variáveis na memória.
     storeData = async (name, value) => {
       try {
@@ -48,18 +54,14 @@ export default class Config extends Component {
       <>
         {/*View principal*/}
         <View style={Styles.mainContainer}>
-
-          <View style={} />
+          <View />
 
           <View style={Styles.containerCommunication}>
-
             <Text style={Styles.comunication}>Comunicação</Text>
-
           </View>
 
           {/*View dos campos de preenchimento de comunicação*/}
           <View style={Styles.textInputContainer}>
-
             <TextInput
               style={Styles.inputText}
               placeholder={"IP do robô: " + this.state.serverIp}
@@ -92,12 +94,10 @@ export default class Config extends Component {
                 this.setState({ delayTemp: text });
               }}
             />
-
           </View>
 
           {/*View do botão de salvar*/}
           <View style={Styles.saveContainer}>
-
             <TouchableOpacity
               onPress={() => {
                 global.serverIp = this.state.serverIpTemp;
@@ -106,22 +106,15 @@ export default class Config extends Component {
 
                 storeData("serverIp", this.state.serverIpTemp);
                 storeData("portManual", this.state.portTemp);
-                storeData("comunicationDelay",toString(this.state.delayTemp));
+                storeData("comunicationDelay", toString(this.state.delayTemp));
                 this.props.navigation.navigate("Main");
               }}
             >
               <Text style={Styles.saveText}>Salvar</Text>
             </TouchableOpacity>
-
           </View>
 
-          {/*View da versão*/}
-          <View style={Styles.versionContainer}>
-
-            <Text style={Styles.versionText}>V {global.version}</Text>
-
-          </View>
-
+          <Footer />
         </View>
       </>
     );
