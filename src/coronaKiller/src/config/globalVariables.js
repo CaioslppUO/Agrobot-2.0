@@ -29,7 +29,7 @@ global.stopTimeAuto = 0;
 global.detectDistance = 1.5;
 
 //Variáveis de informação.
-global.version = "0.6.0";
+global.version = "0.6.1";
 
 async function setValue(name, defaultValue) {
   result = await AsyncStorage.getItem(name);

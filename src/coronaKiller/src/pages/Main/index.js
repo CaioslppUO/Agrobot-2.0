@@ -13,9 +13,13 @@ import AxisPad from "react-native-axis-pad";
 import Styles from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Footer from "../../footer";
+import Src from "./src.js"
+
+// Classe que controla o código fonte.
+const src = new Src()
 
 export default class Main extends Component {
-  //Variáveis globais da classe
+  // Variáveis globais da classe.
   state = {
     limitSliderValue: 50,
     buttonPowerColor: "#f00",
@@ -26,7 +30,7 @@ export default class Main extends Component {
     menuItemValue: 0
   };
 
-  //Opções do controlador de navegação de páginas
+  // Opções do controlador de navegação de páginas.
   static navigationOptions = {
     title: "Controle",
     headerTitleStyle: {
@@ -36,6 +40,7 @@ export default class Main extends Component {
     }
   };
 
+  // Carrega a tela de teste de conexão.
   componentWillMount() {
     this.props.navigation.navigate("Connection");
   }
@@ -43,144 +48,7 @@ export default class Main extends Component {
   //Renderização do componente
   render() {
     console.disableYellowBox = true;
-
-    //Envia a mensagem de controle manual para o webServerManual
-    function sendToWebServerManual(speed, steer, limit, power) {
-      command =
-        "http://" +
-        global.serverIp +
-        ":" +
-        global.portManual +
-        "/" +
-        0 +
-        "*" +
-        "speed$" +
-        speed +
-        "*" +
-        "steer$" +
-        steer +
-        "*" +
-        "limit$" +
-        limit +
-        "*" +
-        "powerA$" +
-        power +
-        "*" +
-        "powerB$" +
-        0 +
-        "*" +
-        "pulverize$" +
-        global.uv;
-      new WebSocket(command);
-    }
-
-    //Envia a mensagem de controle automático para o webserver de parâmetros
-    function sendToParamServer(
-      limit,
-      tickDefault,
-      steerDefault,
-      speedDefault,
-      shiftDirection,
-      moveTimeAuto,
-      stopTimeAuto
-    ) {
-      command =
-        "http://" +
-        global.serverIpAuto +
-        ":" +
-        global.portAuto +
-        "/" +
-        "limit$" +
-        limit +
-        "*" +
-        "tick$" +
-        tickDefault +
-        "*" +
-        "steer$" +
-        steerDefault +
-        "*" +
-        "speed$" +
-        speedDefault +
-        "*" +
-        "shift$" +
-        shiftDirection +
-        "*" +
-        "uv$" +
-        global.uv +
-        "*" +
-        "detect$" +
-        global.detectDistance +
-        "*" +
-        "move$" +
-        moveTimeAuto +
-        "*" +
-        "stop$" +
-        stopTimeAuto;
-      new WebSocket(command);
-    }
-
-    //Envia o sinal para o relé ligar ou desligar
-    function sendSignalToRelay(relayId) {
-      if (relayId == "Power") {
-        sendToWebServerManual(0, 0, 0, 1, global.uv);
-      }
-    }
-
-    //Função que pega os valores de x e y do JoyStick e os envia para o robô
-    function sendManualCommand(joystick_x, joystick_y, uv) {
-      global.speed = -Math.round(joystick_y * 100);
-      global.steer = Math.round(joystick_x * 100);
-      setTimeout(() => {
-        sendToWebServerManual(
-          global.speed,
-          global.steer,
-          global.limit,
-          0,
-          global.uv
-        );
-      }, global.comunicationDelay);
-    }
-
-    //Função que envia os valores corretos para ligar a placa do robô
-    function powerButtonPressed() {
-      sendSignalToRelay("Power");
-    }
-
-    //Função que envia os valores corretos para ligar a lâmpada UV
-    function uvButtonPressed() {
-      global.uv = global.uv == 0 ? 1 : 0;
-      sendToWebServerManual(0, 0, 0, 0, global.uv);
-    }
-
-    //Função que liga/desliga o modo de controle automático
-    function automaticButtonPressed(autoMode) {
-      if (autoMode == 0) {
-        sendToParamServer(
-          global.limitAuto,
-          global.correctionMovements,
-          global.steerAuto,
-          global.speedAuto,
-          global.correctionFactor,
-          global.moveTimeAuto,
-          global.stopTimeAuto
-        );
-        return null;
-      } else {
-        sendToParamServer(0, 0, 0, 0, 0, 0, 0);
-        return null;
-      }
-    }
-
-    //Função que para o robô
-    function stopRobot() {
-      global.uv = 0;
-      sendToWebServerManual(0, 0, 0, 0, 0, 0);
-      sendToParamServer(0, 0, 0, 0, 0, -1, -1);
-    }
-
-    const JoystickHandlerSize = parseInt(
-      Dimensions.get("window").height * 0.15
-    );
+    const JoystickHandlerSize = parseInt(Dimensions.get("window").height * 0.15);
     const JoystickSize = parseInt(Dimensions.get("window").height * 0.25);
 
     return (
@@ -216,20 +84,22 @@ export default class Main extends Component {
               wrapperStyle={Styles.wrapperView}
               autoCenter={false}
               resetOnRelease={true}
-              onValue={({ joystick_x, joystick_y }) => {
+              onValue={({ x, y }) => { // x e y são valores internos do joystick. Não alterar o nome.
+                joystick_x = x
+                joystick_y = y
                 if (global.comunicationInterval === 5) {
-                  sendManualCommand(joystick_x, joystick_y);
+                  src.sendManualCommand(joystick_x, joystick_y);
                   global.comunicationInterval = 0;
                 } else {
                   if (joystick_x == 0 && joystick_y == 0) {
-                    sendManualCommand(0, 0);
+                    src.sendManualCommand(0, 0);
                   }
                   global.comunicationInterval = global.comunicationInterval + 1;
                 }
                 if (this.state.autoMode != 0) {
                   this.setState({ buttonAutoColor: "#000" });
                   this.setState({ autoMode: 0 });
-                  sendToParamServer(0, 0, 0, 0, 0, 0, 0);
+                  src.sendToParamServer(0, 0, 0, 0, 0, 0, 0);
                 }
               }}
             />
@@ -246,7 +116,7 @@ export default class Main extends Component {
                     buttonPowerColor:
                       this.state.buttonPowerColor == "#f00" ? "#0f0" : "#f00"
                   });
-                  powerButtonPressed();
+                  src.powerButtonPressed();
                 }}
               >
                 <Icon
@@ -264,7 +134,7 @@ export default class Main extends Component {
                     buttonUvColor:
                       this.state.buttonUvColor == "#000" ? "#993399" : "#000"
                   });
-                  uvButtonPressed();
+                  src.uvButtonPressed();
                 }}
               >
                 <Icon
@@ -282,7 +152,7 @@ export default class Main extends Component {
                     buttonAutoColor:
                       this.state.buttonAutoColor == "#000" ? "#0f0" : "#000"
                   });
-                  automaticButtonPressed(this.state.autoMode);
+                  src.automaticButtonPressed(this.state.autoMode);
                   this.setState({ autoMode: this.state.autoMode == 0 ? 1 : 0 });
                 }}
               >
@@ -297,7 +167,7 @@ export default class Main extends Component {
                 onPress={() => {
                   this.setState({ buttonAutoColor: "#000" });
                   this.setState({ buttonUvColor: "#000" });
-                  stopRobot();
+                  src.stopRobot();
                   this.setState({ autoMode: 0 });
                 }}
               >
