@@ -9,6 +9,10 @@ import {
 } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
+import Src from "./src"
+
+// Classe que controla o código fonte.
+const src = new Src()
 
 export default class Config extends Component {
   //Variáveis da classe
@@ -41,15 +45,6 @@ export default class Config extends Component {
   }
 
   render() {
-    // Guarda as variáveis na memória.
-    storeData = async (name, value) => {
-      try {
-        await AsyncStorage.setItem(name, value);
-      } catch (error) {
-        alert("Erro ao salvar a variável " + name + ". " + error);
-      }
-    };
-
     return (
       <>
         {/*View principal*/}
@@ -104,9 +99,9 @@ export default class Config extends Component {
                 global.portManual = this.state.portTemp;
                 global.comunicationDelay = parseFloat(this.state.delayTemp);
 
-                storeData("serverIp", this.state.serverIpTemp);
-                storeData("portManual", this.state.portTemp);
-                storeData("comunicationDelay", toString(this.state.delayTemp));
+                src.storeData("serverIp", this.state.serverIpTemp);
+                src.storeData("portManual", this.state.portTemp);
+                src.storeData("comunicationDelay", toString(this.state.delayTemp));
                 this.props.navigation.navigate("Main");
               }}
             >
