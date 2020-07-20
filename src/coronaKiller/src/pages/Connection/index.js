@@ -3,6 +3,10 @@ import { View, TouchableOpacity, Text } from "react-native";
 
 import Styles from "./styles";
 import Footer from "../../footer";
+import Src from "./src"
+
+// Classe que controla o código fonte.
+const src = new Src()
 
 export default class Connection extends Component {
   state = {
@@ -19,19 +23,6 @@ export default class Connection extends Component {
   };
 
   render() {
-    //Envia a mensagem de controle manual para o webServerManual
-    function sendToWebServerManual() {
-      command =
-        "http://" +
-        global.serverIp +
-        ":" +
-        global.portManual +
-        "/0*speed$" +
-        0 +
-        "*steer$0*limit$0*powerA$0*powerB$0*pulverize$0";
-      new WebSocket(command);
-    }
-
     return (
       <>
         <View style={Styles.container}>
@@ -57,7 +48,7 @@ export default class Connection extends Component {
             <TouchableOpacity
               style={Styles.buttonTryConnection}
               onPress={() => {
-                sendToWebServerManual();
+                src.sendToWebServerManual();
               }}
             >
               <Text style={Styles.buttonTryText}>Estabelecer Conexão</Text>
