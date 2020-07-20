@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native'
+
 export default class Src{
     // Guarda as variáveis de configuração na memória.
     storeData = async (name, value) => {
