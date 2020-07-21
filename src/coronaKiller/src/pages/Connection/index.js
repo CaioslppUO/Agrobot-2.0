@@ -48,7 +48,7 @@ export default class Connection extends Component {
             <TouchableOpacity
               style={Styles.buttonTryConnection}
               onPress={() => {
-                src.sendToWebServerManual();
+                src.tryConnection();
               }}
             >
               <Text style={Styles.buttonTryText}>Estabelecer Conexão</Text>

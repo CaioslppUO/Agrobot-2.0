@@ -4,15 +4,14 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  BackHandler,
-  AsyncStorage
+  BackHandler
 } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
-import Src from "./src"
+import LocalData from '../../utils/localData'
 
-// Classe que controla o código fonte.
-const src = new Src()
+// Classe que gerencia o carregamento e a gravação das variáveis na memória.
+const localData = new LocalData()
 
 export default class Config extends Component {
   //Variáveis da classe
@@ -95,13 +94,13 @@ export default class Config extends Component {
           <View style={Styles.saveContainer}>
             <TouchableOpacity
               onPress={() => {
-                global.serverIp = this.state.serverIpTemp;
-                global.portManual = this.state.portTemp;
+                global.serverIp = String(this.state.serverIpTemp);
+                global.portManual = String(this.state.portTemp);
                 global.comunicationDelay = parseFloat(this.state.delayTemp);
 
-                src.storeData("serverIp", this.state.serverIpTemp);
-                src.storeData("portManual", this.state.portTemp);
-                src.storeData("comunicationDelay", toString(this.state.delayTemp));
+                localData.storeData("serverIp", String(this.state.serverIpTemp));
+                localData.storeData("portManual", String(this.state.portTemp));
+                localData.storeData("comunicationDelay", String(this.state.delayTemp));
                 this.props.navigation.navigate("Main");
               }}
             >

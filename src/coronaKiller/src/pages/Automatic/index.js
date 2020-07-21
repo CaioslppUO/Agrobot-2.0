@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
-import Src from "./src"
+import LocalData from '../../utils/localData'
 
-// Classe que controla o código fonte.
-const src = new Src()
+// Classe que gerencia o carregamento e a gravação das variáveis na memória.
+const localData = new LocalData()
 
 export default class Automatic extends Component {
   //Opções do controlador de navegação de páginas
@@ -59,10 +59,10 @@ export default class Automatic extends Component {
                 style={Styles.boxText}
                 placeholder={"Limite: " + this.state.limitAuto}
                 onEndEditing={text => {
-                  this.setState({ limitAuto: text.nativeEvent.text });
+                  this.setState({ limitAuto: parseInt(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ limitAutoTemp: text });
+                  this.setState({ limitAutoTemp: parseInt(text) });
                 }}
               />
 
@@ -70,10 +70,10 @@ export default class Automatic extends Component {
                 style={Styles.boxText}
                 placeholder={"Direção: " + this.state.steerDefaultAuto}
                 onSubmitEditing={text => {
-                  this.setState({ steerDefaultAuto: text.nativeEvent.text });
+                  this.setState({ steerDefaultAuto: parseInt(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ steerDefaultAutoTemp: text });
+                  this.setState({ steerDefaultAutoTemp: parseInt(text) });
                 }}
               />
 
@@ -81,10 +81,10 @@ export default class Automatic extends Component {
                 style={Styles.boxText}
                 placeholder={"Velocidade: " + this.state.speedDefaultAuto}
                 onSubmitEditing={text => {
-                  this.setState({ speedDefaultAuto: text.nativeEvent.text });
+                  this.setState({ speedDefaultAuto: parseInt(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ speedDefaultAutoTemp: text });
+                  this.setState({ speedDefaultAutoTemp: parseInt(text) });
                 }}
               />
 
@@ -94,10 +94,10 @@ export default class Automatic extends Component {
                   "Nº de Movimentos de correção: " + this.state.tickDefaultAuto
                 }
                 onSubmitEditing={text => {
-                  this.setState({ tickDefaultAuto: text.nativeEvent.text });
+                  this.setState({ tickDefaultAuto: parseInt(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ tickDefaultAutoTemp: text });
+                  this.setState({ tickDefaultAutoTemp: parseInt(text) });
                 }}
               />
 
@@ -107,10 +107,10 @@ export default class Automatic extends Component {
                   "Fator de Correção: " + this.state.shiftDirectionAuto
                 }
                 onSubmitEditing={text => {
-                  this.setState({ shiftDirectionAuto: text.nativeEvent.text });
+                  this.setState({ shiftDirectionAuto: parseFloat(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ shiftDirectionAutoTemp: text });
+                  this.setState({ shiftDirectionAutoTemp: parseFloat(text) });
                 }}
               />
 
@@ -120,10 +120,10 @@ export default class Automatic extends Component {
                   "Distância de Colisão(m): " + this.state.detectDistance
                 }
                 onSubmitEditing={text => {
-                  this.setState({ detectDistance: text.nativeEvent.text });
+                  this.setState({ detectDistance: parseFloat(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ detectDistanceTemp: text });
+                  this.setState({ detectDistanceTemp: parseFloat(text) });
                 }}
               />
 
@@ -131,10 +131,10 @@ export default class Automatic extends Component {
                 style={Styles.boxText}
                 placeholder={"Andar por(seg): " + this.state.moveTimeAuto}
                 onSubmitEditing={text => {
-                  this.setState({ moveTimeAuto: text.nativeEvent.text });
+                  this.setState({ moveTimeAuto: parseInt(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ moveTimeAutoTemp: text });
+                  this.setState({ moveTimeAutoTemp: parseInt(text) });
                 }}
               />
 
@@ -142,10 +142,10 @@ export default class Automatic extends Component {
                 style={Styles.boxText}
                 placeholder={"Parar por(seg): " + this.state.stopTimeAuto}
                 onSubmitEditing={text => {
-                  this.setState({ stopTimeAuto: text.nativeEvent.text });
+                  this.setState({ stopTimeAuto: parseInt(text.nativeEvent.text) });
                 }}
                 onChangeText={text => {
-                  this.setState({ stopTimeAutoTemp: text });
+                  this.setState({ stopTimeAutoTemp: parseInt(text) });
                 }}
               />
             </View>
@@ -154,29 +154,29 @@ export default class Automatic extends Component {
             <View style={Styles.saveButton}>
               <TouchableOpacity
                 onPress={() => {
-                  global.limitAuto = this.state.limitAutoTemp;
-                  global.correctionMovements = this.state.tickDefaultAutoTemp;
-                  global.steerAuto = this.state.steerDefaultAutoTemp;
-                  global.speedAuto = this.state.speedDefaultAutoTemp;
-                  global.correctionFactor = this.state.shiftDirectionAutoTemp;
-                  global.moveTimeAuto = this.state.moveTimeAutoTemp;
-                  global.stopTimeAuto = this.state.stopTimeAutoTemp;
-                  global.detectDistance = this.state.detectDistanceTemp;
+                  global.limitAuto = parseInt(this.state.limitAutoTemp);
+                  global.correctionMovements = parseInt(this.state.tickDefaultAutoTemp);
+                  global.steerAuto = parseInt(this.state.steerDefaultAutoTemp);
+                  global.speedAuto = parseInt(this.state.speedDefaultAutoTemp);
+                  global.correctionFactor = parseFloat(this.state.shiftDirectionAutoTemp);
+                  global.moveTimeAuto = parseInt(this.state.moveTimeAutoTemp);
+                  global.stopTimeAuto = parseInt(this.state.stopTimeAutoTemp);
+                  global.detectDistance = parseFloat(this.state.detectDistanceTemp);
 
-                  src.storeData("limitAuto", this.state.limitAutoTemp);
-                  src.storeData(
+                  localData.storeData("limitAuto", String(this.state.limitAutoTemp));
+                  localData.storeData(
                     "correctionMovements",
-                    this.state.tickDefaultAutoTemp
+                    String(this.state.tickDefaultAutoTemp)
                   );
-                  src.storeData("steerAuto", this.state.steerDefaultAutoTemp);
-                  src.storeData("speedAuto", this.state.speedDefaultAutoTemp);
-                  src.storeData(
+                  localData.storeData("steerAuto", String(this.state.steerDefaultAutoTemp));
+                  localData.storeData("speedAuto", String(this.state.speedDefaultAutoTemp));
+                  localData.storeData(
                     "correctionFactor",
-                    this.state.shiftDirectionAutoTemp
+                    String(this.state.shiftDirectionAutoTemp)
                   );
-                  src.storeData("moveTimeAuto", this.state.moveTimeAutoTemp);
-                  src.storeData("stopTimeAuto", this.state.stopTimeAutoTemp);
-                  src.storeData("detectDistance", this.state.detectDistanceTemp);
+                  localData.storeData("moveTimeAuto", String(this.state.moveTimeAutoTemp));
+                  localData.storeData("stopTimeAuto", String(this.state.stopTimeAutoTemp));
+                  localData.storeData("detectDistance", String(this.state.detectDistanceTemp));
 
                   this.props.navigation.navigate("Main");
                 }}

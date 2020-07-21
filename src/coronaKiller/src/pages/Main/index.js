@@ -99,7 +99,7 @@ export default class Main extends Component {
                 if (this.state.autoMode != 0) {
                   this.setState({ buttonAutoColor: "#000" });
                   this.setState({ autoMode: 0 });
-                  src.sendToParamServer(0, 0, 0, 0, 0, 0, 0);
+                  src.stopAutoMode()
                 }
               }}
             />

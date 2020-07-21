@@ -1,45 +1,10 @@
+import WebServer from "../../utils/webServer"
+
 export default class Src {
-    // Envia a mensagem de controle manual para o webServerManual.
-    sendToWebServerManual(speed, steer, limit, power, uv) {
-        command =
-          "http://" + global.serverIp + ":" +global.portManual + "/" +
-          "speed$" + speed + "*" +
-          "steer$" + steer + "*" +
-          "limit$" + limit + "*" +
-          "powerA$" + power + "*" +
-          "powerB$" + 0 + "*" +
-          "pulverize$" + uv;
-        new WebSocket(command);
-      }
-
-    // Envia a mensagem de controle automático para o webserver de parâmetros.
-    sendToParamServer(
-        limit,
-        tickDefault,
-        steerDefault,
-        speedDefault,
-        shiftDirection,
-        moveTimeAuto,
-        stopTimeAuto
-      ) {
-        command =
-          "http://" + global.serverIpAuto + ":" + global.portAuto + "/" +
-          "limit$" + limit + "*" +
-          "tick$" + tickDefault + "*" +
-          "steer$" + steerDefault + "*" +
-          "speed$" + speedDefault + "*" +
-          "shift$" + shiftDirection + "*" +
-          "uv$" + global.uv + "*" +
-          "detect$" + global.detectDistance + "*" +
-          "move$" + moveTimeAuto + "*" +
-          "stop$" + stopTimeAuto;
-        new WebSocket(command);
-      }
-
     // Envia o sinal para o relé ligar ou desligar.
     sendSignalToRelay(relayId) {
         if (relayId == "Power") {
-          this.sendToWebServerManual(0, 0, 0, 1, global.uv);
+          WebServer.sendToWebServerManual(0, 0, 0, 1, global.uv);
         }
       }
 
@@ -48,7 +13,7 @@ export default class Src {
         global.speed = -Math.round(joystick_y * 100);
         global.steer = Math.round(joystick_x * 100);
         setTimeout(() => {
-          this.sendToWebServerManual(
+          WebServer.sendToWebServerManual(
             global.speed,
             global.steer,
             global.limit,
@@ -58,6 +23,11 @@ export default class Src {
         }, global.comunicationDelay);
       }
 
+    // Função que desliga o modo automático.
+    stopAutoMode(){
+        WebServer.sendToParamServer(0, 0, 0, 0, 0, 0, 0);
+    }
+
     // Função que envia os valores corretos para ligar a placa do robô.
     powerButtonPressed() {
         this.sendSignalToRelay("Power");
@@ -66,13 +36,13 @@ export default class Src {
     // Função que envia os valores corretos para ligar a lâmpada UV.
     uvButtonPressed() {
         global.uv = global.uv == 0 ? 1 : 0;
-        this.sendToWebServerManual(0, 0, 0, 0, global.uv);
+        WebServer.sendToWebServerManual(0, 0, 0, 0, global.uv);
     }
 
     // Função que liga/desliga o modo de controle automático.
     automaticButtonPressed(autoMode) {
         if (autoMode == 0) {
-          this.sendToParamServer(
+          WebServer.sendToParamServer(
             global.limitAuto,
             global.correctionMovements,
             global.steerAuto,
@@ -83,7 +53,7 @@ export default class Src {
           );
           return null;
         } else {
-          this.sendToParamServer(0, 0, 0, 0, 0, 0, 0);
+          WebServer.sendToParamServer(0, 0, 0, 0, 0, 0, 0);
           return null;
         }
       }
@@ -91,7 +61,7 @@ export default class Src {
     // Função que para o robô.
     stopRobot() {
         global.uv = 0;
-        this.sendToWebServerManual(0, 0, 0, 0, 0);
-        this.sendToParamServer(0, 0, 0, 0, 0, -1, -1);
+        WebServer.sendToWebServerManual(0, 0, 0, 0, 0);
+        WebServer.sendToParamServer(0, 0, 0, 0, 0, -1, -1);
     }
 }
