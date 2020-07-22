@@ -9,6 +9,7 @@ import {
 import Styles from "./styles";
 import Footer from "../../footer";
 import LocalData from '../../utils/localData'
+import Src from "./src"
 
 // Classe que gerencia o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
@@ -94,14 +95,22 @@ export default class Config extends Component {
           <View style={Styles.saveContainer}>
             <TouchableOpacity
               onPress={() => {
-                global.serverIp = String(this.state.serverIpTemp);
-                global.portManual = String(this.state.portTemp);
-                global.comunicationDelay = parseFloat(this.state.delayTemp);
+                try{
+                  Src.checkIp(this.state.serverIpTemp)
+                  Src.checkPort(this.state.portTemp)
+                  Src.checkDelay(this.state.delayTemp)
 
-                localData.storeData("serverIp", String(this.state.serverIpTemp));
-                localData.storeData("portManual", String(this.state.portTemp));
-                localData.storeData("comunicationDelay", String(this.state.delayTemp));
-                this.props.navigation.navigate("Main");
+                  global.serverIp = String(this.state.serverIpTemp);
+                  global.portManual = String(this.state.portTemp);
+                  global.comunicationDelay = parseFloat(this.state.delayTemp);
+
+                  localData.storeData("serverIp", String(this.state.serverIpTemp));
+                  localData.storeData("portManual", String(this.state.portTemp));
+                  localData.storeData("comunicationDelay", String(this.state.delayTemp));
+                  this.props.navigation.navigate("Main");
+                }catch(err){
+                  alert(err)
+                }
               }}
             >
               <Text style={Styles.saveText}>Salvar</Text>
