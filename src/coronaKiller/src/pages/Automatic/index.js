@@ -10,6 +10,8 @@ import {
 import Styles from "./styles";
 import Footer from "../../footer";
 import LocalData from '../../utils/localData'
+import Src from "./src"
+import src from "./src";
 
 // Classe que gerencia o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
@@ -154,31 +156,44 @@ export default class Automatic extends Component {
             <View style={Styles.saveButton}>
               <TouchableOpacity
                 onPress={() => {
-                  global.limitAuto = parseInt(this.state.limitAutoTemp);
-                  global.correctionMovements = parseInt(this.state.tickDefaultAutoTemp);
-                  global.steerAuto = parseInt(this.state.steerDefaultAutoTemp);
-                  global.speedAuto = parseInt(this.state.speedDefaultAutoTemp);
-                  global.correctionFactor = parseFloat(this.state.shiftDirectionAutoTemp);
-                  global.moveTimeAuto = parseInt(this.state.moveTimeAutoTemp);
-                  global.stopTimeAuto = parseInt(this.state.stopTimeAutoTemp);
-                  global.detectDistance = parseFloat(this.state.detectDistanceTemp);
+                  try{
+                    Src.checkLimitAuto(this.state.limitAutoTemp)
+                    Src.checkCorrectionMovements(this.state.tickDefaultAutoTemp)
+                    Src.checkCorrectionFactor(this.state.shiftDirectionAutoTemp)
+                    Src.checkSteerAuto(this.state.steerDefaultAutoTemp)
+                    Src.checkSpeedAuto(this.state.speedDefaultAutoTemp)
+                    Src.checkMoveTimeAuto(this.state.moveTimeAutoTemp)
+                    Src.checkStopTimeAuto(this.state.stopTimeAutoTemp)
+                    Src.checkDetectDistance(this.state.detectDistanceTemp)
 
-                  localData.storeData("limitAuto", String(this.state.limitAutoTemp));
-                  localData.storeData(
-                    "correctionMovements",
-                    String(this.state.tickDefaultAutoTemp)
-                  );
-                  localData.storeData("steerAuto", String(this.state.steerDefaultAutoTemp));
-                  localData.storeData("speedAuto", String(this.state.speedDefaultAutoTemp));
-                  localData.storeData(
-                    "correctionFactor",
-                    String(this.state.shiftDirectionAutoTemp)
-                  );
-                  localData.storeData("moveTimeAuto", String(this.state.moveTimeAutoTemp));
-                  localData.storeData("stopTimeAuto", String(this.state.stopTimeAutoTemp));
-                  localData.storeData("detectDistance", String(this.state.detectDistanceTemp));
-
-                  this.props.navigation.navigate("Main");
+                    global.limitAuto = parseInt(this.state.limitAutoTemp);
+                    global.correctionMovements = parseInt(this.state.tickDefaultAutoTemp);
+                    global.steerAuto = parseInt(this.state.steerDefaultAutoTemp);
+                    global.speedAuto = parseInt(this.state.speedDefaultAutoTemp);
+                    global.correctionFactor = parseFloat(this.state.shiftDirectionAutoTemp);
+                    global.moveTimeAuto = parseInt(this.state.moveTimeAutoTemp);
+                    global.stopTimeAuto = parseInt(this.state.stopTimeAutoTemp);
+                    global.detectDistance = parseFloat(this.state.detectDistanceTemp);
+  
+                    localData.storeData("limitAuto", String(this.state.limitAutoTemp));
+                    localData.storeData(
+                      "correctionMovements",
+                      String(this.state.tickDefaultAutoTemp)
+                    );
+                    localData.storeData("steerAuto", String(this.state.steerDefaultAutoTemp));
+                    localData.storeData("speedAuto", String(this.state.speedDefaultAutoTemp));
+                    localData.storeData(
+                      "correctionFactor",
+                      String(this.state.shiftDirectionAutoTemp)
+                    );
+                    localData.storeData("moveTimeAuto", String(this.state.moveTimeAutoTemp));
+                    localData.storeData("stopTimeAuto", String(this.state.stopTimeAutoTemp));
+                    localData.storeData("detectDistance", String(this.state.detectDistanceTemp));
+  
+                    this.props.navigation.navigate("Main");
+                  }catch(err){
+                    alert(err)
+                  }
                 }}
               >
                 <Text style={Styles.saveText}>Salvar</Text>
