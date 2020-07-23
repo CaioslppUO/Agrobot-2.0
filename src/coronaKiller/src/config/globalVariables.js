@@ -1,39 +1,40 @@
 import { AsyncStorage } from "react-native";
 import LocalData from "../utils/localData"
+import DefaultConfig from "./default"
 
 // Classe que gerencia o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
 //Variáveis de controle globais.
-global.speed = 0;
-global.steer = 0;
-global.limit = 50;
+global.speed = DefaultConfig.speed;
+global.steer = DefaultConfig.steer;
+global.limit = DefaultConfig.limit;
 
 //Variáveis de energia(liga/desliga).
-global.power = 0;
-global.uv = 0;
+global.power = DefaultConfig.power;
+global.uv = DefaultConfig.uv;
 
 //Variáveis de comunicação.
-global.serverIp = "192.168.1.2";
-global.portManual = "8080";
-global.comunicationDelay = 50;
-global.comunicationInterval = 0;
+global.serverIp = DefaultConfig.serverIp;
+global.portManual = DefaultConfig.portManual;
+global.comunicationDelay = DefaultConfig.comunicationDelay;
+global.comunicationInterval = DefaultConfig.comunicationInterval;
 
 //Variáveis de controle automático.
-global.speedAuto = -26;
-global.steerAuto = -2;
-global.limitAuto = 50;
-global.correctionMovements = 5;
-global.correctionFactor = 15;
+global.speedAuto = DefaultConfig.speedAuto;
+global.steerAuto = DefaultConfig.steerAuto;
+global.limitAuto = DefaultConfig.limitAuto;
+global.correctionMovements = DefaultConfig.correctionMovements;
+global.correctionFactor = DefaultConfig.correctionFactor;
 
-global.serverIpAuto = "192.168.1.121";
-global.portAuto = "8082";
-global.moveTimeAuto = 0;
-global.stopTimeAuto = 0;
-global.detectDistance = 1.5;
+global.serverIpAuto = DefaultConfig.serverIpAuto;
+global.portAuto = DefaultConfig.portAuto;
+global.moveTimeAuto = DefaultConfig.moveTimeAuto;
+global.stopTimeAuto = DefaultConfig.stopTimeAuto;
+global.detectDistance = DefaultConfig.detectDistance;
 
 //Variáveis de informação.
-global.version = "0.7.0";
+global.version = "0.7.5";
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();

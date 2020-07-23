@@ -1,4 +1,4 @@
-export default defaultConfig = {
+export default DefaultConfig = {
     //Variáveis de controle globais.
     speed: 0,
     steer: 0,
