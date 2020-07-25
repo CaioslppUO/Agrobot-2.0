@@ -41,7 +41,7 @@ export default class Src {
 
     /** Liga/desliga o modo de controle automático. */
     automaticButtonPressed(autoMode) {
-        if (autoMode == 0) {
+        if (autoMode === 0) {
           WebServer.sendToLidarServer(
             global.limitAuto,
             global.correctionMovements,
@@ -54,6 +54,7 @@ export default class Src {
           return null;
         } else {
           WebServer.sendToLidarServer(0, 0, 0, 0, 0, 0, 0);
+          this.stopRobot()
           return null;
         }
       }
