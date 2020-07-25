@@ -37,7 +37,7 @@ global.stopTime = DefaultConfig.stopTime();
 global.detectDistance = DefaultConfig.detectDistance();
 
 //Variáveis de informação.
-global.version = "0.7.6";
+global.version = "0.7.9";
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();
