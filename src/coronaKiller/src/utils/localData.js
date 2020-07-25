@@ -1,7 +1,9 @@
 import { AsyncStorage } from 'react-native'
+import DefaultConfig from "../config/default"
 
+/** Controla o write e read de parâmetros de configuração permanentes. */
 export default class LocalData{
-    // Guarda as variáveis de configuração na memória.
+    /** Guarda as variáveis de configuração na memória. */
     async storeData  (name, value){
         try {
           await AsyncStorage.setItem(name, value);
@@ -10,34 +12,49 @@ export default class LocalData{
         }
     }
 
-    // Recupera informação da memória.
+    /** Recupera informação da memória. */
     async getValue(name, defaultValue){
         result = await AsyncStorage.getItem(name);
         if (result != null && result != undefined) {
-        if(name == "comunicationDelay"){
+        if(name == "communicationDelay"){
         }
           return result;
         }
         return defaultValue;
       }
 
-    // Recupera as variáveis de configuração da memória.
+    /** Recupera as variáveis de configuração da memória. */
     async retrieveData(){
         try {
           // Manual
-          global.serverIp = String(await this.getValue("serverIp", "192.168.1.2"));
-          global.portManual = String(await this.getValue("portManual", "8080"));
-          global.comunicationDelay = parseInt(await this.getValue("comunicationDelay", 50));
+          global.roscoreServerIp = String(await this.getValue("roscoreServerIp",
+            DefaultConfig.roscoreServerIp()));
+          global.roscoreServerPort = String(await this.getValue("roscoreServerPort",
+            DefaultConfig.roscoreServerPort()));
+          global.communicationDelay = parseInt(
+            await this.getValue("communicationDelay",
+            DefaultConfig.communicationDelay()));
         
           // Automático
-          global.speedAuto = parseInt(await this.getValue("speedAuto", -26));
-          global.steerAuto = parseInt(await this.getValue("steerAuto", -2));
-          global.limitAuto = parseInt(await this.getValue("limitAuto", 50));
-          global.correctionMovements = parseInt(await this.getValue("correctionMovements", 5));
-          global.correctionFactor = parseInt(await this.getValue("correctionFactor", 15));
-          global.moveTimeAuto = parseInt(await this.getValue("moveTimeAuto", 0));
-          global.stopTimeAuto = parseInt(await this.getValue("stopTimeAuto", 0));
-          global.detectDistance = parseFloat(await this.getValue("detectDistance", 1.5));
+          global.speedAuto = parseInt(await this.getValue("speedAuto",
+           DefaultConfig.speedAuto()));
+          global.steerAuto = parseInt(await this.getValue("steerAuto",
+           DefaultConfig.steerAuto()));
+          global.limitAuto = parseInt(await this.getValue("limitAuto",
+           DefaultConfig.limitAuto()));
+          global.correctionMovements = parseInt(
+            await this.getValue("correctionMovements",
+             DefaultConfig.correctionMovements()));
+          global.correctionFactor = parseInt(
+            await this.getValue("correctionFactor",
+             DefaultConfig.correctionFactor()));
+          global.moveTime = parseInt(await this.getValue("moveTime",
+           DefaultConfig.moveTime()));
+          global.stopTime = parseInt(await this.getValue("stopTime",
+           DefaultConfig.stopTime()));
+          global.detectDistance = parseFloat(
+            await this.getValue("detectDistance",
+             DefaultConfig.detectDistance()));
         } catch (error) {
             alert("Erro ao carregar as variáveis da memória: " + error);
         }

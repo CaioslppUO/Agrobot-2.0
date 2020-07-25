@@ -34,16 +34,16 @@ export default class Automatic extends Component {
     steerDefaultAuto: global.steerAuto,
     speedDefaultAuto: global.speedAuto,
     shiftDirectionAuto: global.correctionFactor,
-    moveTimeAuto: global.moveTimeAuto,
-    stopTimeAuto: global.stopTimeAuto,
+    moveTimeAuto: global.moveTime,
+    stopTimeAuto: global.stopTime,
     detectDistance: global.detectDistance,
     limitAutoTemp: global.limitAuto,
     tickDefaultAutoTemp: global.correctionMovements,
     steerDefaultAutoTemp: global.steerAuto,
     speedDefaultAutoTemp: global.speedAuto,
     shiftDirectionAutoTemp: global.correctionFactor,
-    moveTimeAutoTemp: global.moveTimeAuto,
-    stopTimeAutoTemp: global.stopTimeAuto,
+    moveTimeAutoTemp: global.moveTime,
+    stopTimeAutoTemp: global.stopTime,
     detectDistanceTemp: global.detectDistance
   };
 
@@ -171,8 +171,8 @@ export default class Automatic extends Component {
                     global.steerAuto = parseInt(this.state.steerDefaultAutoTemp);
                     global.speedAuto = parseInt(this.state.speedDefaultAutoTemp);
                     global.correctionFactor = parseFloat(this.state.shiftDirectionAutoTemp);
-                    global.moveTimeAuto = parseInt(this.state.moveTimeAutoTemp);
-                    global.stopTimeAuto = parseInt(this.state.stopTimeAutoTemp);
+                    global.moveTime = parseInt(this.state.moveTimeAutoTemp);
+                    global.stopTime = parseInt(this.state.stopTimeAutoTemp);
                     global.detectDistance = parseFloat(this.state.detectDistanceTemp);
   
                     localData.storeData("limitAuto", String(this.state.limitAutoTemp));
@@ -186,8 +186,8 @@ export default class Automatic extends Component {
                       "correctionFactor",
                       String(this.state.shiftDirectionAutoTemp)
                     );
-                    localData.storeData("moveTimeAuto", String(this.state.moveTimeAutoTemp));
-                    localData.storeData("stopTimeAuto", String(this.state.stopTimeAutoTemp));
+                    localData.storeData("moveTime", String(this.state.moveTimeAutoTemp));
+                    localData.storeData("stopTime", String(this.state.stopTimeAutoTemp));
                     localData.storeData("detectDistance", String(this.state.detectDistanceTemp));
   
                     this.props.navigation.navigate("Main");

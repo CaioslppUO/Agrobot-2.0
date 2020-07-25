@@ -1,29 +1,69 @@
 export default DefaultConfig = {
-    //Variáveis de controle globais.
-    speed: 0,
-    steer: 0,
-    limit: 50,
+    //Controle global.
+    speed: function(){
+        return 0
+    },
+    steer: function(){
+        return 0
+    },
+    limit: function(){
+        return 50
+    },
 
     //Variáveis de energia(liga/desliga).
-    power: 0,
-    uv: 0,
+    power: function(){
+        return 0
+    },
+    uv: function(){
+        return 0
+    },
 
-    //Variáveis de comunicação.
-    serverIp: "192.168.1.2",
-    portManual: "8080",
-    comunicationDelay: 50,
-    comunicationInterval: 0,
+    //Comunicação.
+    roscoreServerIp: function(){
+        return "192.168.1.2"
+    },
+    lidarServerIp: function(){
+        return "192.168.1.121"
+    },
+    roscoreServerPort: function(){
+        return "8080"
+    },
+    lidarServerPort: function(){
+        return "8082"
+    },
 
-    //Variáveis de controle automático.
-    speedAuto: -26,
-    steerAuto: -2,
-    limitAuto: 50,
-    correctionMovements: 5,
-    correctionFactor: 15,
+    //Controle de comunicação.
+    communicationDelay: function(){
+        return 50
+    },
+    communicationInterval: function(){
+        return 0
+    },
 
-    serverIpAuto: "192.168.1.121",
-    portAuto: "8082",
-    moveTimeAuto: 0,
-    stopTimeAuto: 0,
-    detectDistance: 1.5,
+    //Controle automático.
+    speedAuto: function(){
+        return -26
+    },
+    steerAuto: function(){
+        return -2
+    },
+    limitAuto: function(){
+        return 50
+    },
+
+    correctionMovements: function(){
+        return 5
+    }, 
+    correctionFactor: function(){
+        return 15
+    },
+    moveTime: function(){
+        return 0
+    },
+    stopTime: function(){
+        return 0
+    },
+    detectDistance: function(){
+        return 1.5
+    }
 }

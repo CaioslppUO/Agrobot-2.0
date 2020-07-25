@@ -5,36 +5,39 @@ import DefaultConfig from "./default"
 // Classe que gerencia o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
-//Variáveis de controle globais.
-global.speed = DefaultConfig.speed;
-global.steer = DefaultConfig.steer;
-global.limit = DefaultConfig.limit;
+// Variáveis de controle globais.
+global.speed = DefaultConfig.speed();
+global.steer = DefaultConfig.steer();
+global.limit = DefaultConfig.limit();
 
-//Variáveis de energia(liga/desliga).
-global.power = DefaultConfig.power;
-global.uv = DefaultConfig.uv;
+// Variáveis de energia(liga/desliga).
+global.power = DefaultConfig.power();
+global.uv = DefaultConfig.uv();
 
-//Variáveis de comunicação.
-global.serverIp = DefaultConfig.serverIp;
-global.portManual = DefaultConfig.portManual;
-global.comunicationDelay = DefaultConfig.comunicationDelay;
-global.comunicationInterval = DefaultConfig.comunicationInterval;
+// Variáveis de conexão.
+global.roscoreServerIp = DefaultConfig.roscoreServerIp();
+global.lidarServerIp = DefaultConfig.lidarServerIp();
+global.roscoreServerPort = DefaultConfig.roscoreServerPort();
+global.lidarServerPort = DefaultConfig.lidarServerPort();
+
+// Variáveis de controle de comunicação.
+global.communicationDelay = DefaultConfig.communicationDelay();
+global.communicationInterval = DefaultConfig.communicationInterval();
 
 //Variáveis de controle automático.
-global.speedAuto = DefaultConfig.speedAuto;
-global.steerAuto = DefaultConfig.steerAuto;
-global.limitAuto = DefaultConfig.limitAuto;
-global.correctionMovements = DefaultConfig.correctionMovements;
-global.correctionFactor = DefaultConfig.correctionFactor;
+global.speedAuto = DefaultConfig.speedAuto();
+global.steerAuto = DefaultConfig.steerAuto();
+global.limitAuto = DefaultConfig.limitAuto();
 
-global.serverIpAuto = DefaultConfig.serverIpAuto;
-global.portAuto = DefaultConfig.portAuto;
-global.moveTimeAuto = DefaultConfig.moveTimeAuto;
-global.stopTimeAuto = DefaultConfig.stopTimeAuto;
-global.detectDistance = DefaultConfig.detectDistance;
+global.correctionMovements = DefaultConfig.correctionMovements();
+global.correctionFactor = DefaultConfig.correctionFactor();
+
+global.moveTime = DefaultConfig.moveTime();
+global.stopTime = DefaultConfig.stopTime();
+global.detectDistance = DefaultConfig.detectDistance();
 
 //Variáveis de informação.
-global.version = "0.7.5";
+global.version = "0.7.6";
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();

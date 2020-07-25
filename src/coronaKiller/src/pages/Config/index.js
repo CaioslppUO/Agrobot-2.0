@@ -17,14 +17,12 @@ const localData = new LocalData()
 export default class Config extends Component {
   //Variáveis da classe
   state = {
-    serverIp: global.serverIp,
-    port: global.portManual,
-    minPSpeed: global.minPulverizeSpeed,
-    delay: global.comunicationDelay,
-    serverIpTemp: global.serverIp,
-    portTemp: global.portManual,
-    minPSpeedTemp: global.minPulverizeSpeed,
-    delayTemp: global.comunicationDelay
+    serverIp: global.roscoreServerIp,
+    port: global.roscoreServerPort,
+    delay: global.communicationDelay,
+    serverIpTemp: global.roscoreServerIp,
+    portTemp: global.roscoreServerPort,
+    delayTemp: global.communicationDelay
   };
 
   //Opções do controlador de navegação de páginas
@@ -52,7 +50,7 @@ export default class Config extends Component {
           <View />
 
           <View style={Styles.containerCommunication}>
-            <Text style={Styles.comunication}>Comunicação</Text>
+            <Text style={Styles.communication}>Comunicação</Text>
           </View>
 
           {/*View dos campos de preenchimento de comunicação*/}
@@ -100,13 +98,13 @@ export default class Config extends Component {
                   Src.checkPort(this.state.portTemp)
                   Src.checkDelay(this.state.delayTemp)
 
-                  global.serverIp = String(this.state.serverIpTemp);
-                  global.portManual = String(this.state.portTemp);
-                  global.comunicationDelay = parseFloat(this.state.delayTemp);
+                  global.roscoreServerIp = String(this.state.serverIpTemp);
+                  global.roscoreServerPort = String(this.state.portTemp);
+                  global.communicationDelay = parseFloat(this.state.delayTemp);
 
-                  localData.storeData("serverIp", String(this.state.serverIpTemp));
-                  localData.storeData("portManual", String(this.state.portTemp));
-                  localData.storeData("comunicationDelay", String(this.state.delayTemp));
+                  localData.storeData("roscoreServerIp", String(this.state.serverIpTemp));
+                  localData.storeData("roscoreServerPort", String(this.state.portTemp));
+                  localData.storeData("communicationDelay", String(this.state.delayTemp));
                   this.props.navigation.navigate("Main");
                 }catch(err){
                   alert(err)

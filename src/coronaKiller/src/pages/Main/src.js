@@ -4,7 +4,7 @@ export default class Src {
     // Envia o sinal para o relé ligar ou desligar.
     sendSignalToRelay(relayId) {
         if (relayId == "Power") {
-          WebServer.sendToWebServerManual(0, 0, 0, 1, global.uv);
+          WebServer.sendToRoscoreServer(0, 0, 0, 1, global.uv);
         }
       }
 
@@ -13,19 +13,19 @@ export default class Src {
         global.speed = -Math.round(joystick_y * 100);
         global.steer = Math.round(joystick_x * 100);
         setTimeout(() => {
-          WebServer.sendToWebServerManual(
+          WebServer.sendToRoscoreServer(
             global.speed,
             global.steer,
             global.limit,
             0,
             global.uv
           );
-        }, global.comunicationDelay);
+        }, global.communicationDelay);
       }
 
     // Função que desliga o modo automático.
     stopAutoMode(){
-        WebServer.sendToParamServer(0, 0, 0, 0, 0, 0, 0);
+        WebServer.sendToLidarServer(0, 0, 0, 0, 0, 0, 0);
     }
 
     // Função que envia os valores corretos para ligar a placa do robô.
@@ -36,13 +36,13 @@ export default class Src {
     // Função que envia os valores corretos para ligar a lâmpada UV.
     uvButtonPressed() {
         global.uv = global.uv == 0 ? 1 : 0;
-        WebServer.sendToWebServerManual(0, 0, 0, 0, global.uv);
+        WebServer.sendToRoscoreServer(0, 0, 0, 0, global.uv);
     }
 
     // Função que liga/desliga o modo de controle automático.
     automaticButtonPressed(autoMode) {
         if (autoMode == 0) {
-          WebServer.sendToParamServer(
+          WebServer.sendToLidarServer(
             global.limitAuto,
             global.correctionMovements,
             global.steerAuto,
@@ -53,7 +53,7 @@ export default class Src {
           );
           return null;
         } else {
-          WebServer.sendToParamServer(0, 0, 0, 0, 0, 0, 0);
+          WebServer.sendToLidarServer(0, 0, 0, 0, 0, 0, 0);
           return null;
         }
       }
@@ -61,7 +61,7 @@ export default class Src {
     // Função que para o robô.
     stopRobot() {
         global.uv = 0;
-        WebServer.sendToWebServerManual(0, 0, 0, 0, 0);
-        WebServer.sendToParamServer(0, 0, 0, 0, 0, -1, -1);
+        WebServer.sendToRoscoreServer(0, 0, 0, 0, 0);
+        WebServer.sendToLidarServer(0, 0, 0, 0, 0, -1, -1);
     }
 }

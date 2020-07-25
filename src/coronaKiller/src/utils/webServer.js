@@ -1,8 +1,9 @@
 export default WebServer = {
-    // Envia a mensagem de controle manual para o webServerManual.
-    sendToWebServerManual(speed, steer, limit, power, uv) {
+    /**  Envia a mensagem de controle manual para o servidor do roscore. */
+    sendToRoscoreServer(speed, steer, limit, power, uv) {
         command =
-          "http://" + global.serverIp + ":" +global.portManual + "/" +
+          "http://" + global.roscoreServerIp + ":" + global.roscoreServerPort +
+          "/" +
           "speed$" + speed + "*" +
           "steer$" + steer + "*" +
           "limit$" + limit + "*" +
@@ -11,8 +12,8 @@ export default WebServer = {
           "pulverize$" + uv;
         new WebSocket(command);
       },
-    // Envia a mensagem de controle automático para o webserver de parâmetros.
-    sendToParamServer(
+    /**  Envia a mensagem de controle para o servidor do lidar. */
+    sendToLidarServer(
         limit,
         tickDefault,
         steerDefault,
@@ -22,7 +23,8 @@ export default WebServer = {
         stopTimeAuto
       ) {
         command =
-          "http://" + global.serverIpAuto + ":" + global.portAuto + "/" +
+          "http://" + global.lidarServerIp + ":" + global.lidarServerPort + 
+          "/" +
           "limit$" + limit + "*" +
           "tick$" + tickDefault + "*" +
           "steer$" + steerDefault + "*" +

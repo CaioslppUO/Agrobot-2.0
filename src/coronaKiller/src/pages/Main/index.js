@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   Text,
   Slider,
-  Image,
   Picker,
   Dimensions
 } from "react-native";
@@ -87,14 +86,14 @@ export default class Main extends Component {
               onValue={({ x, y }) => { // x e y são valores internos do joystick. Não alterar o nome.
                 joystick_x = x
                 joystick_y = y
-                if (global.comunicationInterval === 5) {
+                if (global.communicationInterval === 5) {
                   src.sendManualCommand(joystick_x, joystick_y);
-                  global.comunicationInterval = 0;
+                  global.communicationInterval = 0;
                 } else {
                   if (joystick_x == 0 && joystick_y == 0) {
                     src.sendManualCommand(0, 0);
                   }
-                  global.comunicationInterval = global.comunicationInterval + 1;
+                  global.communicationInterval = global.communicationInterval + 1;
                 }
                 if (this.state.autoMode != 0) {
                   this.setState({ buttonAutoColor: "#000" });
@@ -105,7 +104,7 @@ export default class Main extends Component {
             />
           </View>
 
-          {/* View dos botoes*/}
+          {/* View dos botões*/}
           <View style={Styles.containerButtons}>
             <View style={Styles.powerButtonsContainer}>
               {/*Botão da placa A*/}
@@ -178,7 +177,7 @@ export default class Main extends Component {
 
           {/* View do slider*/}
           <View style={Styles.sliderContainer}>
-            {/* View dos botoes + e - e do valor de speed */}
+            {/* View dos botões + e - e do valor de speed */}
             <View style={Styles.topBarSliderView}>
               {/* Botão de - para diminuir o valor do slider */}
               <TouchableOpacity

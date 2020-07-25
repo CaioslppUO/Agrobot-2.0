@@ -31,7 +31,7 @@ export default StyleSheet.create({
     textAlign: "center",
     borderRadius: 10
   },
-  comunication: {
+  communication: {
     fontSize: 30,
     color: colors.title,
     fontWeight: "bold"
