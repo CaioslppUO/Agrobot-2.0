@@ -1,7 +1,8 @@
 import { AsyncStorage } from 'react-native'
 import DefaultConfig from "../config/default"
 
-/** Controla o write e read de parâmetros de configuração permanentes. */
+/** Classe que controla o write e read de parâmetros de configuração permanentes
+  . */
 export default class LocalData{
     /** Guarda as variáveis de configuração na memória. */
     async storeData  (name, value){

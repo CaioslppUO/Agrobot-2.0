@@ -18,7 +18,7 @@ import Src from "./src.js"
 const src = new Src()
 
 export default class Main extends Component {
-  // Variáveis globais da classe.
+
   state = {
     limitSliderValue: 50,
     buttonPowerColor: "#f00",
@@ -47,7 +47,8 @@ export default class Main extends Component {
   //Renderização do componente
   render() {
     console.disableYellowBox = true;
-    const JoystickHandlerSize = parseInt(Dimensions.get("window").height * 0.15);
+    const JoystickHandlerSize = parseInt(
+      Dimensions.get("window").height * 0.15);
     const JoystickSize = parseInt(Dimensions.get("window").height * 0.25);
 
     return (
@@ -83,7 +84,7 @@ export default class Main extends Component {
               wrapperStyle={Styles.wrapperView}
               autoCenter={false}
               resetOnRelease={true}
-              onValue={({ x, y }) => { // x e y são valores internos do joystick. Não alterar o nome.
+              onValue={({ x, y }) => { // Não alterar o nome x e y.
                 joystick_x = x
                 joystick_y = y
                 if (global.communicationInterval === 5) {
@@ -93,7 +94,8 @@ export default class Main extends Component {
                   if (joystick_x == 0 && joystick_y == 0) {
                     src.sendManualCommand(0, 0);
                   }
-                  global.communicationInterval = global.communicationInterval + 1;
+                  global.communicationInterval = 
+                    global.communicationInterval + 1;
                 }
                 if (this.state.autoMode != 0) {
                   this.setState({ buttonAutoColor: "#000" });

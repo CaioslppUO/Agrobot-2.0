@@ -1,5 +1,6 @@
+/** Classe que controla a comunicação com os servidores no raspberry. */
 export default WebServer = {
-    /**  Envia a mensagem de controle manual para o servidor do roscore. */
+    /**  Envia a mensagem de controle para o servidor do roscore. */
     sendToRoscoreServer(speed, steer, limit, power, uv) {
         command =
           "http://" + global.roscoreServerIp + ":" + global.roscoreServerPort +

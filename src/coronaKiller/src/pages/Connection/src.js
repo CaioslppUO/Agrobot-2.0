@@ -1,5 +1,5 @@
 export default class Src {
-    /** Envia a mensagem de controle manual para o webServerManual */
+    /** Tenta a comunicação com o servidor do roscore para acender o LED. */
     tryConnection() {
         command =
           "http://" + global.roscoreServerIp + ":" + global.roscoreServerPort + "/" +

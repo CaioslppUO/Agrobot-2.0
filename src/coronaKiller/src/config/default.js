@@ -1,5 +1,5 @@
 export default DefaultConfig = {
-    //Controle global.
+    // Controle global.
     speed: function(){
         return 0
     },
@@ -10,7 +10,7 @@ export default DefaultConfig = {
         return 50
     },
 
-    //Variáveis de energia(liga/desliga).
+    // Energia(liga/desliga).
     power: function(){
         return 0
     },
@@ -18,7 +18,7 @@ export default DefaultConfig = {
         return 0
     },
 
-    //Comunicação.
+    // Comunicação.
     roscoreServerIp: function(){
         return "192.168.1.2"
     },
@@ -32,7 +32,7 @@ export default DefaultConfig = {
         return "8082"
     },
 
-    //Controle de comunicação.
+    // Controle de comunicação.
     communicationDelay: function(){
         return 50
     },
@@ -40,7 +40,7 @@ export default DefaultConfig = {
         return 0
     },
 
-    //Controle automático.
+    // Controle automático.
     speedAuto: function(){
         return -26
     },
