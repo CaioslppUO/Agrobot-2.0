@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../styles";
 export default StyleSheet.create({
   mainContainer: {
-    backgroundColor: colors.backgroudDefault,
+    backgroundColor: colors.backgroundDefault,
     flex: 1,
     flexDirection: "column",
     alignItems: "center",

@@ -12,13 +12,12 @@ import AxisPad from "react-native-axis-pad";
 import Styles from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Footer from "../../footer";
-import Src from "./src.js"
+import Src from "./src.js";
 
 // Classe que controla o código fonte.
-const src = new Src()
+const src = new Src();
 
 export default class Main extends Component {
-
   state = {
     limitSliderValue: 50,
     buttonPowerColor: "#f00",
@@ -28,7 +27,10 @@ export default class Main extends Component {
     menuItem: 0,
     menuItemValue: 0
   };
-
+  componentWillMount() {
+    this.props.navigation.navigate("Connection");
+    global.props = this.props;
+  }
   // Opções do controlador de navegação de páginas.
   static navigationOptions = {
     title: "Controle",
@@ -36,7 +38,20 @@ export default class Main extends Component {
       textAlign: "center",
       alignSelf: "center",
       flexGrow: 1
-    }
+    },
+    headerLeft: () => (
+      <Picker
+        style={{ height: 30, width: 150, color: "#ffffff" }}
+        selectedValue={0}
+        onValueChange={(itemValue, itemPosition) => {
+          global.props.navigation.navigate(itemValue);
+        }}
+      >
+        <Picker.Item label="Controlar" value="Main" />
+        <Picker.Item label="Configuração Manual" value="Config" />
+        <Picker.Item label="Configuração Automática" value="Automatic" />
+      </Picker>
+    )
   };
 
   // Carrega a tela de teste de conexão.
@@ -48,32 +63,15 @@ export default class Main extends Component {
   render() {
     console.disableYellowBox = true;
     const JoystickHandlerSize = parseInt(
-      Dimensions.get("window").height * 0.15);
+      Dimensions.get("window").height * 0.15
+    );
     const JoystickSize = parseInt(Dimensions.get("window").height * 0.25);
 
     return (
       <>
         {/*View principal*/}
         <View style={Styles.mainContainer}>
-          {/*View do botão do menu*/}
-          <View style={Styles.menuButton}>
-            {/*Botão do menu*/}
-            <Picker
-              style={Styles.picker}
-              selectedValue={this.state.menuItem}
-              onValueChange={(itemValue, itemPosition) => {
-                this.setState({
-                  menuItemValue: itemValue,
-                  menuItem: itemPosition
-                });
-                this.props.navigation.navigate(itemValue);
-              }}
-            >
-              <Picker.Item label="Controlar" value="Main" />
-              <Picker.Item label="Configuração Manual" value="Config" />
-              <Picker.Item label="Configuração Automática" value="Automatic" />
-            </Picker>
-          </View>
+
 
           {/* View do joystick */}
           <View style={Styles.joystickView}>
@@ -84,9 +82,10 @@ export default class Main extends Component {
               wrapperStyle={Styles.wrapperView}
               autoCenter={false}
               resetOnRelease={true}
-              onValue={({ x, y }) => { // Não alterar o nome x e y.
-                joystick_x = x
-                joystick_y = y
+              onValue={({ x, y }) => {
+                // Não alterar o nome x e y.
+                joystick_x = x;
+                joystick_y = y;
                 if (global.communicationInterval === 5) {
                   src.sendManualCommand(joystick_x, joystick_y);
                   global.communicationInterval = 0;
@@ -94,13 +93,13 @@ export default class Main extends Component {
                   if (joystick_x == 0 && joystick_y == 0) {
                     src.sendManualCommand(0, 0);
                   }
-                  global.communicationInterval = 
+                  global.communicationInterval =
                     global.communicationInterval + 1;
                 }
                 if (this.state.autoMode != 0) {
                   this.setState({ buttonAutoColor: "#000" });
                   this.setState({ autoMode: 0 });
-                  src.stopAutoMode()
+                  src.stopAutoMode();
                 }
               }}
             />

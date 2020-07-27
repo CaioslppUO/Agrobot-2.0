@@ -4,7 +4,7 @@ const colors = {
   internalJoystick: "#3495EB",
   buttonBlue: "#89c5d6",
   buttonRed: "#c90000",
-  backgroudDefault: "#ffffff"
+  backgroundDefault: "#ffffff"
 };
 
 export default colors;

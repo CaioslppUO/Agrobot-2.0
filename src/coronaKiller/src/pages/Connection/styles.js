@@ -3,19 +3,19 @@ import { colors } from "../../styles";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroudDefault,
+    backgroundColor: colors.backgroundDefault,
     justifyContent: "space-around",
     alignItems: "center"
   },
   containerButtons: {
     flex: 1,
-    backgroundColor: colors.backgroudDefault,
+    backgroundColor: colors.backgroundDefault,
     justifyContent: "center",
     width: "100%",
     alignItems: "center"
   },
   buttonTryConnectionn: {
-    backgroundColor: colors.backgroudDefault,
+    backgroundColor: colors.backgroundDefault,
     width: "60%",
     height: "10%",
     borderRadius: 200,
@@ -33,7 +33,7 @@ export default StyleSheet.create({
   buttonTryText: {
     fontWeight: "bold",
     fontSize: 20,
-    color: colors.backgroudDefault
+    color: colors.backgroundDefault
   },
   containerTutorial: {
     width: "80%",

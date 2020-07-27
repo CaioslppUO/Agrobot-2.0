@@ -2,9 +2,6 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../styles";
 
 export default StyleSheet.create({
-  menuButton: {
-    alignItems: "flex-end"
-  },
   joystickView: {
     justifyContent: "center",
     alignItems: "center",
@@ -19,13 +16,13 @@ export default StyleSheet.create({
   },
 
   wrapperView: {
-    backgroundColor: colors.backgroudDefault
+    backgroundColor: colors.backgroundDefault
   },
   handlerView: {
     backgroundColor: colors.internalJoystick
   },
   mainContainer: {
-    backgroundColor: colors.backgroudDefault,
+    backgroundColor: colors.backgroundDefault,
     flex: 1,
     justifyContent: "space-around"
   },
@@ -65,7 +62,7 @@ export default StyleSheet.create({
     justifyContent: "center"
   },
   sliderContainer: {
-    height: 70,
+    height: 50,
     flexDirection: "column"
   },
   slider: {

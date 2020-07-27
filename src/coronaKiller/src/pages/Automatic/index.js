@@ -5,18 +5,20 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
-  AsyncStorage
+  Slider
 } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
 import LocalData from '../../utils/localData'
 import Src from "./src"
-import src from "./src";
 
 // Classe que gerencia o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
 export default class Automatic extends Component {
+  state = {
+    sliderValue: 100
+  }
   //Opções do controlador de navegação de páginas
   static navigationOptions = {
     title: "Configuração do Modo Automático",
@@ -151,12 +153,30 @@ export default class Automatic extends Component {
                 }}
               />
             </View>
+            <View style={Styles.sliderContainer}>
+              <Slider
+                maximumValue={100}
+                minimumValue={0}
+                value={100}
+                onValueChange={sliderValue => {
+                  this.setState({ sliderValue });
+                }}
+                style={Styles.slider}
+                step={1}
+              />
+              <View>
+                <Text style={Styles.textSlider}>
+                  Sensibilidade joystick {this.state.sliderValue}%{" "}
+                </Text>
+              </View>
 
+            </View>
             {/*View do botão de salvar*/}
-            <View style={Styles.saveButton}>
+            <View style={Styles.containerButtons}>
               <TouchableOpacity
+                style={Styles.button}
                 onPress={() => {
-                  try{
+                  try {
                     Src.checkLimitAuto(this.state.limitAutoTemp)
                     Src.checkCorrectionMovements(this.state.tickDefaultAutoTemp)
                     Src.checkCorrectionFactor(this.state.shiftDirectionAutoTemp)
@@ -174,7 +194,7 @@ export default class Automatic extends Component {
                     global.moveTime = parseInt(this.state.moveTimeAutoTemp);
                     global.stopTime = parseInt(this.state.stopTimeAutoTemp);
                     global.detectDistance = parseFloat(this.state.detectDistanceTemp);
-  
+
                     localData.storeData("limitAuto", String(this.state.limitAutoTemp));
                     localData.storeData(
                       "correctionMovements",
@@ -189,14 +209,19 @@ export default class Automatic extends Component {
                     localData.storeData("moveTime", String(this.state.moveTimeAutoTemp));
                     localData.storeData("stopTime", String(this.state.stopTimeAutoTemp));
                     localData.storeData("detectDistance", String(this.state.detectDistanceTemp));
-  
+
                     this.props.navigation.navigate("Main");
-                  }catch(err){
+                  } catch (err) {
                     alert(err)
                   }
                 }}
               >
-                <Text style={Styles.saveText}>Salvar</Text>
+                <Text style={Styles.textButtons}>Salvar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={Styles.button}
+              >
+                <Text style={Styles.textButtons}>Redefinir</Text>
               </TouchableOpacity>
             </View>
 
