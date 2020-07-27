@@ -46,7 +46,7 @@ class Command_standardizer():
 
     ## Método que recebe o comando em um vetor e separa as variáveis que serão checadas.
     def msg_spliter(self,msg):
-        index = 1
+        index = 0
         while index < len(msg):
             try:
                 parameter = msg[index].split("$")[0]
