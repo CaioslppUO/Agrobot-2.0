@@ -4,8 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  ScrollView,
-  Slider
+  ScrollView
 } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
@@ -152,24 +151,6 @@ export default class Automatic extends Component {
                   this.setState({ stopTimeAutoTemp: parseInt(text) });
                 }}
               />
-            </View>
-            <View style={Styles.sliderContainer}>
-              <Slider
-                maximumValue={100}
-                minimumValue={0}
-                value={100}
-                onValueChange={sliderValue => {
-                  this.setState({ sliderValue });
-                }}
-                style={Styles.slider}
-                step={1}
-              />
-              <View>
-                <Text style={Styles.textSlider}>
-                  Sensibilidade joystick {this.state.sliderValue}%{" "}
-                </Text>
-              </View>
-
             </View>
             {/*View do botão de salvar*/}
             <View style={Styles.containerButtons}>

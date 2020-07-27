@@ -83,11 +83,11 @@ export default class Main extends Component {
                 joystick_x = x;
                 joystick_y = y;
                 if (global.communicationInterval === 5) {
-                  src.sendManualCommand(joystick_x, joystick_y);
+                  src.sendManualCommand(joystick_x, joystick_y, global.sliderSensibility);
                   global.communicationInterval = 0;
                 } else {
                   if (joystick_x == 0 && joystick_y == 0) {
-                    src.sendManualCommand(0, 0);
+                    src.sendManualCommand(0, 0, global.sliderSensibility);
                   }
                   global.communicationInterval =
                     global.communicationInterval + 1;

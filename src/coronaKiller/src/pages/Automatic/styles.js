@@ -36,22 +36,6 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
-  sliderContainer: {
-    height: 50,
-    width: 300,
-    flexDirection: "column",
-    marginTop: "3%",
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
-  },
-  textSlider: {
-    fontSize: 15,
-  },
-  slider: {
-    width: 300,
-    // height: "10%",
-  },
   topBarSliderView: {
     flex: 1,
     flexDirection: "row",

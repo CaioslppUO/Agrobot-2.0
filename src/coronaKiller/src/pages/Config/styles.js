@@ -35,5 +35,21 @@ export default StyleSheet.create({
     fontSize: 30,
     color: colors.title,
     fontWeight: "bold"
+  },
+  sliderContainer: {
+    height: 50,
+    width: 300,
+    flexDirection: "column",
+    marginTop: "3%",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  textSlider: {
+    fontSize: 15,
+  },
+  slider: {
+    width: 300,
+    // height: "10%",
   }
 });

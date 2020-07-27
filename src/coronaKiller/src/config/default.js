@@ -9,6 +9,9 @@ export default DefaultConfig = {
     limit: function(){
         return 50
     },
+    sliderSensibility: function(){
+        return 100
+    },
 
     // Energia(liga/desliga).
     power: function(){

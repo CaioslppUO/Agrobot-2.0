@@ -11,6 +11,7 @@ global.props = {};
 global.speed = DefaultConfig.speed();
 global.steer = DefaultConfig.steer();
 global.limit = DefaultConfig.limit();
+global.sliderSensibility = DefaultConfig.sliderSensibility()
 
 // Variáveis de energia(liga/desliga).
 global.power = DefaultConfig.power();
@@ -39,7 +40,7 @@ global.stopTime = DefaultConfig.stopTime();
 global.detectDistance = DefaultConfig.detectDistance();
 
 //Variáveis de informação.
-global.version = "0.8.0";
+global.version = "0.8.2";
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();
