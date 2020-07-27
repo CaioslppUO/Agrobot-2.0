@@ -199,8 +199,13 @@ export default class Automatic extends Component {
               >
                 <Text style={Styles.textButtons}>Salvar</Text>
               </TouchableOpacity>
+
               <TouchableOpacity
                 style={Styles.button}
+                onPress = {() => {
+                  Src.buttonResetPressed()
+                  this.props.navigation.navigate("Main");
+                }}
               >
                 <Text style={Styles.textButtons}>Redefinir</Text>
               </TouchableOpacity>

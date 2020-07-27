@@ -1,3 +1,10 @@
+import { Alert } from "react-native"
+
+import LocalData from "../../utils/localData"
+
+// Classe que gerencia o carregamento e a gravação das variáveis na memória.
+const localData = new LocalData()
+
 export default Src = {
     checkLimitAuto: function(limit){
         if(typeof parseInt(limit) != "number" || Number.isNaN(parseInt(limit))){
@@ -67,5 +74,44 @@ export default Src = {
         if(parseFloat(detectDistance) < 0 || parseFloat(detectDistance) > 11.9){
             throw new Error("Distância de colisão inválida.")
         }
+    },
+    buttonResetPressed: function(){
+        const title = "Resetar configurações"
+        const message = "Tem certeza que deseja resetar as configurações?"
+        const buttons = [
+            { text:"Sim", onPress: () => {
+                global.lidarServerIp = DefaultConfig.lidarServerIp();
+                global.lidarServerPort = DefaultConfig.lidarServerPort();
+
+                global.speedAuto = DefaultConfig.speedAuto();
+                global.steerAuto = DefaultConfig.steerAuto();
+                global.limitAuto = DefaultConfig.limitAuto();
+
+                global.correctionMovements = DefaultConfig.correctionMovements();
+                global.correctionFactor = DefaultConfig.correctionFactor();
+
+                global.moveTime = DefaultConfig.moveTime();
+                global.stopTime = DefaultConfig.stopTime();
+                global.detectDistance = DefaultConfig.detectDistance();
+
+                localData.storeData("limitAuto", String(limitAuto));
+                localData.storeData(
+                  "correctionMovements",
+                  String(correctionMovements)
+                );
+                localData.storeData("steerAuto", String(steerAuto));
+                localData.storeData("speedAuto", String(speedAuto));
+                localData.storeData(
+                  "correctionFactor",
+                  String(correctionFactor)
+                );
+                localData.storeData("moveTime", String(moveTime));
+                localData.storeData("stopTime", String(stopTime));
+                localData.storeData("detectDistance", String(detectDistance));
+                alert("Redefinição concluída.")
+            } },
+            { text:"Não", onPress: () => alert("Redefinição cancelada.") }
+        ]
+        Alert.alert(title,message,buttons)
     }
 }
