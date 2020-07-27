@@ -28,5 +28,25 @@ export default Src = {
         if(typeof parseInt(delay) != "number" || Number.isNaN(parseInt(delay)) || parseInt(delay) < 0){
             throw new Error("Delay inválido.")
         }
+    },
+    buttonResetPressed: function(){
+        const title = "Resetar configurações"
+        const message = "Tem certeza que deseja resetar as configurações?"
+        const buttons = [
+            { text:"Sim", onPress: () => {
+                global.roscoreServerIp = DefaultConfig.roscoreServerIp();
+                global.roscoreServerPort = DefaultConfig.roscoreServerPort();
+                global.communicationDelay = DefaultConfig.communicationDelay();
+                global.sliderSensibility = DefaultConfig.sliderSensibility();
+
+                localData.storeData("roscoreServerIp", String(this.state.serverIpTemp));
+                localData.storeData("roscoreServerPort", String(this.state.portTemp));
+                localData.storeData("communicationDelay", String(this.state.delayTemp));
+                localData.storeData("sliderSensibility", String(this.state.sliderValue));
+                alert("Redefinição concluída.")
+            } },
+            { text:"Não", onPress: () => alert("Redefinição cancelada.") }
+        ]
+        Alert.alert(title,message,buttons)
     }
 }

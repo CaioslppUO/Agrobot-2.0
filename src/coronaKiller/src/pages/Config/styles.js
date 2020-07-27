@@ -51,5 +51,18 @@ export default StyleSheet.create({
   slider: {
     width: 300,
     // height: "10%",
+  },
+  button: {
+    marginTop: "3%",
+    alignContent: "center",
+    width: 140,
+    height: 90
+  },
+  textButtons: {
+    fontSize: 25,
+    borderWidth: 1,
+    backgroundColor: colors.buttonBlue,
+    textAlign: "center",
+    borderRadius: 10
   }
 });

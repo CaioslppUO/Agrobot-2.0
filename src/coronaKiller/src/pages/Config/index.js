@@ -136,6 +136,16 @@ export default class Config extends Component {
             >
               <Text style={Styles.saveText}>Salvar</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+                style={Styles.button}
+                onPress = {() => {
+                  //Src.buttonResetPressed()
+                  this.props.navigation.navigate("Main");
+                }}
+              >
+                <Text style={Styles.textButtons}>Redefinir</Text>
+              </TouchableOpacity>
           </View>
 
           <Footer />
