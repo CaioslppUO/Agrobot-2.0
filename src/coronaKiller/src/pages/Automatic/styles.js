@@ -36,11 +36,6 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
-  topBarSliderView: {
-    flex: 1,
-    flexDirection: "row",
-    // justifyContent:
-  },
   parameters: {
     fontSize: 30,
     color: colors.title,

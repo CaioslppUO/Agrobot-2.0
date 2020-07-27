@@ -37,20 +37,20 @@ export default StyleSheet.create({
     fontWeight: "bold"
   },
   sliderContainer: {
-    height: 50,
-    width: 300,
+    height: "8%",
+    width: "100%",
     flexDirection: "column",
     marginTop: "3%",
     justifyContent: "center",
     alignContent: "center",
-    alignItems: "center",
+    alignItems: "center"
   },
   textSlider: {
-    fontSize: 15,
+    fontSize: 15
   },
   slider: {
-    width: 300,
-    // height: "10%",
+    width: 320,
+    height: "20%"
   },
   button: {
     marginTop: "3%",
@@ -64,5 +64,10 @@ export default StyleSheet.create({
     backgroundColor: colors.buttonBlue,
     textAlign: "center",
     borderRadius: 10
+  },
+  containerButtons: {
+    width: 300,
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 });
