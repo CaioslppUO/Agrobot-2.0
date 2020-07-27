@@ -27,9 +27,10 @@ export default class Main extends Component {
     menuItem: 0,
     menuItemValue: 0
   };
+  // Carrega a tela de teste de conexão.
   componentWillMount() {
-    this.props.navigation.navigate("Connection");
     global.props = this.props;
+    this.props.navigation.navigate("Connection");
   }
   // Opções do controlador de navegação de páginas.
   static navigationOptions = {
@@ -53,11 +54,6 @@ export default class Main extends Component {
       </Picker>
     )
   };
-
-  // Carrega a tela de teste de conexão.
-  componentWillMount() {
-    this.props.navigation.navigate("Connection");
-  }
 
   //Renderização do componente
   render() {
