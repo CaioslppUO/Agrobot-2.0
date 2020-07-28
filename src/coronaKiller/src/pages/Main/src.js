@@ -9,9 +9,9 @@ export default class Src {
       }
 
     /** Pega os valores de x e y do JoyStick e os envia para o robô. */
-    sendManualCommand(joystick_x, joystick_y) {
-        global.speed = -Math.round(joystick_y * 100);
-        global.steer = Math.round(joystick_x * 100);
+    sendManualCommand(joystick_x, joystick_y, sliderSensibility) {
+        global.speed = -Math.round(joystick_y * sliderSensibility);
+        global.steer = Math.round(joystick_x * sliderSensibility);
         setTimeout(() => {
           WebServer.sendToRoscoreServer(
             global.speed,

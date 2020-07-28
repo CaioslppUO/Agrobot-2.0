@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../styles";
 export default StyleSheet.create({
   mainContainer: {
-    backgroundColor: colors.backgroudDefault,
+    backgroundColor: colors.backgroundDefault,
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
@@ -35,5 +35,39 @@ export default StyleSheet.create({
     fontSize: 30,
     color: colors.title,
     fontWeight: "bold"
+  },
+  sliderContainer: {
+    height: "8%",
+    width: "100%",
+    flexDirection: "column",
+    marginTop: "3%",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center"
+  },
+  textSlider: {
+    fontSize: 15
+  },
+  slider: {
+    width: 320,
+    height: "20%"
+  },
+  button: {
+    marginTop: "3%",
+    alignContent: "center",
+    width: 140,
+    height: 90
+  },
+  textButtons: {
+    fontSize: 25,
+    borderWidth: 1,
+    backgroundColor: colors.buttonBlue,
+    textAlign: "center",
+    borderRadius: 10
+  },
+  containerButtons: {
+    width: 300,
+    flexDirection: "row",
+    justifyContent: "space-between"
   }
 });

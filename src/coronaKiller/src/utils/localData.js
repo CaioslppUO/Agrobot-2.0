@@ -57,6 +57,9 @@ export default class LocalData{
           global.detectDistance = parseFloat(
             await this.getValue("detectDistance",
             DefaultConfig.detectDistance()));
+          global.sliderSensibility = parseInt(
+            await this.getValue("sliderSensibility",
+            DefaultConfig.sliderSensibility()));
         } catch (error) {
             alert("Erro ao carregar as variáveis da memória: " + error);
         }

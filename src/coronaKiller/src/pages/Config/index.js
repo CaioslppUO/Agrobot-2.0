@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { View,TextInput,TouchableOpacity,Text,BackHandler } from "react-native";
+import { View,TextInput,TouchableOpacity,Text,BackHandler,Slider } 
+  from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
-import LocalData from '../../utils/localData'
-import Src from "./src"
+import LocalData from "../../utils/localData";
+import Src from "./src";
 
 // Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
@@ -15,7 +16,8 @@ export default class Config extends Component {
     delay: global.communicationDelay,
     serverIpTemp: global.roscoreServerIp,
     portTemp: global.roscoreServerPort,
-    delayTemp: global.communicationDelay
+    delayTemp: global.communicationDelay,
+    sliderValue: global.sliderSensibility
   };
 
   //Opções do controlador de navegação de páginas
@@ -28,7 +30,7 @@ export default class Config extends Component {
   };
 
   componentWillMount() {
-    BackHandler.addEventListener("hardwareBackPress", () => {});
+    BackHandler.addEventListener("hardwareBackPress", () => { });
   }
 
   componentWillUnmount() {
@@ -82,29 +84,71 @@ export default class Config extends Component {
             />
           </View>
 
-          {/*View do botão de salvar*/}
-          <View style={Styles.saveContainer}>
+          <View style={Styles.sliderContainer}>
+            <Slider
+              maximumValue={100}
+              minimumValue={0}
+              value={this.state.sliderValue}
+              onValueChange={sliderValue => {
+                this.setState({ sliderValue });
+              }}
+              style={Styles.slider}
+              step={1}
+            />
+            <View>
+              <Text style={Styles.textSlider}>
+                Sensibilidade joystick {this.state.sliderValue}%{" "}
+              </Text>
+            </View>
+          </View>
+
+          <View style={Styles.containerButtons}>
             <TouchableOpacity
+              style={Styles.button}
               onPress={() => {
-                try{
-                  Src.checkIp(this.state.serverIpTemp)
-                  Src.checkPort(this.state.portTemp)
-                  Src.checkDelay(this.state.delayTemp)
+                try {
+                  Src.checkIp(this.state.serverIpTemp);
+                  Src.checkPort(this.state.portTemp);
+                  Src.checkDelay(this.state.delayTemp);
 
                   global.roscoreServerIp = String(this.state.serverIpTemp);
                   global.roscoreServerPort = String(this.state.portTemp);
                   global.communicationDelay = parseFloat(this.state.delayTemp);
+                  global.sliderSensibility = parseInt(this.state.sliderValue);
 
-                  localData.storeData("roscoreServerIp", String(this.state.serverIpTemp));
-                  localData.storeData("roscoreServerPort", String(this.state.portTemp));
-                  localData.storeData("communicationDelay", String(this.state.delayTemp));
+                  localData.storeData(
+                    "roscoreServerIp",
+                    String(this.state.serverIpTemp)
+                  );
+                  localData.storeData(
+                    "roscoreServerPort",
+                    String(this.state.portTemp)
+                  );
+                  localData.storeData(
+                    "communicationDelay",
+                    String(this.state.delayTemp)
+                  );
+                  localData.storeData(
+                    "sliderSensibility",
+                    String(this.state.sliderValue)
+                  );
                   this.props.navigation.navigate("Main");
-                }catch(err){
-                  alert(err)
+                } catch (err) {
+                  alert(err);
                 }
               }}
             >
-              <Text style={Styles.saveText}>Salvar</Text>
+              <Text style={Styles.textButtons}>Salvar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={Styles.button}
+              onPress={() => {
+                Src.buttonResetPressed();
+                this.props.navigation.navigate("Main");
+              }}
+            >
+              <Text style={Styles.textButtons}>Redefinir</Text>
             </TouchableOpacity>
           </View>
 

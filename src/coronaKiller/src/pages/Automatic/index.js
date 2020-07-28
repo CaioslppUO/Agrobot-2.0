@@ -9,7 +9,10 @@ import Src from "./src"
 const localData = new LocalData()
 
 export default class Automatic extends Component {
-  // Opções do controlador de navegação de páginas
+  state = {
+    sliderValue: 100
+  }
+  //Opções do controlador de navegação de páginas
   static navigationOptions = {
     title: "Configuração do Modo Automático",
     alignContent: "center",
@@ -142,12 +145,12 @@ export default class Automatic extends Component {
                 }}
               />
             </View>
-
             {/*View do botão de salvar*/}
-            <View style={Styles.saveButton}>
+            <View style={Styles.containerButtons}>
               <TouchableOpacity
+                style={Styles.button}
                 onPress={() => {
-                  try{
+                  try {
                     Src.checkLimitAuto(this.state.limitAutoTemp)
                     Src.checkCorrectionMovements(this.state.tickDefaultAutoTemp)
                     Src.checkCorrectionFactor(this.state.shiftDirectionAutoTemp)
@@ -165,7 +168,7 @@ export default class Automatic extends Component {
                     global.moveTime = parseInt(this.state.moveTimeAutoTemp);
                     global.stopTime = parseInt(this.state.stopTimeAutoTemp);
                     global.detectDistance = parseFloat(this.state.detectDistanceTemp);
-  
+
                     localData.storeData("limitAuto", String(this.state.limitAutoTemp));
                     localData.storeData(
                       "correctionMovements",
@@ -180,14 +183,24 @@ export default class Automatic extends Component {
                     localData.storeData("moveTime", String(this.state.moveTimeAutoTemp));
                     localData.storeData("stopTime", String(this.state.stopTimeAutoTemp));
                     localData.storeData("detectDistance", String(this.state.detectDistanceTemp));
-  
+
                     this.props.navigation.navigate("Main");
-                  }catch(err){
+                  } catch (err) {
                     alert(err)
                   }
                 }}
               >
-                <Text style={Styles.saveText}>Salvar</Text>
+                <Text style={Styles.textButtons}>Salvar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={Styles.button}
+                onPress = {() => {
+                  Src.buttonResetPressed()
+                  this.props.navigation.navigate("Main");
+                }}
+              >
+                <Text style={Styles.textButtons}>Redefinir</Text>
               </TouchableOpacity>
             </View>
 

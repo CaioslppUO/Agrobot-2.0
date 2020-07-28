@@ -3,10 +3,11 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   logosView: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
-    height: 90,
-    width: "100%"
+    height: 55,
+    width: "100%",
+    flexWrap: "wrap"
   },
   logoUnioeste: {
     height: 40,
@@ -25,6 +26,18 @@ export default StyleSheet.create({
     height: 40,
     width: 50
   },
+  logoHmcc: {
+    height: 50,
+    width: 90
+  },
+  logoMunicipal: {
+    height: 50,
+    width: 41
+  },
+  logoReceita: {
+    height: 45,
+    width: 85
+  },
   versionText: {
     color: "#02535c",
     fontSize: 10
@@ -33,7 +46,7 @@ export default StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "flex-end",
     flexDirection: "column",
-    height: 100,
+    height: 125,
     width: "100%"
   }
 });

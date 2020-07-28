@@ -4,10 +4,14 @@ import DefaultConfig from "./default"
 // Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
+// Utilizado para navegação de páginas.
+global.props = {};
+
 // Variáveis de controle globais.
 global.speed = DefaultConfig.speed();
 global.steer = DefaultConfig.steer();
 global.limit = DefaultConfig.limit();
+global.sliderSensibility = DefaultConfig.sliderSensibility()
 
 // Variáveis de energia(liga/desliga).
 global.power = DefaultConfig.power();
@@ -36,7 +40,7 @@ global.stopTime = DefaultConfig.stopTime();
 global.detectDistance = DefaultConfig.detectDistance();
 
 //Variáveis de informação.
-global.version = "0.7.9";
+global.version = "0.8.7";
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();
