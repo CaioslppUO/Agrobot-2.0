@@ -1,24 +1,16 @@
 import React, { Component } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  Slider,
-  Picker,
-  Dimensions
-} from "react-native";
-
+import { View,TouchableOpacity,Text,Slider,Picker,
+  Dimensions } from "react-native";
 import AxisPad from "react-native-axis-pad";
 import Styles from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Footer from "../../footer";
 import Src from "./src.js"
 
-// Classe que controla o código fonte.
+// Controla o código fonte.
 const src = new Src()
 
 export default class Main extends Component {
-
   state = {
     limitSliderValue: 50,
     buttonPowerColor: "#f00",
@@ -44,7 +36,6 @@ export default class Main extends Component {
     this.props.navigation.navigate("Connection");
   }
 
-  //Renderização do componente
   render() {
     console.disableYellowBox = true;
     const JoystickHandlerSize = parseInt(

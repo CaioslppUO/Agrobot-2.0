@@ -1,23 +1,15 @@
 import React, { Component } from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  ScrollView,
-  AsyncStorage
-} from "react-native";
+import { View,TextInput,TouchableOpacity,Text,ScrollView } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
 import LocalData from '../../utils/localData'
 import Src from "./src"
-import src from "./src";
 
-// Classe que gerencia o carregamento e a gravação das variáveis na memória.
+// Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
 export default class Automatic extends Component {
-  //Opções do controlador de navegação de páginas
+  // Opções do controlador de navegação de páginas
   static navigationOptions = {
     title: "Configuração do Modo Automático",
     alignContent: "center",
@@ -27,7 +19,6 @@ export default class Automatic extends Component {
     }
   };
 
-  //Variáveis da classe
   state = {
     limitAuto: global.limitAuto,
     tickDefaultAuto: global.correctionMovements,

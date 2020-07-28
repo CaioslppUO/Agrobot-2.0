@@ -30,7 +30,8 @@ export default class LocalData{
           // Manual
           global.roscoreServerIp = String(await this.getValue("roscoreServerIp",
             DefaultConfig.roscoreServerIp()));
-          global.roscoreServerPort = String(await this.getValue("roscoreServerPort",
+          global.roscoreServerPort = String(
+            await this.getValue("roscoreServerPort",
             DefaultConfig.roscoreServerPort()));
           global.communicationDelay = parseInt(
             await this.getValue("communicationDelay",
@@ -38,24 +39,24 @@ export default class LocalData{
         
           // Automático
           global.speedAuto = parseInt(await this.getValue("speedAuto",
-           DefaultConfig.speedAuto()));
+            DefaultConfig.speedAuto()));
           global.steerAuto = parseInt(await this.getValue("steerAuto",
-           DefaultConfig.steerAuto()));
+            DefaultConfig.steerAuto()));
           global.limitAuto = parseInt(await this.getValue("limitAuto",
-           DefaultConfig.limitAuto()));
+            DefaultConfig.limitAuto()));
           global.correctionMovements = parseInt(
             await this.getValue("correctionMovements",
-             DefaultConfig.correctionMovements()));
+            DefaultConfig.correctionMovements()));
           global.correctionFactor = parseInt(
             await this.getValue("correctionFactor",
-             DefaultConfig.correctionFactor()));
+            DefaultConfig.correctionFactor()));
           global.moveTime = parseInt(await this.getValue("moveTime",
-           DefaultConfig.moveTime()));
+            DefaultConfig.moveTime()));
           global.stopTime = parseInt(await this.getValue("stopTime",
-           DefaultConfig.stopTime()));
+            DefaultConfig.stopTime()));
           global.detectDistance = parseFloat(
             await this.getValue("detectDistance",
-             DefaultConfig.detectDistance()));
+            DefaultConfig.detectDistance()));
         } catch (error) {
             alert("Erro ao carregar as variáveis da memória: " + error);
         }

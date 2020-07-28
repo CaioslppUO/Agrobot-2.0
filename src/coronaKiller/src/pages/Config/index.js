@@ -1,21 +1,14 @@
 import React, { Component } from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  BackHandler
-} from "react-native";
+import { View,TextInput,TouchableOpacity,Text,BackHandler } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
 import LocalData from '../../utils/localData'
 import Src from "./src"
 
-// Classe que gerencia o carregamento e a gravação das variáveis na memória.
+// Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
 export default class Config extends Component {
-  //Variáveis da classe
   state = {
     serverIp: global.roscoreServerIp,
     port: global.roscoreServerPort,

@@ -1,8 +1,7 @@
-import { AsyncStorage } from "react-native";
 import LocalData from "../utils/localData"
 import DefaultConfig from "./default"
 
-// Classe que gerencia o carregamento e a gravação das variáveis na memória.
+// Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
 // Variáveis de controle globais.
