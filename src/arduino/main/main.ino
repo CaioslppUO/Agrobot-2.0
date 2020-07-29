@@ -126,7 +126,7 @@ void readUart() {
     if(!sinal) Limit *= -1;
 
     temp="";
-    temp += information[14];
+    temp += information[15];
     power = temp.toInt();
     
     control(Speed,Steer,Limit,power);
