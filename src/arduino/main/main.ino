@@ -5,10 +5,13 @@
 #define STD_X 130
 /** Valor padrão de velocidade 0 do robô. */
 #define STD_Y 123
+/** Pino utilizado para controlar o relé que liga e desliga o motor */
+#define POWER 8
+/** Pino utilizado para controlar o LED de teste de conexão */
+#define LED 7
 
 /** Variável utilizada para manipular qual será o x enviado para o robô. Significa a direção enviada. */
 int x;
-
 /** Variável utilizada para manipular qual será o u enviado para o robô. Significa a velocidade enviada. */
 int y;
 
@@ -18,6 +21,8 @@ int Speed;
 int Steer;
 /** Variável 'virtual' que controla o limite do robô */
 int Limit; 
+/** Variável que controla o acionamento do relé */
+int power;
 
 /** Variável para manipular a informação recebida pelo protocolo UART. */
 String information = "";
@@ -35,13 +40,15 @@ uint8_t vector[6] = {218, 130, 0, 1, 0, 1};
 void setup(){
   Serial.begin(9600);
   Wire.begin(0x52);                
-  Wire.onRequest(requestEvent);  
+  Wire.onRequest(requestEvent);
+  pinMode(LED,OUTPUT);
+  pinMode(POWER,OUTPUT);
 }
 
 /** Função que define as variáveis x e y que serão enviadas para a placa do hover board. \n
   Verifica e corrige os valores recebidos como parâmetros para os adequar às regras de funcionamento
   placa do hover board. */
-void control(float _speed, float _steer, float _limit){
+void control(float _speed, float _steer, float _limit, int power){
   float  coefficient_speed, coefficient_steer;  
   coefficient_speed = (_speed/100) * abs(_limit);
   coefficient_steer = (_steer/100) * abs(_limit);
@@ -49,7 +56,12 @@ void control(float _speed, float _steer, float _limit){
   if(y < 35) y = 35; if(y > 230) y = 230; 
   x = STD_X +  coefficient_steer;
   if(x < 35) x = 35; if(x > 230) x = 230;
- 
+  if(power == 1){
+    digitalWrite(POWER, HIGH);
+    digitalWrite(POWER, LOW);
+  }else{
+    digitalWrite(POWER, LOW);
+  }
 }
 
 /** Função que executa em Loop a leitura pelo protocolo UART(Raspberry->arduino)
@@ -84,9 +96,11 @@ void readUart() {
   char sinal;
   EventSerial();
   if(stringComplete){
+    digitalWrite(LED, HIGH);
     Serial.print("Info = {");
     Serial.print(information);
     Serial.println("}");
+    
     temp="";
     sinal = information[0] - 48; // 1 se o sinal for igual a '1' e 0 se o sinal for igual a '0'
     temp += information[1];
@@ -110,8 +124,12 @@ void readUart() {
     temp += information[13];
     Limit = temp.toInt();
     if(!sinal) Limit *= -1;
+
+    temp="";
+    temp += information[14];
+    power = temp.toInt();
     
-    control(Speed,Steer,Limit);
+    control(Speed,Steer,Limit,power);
     readinfo(); // Reseta os flags para a próxima leitura
   }
 }
