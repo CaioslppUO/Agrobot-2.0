@@ -55,7 +55,7 @@ class Assembler():
             self.last_speed = int(speed)
             self.last_steer = int(steer)
             self.last_limit = int(limit)
-            const_pub_control_robot.publish(str(speed) + "$" + str(steer) + "$" + str(limit))
+            const_pub_control_robot.publish(str(speed) + "$" + str(steer) + "$" + str(limit) + "$0")
         if(int(power_a ) != 0):
             const_pub_relay.publish("sendSignalToBoardOne$" + str(power_a))
         if(int(power_b) != 0):
