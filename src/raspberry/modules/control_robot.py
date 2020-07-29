@@ -93,6 +93,8 @@ class Control_robot():
         self.steer = "0000"
         ## Variável utilizada para enviar o limite. O primeiro valor é o sinal do número: 0 Negativo e 1 Positivo.
         self.limit = "0000"
+        ## Variável utilizada para enviar o valor do relé que controla a placa.
+        self.power = "0"
 
         try:
             self.uart_amount = sys.argv[1]
@@ -118,23 +120,28 @@ class Control_robot():
         return r
 
     ## Método que seta os valores das variáveis recebidas.
-    def set_values(self,speed,steer,limit):
+    def set_values(self,speed,steer,limit,power):
         self.speed = self.get_stand_value(speed)
         self.steer = self.get_stand_value(steer)
         self.limit = self.get_stand_value(limit)
+        if(power == 1):
+            self.power = "1"
+        else:
+            self.power = "0"
 
     ## Método que responde ao recebimento de comandos que serão enviados aos arduinos.
     # Envia os comandos para os arduinos. \n
     def callback_set_values(self,msg):
         info = str(msg.data).split("$")
         try:
-            self.set_values(int(info[0]),int(info[1]),int(info[2]))
+            self.set_values(int(info[0]),int(info[1]),int(info[2]),int(info[3]))
         except:
             self.speed = 0
             self.steer = 0
             self.limit = 0
+            self.power = 0
 
-        command = self.speed + ',' + self.steer + ',' + self.limit + ';'
+        command = self.speed + ',' + self.steer + ',' + self.limit + ',' + self.power + ";"
 
         try:
             if(int(self.uart_amount) == 1):  

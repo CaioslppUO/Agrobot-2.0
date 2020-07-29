@@ -17,6 +17,8 @@ from std_msgs.msg import String
 
 ## Instância que controla a publicação de logs.
 const_pub_log = rospy.Publisher('log', String, queue_size=10)
+## Instância que controla a publicação no tópico control_robot.
+const_pub_control_robot = rospy.Publisher('control_robot', String, queue_size=10)
 
 # ------------------- #
 # -> Configurações <- #
@@ -51,32 +53,16 @@ class Relay():
     ## Método que envia um sinal para o relé da placa A do hover board.
     def send_signal_to_board_one(self,signal):
         if(signal == 1):
-            GPIO.setup(38, GPIO.OUT)
-            GPIO.output(38, GPIO.HIGH)
-            time.sleep(0.2)
-            GPIO.output(38, GPIO.LOW)
-            time.sleep(0.2)
+            const_pub_control_robot.publish("0$0$0$1")
         else:
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setwarnings(False)
-            GPIO.setup(38, GPIO.OUT)
-            GPIO.output(38, GPIO.LOW)
+            const_pub_control_robot.publish("0$0$0$0")
 
     ## Método que envia um sinal para o relé da placa B do hover board.
     def send_signal_to_board_two(self,signal):
         if(signal == 1):
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setwarnings(False)
-            GPIO.setup(40, GPIO.OUT)
-            GPIO.output(40, GPIO.HIGH)
-            time.sleep(0.2)
-            GPIO.output(40, GPIO.LOW)
-            time.sleep(0.2)
+            const_pub_control_robot.publish("0$0$0$1")
         else:
-            GPIO.setmode(GPIO.BOARD)
-            GPIO.setwarnings(False)
-            GPIO.setup(40, GPIO.OUT)
-            GPIO.output(40, GPIO.LOW)
+            const_pub_control_robot.publish("0$0$0$0")
 
     ## Método que envia um sinal para o relé do pulverizador/uv.
     def send_signal_to_pulverizer(self,signal):
