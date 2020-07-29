@@ -5,7 +5,7 @@ import Styles from "./styles";
 import Footer from "../../footer";
 import Src from "./src"
 
-// Classe que controla o código fonte.
+// Controla o código fonte.
 const src = new Src()
 
 export default class Connection extends Component {

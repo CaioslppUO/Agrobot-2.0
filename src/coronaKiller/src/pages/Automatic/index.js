@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  ScrollView
-} from "react-native";
+import { View,TextInput,TouchableOpacity,Text,ScrollView } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
 import LocalData from '../../utils/localData'
 import Src from "./src"
 
-// Classe que gerencia o carregamento e a gravação das variáveis na memória.
+// Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData()
 
 export default class Automatic extends Component {
@@ -28,7 +22,6 @@ export default class Automatic extends Component {
     }
   };
 
-  //Variáveis da classe
   state = {
     limitAuto: global.limitAuto,
     tickDefaultAuto: global.correctionMovements,
