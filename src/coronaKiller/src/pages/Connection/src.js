@@ -1,7 +1,7 @@
 export default class Src {
   /** Tenta a comunicação com o servidor do roscore para acender o LED. */
   tryConnection() {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       command =
         "http://" + global.roscoreServerIp + ":" + global.roscoreServerPort + "/" +
         "0*speed$" + (i % 2 === 0 ? 0 : 1) +
