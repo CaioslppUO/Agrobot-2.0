@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['std_5fx_272',['STD_X',['../main_8ino.html#a4b34db6d32e5be7b2c14850d77760360',1,'main.ino']]],
-  ['std_5fy_273',['STD_Y',['../main_8ino.html#a43fefdf2655f594c8a49e6d81147a87d',1,'main.ino']]]
+  ['led_37',['LED',['../main_8ino.html#aeb7a7ba1ab7e0406f1b5ab36d579f585',1,'main.ino']]]
 ];
