@@ -58,6 +58,7 @@ void control(float _speed, float _steer, float _limit, int power){
   if(x < 35) x = 35; if(x > 230) x = 230;
   if(power == 1){
     digitalWrite(POWER, HIGH);
+    delay(300);
     digitalWrite(POWER, LOW);
   }else{
     digitalWrite(POWER, LOW);
