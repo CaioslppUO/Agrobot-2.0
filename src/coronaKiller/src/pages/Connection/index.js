@@ -3,10 +3,10 @@ import { View, TouchableOpacity, Text } from "react-native";
 
 import Styles from "./styles";
 import Footer from "../../footer";
-import Src from "./src"
-
+import Src from "./src";
+import { globalStyles } from "../../styles";
 // Controla o código fonte.
-const src = new Src()
+const src = new Src();
 
 export default class Connection extends Component {
   state = {
@@ -25,8 +25,8 @@ export default class Connection extends Component {
   render() {
     return (
       <>
-        <View style={Styles.container}>
-          <View style={Styles.buttonTryConnectionn} />
+        <View style={globalStyles.mainContainer}>
+          <View style={Styles.spacing} />
 
           <View style={Styles.containerTutorial}>
             <Text style={Styles.tutorialText}>
@@ -53,8 +53,7 @@ export default class Connection extends Component {
             >
               <Text style={Styles.buttonTryText}>Estabelecer Conexão</Text>
             </TouchableOpacity>
-            <View style={Styles.buttonTryConnectionn} />
-
+            <View style={Styles.spacing} />
             <TouchableOpacity
               style={Styles.buttonTryConnection}
               onPress={() => {

@@ -1,44 +1,18 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../styles";
 export default StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: colors.backgroundDefault
-  },
   boxesContainer: {
-    flexDirection: "column",
-    width: 300
+    flexDirection: "column"
   },
   boxText: {
     marginTop: "3%",
     fontSize: 15,
     borderRadius: 10,
-    borderWidth: 1
-  },
-  button: {
-    marginTop: "3%",
-    alignContent: "center",
-    width: 140,
-    height: 90
-  },
-  textButtons: {
-    fontSize: 25,
     borderWidth: 1,
-    backgroundColor: colors.buttonBlue,
-    textAlign: "center",
-    borderRadius: 10
+    width: 310
   },
   containerButtons: {
-    width: 300,
+    width: 310,
     flexDirection: "row",
     justifyContent: "space-between"
-  },
-  parameters: {
-    fontSize: 30,
-    color: colors.title,
-    fontWeight: "bold"
   }
 });

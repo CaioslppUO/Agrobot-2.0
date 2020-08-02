@@ -1,8 +1,8 @@
-import LocalData from "../utils/localData"
-import DefaultConfig from "./default"
+import LocalData from "../utils/localData";
+import DefaultConfig from "./default";
 
 // Controla o carregamento e a gravação das variáveis na memória.
-const localData = new LocalData()
+const localData = new LocalData();
 
 // Utilizado para navegação de páginas.
 global.props = {};
@@ -11,7 +11,7 @@ global.props = {};
 global.speed = DefaultConfig.speed();
 global.steer = DefaultConfig.steer();
 global.limit = DefaultConfig.limit();
-global.sliderSensibility = DefaultConfig.sliderSensibility()
+global.sliderSensibility = DefaultConfig.sliderSensibility();
 
 // Variáveis de energia(liga/desliga).
 global.power = DefaultConfig.power();
@@ -40,7 +40,7 @@ global.stopTime = DefaultConfig.stopTime();
 global.detectDistance = DefaultConfig.detectDistance();
 
 //Variáveis de informação.
-global.version = "0.8.7";
+global.version = "0.8.8";
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();

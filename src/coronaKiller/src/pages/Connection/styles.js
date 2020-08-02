@@ -1,12 +1,6 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../styles";
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.backgroundDefault,
-    justifyContent: "space-around",
-    alignItems: "center"
-  },
   containerButtons: {
     flex: 1,
     backgroundColor: colors.backgroundDefault,
@@ -14,13 +8,9 @@ export default StyleSheet.create({
     width: "100%",
     alignItems: "center"
   },
-  buttonTryConnectionn: {
+  spacing: {
     backgroundColor: colors.backgroundDefault,
-    width: "60%",
-    height: "10%",
-    borderRadius: 200,
-    justifyContent: "center",
-    alignItems: "center"
+    height: "10%"
   },
   buttonTryConnection: {
     backgroundColor: colors.internalJoystick,

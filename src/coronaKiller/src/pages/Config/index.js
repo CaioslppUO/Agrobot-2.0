@@ -1,13 +1,20 @@
 import React, { Component } from "react";
-import { View,TextInput,TouchableOpacity,Text,BackHandler,Slider } 
-  from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  BackHandler,
+  Slider
+} from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
 import LocalData from "../../utils/localData";
 import Src from "./src";
+import { globalStyles } from "../../styles";
 
 // Controla o carregamento e a gravação das variáveis na memória.
-const localData = new LocalData()
+const localData = new LocalData();
 
 export default class Config extends Component {
   state = {
@@ -30,7 +37,7 @@ export default class Config extends Component {
   };
 
   componentWillMount() {
-    BackHandler.addEventListener("hardwareBackPress", () => { });
+    BackHandler.addEventListener("hardwareBackPress", () => {});
   }
 
   componentWillUnmount() {
@@ -41,17 +48,17 @@ export default class Config extends Component {
     return (
       <>
         {/*View principal*/}
-        <View style={Styles.mainContainer}>
+        <View style={globalStyles.mainContainer}>
           <View />
 
           <View style={Styles.containerCommunication}>
-            <Text style={Styles.communication}>Comunicação</Text>
+            <Text style={globalStyles.title}>Comunicação</Text>
           </View>
 
           {/*View dos campos de preenchimento de comunicação*/}
           <View style={Styles.textInputContainer}>
             <TextInput
-              style={Styles.inputText}
+              style={globalStyles.inputText}
               placeholder={"IP do robô: " + this.state.serverIp}
               onEndEditing={text => {
                 this.setState({ serverIp: text.nativeEvent.text });
@@ -62,7 +69,7 @@ export default class Config extends Component {
             />
 
             <TextInput
-              style={Styles.inputText}
+              style={globalStyles.inputText}
               placeholder={"Porta: " + this.state.port}
               onEndEditing={text => {
                 this.setState({ port: text.nativeEvent.text });
@@ -73,7 +80,7 @@ export default class Config extends Component {
             />
 
             <TextInput
-              style={Styles.inputText}
+              style={globalStyles.inputText}
               placeholder={"Tempo de resposta(ms): " + this.state.delay}
               onEndEditing={text => {
                 this.setState({ delay: text.nativeEvent.text });
@@ -104,7 +111,7 @@ export default class Config extends Component {
 
           <View style={Styles.containerButtons}>
             <TouchableOpacity
-              style={Styles.button}
+              style={globalStyles.button}
               onPress={() => {
                 try {
                   Src.checkIp(this.state.serverIpTemp);
@@ -138,17 +145,17 @@ export default class Config extends Component {
                 }
               }}
             >
-              <Text style={Styles.textButtons}>Salvar</Text>
+              <Text style={globalStyles.textButtons}>Salvar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={Styles.button}
+              style={globalStyles.button}
               onPress={() => {
                 Src.buttonResetPressed();
                 this.props.navigation.navigate("Main");
               }}
             >
-              <Text style={Styles.textButtons}>Redefinir</Text>
+              <Text style={globalStyles.textButtons}>Redefinir</Text>
             </TouchableOpacity>
           </View>
 

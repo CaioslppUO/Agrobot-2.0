@@ -2,15 +2,17 @@ import { StyleSheet } from "react-native";
 import { colors } from "../../styles";
 
 export default StyleSheet.create({
+  mainContainer: {
+    alignItems: "stretch"
+  },
   joystickView: {
     justifyContent: "center",
     alignItems: "center",
     height: "47%"
   },
-  incDecArea: {
-    marginTop: 7,
-    width: 35,
-    height: 35,
+  buttonContactArea: {
+    width: 30,
+    height: 30,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -21,12 +23,7 @@ export default StyleSheet.create({
   handlerView: {
     backgroundColor: colors.internalJoystick
   },
-  mainContainer: {
-    backgroundColor: colors.backgroundDefault,
-    flex: 1,
-    justifyContent: "space-around"
-  },
-  powerButtonsContainer: {
+  secondaryButtonContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around"
@@ -73,17 +70,15 @@ export default StyleSheet.create({
   },
   speedText: {
     fontSize: 20,
-    justifyContent: "center",
-    marginLeft: "5%",
-    margin: 5
+    justifyContent: "center"
   },
   incDecText: {
-    fontSize: 35,
-    margin: -7
+    fontSize: 35
   },
   topBarSliderView: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    alignItems: "center"
   }
 });

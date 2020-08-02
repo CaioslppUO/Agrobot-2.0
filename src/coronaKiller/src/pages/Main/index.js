@@ -1,14 +1,21 @@
 import React, { Component } from "react";
-import { View,TouchableOpacity,Text,Slider,Picker,
-  Dimensions } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Slider,
+  Picker,
+  Dimensions
+} from "react-native";
 import AxisPad from "react-native-axis-pad";
 import Styles from "./styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Footer from "../../footer";
+import { globalStyles } from "../../styles";
 import Src from "./src.js";
 
 // Controla o código fonte.
-const src = new Src()
+const src = new Src();
 
 export default class Main extends Component {
   state = {
@@ -57,11 +64,7 @@ export default class Main extends Component {
 
     return (
       <>
-        {/*View principal*/}
-        <View style={Styles.mainContainer}>
-
-
-          {/* View do joystick */}
+        <View style={[globalStyles.mainContainer, Styles.mainContainer]}>
           <View style={Styles.joystickView}>
             <AxisPad
               size={JoystickSize}
@@ -75,7 +78,11 @@ export default class Main extends Component {
                 joystick_x = x;
                 joystick_y = y;
                 if (global.communicationInterval === 5) {
-                  src.sendManualCommand(joystick_x, joystick_y, global.sliderSensibility);
+                  src.sendManualCommand(
+                    joystick_x,
+                    joystick_y,
+                    global.sliderSensibility
+                  );
                   global.communicationInterval = 0;
                 } else {
                   if (joystick_x == 0 && joystick_y == 0) {
@@ -93,10 +100,8 @@ export default class Main extends Component {
             />
           </View>
 
-          {/* View dos botões*/}
           <View style={Styles.containerButtons}>
-            <View style={Styles.powerButtonsContainer}>
-              {/*Botão da placa A*/}
+            <View style={Styles.secondaryButtonContainer}>
               <TouchableOpacity
                 style={Styles.actionButton}
                 onPress={() => {
@@ -114,7 +119,6 @@ export default class Main extends Component {
                 />
               </TouchableOpacity>
 
-              {/*Botão da lâmpada UV*/}
               <TouchableOpacity
                 style={Styles.actionButton}
                 onPress={() => {
@@ -132,7 +136,6 @@ export default class Main extends Component {
                 />
               </TouchableOpacity>
 
-              {/*Botão ligar modo automático*/}
               <TouchableOpacity
                 style={Styles.actionButton}
                 onPress={() => {
@@ -148,8 +151,7 @@ export default class Main extends Component {
               </TouchableOpacity>
             </View>
 
-            {/*Botão parar robô*/}
-            <View style={Styles.powerButtonsContainer}>
+            <View style={Styles.secondaryButtonContainer}>
               <TouchableOpacity
                 style={Styles.stopButton}
                 onPress={() => {
@@ -164,13 +166,10 @@ export default class Main extends Component {
             </View>
           </View>
 
-          {/* View do slider*/}
           <View style={Styles.sliderContainer}>
-            {/* View dos botões + e - e do valor de speed */}
             <View style={Styles.topBarSliderView}>
-              {/* Botão de - para diminuir o valor do slider */}
               <TouchableOpacity
-                style={Styles.incDecArea}
+                style={Styles.buttonContactArea}
                 onPress={() => {
                   if (this.state.limitSliderValue > 0) {
                     global.limit = this.state.limitSliderValue - 1;
@@ -187,9 +186,8 @@ export default class Main extends Component {
                 Velocidade {this.state.limitSliderValue}%{" "}
               </Text>
 
-              {/* Botão de + para aumentar o valor do slider */}
               <TouchableOpacity
-                style={Styles.incDecArea}
+                style={Styles.buttonContactArea}
                 onPress={() => {
                   if (this.state.limitSliderValue < 100) {
                     global.limit = this.state.limitSliderValue + 1;
@@ -203,7 +201,6 @@ export default class Main extends Component {
               </TouchableOpacity>
             </View>
 
-            {/*Slider*/}
             <Slider
               maximumValue={100}
               minimumValue={0}
