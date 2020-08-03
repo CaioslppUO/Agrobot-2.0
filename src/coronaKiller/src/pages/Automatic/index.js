@@ -54,8 +54,8 @@ export default class Automatic extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           {/*View principal*/}
           <View style={globalStyles.mainContainer}>
+            {/*Titulo da pagina*/}
             <Text style={globalStyles.title}>Parâmetros</Text>
-
             {/*View dos campos de preenchimento de comunicação*/}
             <View style={Styles.boxesContainer}>
               <TextInput

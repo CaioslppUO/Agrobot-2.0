@@ -51,9 +51,7 @@ export default class Config extends Component {
         <View style={globalStyles.mainContainer}>
           <View />
 
-          <View style={Styles.containerCommunication}>
-            <Text style={globalStyles.title}>Comunicação</Text>
-          </View>
+          <Text style={globalStyles.title}>Comunicação</Text>
 
           {/*View dos campos de preenchimento de comunicação*/}
           <View style={Styles.textInputContainer}>
@@ -67,7 +65,6 @@ export default class Config extends Component {
                 this.setState({ serverIpTemp: text });
               }}
             />
-
             <TextInput
               style={globalStyles.inputText}
               placeholder={"Porta: " + this.state.port}
@@ -78,7 +75,6 @@ export default class Config extends Component {
                 this.setState({ portTemp: text });
               }}
             />
-
             <TextInput
               style={globalStyles.inputText}
               placeholder={"Tempo de resposta(ms): " + this.state.delay}
