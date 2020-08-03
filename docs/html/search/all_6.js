@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['information_61',['information',['../main_8ino.html#a6d8ad146b9f7b79127f1f463f888fd43',1,'main.ino']]]
+  ['readinfo_8',['readinfo',['../main_8ino.html#a90872048bafeb9b26f383f6dcb98b539',1,'main.ino']]],
+  ['readuart_9',['readUart',['../main_8ino.html#ae6dc3d16071afd7076911d79962660a2',1,'main.ino']]],
+  ['requestevent_10',['requestEvent',['../main_8ino.html#ac10b80b8aaeaf66cecbf0bb5eff5ae33',1,'main.ino']]]
 ];

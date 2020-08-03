@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['anonymous_218',['anonymous',['../namespacecontroller.html#a4e3da5e99a7e5f96ff055ffa7a7b412b',1,'controller.anonymous()'],['../namespacecommand__priority__decider.html#a87a0fe3728e11c6257ea4b1fb8467d46',1,'command_priority_decider.anonymous()'],['../namespaceweb__server.html#a191a245f0aaa2f0b7a1f50e49222abc1',1,'web_server.anonymous()'],['../namespacecommand__assembler.html#a2d6e6768bfac907e74bbf9315421df8f',1,'command_assembler.anonymous()'],['../namespacecomputational__vision.html#a30b4eda059cf57ee718fb8031db96e84',1,'computational_vision.anonymous()'],['../namespacecontrol__robot.html#a1837a5e057063e38dceaa0f9a12f5431',1,'control_robot.anonymous()'],['../namespacelogs.html#a11ef8653577d90c7c26ccce274dde6b9',1,'logs.anonymous()'],['../namespacemanual__control.html#aae2910a8e9866b5ba50f578502981a27',1,'manual_control.anonymous()'],['../namespacerelay.html#a6dcf8e25f76350a6b3bdb9cfbb31b881',1,'relay.anonymous()']]],
-  ['assembler_219',['assembler',['../namespacecommand__assembler.html#a5bbc07dc04142d942bc3d90fbd17ae46',1,'command_assembler']]]
+  ['information_28',['information',['../main_8ino.html#a6d8ad146b9f7b79127f1f463f888fd43',1,'main.ino']]]
 ];
