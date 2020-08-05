@@ -1,32 +1,46 @@
-//Variáveis de controle globais
-global.speed = 0;
-global.steer = 0;
-global.limit = 50;
-global.minPulverizeSpeed = 0;
+import LocalData from "../utils/localData";
+import DefaultConfig from "./default";
 
-//Variáveis de energia(liga/desliga)
-global.powerA = 0;
-global.powerB = 0;
-global.pulverize = 0;
+// Controla o carregamento e a gravação das variáveis na memória.
+const localData = new LocalData();
 
-//Variáveis de comunicação
-global.serverIp = "192.168.1.2";
-global.port_manual = "8080";
-global.comunication_delay = 50;
-global.comunication_interval = 0;
+// Utilizado para navegação de páginas.
+global.props = {};
 
-//Variáveis de controle automático
-global.speed_auto = -26;
-global.steer_auto = -3;
-global.limit_auto = 50;
-global.correction_movements = 5;
-global.correction_factor = 10;
+// Variáveis de controle globais.
+global.speed = DefaultConfig.speed();
+global.steer = DefaultConfig.steer();
+global.limit = DefaultConfig.limit();
+global.sliderSensibility = DefaultConfig.sliderSensibility();
 
-global.serverIp_auto = "192.168.1.121";
-global.port_auto = "8082";
-global.move_time_auto = 0;
-global.stop_time_auto = 0;
-global.detect_distance = 1.5;
+// Variáveis de energia(liga/desliga).
+global.power = DefaultConfig.power();
+global.uv = DefaultConfig.uv();
 
-//Variáveis de informação
-global.version = "2.3.8";
+// Variáveis de conexão.
+global.roscoreServerIp = DefaultConfig.roscoreServerIp();
+global.lidarServerIp = DefaultConfig.lidarServerIp();
+global.roscoreServerPort = DefaultConfig.roscoreServerPort();
+global.lidarServerPort = DefaultConfig.lidarServerPort();
+
+// Variáveis de controle de comunicação.
+global.communicationDelay = DefaultConfig.communicationDelay();
+global.communicationInterval = DefaultConfig.communicationInterval();
+
+//Variáveis de controle automático.
+global.speedAuto = DefaultConfig.speedAuto();
+global.steerAuto = DefaultConfig.steerAuto();
+global.limitAuto = DefaultConfig.limitAuto();
+
+global.correctionMovements = DefaultConfig.correctionMovements();
+global.correctionFactor = DefaultConfig.correctionFactor();
+
+global.moveTime = DefaultConfig.moveTime();
+global.stopTime = DefaultConfig.stopTime();
+global.detectDistance = DefaultConfig.detectDistance();
+
+//Variáveis de informação.
+global.version = "0.8.8";
+
+// Recuperando as variáveis previamente guardadas.
+localData.retrieveData();

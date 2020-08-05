@@ -4,21 +4,27 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
-  BackHandler
+  BackHandler,
+  Slider
 } from "react-native";
-import styles from "./styles";
+import Styles from "./styles";
+import Footer from "../../footer";
+import LocalData from "../../utils/localData";
+import Src from "./src";
+import { globalStyles } from "../../styles";
+
+// Controla o carregamento e a gravação das variáveis na memória.
+const localData = new LocalData();
 
 export default class Config extends Component {
-  //Variáveis da classe
   state = {
-    serverIp: global.serverIp,
-    port: global.port_manual,
-    minPSpeed: global.minPulverizeSpeed,
-    delay: global.comunication_delay,
-    serverIp_temp: global.serverIp,
-    port_temp: global.port_manual,
-    minPSpeed_temp: global.minPulverizeSpeed,
-    delay_temp: global.comunication_delay
+    serverIp: global.roscoreServerIp,
+    port: global.roscoreServerPort,
+    delay: global.communicationDelay,
+    serverIpTemp: global.roscoreServerIp,
+    portTemp: global.roscoreServerPort,
+    delayTemp: global.communicationDelay,
+    sliderValue: global.sliderSensibility
   };
 
   //Opções do controlador de navegação de páginas
@@ -42,93 +48,114 @@ export default class Config extends Component {
     return (
       <>
         {/*View principal*/}
-        <View style={styles.mainContainer}>
-          <View style={styles.espassamento} />
-          <View style={styles.containerCommunication}>
-            <Text style={styles.comunication}>Comunicação</Text>
-          </View>
+        <View style={globalStyles.mainContainer}>
+          <View />
+
+          <Text style={globalStyles.title}>Comunicação</Text>
 
           {/*View dos campos de preenchimento de comunicação*/}
-          <View style={styles.textInputContainer}>
+          <View style={Styles.textInputContainer}>
             <TextInput
-              style={styles.textDefault}
+              style={globalStyles.inputText}
               placeholder={"IP do robô: " + this.state.serverIp}
               onEndEditing={text => {
                 this.setState({ serverIp: text.nativeEvent.text });
               }}
               onChangeText={text => {
-                this.setState({ serverIp_temp: text })
+                this.setState({ serverIpTemp: text });
               }}
             />
-
             <TextInput
-              style={styles.textDefault}
+              style={globalStyles.inputText}
               placeholder={"Porta: " + this.state.port}
               onEndEditing={text => {
                 this.setState({ port: text.nativeEvent.text });
               }}
               onChangeText={text => {
-                this.setState({ port_temp: text })
+                this.setState({ portTemp: text });
               }}
             />
-
             <TextInput
-              style={styles.textDefault}
+              style={globalStyles.inputText}
               placeholder={"Tempo de resposta(ms): " + this.state.delay}
               onEndEditing={text => {
                 this.setState({ delay: text.nativeEvent.text });
               }}
               onChangeText={text => {
-                this.setState({ delay_temp: text })
-              }}
-            />
-
-            <TextInput
-              style={styles.textDefault}
-              placeholder={"Vel. mínima para pulv.: " + this.state.minPSpeed}
-              onEndEditing={text => {
-                this.setState({ minPSpeed: text.nativeEvent.text });
-              }}
-              onChangeText={text => {
-                this.setState({ minPSpeed_temp: text })
+                this.setState({ delayTemp: text });
               }}
             />
           </View>
-          {/*View do botão de salvar*/}
-          <View style={styles.saveContainer}>
+
+          <View style={Styles.sliderContainer}>
+            <Slider
+              maximumValue={100}
+              minimumValue={0}
+              value={this.state.sliderValue}
+              onValueChange={sliderValue => {
+                this.setState({ sliderValue });
+              }}
+              style={Styles.slider}
+              step={1}
+            />
+            <View>
+              <Text style={Styles.textSlider}>
+                Sensibilidade joystick {this.state.sliderValue}%{" "}
+              </Text>
+            </View>
+          </View>
+
+          <View style={Styles.containerButtons}>
             <TouchableOpacity
+              style={globalStyles.button}
               onPress={() => {
-                let lastIp = global.serverIp;
-                let lastMPS = global.minPulverizeSpeed;
-                global.minPulverizeSpeed = this.state.minPSpeed_temp;
-                global.serverIp = this.state.serverIp_temp;
-                global.port_manual = this.state.port_temp;
-                global.comunication_delay = parseFloat(this.state.delay_temp);
+                try {
+                  Src.checkIp(this.state.serverIpTemp);
+                  Src.checkPort(this.state.portTemp);
+                  Src.checkDelay(this.state.delayTemp);
 
-                if (global.serverIp.split(".").length != 4) {
-                  alert("Invalid IP");
-                  global.serverIp = lastIp;
+                  global.roscoreServerIp = String(this.state.serverIpTemp);
+                  global.roscoreServerPort = String(this.state.portTemp);
+                  global.communicationDelay = parseFloat(this.state.delayTemp);
+                  global.sliderSensibility = parseInt(this.state.sliderValue);
+
+                  localData.storeData(
+                    "roscoreServerIp",
+                    String(this.state.serverIpTemp)
+                  );
+                  localData.storeData(
+                    "roscoreServerPort",
+                    String(this.state.portTemp)
+                  );
+                  localData.storeData(
+                    "communicationDelay",
+                    String(this.state.delayTemp)
+                  );
+                  localData.storeData(
+                    "sliderSensibility",
+                    String(this.state.sliderValue)
+                  );
+                  this.props.navigation.navigate("Main");
+                } catch (err) {
+                  alert(err);
                 }
+              }}
+            >
+              <Text style={globalStyles.textButtons}>Salvar</Text>
+            </TouchableOpacity>
 
-                if (
-                  global.minPulverizeSpeed < 0 ||
-                  global.minPulverizeSpeed > 100
-                ) {
-                  alert("Invalid Min Pulverize speed");
-                  global.minPulverizeSpeed = lastMPS;
-                }
-
+            <TouchableOpacity
+              style={globalStyles.button}
+              onPress={() => {
+                Src.buttonResetPressed();
                 this.props.navigation.navigate("Main");
               }}
             >
-              <Text style={styles.saveText}>Salvar</Text>
+              <Text style={globalStyles.textButtons}>Redefinir</Text>
             </TouchableOpacity>
           </View>
 
-          {/*View da versão*/}
-          <View style={styles.versionContainer}>
-            <Text style={styles.versionText}>V {global.version}</Text>
-          </View>
+          <Footer />
         </View>
       </>
     );
