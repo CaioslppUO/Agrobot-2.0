@@ -1,7 +1,7 @@
 /** Classe que controla a comunicação com os servidores no raspberry. */
 export default WebServer = {
   /**  Envia a mensagem de controle para o servidor do roscore. */
-  sendToRoscoreServer(speed, steer, limit, power, uv) {
+  sendToRoscoreServer(speed, steer, limit, power, pulverize) {
     command =
       "http://" + global.roscoreServerIp + ":" + global.roscoreServerPort +
       "/" +
@@ -10,7 +10,7 @@ export default WebServer = {
       "limit$" + limit + "*" +
       "powerA$" + power + "*" +
       "powerB$" + 0 + "*" +
-      "pulverize$" + uv;
+      "pulverize$" + pulverize;
     new WebSocket(command);
   },
   /**  Envia a mensagem de controle para o servidor do lidar. */
@@ -31,7 +31,7 @@ export default WebServer = {
       "steer$" + steerDefault + "*" +
       "speed$" + speedDefault + "*" +
       "shift$" + shiftDirection + "*" +
-      "uv$" + global.uv + "*" +
+      "uv$" + global.pulverize + "*" +
       "detect$" + global.detectDistance + "*" +
       "move$" + moveTimeAuto + "*" +
       "stop$" + stopTimeAuto;

@@ -9,6 +9,9 @@ export default DefaultConfig = {
   limit: function () {
     return 50
   },
+  minPulverizeSpeed: function() {
+    return 20
+  },
   sliderSensibility: function () {
     return 50
   },
@@ -17,7 +20,7 @@ export default DefaultConfig = {
   power: function () {
     return 0
   },
-  uv: function () {
+  pulverize: function () {
     return 0
   },
 

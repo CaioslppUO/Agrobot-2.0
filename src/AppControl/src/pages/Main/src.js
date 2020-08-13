@@ -13,13 +13,23 @@ export default class Src {
         global.speed = -Math.round(joystick_y * sliderSensibility);
         global.steer = Math.round(joystick_x * sliderSensibility);
         setTimeout(() => {
-          WebServer.sendToRoscoreServer(
-            global.speed,
-            global.steer,
-            global.limit,
-            0,
-            global.uv
-          );
+          if(global.speed >= global.minPulverizeSpeed) {
+            WebServer.sendToRoscoreServer(
+              global.speed,
+              global.steer,
+              global.limit,
+              0,
+              global.pulverize
+            );
+          }else {
+            WebServer.sendToRoscoreServer(
+              global.speed,
+              global.steer,
+              global.limit,
+              0,
+              0
+            );
+          }
         }, global.communicationDelay);
       }
 
@@ -33,10 +43,9 @@ export default class Src {
         this.sendSignalToRelay("Power");
     }
 
-    /** Envia os valores corretos para ligar a lâmpada UV. */
-    uvButtonPressed() {
-        global.uv = global.uv == 0 ? 1 : 0;
-        WebServer.sendToRoscoreServer(0, 0, 0, 0, global.uv);
+    /** Envia os valores corretos para ligar o pulverizador. */
+    pulverizeButtonPressed() {
+        global.pulverize = global.pulverize === 0 ?  1: 0
     }
 
     /** Liga/desliga o modo de controle automático. */

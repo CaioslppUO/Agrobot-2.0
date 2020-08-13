@@ -21,7 +21,7 @@ export default class Main extends Component {
   state = {
     limitSliderValue: 50,
     buttonPowerColor: "#f00",
-    buttonUvColor: "#000",
+    buttonPulverizeColor: "#000",
     buttonAutoColor: "#000",
     autoMode: 0,
     menuItem: 0,
@@ -123,16 +123,16 @@ export default class Main extends Component {
                 style={Styles.actionButton}
                 onPress={() => {
                   this.setState({
-                    buttonUvColor:
-                      this.state.buttonUvColor == "#000" ? "#993399" : "#000"
+                    buttonPulverizeColor:
+                      this.state.buttonPulverizeColor == "#000" ? "#993399" : "#000"
                   });
-                  src.uvButtonPressed();
+                  src.pulverizeButtonPressed();
                 }}
               >
                 <Icon
                   name="lightbulb-o"
                   size={30}
-                  color={this.state.buttonUvColor}
+                  color={this.state.buttonPulverizeColor}
                 />
               </TouchableOpacity>
 
@@ -156,7 +156,7 @@ export default class Main extends Component {
                 style={Styles.stopButton}
                 onPress={() => {
                   this.setState({ buttonAutoColor: "#000" });
-                  this.setState({ buttonUvColor: "#000" });
+                  this.setState({ buttonPulverizeColor: "#000" });
                   src.stopRobot();
                   this.setState({ autoMode: 0 });
                 }}

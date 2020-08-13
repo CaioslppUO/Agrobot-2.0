@@ -11,11 +11,12 @@ global.props = {};
 global.speed = DefaultConfig.speed();
 global.steer = DefaultConfig.steer();
 global.limit = DefaultConfig.limit();
+global.minPulverizeSpeed = Default.minPulverizeSpeed();
 global.sliderSensibility = DefaultConfig.sliderSensibility();
 
 // Variáveis de energia(liga/desliga).
 global.power = DefaultConfig.power();
-global.uv = DefaultConfig.uv();
+global.pulverize = DefaultConfig.pulverize();
 
 // Variáveis de conexão.
 global.roscoreServerIp = DefaultConfig.roscoreServerIp();
@@ -40,7 +41,7 @@ global.stopTime = DefaultConfig.stopTime();
 global.detectDistance = DefaultConfig.detectDistance();
 
 //Variáveis de informação.
-global.version = "0.8.8";
+global.version = "0.9.0";
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();
