@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['information_2',['information',['../main_8ino.html#a6d8ad146b9f7b79127f1f463f888fd43',1,'main.ino']]]
+  ['bool_6',['bool',['../namespacerelay.html#a6f84e2b4bfb71def6b97696f4bd869b0',1,'relay']]]
 ];

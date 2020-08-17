@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['launcher_5fvariables_2epy_159',['launcher_variables.py',['../launcher__variables_8py.html',1,'']]],
-  ['logs_2epy_160',['logs.py',['../logs_8py.html',1,'']]]
+  ['get_5fangle_2epy_199',['get_angle.py',['../get__angle_8py.html',1,'']]]
 ];

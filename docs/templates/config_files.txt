@@ -1,0 +1,8 @@
+-> Padrões de nomeclatura:
+
+    * nomeclatura de parâmetro: nome_do_parâmetro
+    * nomeclatura de arquivo: nome_do_arquivo.cfg
+
+-> Regras gerais:
+
+    * O nome do parâmetro e o valor do parâmetro devem estar separados pelo símbolo ':' (dois pontos).

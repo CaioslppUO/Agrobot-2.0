@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['manual_5fcontrol_150',['manual_control',['../namespacemanual__control.html',1,'']]]
+  ['lidar_5freader_183',['lidar_reader',['../namespacelidar__reader.html',1,'']]],
+  ['logs_184',['logs',['../namespacelogs.html',1,'']]]
 ];

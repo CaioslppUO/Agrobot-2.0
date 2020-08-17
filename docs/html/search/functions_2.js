@@ -1,4 +1,25 @@
 var searchData=
 [
-  ['loop_23',['loop',['../main_8ino.html#afe461d27b9c48d5921c00d521181f12f',1,'main.ino']]]
+  ['calc_5fvelocity_211',['calc_velocity',['../namespacecomputational__vision.html#aac01eb0085b1e59d71fbc793ae4655ad',1,'computational_vision']]],
+  ['callback_212',['callback',['../classcommand__priority__decider_1_1Comunication.html#a494c7594f1e95e829db0a1a15adba57a',1,'command_priority_decider.Comunication.callback()'],['../classrelay_1_1Relay.html#aa3f15a8cf11b64bd463c87dfe4d7946d',1,'relay.Relay.callback()'],['../namespacelogs.html#a56f32d5b0fcc8b964b988ccc24095e84',1,'logs.callback()']]],
+  ['callback_5fapp_5fmsg_213',['callback_app_msg',['../classcontrol__lidar_1_1Control__lidar.html#aa5edc5356f910e8c2b2c9797e7ccd412',1,'control_lidar::Control_lidar']]],
+  ['callback_5fcomunication_214',['callback_comunication',['../classcommand__assembler_1_1Assembler.html#a673ddf36cb41914f32e8811696e425ec',1,'command_assembler::Assembler']]],
+  ['callback_5flidar_215',['callback_lidar',['../classcontrol__lidar_1_1Control__lidar.html#aa3e39d97ae3a70c26390755671de660b',1,'control_lidar::Control_lidar']]],
+  ['callback_5flidar_5fscan_216',['callback_lidar_scan',['../namespacelidar__reader.html#ab0aeba4424ba8bf594d81e72d3bfa1f6',1,'lidar_reader']]],
+  ['callback_5fparamserver_217',['callback_paramserver',['../namespacelidar__reader.html#a86693de4be027d41612b59d715c52d7f',1,'lidar_reader']]],
+  ['callback_5fset_5fvalues_218',['callback_set_values',['../classcontrol__robot_1_1Control__robot.html#af242e5162fa5e875d858f3c839038a31',1,'control_robot::Control_robot']]],
+  ['callback_5fshutdown_219',['callback_shutdown',['../namespacecontroller.html#aaec88aec8d2a8e923f03d0b2a6d7b6cc',1,'controller.callback_shutdown()'],['../namespacecommand__priority__decider.html#a9cca7bad00dd718d912010e5988e88e5',1,'command_priority_decider.callback_shutdown()'],['../namespaceweb__server.html#a5da96b92b6d3a1cc65ae2c85ec9557dc',1,'web_server.callback_shutdown()'],['../namespacecommand__assembler.html#a2064f87b7ecd43677f4cf9db37ddcd67',1,'command_assembler.callback_shutdown()'],['../namespacecontrol__robot.html#a58978b0b09f22cb6ca3f8ba7d5d442b4',1,'control_robot.callback_shutdown()'],['../namespacelogs.html#a3149fecb284e7dec7a51ff28f3c2d2d7',1,'logs.callback_shutdown()'],['../namespacerelay.html#ad888ca61e74eb545a0c92eb8fbfdf045',1,'relay.callback_shutdown()']]],
+  ['callback_5fwalk_220',['callback_walk',['../classcontrol__lidar_1_1Control__lidar.html#a9074acd6cc801d75e502c88fa5b65ce7',1,'control_lidar::Control_lidar']]],
+  ['check_5faccelerometer_221',['check_accelerometer',['../classcontrol__lidar_1_1Control__lidar.html#a9625e8abb80150a1d3335cb7c6c4828f',1,'control_lidar::Control_lidar']]],
+  ['check_5fdead_5farea_222',['check_dead_area',['../namespacecomputational__vision.html#aea606bdc3460f08fbbcd900177e1bff9',1,'computational_vision']]],
+  ['check_5fdirection_5fvalue_223',['check_direction_value',['../namespacecomputational__vision.html#a34399c77de43154a7913ae6dc7adc569',1,'computational_vision']]],
+  ['check_5ffoward_224',['check_foward',['../classcontrol__lidar_1_1Control__lidar.html#a31c8f9cd17499a8cb42c0d0b463c9c1e',1,'control_lidar::Control_lidar']]],
+  ['check_5flimit_225',['check_limit',['../classcommand__standardizer_1_1Command__standardizer.html#ae1a03dc70ef15e66648f12c408095cca',1,'command_standardizer::Command_standardizer']]],
+  ['check_5fmove_5fpermission_226',['check_move_permission',['../classcontrol__lidar_1_1Control__lidar.html#aa258f84bb6d2b54557e88d6c1ed31cb5',1,'control_lidar::Control_lidar']]],
+  ['check_5frelays_227',['check_relays',['../classcommand__standardizer_1_1Command__standardizer.html#a5d2db676e498e9755f1c55885a96de30',1,'command_standardizer::Command_standardizer']]],
+  ['check_5frepeated_5fcontrols_228',['check_repeated_controls',['../classcommand__assembler_1_1Assembler.html#aef6ec199a12bcb039a789e0d049cf3b7',1,'command_assembler::Assembler']]],
+  ['check_5fspeed_229',['check_speed',['../classcommand__standardizer_1_1Command__standardizer.html#ae001507f4f52c8febfa2bf68dd258cc1',1,'command_standardizer::Command_standardizer']]],
+  ['check_5fsteer_230',['check_steer',['../classcommand__standardizer_1_1Command__standardizer.html#a37be267a1d5fee6a66261919d6fe2a04',1,'command_standardizer::Command_standardizer']]],
+  ['check_5ftick_231',['check_tick',['../classcontrol__lidar_1_1Control__lidar.html#a8367a91574abdf3ed6d170c86c138f76',1,'control_lidar::Control_lidar']]],
+  ['clean_5flog_5ffiles_232',['clean_log_files',['../namespacelogs.html#acb8581d34551cfa2ff7d758e8fa664d0',1,'logs']]]
 ];

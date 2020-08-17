@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eventserial_22',['EventSerial',['../main_8ino.html#af98a493eca41f334866d9f1626cc64c5',1,'main.ino']]]
+  ['ajust_5fangle_210',['ajust_angle',['../namespacecomputational__vision.html#abf205e1f0b2d0f9fe57215a197c79dee',1,'computational_vision']]]
 ];

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>agrobot_lidar</name>
+  <version>1.0.0</version>
+  <description>The agrobot_lidar package</description>
+
+  <maintainer email="caioslppuo@gmail.com">Caio Cezar das Neves Moreira</maintainer>
+  <maintainer email="lucasgrafimar@gmail.com">Lucas Garavaglia</maintainer>
+
+  <license>MIT</license>
+
+  <url type="repository">http://github.com/CaioslppUO/Agrobot-2.0</url>
+
+  <author email="caioslppuo@gmail.com">Caio Cezar das Neves Moreira</author>
+  <author email="lucasgrafimar@gmail.com">Lucas Garavaglia</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+</package>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['limit_29',['Limit',['../main_8ino.html#a6fac9866655c7ad72f728800ed0e3e98',1,'main.ino']]]
+  ['bool_280',['bool',['../namespacerelay.html#a6f84e2b4bfb71def6b97696f4bd869b0',1,'relay']]]
 ];

@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['uart_5famount_123',['uart_amount',['../classlauncher__variables_1_1Launcher__variables.html#a0c93bb29151806e21f2dc3d8c8ae71c1',1,'launcher_variables.Launcher_variables.uart_amount()'],['../classcontrol__robot_1_1Control__robot.html#a543922eccc1e9c6e95947c8024cfa478',1,'control_robot.Control_robot.uart_amount()']]]
+  ['select_5fpoints_127',['select_points',['../namespacelidar__reader.html#aeb0da566e6617f7ceed5a068d511a9a8',1,'lidar_reader']]],
+  ['send_5fcomands_128',['send_comands',['../classcommand__assembler_1_1Assembler.html#a94fa55238008fe1c83a44451aab70910',1,'command_assembler::Assembler']]],
+  ['send_5fcommand_129',['send_command',['../namespacemanual__control.html#a37f9d7dafe53e023d0828261578d6095',1,'manual_control']]],
+  ['send_5fcontrol_5fcommand_130',['send_control_command',['../classcommand__assembler_1_1Assembler.html#a94c9c6fe6a13cd663aa1605a7d1bda1d',1,'command_assembler::Assembler']]],
+  ['send_5fmessage_131',['send_message',['../namespacelidar__reader.html#aefd69014bb95d511c0706d152166d6cc',1,'lidar_reader']]],
+  ['send_5frelay_5fcommand_132',['send_relay_command',['../classcommand__assembler_1_1Assembler.html#a03107e18a3ef033a8f0413dce0923421',1,'command_assembler::Assembler']]],
+  ['send_5fsignal_5fto_5fboard_5fone_133',['send_signal_to_board_one',['../classrelay_1_1Relay.html#a3cce5eaecd9ff71c6303f1e1576a3167',1,'relay::Relay']]],
+  ['send_5fsignal_5fto_5fboard_5ftwo_134',['send_signal_to_board_two',['../classrelay_1_1Relay.html#a838fddb10dee6a822dd52fdd73809419',1,'relay::Relay']]],
+  ['send_5fsignal_5fto_5fpulverizer_135',['send_signal_to_pulverizer',['../classrelay_1_1Relay.html#a6a33c27ab3e1e26d943caf3e9541145e',1,'relay::Relay']]],
+  ['separator_136',['separator',['../classcommand__priority__decider_1_1Comunication.html#a165076f9876fada6bacdd2e8624b3f12',1,'command_priority_decider::Comunication']]],
+  ['server_5faddress_5fhttpd_137',['server_address_httpd',['../classweb__server_1_1Web__server.html#a3f4eae2b97ab9d0f083dd835a1b2ba5f',1,'web_server.Web_server.server_address_httpd()'],['../classparam__server_1_1Param__server.html#aba6d2d2ddade10d6c5323f9d611b290a',1,'param_server.Param_server.server_address_httpd()']]],
+  ['server_5fip_138',['server_ip',['../classparam__server_1_1Param__server.html#a8305fe14f0572970ded0819ce0bb5ddf',1,'param_server::Param_server']]],
+  ['server_5fthread_139',['server_thread',['../classweb__server_1_1Web__server.html#ad854b74b5f2ff1959e612e2748e726d7',1,'web_server.Web_server.server_thread()'],['../classparam__server_1_1Param__server.html#afcf9181f9f5bcc8c6086417bcee478be',1,'param_server.Param_server.server_thread()']]],
+  ['set_5fcolor_140',['set_color',['../namespaceconfig__launcher.html#a948933e28b74ed15173bb169462464e3',1,'config_launcher.set_color()'],['../namespacecontroller.html#a72abe4185a70958d50a4a5d0b10d8bf5',1,'controller.set_color()'],['../namespaceweb__server.html#a9cfbed5d30c1f6b621baea864af34622',1,'web_server.set_color()'],['../namespacecontrol__robot.html#a84327e3c31562899b4f1f1e2cefd6f96',1,'control_robot.set_color()'],['../namespacerelay.html#a5a5be43623e68c63be7cfe44e441a6c8',1,'relay.set_color()']]],
+  ['set_5fsteer_141',['set_steer',['../classcontrol__lidar_1_1Control__lidar.html#a4e6c32d94487e4bafbc79bb29bb9d050',1,'control_lidar::Control_lidar']]],
+  ['set_5fuart_142',['set_uart',['../namespacecontrol__robot.html#a5871d62bd5943ebf59aaf19de3dbefc3',1,'control_robot']]],
+  ['set_5fvalues_143',['set_values',['../classcontrol__robot_1_1Control__robot.html#abda679cacceb9e9b90cefebfffa29824',1,'control_robot::Control_robot']]],
+  ['set_5fwalk_5fby_144',['set_walk_by',['../namespacewalk__and__stop.html#a22ebf6490045d74d9744b6f00654110b',1,'walk_and_stop']]],
+  ['speed_145',['speed',['../classcontrol__robot_1_1Control__robot.html#aee1623facec699c6e664b81a4cac8308',1,'control_robot.Control_robot.speed()'],['../classcontrol__lidar_1_1Control__lidar.html#ae9d51bd3545dbbd20ba0f697404cfbde',1,'control_lidar.Control_lidar.speed()']]],
+  ['standart_5fdata_146',['standart_data',['../classcontrol__lidar_1_1Control__lidar.html#a0de61c6e741959ce0b5f060cbeb21cc7',1,'control_lidar::Control_lidar']]],
+  ['steer_147',['steer',['../classcontrol__robot_1_1Control__robot.html#a53a07eca29844413ecd600c16052118e',1,'control_robot.Control_robot.steer()'],['../classcontrol__lidar_1_1Control__lidar.html#a5d44fbd0f859ba5d7d9b651f928524d7',1,'control_lidar.Control_lidar.steer()']]],
+  ['store_5fparam_148',['store_param',['../classconfig__launcher_1_1Config__launcher.html#a84e43c59725f2ba244ef4cb3ac39164e',1,'config_launcher.Config_launcher.store_param()'],['../classcontrol__robot_1_1Control__robot.html#ac7fe9283f00f6a3b43c3be2f630cc00f',1,'control_robot.Control_robot.store_param()']]],
+  ['str_149',['str',['../namespaceconfig__launcher.html#adcba1eca114d28ee9e65b417764bbf48',1,'config_launcher.str()'],['../namespacecontroller.html#a7daf4711ba36c58a3578f28c069e6d71',1,'controller.str()'],['../namespaceweb__server.html#acb89b6110e286fd3ca582905db0877ec',1,'web_server.str()'],['../namespacecontrol__robot.html#a6a633c07c9d55c4be757a950a8c9d9c5',1,'control_robot.str()'],['../namespacelogs.html#aa855c4810d1d1330934ada6d4f435c1d',1,'logs.str()'],['../namespacerelay.html#a7bc82045caf26794e01ca5b986cb655d',1,'relay.str()']]],
+  ['string_150',['String',['../namespacemanual__control.html#a4afafe9ccbf84c01c41a42e02757af5a',1,'manual_control']]]
 ];

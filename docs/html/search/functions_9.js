@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['readinfo_203',['readinfo',['../main_8ino.html#a90872048bafeb9b26f383f6dcb98b539',1,'main.ino']]],
-  ['readuart_204',['readUart',['../main_8ino.html#ae6dc3d16071afd7076911d79962660a2',1,'main.ino']]],
-  ['requestevent_205',['requestEvent',['../main_8ino.html#ac10b80b8aaeaf66cecbf0bb5eff5ae33',1,'main.ino']]]
+  ['read_5flaunch_5fmode_261',['read_launch_mode',['../classconfig__launcher_1_1Config__launcher.html#a197eecfdd493b5afe952168e8e460fb5',1,'config_launcher::Config_launcher']]]
 ];

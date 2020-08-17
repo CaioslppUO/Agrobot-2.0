@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['power_7',['power',['../main_8ino.html#a0a923163c4d4ac8a2ecbf16f95d21fe2',1,'power():&#160;main.ino'],['../main_8ino.html#a0d5e23bac60070676b465522a140f5c7',1,'POWER():&#160;main.ino']]]
+  ['enable_5fvision_74',['enable_vision',['../namespacecomputational__vision.html#a9bd0bcf0cede4b19279182d09795588e',1,'computational_vision']]]
 ];
