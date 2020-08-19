@@ -26,6 +26,8 @@
 
    -> [O robô não liga.](soluções/solução_robo_nao_liga.md)
 
+   -> [O robô liga e depois de algúm tempo desliga.](soluções/solução_desligar_sozinho.md)
+
 ---
 
 **Erros com hardware:** 
