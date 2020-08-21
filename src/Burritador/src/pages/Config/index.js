@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   TextInput,
@@ -10,152 +10,126 @@ import {
 import Styles from './styles';
 import Footer from '../../footer';
 import LocalData from '../../utils/localData';
-// import Src from "./src";
+import Src from './src';
 import {globalStyles} from '../../styles';
 
 // Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData();
 
-export default class Config extends Component {
-  state = {
-    serverIp: global.roscoreServerIp,
-    port: global.roscoreServerPort,
-    delay: global.communicationDelay,
-    serverIpTemp: global.roscoreServerIp,
-    portTemp: global.roscoreServerPort,
-    delayTemp: global.communicationDelay,
-    sliderValue: global.sliderSensibility,
-  };
+export default function Config({navigation}) {
+  const [serverIp, setServerIp] = useState(global.roscoreServerIp);
+  const [port, setPort] = useState(global.roscoreServerPort);
+  const [delay, setDelay] = useState(global.communicationDelay);
+  const [serverIpTemp, setServerIpTemp] = useState(global.roscoreServerIp);
+  const [portTemp, setPortTemp] = useState(global.roscoreServerPort);
+  const [delayTemp, setDelayTemp] = useState(global.communicationDelay);
+  const [sliderValue, setSliderValue] = useState(global.sliderSensibility);
 
-  //Opções do controlador de navegação de páginas
-  // static navigationOptions = {
-  //   title: "Configuração",
-  //   headerTitleStyle: {
-  //     flexGrow: 1,
-  //     marginLeft: "25%"
-  //   }
-  // };
-
-  componentWillMount() {
+  useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {});
-  }
+  }, []);
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
-  }
+  // componentWillUnmount() {
+  // BackHandler.removeEventListener('hardwareBackPress', this.backPressed);
+  // }
 
-  render() {
-    return (
-      <>
-        {/*View principal*/}
-        <View style={globalStyles.mainContainer}>
-          <View />
+  return (
+    <>
+      {/*View principal*/}
+      <View style={globalStyles.mainContainer}>
+        <View />
 
-          <Text style={globalStyles.title}>Comunicação</Text>
+        <Text style={globalStyles.title}>Comunicação</Text>
 
-          {/*
-          <View style={Styles.textInputContainer}>
-            <TextInput
-              style={globalStyles.inputText}
-              placeholder={'IP do robô: ' + this.state.serverIp}
-              onEndEditing={(text) => {
-                this.setState({serverIp: text.nativeEvent.text});
-              }}
-              onChangeText={(text) => {
-                this.setState({serverIpTemp: text});
-              }}
-            />
-            <TextInput
-              style={globalStyles.inputText}
-              placeholder={'Porta: ' + this.state.port}
-              onEndEditing={(text) => {
-                this.setState({port: text.nativeEvent.text});
-              }}
-              onChangeText={(text) => {
-                this.setState({portTemp: text});
-              }}
-            />
-            <TextInput
-              style={globalStyles.inputText}
-              placeholder={'Tempo de resposta(ms): ' + this.state.delay}
-              onEndEditing={(text) => {
-                this.setState({delay: text.nativeEvent.text});
-              }}
-              onChangeText={(text) => {
-                this.setState({delayTemp: text});
-              }}
-            />
-          </View>
-
-          <View style={Styles.sliderContainer}>
-            <Slider
-              maximumValue={100}
-              minimumValue={0}
-              value={this.state.sliderValue}
-              onValueChange={(sliderValue) => {
-                this.setState({sliderValue});
-              }}
-              style={Styles.slider}
-              step={1}
-            />
-            <View>
-              <Text style={Styles.textSlider}>
-                Sensibilidade joystick {this.state.sliderValue}%{' '}
-              </Text>
-            </View>
-          </View>
-
-          <View style={Styles.containerButtons}>
-            <TouchableOpacity
-              style={globalStyles.button}
-              onPress={() => {
-                try {
-                  Src.checkIp(this.state.serverIpTemp);
-                  Src.checkPort(this.state.portTemp);
-                  Src.checkDelay(this.state.delayTemp);
-
-                  global.roscoreServerIp = String(this.state.serverIpTemp);
-                  global.roscoreServerPort = String(this.state.portTemp);
-                  global.communicationDelay = parseFloat(this.state.delayTemp);
-                  global.sliderSensibility = parseInt(this.state.sliderValue);
-
-                  localData.storeData(
-                    'roscoreServerIp',
-                    String(this.state.serverIpTemp),
-                  );
-                  localData.storeData(
-                    'roscoreServerPort',
-                    String(this.state.portTemp),
-                  );
-                  localData.storeData(
-                    'communicationDelay',
-                    String(this.state.delayTemp),
-                  );
-                  localData.storeData(
-                    'sliderSensibility',
-                    String(this.state.sliderValue),
-                  );
-                  this.props.navigation.navigate('Main');
-                } catch (err) {
-                  alert(err);
-                }
-              }}>
-              <Text style={globalStyles.textButtons}>Salvar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={globalStyles.button}
-              onPress={() => {
-                Src.buttonResetPressed();
-                this.props.navigation.navigate('Main');
-              }}>
-              <Text style={globalStyles.textButtons}>Redefinir</Text>
-            </TouchableOpacity>
-          </View> */}
-
-          <Footer />
+        <View style={Styles.textInputContainer}>
+          <TextInput
+            style={globalStyles.inputText}
+            placeholder={'IP do robô: ' + serverIp}
+            onEndEditing={(text) => {
+              setServerIp(text.nativeEvent.text);
+            }}
+            onChangeText={(text) => {
+              setServerIpTemp(text);
+            }}
+          />
+          <TextInput
+            style={globalStyles.inputText}
+            placeholder={'Porta: ' + port}
+            onEndEditing={(text) => {
+              setPort(text.nativeEvent.text);
+            }}
+            onChangeText={(text) => {
+              setPortTemp(text);
+            }}
+          />
+          <TextInput
+            style={globalStyles.inputText}
+            placeholder={'Tempo de resposta(ms): ' + delay}
+            onEndEditing={(text) => {
+              setDelay(text.nativeEvent.text);
+            }}
+            onChangeText={(text) => {
+              setDelayTemp(text);
+            }}
+          />
         </View>
-      </>
-    );
-  }
+
+        <View style={Styles.sliderContainer}>
+          <Slider
+            maximumValue={100}
+            minimumValue={0}
+            value={sliderValue}
+            onValueChange={(sliderValue) => {
+              setSliderValue(sliderValue);
+            }}
+            style={Styles.slider}
+            step={1}
+          />
+          <View>
+            <Text style={Styles.textSlider}>
+              Sensibilidade joystick {sliderValue}%{' '}
+            </Text>
+          </View>
+        </View>
+
+        <View style={Styles.containerButtons}>
+          <TouchableOpacity
+            style={globalStyles.button}
+            onPress={() => {
+              try {
+                Src.checkIp(serverIpTemp);
+                Src.checkPort(portTemp);
+                Src.checkDelay(delayTemp);
+
+                global.roscoreServerIp = String(serverIpTemp);
+                global.roscoreServerPort = String(portTemp);
+                global.communicationDelay = parseFloat(delayTemp);
+                global.sliderSensibility = parseInt(sliderValue);
+
+                localData.storeData('roscoreServerIp', String(serverIpTemp));
+                localData.storeData('roscoreServerPort', String(portTemp));
+                localData.storeData('communicationDelay', String(delayTemp));
+                localData.storeData('sliderSensibility', String(sliderValue));
+                navigation.navigate('Main');
+              } catch (err) {
+                alert(err);
+              }
+            }}>
+            <Text style={globalStyles.textButtons}>Salvar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={globalStyles.button}
+            onPress={() => {
+              Src.buttonResetPressed();
+              navigation.navigate('Main');
+            }}>
+            <Text style={globalStyles.textButtons}>Redefinir</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Footer />
+      </View>
+    </>
+  );
 }

@@ -1,40 +1,59 @@
 /** Classe que controla a comunicação com os servidores no raspberry. */
-export default WebServer = {
+export default function WebServer() {
   /**  Envia a mensagem de controle para o servidor do roscore. */
-  sendToRoscoreServer(speed, steer, limit, power, uv) {
+  function sendToRoscoreServer(speed, steer, limit, power, uv) {
     command =
-      "http://" + global.roscoreServerIp + ":" + global.roscoreServerPort +
-      "/" +
-      "0*speed$" + speed + "*" +
-      "steer$" + steer + "*" +
-      "limit$" + limit + "*" +
-      "powerA$" + power + "*" +
-      "powerB$" + 0 + "*" +
-      "pulverize$" + uv;
+      'http://' +
+      global.roscoreServerIp +
+      ':' +
+      global.roscoreServerPort +
+      '/0*speed$' +
+      speed +
+      '*steer$' +
+      steer +
+      '*limit$' +
+      limit +
+      '*powerA$' +
+      power +
+      '*powerB$' +
+      0 +
+      '*pulverize$' +
+      uv;
     new WebSocket(command);
-  },
+  }
   /**  Envia a mensagem de controle para o servidor do lidar. */
-  sendToLidarServer(
+  function sendToLidarServer(
     limit,
     tickDefault,
     steerDefault,
     speedDefault,
     shiftDirection,
     moveTimeAuto,
-    stopTimeAuto
+    stopTimeAuto,
   ) {
     command =
-      "http://" + global.lidarServerIp + ":" + global.lidarServerPort +
-      "/" +
-      "limit$" + limit + "*" +
-      "tick$" + tickDefault + "*" +
-      "steer$" + steerDefault + "*" +
-      "speed$" + speedDefault + "*" +
-      "shift$" + shiftDirection + "*" +
-      "uv$" + global.uv + "*" +
-      "detect$" + global.detectDistance + "*" +
-      "move$" + moveTimeAuto + "*" +
-      "stop$" + stopTimeAuto;
+      'http://' +
+      global.lidarServerIp +
+      ':' +
+      global.lidarServerPort +
+      '/limit$' +
+      limit +
+      '*tick$' +
+      tickDefault +
+      '*steer$' +
+      steerDefault +
+      '*speed$' +
+      speedDefault +
+      '*shift$' +
+      shiftDirection +
+      '*uv$' +
+      global.uv +
+      '*detect$' +
+      global.detectDistance +
+      '*move$' +
+      moveTimeAuto +
+      '*stop$' +
+      stopTimeAuto;
     new WebSocket(command);
   }
 }

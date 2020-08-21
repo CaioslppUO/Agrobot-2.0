@@ -39,9 +39,7 @@ export default function Connection({navigation}) {
         <View style={Styles.containerButtons}>
           <TouchableOpacity
             style={Styles.buttonTryConnection}
-            onPress={() => {
-              tryConnection();
-            }}>
+            onPress={tryConnection()}>
             <Text style={Styles.buttonTryText}>Estabelecer Conexão</Text>
           </TouchableOpacity>
           <View style={Styles.spacing} />

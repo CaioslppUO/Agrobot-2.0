@@ -1,11 +1,8 @@
-import LocalData from "../utils/localData";
-import DefaultConfig from "./default";
+import LocalData from '../utils/localData';
+import DefaultConfig from './default';
 
 // Controla o carregamento e a gravação das variáveis na memória.
 const localData = new LocalData();
-
-// Utilizado para navegação de páginas.
-global.props = {};
 
 // Variáveis de controle globais.
 global.speed = DefaultConfig.speed();
@@ -40,7 +37,7 @@ global.stopTime = DefaultConfig.stopTime();
 global.detectDistance = DefaultConfig.detectDistance();
 
 //Variáveis de informação.
-global.version = "0.8.8";
+global.version = '0.8.8';
 
 // Recuperando as variáveis previamente guardadas.
 localData.retrieveData();

@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
-// import './config/globalVariables';
+import React from 'react';
+import './config/globalVariables';
 import Routes from './routes';
-// import './config/statusBarConfig';
 
-// console.reportErrorsAsExceptions = false;
+console.reportErrorsAsExceptions = false;
 
-const App = () => {
+export default function App() {
   return <Routes />;
-};
-export default App;
+}
