@@ -141,8 +141,9 @@ class Comunication():
 # -> Execução de código <- #
 # ------------------------ #
 
-try:
-    do_log("started_file","[essential] command_priority_decider.py")
-    Comunication().listen_commands()
-except:
-    do_log("error","command_priority_decider.py","Fatal","Could not run command_priority_decider.py","main")
+if __name__ == "__main__":
+    try:
+        do_log("started_file","[essential] command_priority_decider.py")
+        Comunication().listen_commands()
+    except:
+        do_log("error","command_priority_decider.py","Fatal","Could not run command_priority_decider.py","main")

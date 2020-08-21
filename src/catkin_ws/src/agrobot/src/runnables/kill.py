@@ -39,8 +39,9 @@ def kill(node_name: str):
 # -> Execução de código <- #
 # ------------------------ #
 
-try: # Finaliza o arquivo passado como parâmetro.
-    kill(str(rospy.get_param("/param_to_kill")))
-except: # Finaliza o roscore.
-    kill("")
-    
+if __name__ == "__main__":
+    try: # Finaliza o arquivo passado como parâmetro.
+        kill(str(rospy.get_param("/param_to_kill")))
+    except: # Finaliza o roscore.
+        kill("")
+        

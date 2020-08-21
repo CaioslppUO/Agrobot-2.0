@@ -99,7 +99,8 @@ class Config_launcher:
 # -> Execução de código <- #
 # ------------------------ #
 
-try:
-    Config_launcher().read_launch_mode()
-except:
-    print(set_color(const_error,"Error on trying to read launcher config files."))
+if __name__ == "__main__":
+    try:
+        Config_launcher().read_launch_mode()
+    except:
+        print(set_color(const_error,"Error on trying to read launcher config files."))

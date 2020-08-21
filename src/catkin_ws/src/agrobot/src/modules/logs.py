@@ -74,8 +74,7 @@ def listen():
 # -> Execução de códigos <- #
 # ------------------------- #
 
-# Limpando os arquivos de log.
-clean_log_files([const_started_files_path,const_errors_file_path])
-
-# Escutando os nós que fizerem log.
-listen()
+if __name__ == "__main__":
+    clean_log_files([const_started_files_path,const_errors_file_path])
+    # Escutando os nós que fizerem log.
+    listen()
