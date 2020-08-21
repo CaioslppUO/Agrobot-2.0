@@ -121,10 +121,13 @@ class Web_server():
             ## Ip no qual será aberto o servidor.
             self.server_ip: str = str(get_param("/server_ip"))
             self.server_address_httpd = (self.server_ip,8080)
-            httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
-            self.server_thread = Thread(target=httpd.serve_forever)
-            self.server_thread.daemon = True # O servidor é fechado ao finalizar o programa.
-            self.server_thread.start()
+            try:
+                httpd = HTTPServer(self.server_address_httpd, RequestHandler_httpd)
+                self.server_thread = Thread(target=httpd.serve_forever)
+                self.server_thread.daemon = True # O servidor é fechado ao finalizar o programa.
+                self.server_thread.start()
+            except:
+                do_log("error","web_server.py","Fatal","Wrong IP Address.","class Web_server, method __init__()")
             rospy.Subscriber("shutdown", String, callback_shutdown)
         except:
             do_log("error","web_server.py","Fatal","Could not run web_server.py","class Web_server, method __init__()")
