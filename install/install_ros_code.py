@@ -1,11 +1,19 @@
-import os,pathlib,time
+import os,pathlib,json,time
+
+print('\033[91m' + 
+    "YOU NEED TO CONFIGURE THE CONFIG.JSON BEFORE EXECUTING THIS." +
+    '\033[0m')
+time.sleep(3)
 
 const_catkin_original_path: str = str(pathlib.Path(__file__).parent.absolute()) + "/"
 const_catkin_original_path += "../src/catkin_ws/"
-const_user_name: str = input("Digite o nome de usuário: ")
-const_user_home_path: str = "/home/" + const_user_name + "/"
-const_user_group: str = input("Digite o grupo do seu usuário: ")
-const_project_to_install = input("Qual projeto instalar[agrobot,agrobot_lidar]?: ") + "/"
+
+with open("config.json", "r") as read_file:
+    data = json.load(read_file)
+    const_user_name = data['user']
+    const_user_group = data['group']
+    const_project_to_install = data['project'] + "/"
+    const_user_home_path: str = "/home/" + const_user_name + "/"
 
 def install_catkin(project: str):
     # Copiando a pasta do projeto para o home.

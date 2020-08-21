@@ -1,6 +1,15 @@
-import os
+import os,json,time
 
-const_home_path = "/home/" + input("Digite o nome de usuário: ") + "/"
+print('\033[91m' + 
+    "YOU NEED TO CONFIGURE THE CONFIG.JSON BEFORE EXECUTING THIS." +
+    '\033[0m')
+time.sleep(3)
+
+with open("config.json", "r") as read_file:
+    data = json.load(read_file)
+    print(data)
+    const_user_name = data['user']
+    const_home_path: str = "/home/" + const_user_name + "/"
 
 def remove_source(terminal):
     file_ = open(const_home_path + "." + terminal + "rc", 'r')
