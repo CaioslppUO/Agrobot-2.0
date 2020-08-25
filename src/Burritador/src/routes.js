@@ -16,8 +16,16 @@ export default function App() {
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="Configurações" component={ManualControlConfig} />
-        <Drawer.Screen name="Connection" component={Connection} />
         <Drawer.Screen name="Automatic" component={AutomaticControlConfig} />
+        <Drawer.Screen
+          name="Connection"
+          component={Connection}
+          options={{
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null,
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

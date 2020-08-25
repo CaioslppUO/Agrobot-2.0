@@ -13,6 +13,11 @@ export default function Main({ navigation }) {
   useEffect(() => {
     navigation.navigate("Connection");
   }, []);
+
+  const src = new Src();
+  console.disableYellowBox = true;
+  const JoystickHandlerSize = parseInt(Dimensions.get("window").height * 0.15);
+  const JoystickSize = parseInt(Dimensions.get("window").height * 0.25);
   const [colorLight, setColorLight] = useState("#000");
   const [colorPower, setColorPower] = useState("#f00");
   const [colorAuto, setColorAutomatic] = useState("#000");
@@ -31,11 +36,41 @@ export default function Main({ navigation }) {
     colorAuto == "#000" ? setColorAutomatic("#0f0") : setColorAutomatic("#000");
   }
 
-  const src = new Src();
-  console.disableYellowBox = true;
-  const JoystickHandlerSize = parseInt(Dimensions.get("window").height * 0.15);
-  const JoystickSize = parseInt(Dimensions.get("window").height * 0.25);
+  function handlePowerButton() {
+    handleSetColorPower();
+    src.powerButtonPressed();
+  }
 
+  function handleLightButton() {
+    handleSetColorLight();
+    src.uvButtonPressed();
+  }
+
+  function handleAutomaticButton() {
+    handleSetColorAutomatic();
+    src.automaticButtonPressed(autoMode);
+    setAutoMode(autoMode == 0 ? 1 : 0);
+  }
+
+  function handleStopButton() {
+    setColorAutomatic("#000");
+    setColorLight("#000");
+    setAutoMode(0);
+    src.stopRobot();
+  }
+
+  function handleIncrementSlider() {
+    if (limitSliderValue > 0) {
+      global.limit = limitSliderValue - 1;
+      setLimitSliderValue(limitSliderValue - 1);
+    }
+  }
+  function handleDecrementSlider() {
+    if (limitSliderValue < 100) {
+      global.limit = limitSliderValue + 1;
+      setLimitSliderValue(limitSliderValue + 1);
+    }
+  }
   return (
     <>
       <View style={[globalStyles.mainContainer, Styles.mainContainer]}>
@@ -48,14 +83,11 @@ export default function Main({ navigation }) {
             autoCenter={false}
             resetOnRelease={true}
             onValue={({ x, y }) => {
-              // Não alterar o nome x e y.
-              joystick_x = x;
-              joystick_y = y;
               if (global.communicationInterval === 5) {
-                src.sendManualCommand(joystick_x, joystick_y, global.sliderSensibility);
+                src.sendManualCommand(x, y, global.sliderSensibility);
                 global.communicationInterval = 0;
               } else {
-                if (joystick_x == 0 && joystick_y == 0) {
+                if (x === 0 && y === 0) {
                   src.sendManualCommand(0, 0, global.sliderSensibility);
                 }
                 global.communicationInterval = global.communicationInterval + 1;
@@ -71,48 +103,21 @@ export default function Main({ navigation }) {
 
         <View style={Styles.containerButtons}>
           <View style={Styles.secondaryButtonContainer}>
-            <TouchableOpacity
-              style={Styles.actionButton}
-              onPress={() => {
-                handleSetColorPower();
-                src.powerButtonPressed();
-              }}
-            >
+            <TouchableOpacity style={Styles.actionButton} onPress={handlePowerButton}>
               <Icon name="power-off" size={30} color={colorPower} />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={Styles.actionButton}
-              onPress={() => {
-                handleSetColorLight();
-                src.uvButtonPressed();
-              }}
-            >
+            <TouchableOpacity style={Styles.actionButton} onPress={handleLightButton}>
               <Icon name="lightbulb-o" size={30} color={colorLight} />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={Styles.actionButton}
-              onPress={() => {
-                handleSetColorAutomatic();
-                src.automaticButtonPressed(autoMode);
-                setAutoMode(autoMode == 0 ? 1 : 0);
-              }}
-            >
+            <TouchableOpacity style={Styles.actionButton} onPress={handleAutomaticButton}>
               <Icon name="car" size={30} color={colorAuto} />
             </TouchableOpacity>
           </View>
 
           <View style={Styles.secondaryButtonContainer}>
-            <TouchableOpacity
-              style={Styles.stopButton}
-              onPress={() => {
-                setColorAutomatic("#000");
-                setColorLight("#000");
-                setAutoMode(0);
-                src.stopRobot();
-              }}
-            >
+            <TouchableOpacity style={Styles.stopButton} onPress={handleStopButton}>
               <Text style={Styles.stopButtonText}>PARAR</Text>
             </TouchableOpacity>
           </View>
@@ -120,29 +125,13 @@ export default function Main({ navigation }) {
 
         <View style={Styles.sliderContainer}>
           <View style={Styles.topBarSliderView}>
-            <TouchableOpacity
-              style={Styles.buttonContactArea}
-              onPress={() => {
-                if (limitSliderValue > 0) {
-                  global.limit = limitSliderValue - 1;
-                  setLimitSliderValue(limitSliderValue - 1);
-                }
-              }}
-            >
+            <TouchableOpacity style={Styles.buttonContactArea} onPress={handleIncrementSlider}>
               <Text style={Styles.incDecText}>-</Text>
             </TouchableOpacity>
 
             <Text style={Styles.speedText}>Velocidade {limitSliderValue}% </Text>
 
-            <TouchableOpacity
-              style={Styles.buttonContactArea}
-              onPress={() => {
-                if (limitSliderValue < 100) {
-                  global.limit = limitSliderValue + 1;
-                  setLimitSliderValue(limitSliderValue + 1);
-                }
-              }}
-            >
+            <TouchableOpacity style={Styles.buttonContactArea} onPress={handleDecrementSlider}>
               <Text style={Styles.incDecText}>+</Text>
             </TouchableOpacity>
           </View>

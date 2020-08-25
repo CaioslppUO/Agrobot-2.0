@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity, Text, ScrollView } from "react-native";
+import { View, TextInput, TouchableOpacity, Text, ScrollView, Button } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
 import { storeData } from "../../utils/localData";
@@ -27,6 +27,40 @@ export default function Automatic({ navigation }) {
   const [stopTimeAutoTemp, setStopTimeAutoTemp] = useState(global.stopTime);
   const [detectDistanceTemp, setDetectDistanceTemp] = useState(global.detectDistance);
 
+  function handleSavePage() {
+    try {
+      Src.checkLimitAuto(limitAutoTemp);
+      Src.checkCorrectionMovements(tickDefaultAutoTemp);
+      Src.checkCorrectionFactor(shiftDirectionAutoTemp);
+      Src.checkSteerAuto(steerDefaultAutoTemp);
+      Src.checkSpeedAuto(speedDefaultAutoTemp);
+      Src.checkMoveTimeAuto(moveTimeAutoTemp);
+      Src.checkStopTimeAuto(stopTimeAutoTemp);
+      Src.checkDetectDistance(detectDistanceTemp);
+
+      global.limitAuto = parseInt(limitAutoTemp);
+      global.correctionMovements = parseInt(tickDefaultAutoTemp);
+      global.steerAuto = parseInt(steerDefaultAutoTemp);
+      global.speedAuto = parseInt(speedDefaultAutoTemp);
+      global.correctionFactor = parseFloat(shiftDirectionAutoTemp);
+      global.moveTime = parseInt(moveTimeAutoTemp);
+      global.stopTime = parseInt(stopTimeAutoTemp);
+      global.detectDistance = parseFloat(detectDistanceTemp);
+
+      storeData("limitAuto", String(limitAutoTemp));
+      storeData("correctionMovements", String(tickDefaultAutoTemp));
+      storeData("steerAuto", String(steerDefaultAutoTemp));
+      storeData("speedAuto", String(speedDefaultAutoTemp));
+      storeData("correctionFactor", String(shiftDirectionAutoTemp));
+      storeData("moveTime", String(moveTimeAutoTemp));
+      storeData("stopTime", String(stopTimeAutoTemp));
+      storeData("detectDistance", String(detectDistanceTemp));
+
+      navigation.navigate("Home");
+    } catch (err) {
+      alert(err);
+    }
+  }
   return (
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -123,43 +157,7 @@ export default function Automatic({ navigation }) {
           </View>
           {/*View do botão de salvar*/}
           <View style={Styles.containerButtons}>
-            <TouchableOpacity
-              style={globalStyles.button}
-              onPress={() => {
-                try {
-                  Src.checkLimitAuto(limitAutoTemp);
-                  Src.checkCorrectionMovements(tickDefaultAutoTemp);
-                  Src.checkCorrectionFactor(shiftDirectionAutoTemp);
-                  Src.checkSteerAuto(steerDefaultAutoTemp);
-                  Src.checkSpeedAuto(speedDefaultAutoTemp);
-                  Src.checkMoveTimeAuto(moveTimeAutoTemp);
-                  Src.checkStopTimeAuto(stopTimeAutoTemp);
-                  Src.checkDetectDistance(detectDistanceTemp);
-
-                  global.limitAuto = parseInt(limitAutoTemp);
-                  global.correctionMovements = parseInt(tickDefaultAutoTemp);
-                  global.steerAuto = parseInt(steerDefaultAutoTemp);
-                  global.speedAuto = parseInt(speedDefaultAutoTemp);
-                  global.correctionFactor = parseFloat(shiftDirectionAutoTemp);
-                  global.moveTime = parseInt(moveTimeAutoTemp);
-                  global.stopTime = parseInt(stopTimeAutoTemp);
-                  global.detectDistance = parseFloat(detectDistanceTemp);
-
-                  storeData("limitAuto", String(limitAutoTemp));
-                  storeData("correctionMovements", String(tickDefaultAutoTemp));
-                  storeData("steerAuto", String(steerDefaultAutoTemp));
-                  storeData("speedAuto", String(speedDefaultAutoTemp));
-                  storeData("correctionFactor", String(shiftDirectionAutoTemp));
-                  storeData("moveTime", String(moveTimeAutoTemp));
-                  storeData("stopTime", String(stopTimeAutoTemp));
-                  storeData("detectDistance", String(detectDistanceTemp));
-
-                  navigation.navigate("Home");
-                } catch (err) {
-                  alert(err);
-                }
-              }}
-            >
+            <TouchableOpacity style={globalStyles.button} onPress={handleSavePage}>
               <Text style={globalStyles.textButtons}>Salvar</Text>
             </TouchableOpacity>
 
@@ -169,6 +167,7 @@ export default function Automatic({ navigation }) {
                 Src.buttonResetPressed();
                 navigation.navigate("Home");
               }}
+              title="Redefinir"
             >
               <Text style={globalStyles.textButtons}>Redefinir</Text>
             </TouchableOpacity>
