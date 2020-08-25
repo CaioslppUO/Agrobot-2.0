@@ -1,266 +1,182 @@
-import React, { Component } from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  ScrollView
-} from "react-native";
+import React, { useState } from "react";
+import { View, TextInput, TouchableOpacity, Text, ScrollView } from "react-native";
 import Styles from "./styles";
 import Footer from "../../footer";
-import LocalData from "../../utils/localData";
+import { storeData } from "../../utils/localData";
 import Src from "./src";
 import { globalStyles } from "../../styles";
 
 // Controla o carregamento e a gravação das variáveis na memória.
-const localData = new LocalData();
+// const localData = new LocalData();
 
-export default class Automatic extends Component {
-  state = {
-    sliderValue: 100
-  };
-  //Opções do controlador de navegação de páginas
-  static navigationOptions = {
-    title: "Configuração do Modo Automático",
-    alignContent: "center",
-    headerTitleStyle: {
-      flexGrow: 1,
-      fontSize: 15
-    }
-  };
+export default function Automatic({ navigation }) {
+  const [limitAuto, setLimitAuto] = useState(global.limitAuto);
+  const [tickDefaultAuto, setTickDefaultAuto] = useState(global.correctionMovements);
+  const [steerDefaultAuto, setSteerDefaultAuto] = useState(global.steerAuto);
+  const [speedDefaultAuto, setSpeedDefaultAuto] = useState(global.speedAuto);
+  const [shiftDirectionAuto, setShiftDirectionAuto] = useState(global.correctionFactor);
+  const [moveTimeAuto, setMoveTimeAuto] = useState(global.moveTime);
+  const [stopTimeAuto, setStopTimeAuto] = useState(global.stopTime);
+  const [detectDistance, setDetectDistance] = useState(global.detectDistance);
+  const [limitAutoTemp, setLimitAutoTemp] = useState(global.limitAuto);
+  const [tickDefaultAutoTemp, setTickDefaultAutoTemp] = useState(global.correctionMovements);
+  const [steerDefaultAutoTemp, setSteerDefaultAutoTemp] = useState(global.steerAuto);
+  const [speedDefaultAutoTemp, setSpeedDefaultAutoTemp] = useState(global.speedAuto);
+  const [shiftDirectionAutoTemp, setShiftDirectionAutoTemp] = useState(global.correctionFactor);
+  const [moveTimeAutoTemp, setMoveTimeAutoTemp] = useState(global.moveTime);
+  const [stopTimeAutoTemp, setStopTimeAutoTemp] = useState(global.stopTime);
+  const [detectDistanceTemp, setDetectDistanceTemp] = useState(global.detectDistance);
 
-  state = {
-    limitAuto: global.limitAuto,
-    tickDefaultAuto: global.correctionMovements,
-    steerDefaultAuto: global.steerAuto,
-    speedDefaultAuto: global.speedAuto,
-    shiftDirectionAuto: global.correctionFactor,
-    moveTimeAuto: global.moveTime,
-    stopTimeAuto: global.stopTime,
-    detectDistance: global.detectDistance,
-    limitAutoTemp: global.limitAuto,
-    tickDefaultAutoTemp: global.correctionMovements,
-    steerDefaultAutoTemp: global.steerAuto,
-    speedDefaultAutoTemp: global.speedAuto,
-    shiftDirectionAutoTemp: global.correctionFactor,
-    moveTimeAutoTemp: global.moveTime,
-    stopTimeAutoTemp: global.stopTime,
-    detectDistanceTemp: global.detectDistance
-  };
+  return (
+    <>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={globalStyles.mainContainer}>
+          <Text style={globalStyles.title}>Parâmetros</Text>
+          <View style={Styles.boxesContainer}>
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Limite: " + limitAuto}
+              onEndEditing={(text) => {
+                setLimitAuto(parseInt(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setLimitAutoTemp(parseInt(text));
+              }}
+            />
 
-  render() {
-    return (
-      <>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {/*View principal*/}
-          <View style={globalStyles.mainContainer}>
-            {/*Titulo da pagina*/}
-            <Text style={globalStyles.title}>Parâmetros</Text>
-            {/*View dos campos de preenchimento de comunicação*/}
-            <View style={Styles.boxesContainer}>
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={"Limite: " + this.state.limitAuto}
-                onEndEditing={text => {
-                  this.setState({ limitAuto: parseInt(text.nativeEvent.text) });
-                }}
-                onChangeText={text => {
-                  this.setState({ limitAutoTemp: parseInt(text) });
-                }}
-              />
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Direção: " + steerDefaultAuto}
+              onSubmitEditing={(text) => {
+                setSteerDefaultAuto(parseInt(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setSteerDefaultAutoTemp(parseInt(text));
+              }}
+            />
 
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={"Direção: " + this.state.steerDefaultAuto}
-                onSubmitEditing={text => {
-                  this.setState({
-                    steerDefaultAuto: parseInt(text.nativeEvent.text)
-                  });
-                }}
-                onChangeText={text => {
-                  this.setState({ steerDefaultAutoTemp: parseInt(text) });
-                }}
-              />
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Velocidade: " + speedDefaultAuto}
+              onSubmitEditing={(text) => {
+                setSpeedDefaultAuto(parseInt(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setSpeedDefaultAutoTemp(parseInt(text));
+              }}
+            />
 
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={"Velocidade: " + this.state.speedDefaultAuto}
-                onSubmitEditing={text => {
-                  this.setState({
-                    speedDefaultAuto: parseInt(text.nativeEvent.text)
-                  });
-                }}
-                onChangeText={text => {
-                  this.setState({ speedDefaultAutoTemp: parseInt(text) });
-                }}
-              />
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Nº de Movimentos de correção: " + tickDefaultAuto}
+              onSubmitEditing={(text) => {
+                setTickDefaultAuto(parseInt(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setTickDefaultAutoTemp(parseInt(text));
+              }}
+            />
 
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={
-                  "Nº de Movimentos de correção: " + this.state.tickDefaultAuto
-                }
-                onSubmitEditing={text => {
-                  this.setState({
-                    tickDefaultAuto: parseInt(text.nativeEvent.text)
-                  });
-                }}
-                onChangeText={text => {
-                  this.setState({ tickDefaultAutoTemp: parseInt(text) });
-                }}
-              />
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Fator de Correção: " + shiftDirectionAuto}
+              onSubmitEditing={(text) => {
+                setShiftDirectionAuto(parseFloat(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setShiftDirectionAutoTemp(parseFloat(text));
+              }}
+            />
 
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={
-                  "Fator de Correção: " + this.state.shiftDirectionAuto
-                }
-                onSubmitEditing={text => {
-                  this.setState({
-                    shiftDirectionAuto: parseFloat(text.nativeEvent.text)
-                  });
-                }}
-                onChangeText={text => {
-                  this.setState({ shiftDirectionAutoTemp: parseFloat(text) });
-                }}
-              />
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Distância de Colisão(m): " + detectDistance}
+              onSubmitEditing={(text) => {
+                setDetectDistance(parseFloat(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setDetectDistanceTemp(parseFloat(text));
+              }}
+            />
 
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={
-                  "Distância de Colisão(m): " + this.state.detectDistance
-                }
-                onSubmitEditing={text => {
-                  this.setState({
-                    detectDistance: parseFloat(text.nativeEvent.text)
-                  });
-                }}
-                onChangeText={text => {
-                  this.setState({ detectDistanceTemp: parseFloat(text) });
-                }}
-              />
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Andar por(seg): " + moveTimeAuto}
+              onSubmitEditing={(text) => {
+                setMoveTimeAuto(parseInt(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setMoveTimeAutoTemp(parseInt(text));
+              }}
+            />
 
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={"Andar por(seg): " + this.state.moveTimeAuto}
-                onSubmitEditing={text => {
-                  this.setState({
-                    moveTimeAuto: parseInt(text.nativeEvent.text)
-                  });
-                }}
-                onChangeText={text => {
-                  this.setState({ moveTimeAutoTemp: parseInt(text) });
-                }}
-              />
-
-              <TextInput
-                style={globalStyles.inputText}
-                placeholder={"Parar por(seg): " + this.state.stopTimeAuto}
-                onSubmitEditing={text => {
-                  this.setState({
-                    stopTimeAuto: parseInt(text.nativeEvent.text)
-                  });
-                }}
-                onChangeText={text => {
-                  this.setState({ stopTimeAutoTemp: parseInt(text) });
-                }}
-              />
-            </View>
-            {/*View do botão de salvar*/}
-            <View style={Styles.containerButtons}>
-              <TouchableOpacity
-                style={globalStyles.button}
-                onPress={() => {
-                  try {
-                    Src.checkLimitAuto(this.state.limitAutoTemp);
-                    Src.checkCorrectionMovements(
-                      this.state.tickDefaultAutoTemp
-                    );
-                    Src.checkCorrectionFactor(
-                      this.state.shiftDirectionAutoTemp
-                    );
-                    Src.checkSteerAuto(this.state.steerDefaultAutoTemp);
-                    Src.checkSpeedAuto(this.state.speedDefaultAutoTemp);
-                    Src.checkMoveTimeAuto(this.state.moveTimeAutoTemp);
-                    Src.checkStopTimeAuto(this.state.stopTimeAutoTemp);
-                    Src.checkDetectDistance(this.state.detectDistanceTemp);
-
-                    global.limitAuto = parseInt(this.state.limitAutoTemp);
-                    global.correctionMovements = parseInt(
-                      this.state.tickDefaultAutoTemp
-                    );
-                    global.steerAuto = parseInt(
-                      this.state.steerDefaultAutoTemp
-                    );
-                    global.speedAuto = parseInt(
-                      this.state.speedDefaultAutoTemp
-                    );
-                    global.correctionFactor = parseFloat(
-                      this.state.shiftDirectionAutoTemp
-                    );
-                    global.moveTime = parseInt(this.state.moveTimeAutoTemp);
-                    global.stopTime = parseInt(this.state.stopTimeAutoTemp);
-                    global.detectDistance = parseFloat(
-                      this.state.detectDistanceTemp
-                    );
-
-                    localData.storeData(
-                      "limitAuto",
-                      String(this.state.limitAutoTemp)
-                    );
-                    localData.storeData(
-                      "correctionMovements",
-                      String(this.state.tickDefaultAutoTemp)
-                    );
-                    localData.storeData(
-                      "steerAuto",
-                      String(this.state.steerDefaultAutoTemp)
-                    );
-                    localData.storeData(
-                      "speedAuto",
-                      String(this.state.speedDefaultAutoTemp)
-                    );
-                    localData.storeData(
-                      "correctionFactor",
-                      String(this.state.shiftDirectionAutoTemp)
-                    );
-                    localData.storeData(
-                      "moveTime",
-                      String(this.state.moveTimeAutoTemp)
-                    );
-                    localData.storeData(
-                      "stopTime",
-                      String(this.state.stopTimeAutoTemp)
-                    );
-                    localData.storeData(
-                      "detectDistance",
-                      String(this.state.detectDistanceTemp)
-                    );
-
-                    this.props.navigation.navigate("Main");
-                  } catch (err) {
-                    alert(err);
-                  }
-                }}
-              >
-                <Text style={globalStyles.textButtons}>Salvar</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={globalStyles.button}
-                onPress={() => {
-                  Src.buttonResetPressed();
-                  this.props.navigation.navigate("Main");
-                }}
-              >
-                <Text style={globalStyles.textButtons}>Redefinir</Text>
-              </TouchableOpacity>
-            </View>
-
-            <Footer />
+            <TextInput
+              style={globalStyles.inputText}
+              placeholder={"Parar por(seg): " + stopTimeAuto}
+              onSubmitEditing={(text) => {
+                setStopTimeAuto(parseInt(text.nativeEvent.text));
+              }}
+              onChangeText={(text) => {
+                setStopTimeAutoTemp(parseInt(text));
+              }}
+            />
           </View>
-        </ScrollView>
-      </>
-    );
-  }
+          {/*View do botão de salvar*/}
+          <View style={Styles.containerButtons}>
+            <TouchableOpacity
+              style={globalStyles.button}
+              onPress={() => {
+                try {
+                  Src.checkLimitAuto(limitAutoTemp);
+                  Src.checkCorrectionMovements(tickDefaultAutoTemp);
+                  Src.checkCorrectionFactor(shiftDirectionAutoTemp);
+                  Src.checkSteerAuto(steerDefaultAutoTemp);
+                  Src.checkSpeedAuto(speedDefaultAutoTemp);
+                  Src.checkMoveTimeAuto(moveTimeAutoTemp);
+                  Src.checkStopTimeAuto(stopTimeAutoTemp);
+                  Src.checkDetectDistance(detectDistanceTemp);
+
+                  global.limitAuto = parseInt(limitAutoTemp);
+                  global.correctionMovements = parseInt(tickDefaultAutoTemp);
+                  global.steerAuto = parseInt(steerDefaultAutoTemp);
+                  global.speedAuto = parseInt(speedDefaultAutoTemp);
+                  global.correctionFactor = parseFloat(shiftDirectionAutoTemp);
+                  global.moveTime = parseInt(moveTimeAutoTemp);
+                  global.stopTime = parseInt(stopTimeAutoTemp);
+                  global.detectDistance = parseFloat(detectDistanceTemp);
+
+                  storeData("limitAuto", String(limitAutoTemp));
+                  storeData("correctionMovements", String(tickDefaultAutoTemp));
+                  storeData("steerAuto", String(steerDefaultAutoTemp));
+                  storeData("speedAuto", String(speedDefaultAutoTemp));
+                  storeData("correctionFactor", String(shiftDirectionAutoTemp));
+                  storeData("moveTime", String(moveTimeAutoTemp));
+                  storeData("stopTime", String(stopTimeAutoTemp));
+                  storeData("detectDistance", String(detectDistanceTemp));
+
+                  navigation.navigate("Home");
+                } catch (err) {
+                  alert(err);
+                }
+              }}
+            >
+              <Text style={globalStyles.textButtons}>Salvar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={globalStyles.button}
+              onPress={() => {
+                Src.buttonResetPressed();
+                navigation.navigate("Home");
+              }}
+            >
+              <Text style={globalStyles.textButtons}>Redefinir</Text>
+            </TouchableOpacity>
+          </View>
+
+          <Footer />
+        </View>
+      </ScrollView>
+    </>
+  );
 }

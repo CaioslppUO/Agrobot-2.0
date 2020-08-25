@@ -1,22 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  BackHandler,
-  Slider,
-} from 'react-native';
-import Styles from './styles';
-import Footer from '../../footer';
-import LocalData from '../../utils/localData';
-import Src from './src';
-import {globalStyles} from '../../styles';
+import React, { useEffect, useState } from "react";
+import { View, TextInput, TouchableOpacity, Text, BackHandler, Slider } from "react-native";
+import Styles from "./styles";
+import Footer from "../../footer";
+import { storeData } from "../../utils/localData";
+import Src from "./src";
+import { globalStyles } from "../../styles";
 
 // Controla o carregamento e a gravação das variáveis na memória.
-const localData = new LocalData();
+// const localData = new LocalData();
 
-export default function Config({navigation}) {
+export default function Config({ navigation }) {
   const [serverIp, setServerIp] = useState(global.roscoreServerIp);
   const [port, setPort] = useState(global.roscoreServerPort);
   const [delay, setDelay] = useState(global.communicationDelay);
@@ -26,7 +19,7 @@ export default function Config({navigation}) {
   const [sliderValue, setSliderValue] = useState(global.sliderSensibility);
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {});
+    BackHandler.addEventListener("hardwareBackPress", () => {});
   }, []);
 
   // componentWillUnmount() {
@@ -44,7 +37,7 @@ export default function Config({navigation}) {
         <View style={Styles.textInputContainer}>
           <TextInput
             style={globalStyles.inputText}
-            placeholder={'IP do robô: ' + serverIp}
+            placeholder={"IP do robô: " + serverIp}
             onEndEditing={(text) => {
               setServerIp(text.nativeEvent.text);
             }}
@@ -54,7 +47,7 @@ export default function Config({navigation}) {
           />
           <TextInput
             style={globalStyles.inputText}
-            placeholder={'Porta: ' + port}
+            placeholder={"Porta: " + port}
             onEndEditing={(text) => {
               setPort(text.nativeEvent.text);
             }}
@@ -64,7 +57,7 @@ export default function Config({navigation}) {
           />
           <TextInput
             style={globalStyles.inputText}
-            placeholder={'Tempo de resposta(ms): ' + delay}
+            placeholder={"Tempo de resposta(ms): " + delay}
             onEndEditing={(text) => {
               setDelay(text.nativeEvent.text);
             }}
@@ -86,9 +79,7 @@ export default function Config({navigation}) {
             step={1}
           />
           <View>
-            <Text style={Styles.textSlider}>
-              Sensibilidade joystick {sliderValue}%{' '}
-            </Text>
+            <Text style={Styles.textSlider}>Sensibilidade joystick {sliderValue}% </Text>
           </View>
         </View>
 
@@ -106,15 +97,16 @@ export default function Config({navigation}) {
                 global.communicationDelay = parseFloat(delayTemp);
                 global.sliderSensibility = parseInt(sliderValue);
 
-                localData.storeData('roscoreServerIp', String(serverIpTemp));
-                localData.storeData('roscoreServerPort', String(portTemp));
-                localData.storeData('communicationDelay', String(delayTemp));
-                localData.storeData('sliderSensibility', String(sliderValue));
-                navigation.navigate('Main');
+                storeData("roscoreServerIp", String(serverIpTemp));
+                storeData("roscoreServerPort", String(portTemp));
+                storeData("communicationDelay", String(delayTemp));
+                storeData("sliderSensibility", String(sliderValue));
+                navigation.navigate("Home");
               } catch (err) {
                 alert(err);
               }
-            }}>
+            }}
+          >
             <Text style={globalStyles.textButtons}>Salvar</Text>
           </TouchableOpacity>
 
@@ -122,8 +114,9 @@ export default function Config({navigation}) {
             style={globalStyles.button}
             onPress={() => {
               Src.buttonResetPressed();
-              navigation.navigate('Main');
-            }}>
+              navigation.navigate("Home");
+            }}
+          >
             <Text style={globalStyles.textButtons}>Redefinir</Text>
           </TouchableOpacity>
         </View>

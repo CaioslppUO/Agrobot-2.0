@@ -1,40 +1,40 @@
-import React, {useState, useEffect} from 'react';
-import {View, TouchableOpacity, Text, Slider, Dimensions} from 'react-native';
-import AxisPad from 'react-native-axis-pad';
-import Styles from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Footer from '../../footer';
-import {globalStyles} from '../../styles';
-import Src from './src.js';
+import React, { useState, useEffect } from "react";
+import { View, TouchableOpacity, Text, Slider, Dimensions } from "react-native";
+import AxisPad from "react-native-axis-pad";
+import Styles from "./styles";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Footer from "../../footer";
+import { globalStyles } from "../../styles";
+import Src from "./src.js";
 
 // Controla o código fonte.
 
-export default function Main({navigation}) {
+export default function Main({ navigation }) {
   useEffect(() => {
-    navigation.navigate('Connection');
+    navigation.navigate("Connection");
   }, []);
-  const [colorLight, setColorLight] = useState('#000');
-  const [colorPower, setColorPower] = useState('#f00');
-  const [colorAuto, setColorAutomatic] = useState('#000');
+  const [colorLight, setColorLight] = useState("#000");
+  const [colorPower, setColorPower] = useState("#f00");
+  const [colorAuto, setColorAutomatic] = useState("#000");
   const [autoMode, setAutoMode] = useState(0);
   const [menuItem, setMenuItem] = useState(0);
   const [menuItemValue, setMenuItemValue] = useState(0);
   const [limitSliderValue, setLimitSliderValue] = useState(50);
 
   function handleSetColorLight() {
-    colorLight == '#000' ? setColorLight('#993399') : setColorLight('#000');
+    colorLight == "#000" ? setColorLight("#993399") : setColorLight("#000");
   }
   function handleSetColorPower() {
-    colorPower == '#f00' ? setColorPower('#0f0') : setColorPower('#f00');
+    colorPower == "#f00" ? setColorPower("#0f0") : setColorPower("#f00");
   }
   function handleSetColorAutomatic() {
-    colorAuto == '#000' ? setColorAutomatic('#0f0') : setColorAutomatic('#000');
+    colorAuto == "#000" ? setColorAutomatic("#0f0") : setColorAutomatic("#000");
   }
 
   const src = new Src();
   console.disableYellowBox = true;
-  const JoystickHandlerSize = parseInt(Dimensions.get('window').height * 0.15);
-  const JoystickSize = parseInt(Dimensions.get('window').height * 0.25);
+  const JoystickHandlerSize = parseInt(Dimensions.get("window").height * 0.15);
+  const JoystickSize = parseInt(Dimensions.get("window").height * 0.25);
 
   return (
     <>
@@ -47,16 +47,12 @@ export default function Main({navigation}) {
             wrapperStyle={Styles.wrapperView}
             autoCenter={false}
             resetOnRelease={true}
-            onValue={({x, y}) => {
+            onValue={({ x, y }) => {
               // Não alterar o nome x e y.
               joystick_x = x;
               joystick_y = y;
               if (global.communicationInterval === 5) {
-                src.sendManualCommand(
-                  joystick_x,
-                  joystick_y,
-                  global.sliderSensibility,
-                );
+                src.sendManualCommand(joystick_x, joystick_y, global.sliderSensibility);
                 global.communicationInterval = 0;
               } else {
                 if (joystick_x == 0 && joystick_y == 0) {
@@ -65,7 +61,7 @@ export default function Main({navigation}) {
                 global.communicationInterval = global.communicationInterval + 1;
               }
               if (autoMode != 0) {
-                setColorAutomatic('#000');
+                setColorAutomatic("#000");
                 setAutoMode(0);
                 src.stopAutoMode();
               }
@@ -80,7 +76,8 @@ export default function Main({navigation}) {
               onPress={() => {
                 handleSetColorPower();
                 src.powerButtonPressed();
-              }}>
+              }}
+            >
               <Icon name="power-off" size={30} color={colorPower} />
             </TouchableOpacity>
 
@@ -89,7 +86,8 @@ export default function Main({navigation}) {
               onPress={() => {
                 handleSetColorLight();
                 src.uvButtonPressed();
-              }}>
+              }}
+            >
               <Icon name="lightbulb-o" size={30} color={colorLight} />
             </TouchableOpacity>
 
@@ -99,7 +97,8 @@ export default function Main({navigation}) {
                 handleSetColorAutomatic();
                 src.automaticButtonPressed(autoMode);
                 setAutoMode(autoMode == 0 ? 1 : 0);
-              }}>
+              }}
+            >
               <Icon name="car" size={30} color={colorAuto} />
             </TouchableOpacity>
           </View>
@@ -108,11 +107,12 @@ export default function Main({navigation}) {
             <TouchableOpacity
               style={Styles.stopButton}
               onPress={() => {
-                setColorAutomatic('#000');
-                setColorLight('#000');
+                setColorAutomatic("#000");
+                setColorLight("#000");
                 setAutoMode(0);
                 src.stopRobot();
-              }}>
+              }}
+            >
               <Text style={Styles.stopButtonText}>PARAR</Text>
             </TouchableOpacity>
           </View>
@@ -127,13 +127,12 @@ export default function Main({navigation}) {
                   global.limit = limitSliderValue - 1;
                   setLimitSliderValue(limitSliderValue - 1);
                 }
-              }}>
+              }}
+            >
               <Text style={Styles.incDecText}>-</Text>
             </TouchableOpacity>
 
-            <Text style={Styles.speedText}>
-              Velocidade {limitSliderValue}%{' '}
-            </Text>
+            <Text style={Styles.speedText}>Velocidade {limitSliderValue}% </Text>
 
             <TouchableOpacity
               style={Styles.buttonContactArea}
@@ -142,7 +141,8 @@ export default function Main({navigation}) {
                   global.limit = limitSliderValue + 1;
                   setLimitSliderValue(limitSliderValue + 1);
                 }
-              }}>
+              }}
+            >
               <Text style={Styles.incDecText}>+</Text>
             </TouchableOpacity>
           </View>

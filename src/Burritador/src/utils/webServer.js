@@ -3,21 +3,21 @@ export default function WebServer() {
   /**  Envia a mensagem de controle para o servidor do roscore. */
   function sendToRoscoreServer(speed, steer, limit, power, uv) {
     command =
-      'http://' +
+      "http://" +
       global.roscoreServerIp +
-      ':' +
+      ":" +
       global.roscoreServerPort +
-      '/0*speed$' +
+      "/0*speed$" +
       speed +
-      '*steer$' +
+      "*steer$" +
       steer +
-      '*limit$' +
+      "*limit$" +
       limit +
-      '*powerA$' +
+      "*powerA$" +
       power +
-      '*powerB$' +
+      "*powerB$" +
       0 +
-      '*pulverize$' +
+      "*pulverize$" +
       uv;
     new WebSocket(command);
   }
@@ -29,30 +29,30 @@ export default function WebServer() {
     speedDefault,
     shiftDirection,
     moveTimeAuto,
-    stopTimeAuto,
+    stopTimeAuto
   ) {
     command =
-      'http://' +
+      "http://" +
       global.lidarServerIp +
-      ':' +
+      ":" +
       global.lidarServerPort +
-      '/limit$' +
+      "/limit$" +
       limit +
-      '*tick$' +
+      "*tick$" +
       tickDefault +
-      '*steer$' +
+      "*steer$" +
       steerDefault +
-      '*speed$' +
+      "*speed$" +
       speedDefault +
-      '*shift$' +
+      "*shift$" +
       shiftDirection +
-      '*uv$' +
+      "*uv$" +
       global.uv +
-      '*detect$' +
+      "*detect$" +
       global.detectDistance +
-      '*move$' +
+      "*move$" +
       moveTimeAuto +
-      '*stop$' +
+      "*stop$" +
       stopTimeAuto;
     new WebSocket(command);
   }

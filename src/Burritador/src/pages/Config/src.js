@@ -3,8 +3,8 @@ import LocalData from "../../utils/localData";
 
 // Classe que gerencia o carregame
 const localData = new LocalData();
-export default (Src = {
-  checkIp: function(ip) {
+export default Src = {
+  checkIp: function (ip) {
     let splittedIp = ip.split(".");
     if (ip.split(".").length != 4) {
       throw new Error("IP inválido.");
@@ -27,16 +27,12 @@ export default (Src = {
       }
     }
   },
-  checkPort: function(port) {
-    if (
-      typeof parseInt(port) != "number" ||
-      Number.isNaN(parseInt(port)) ||
-      parseInt(port) < 0
-    ) {
+  checkPort: function (port) {
+    if (typeof parseInt(port) != "number" || Number.isNaN(parseInt(port)) || parseInt(port) < 0) {
       throw new Error("Porta inválida.");
     }
   },
-  checkDelay: function(delay) {
+  checkDelay: function (delay) {
     if (
       typeof parseInt(delay) != "number" ||
       Number.isNaN(parseInt(delay)) ||
@@ -45,7 +41,7 @@ export default (Src = {
       throw new Error("Delay inválido.");
     }
   },
-  buttonResetPressed: function() {
+  buttonResetPressed: function () {
     const title = "Resetar configurações";
     const message = "Tem certeza que deseja resetar as configurações?";
     const buttons = [
@@ -62,10 +58,10 @@ export default (Src = {
           localData.storeData("communicationDelay", String(communicationDelay));
           localData.storeData("sliderSensibility", String(sliderSensibility));
           alert("Redefinição concluída.");
-        }
+        },
       },
-      { text: "Não", onPress: () => alert("Redefinição cancelada.") }
+      { text: "Não", onPress: () => alert("Redefinição cancelada.") },
     ];
     Alert.alert(title, message, buttons);
-  }
-});
+  },
+};

@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
 
-import Home from './pages/Main';
-import Connection from './pages/Connection';
-import ManualControlConfig from './pages/Config';
-import AutomaticControlConfig from './pages/Automatic';
+import Home from "./pages/Main";
+import Connection from "./pages/Connection";
+import ManualControlConfig from "./pages/Config";
+import AutomaticControlConfig from "./pages/Automatic";
 
 const Drawer = createDrawerNavigator();
 
