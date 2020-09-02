@@ -31,7 +31,7 @@ export default class Connection extends Component {
     //Envia a mensagem de controle manual para o webServerManual
     function sendToWebServerManual() {
       speed = 0
-      for(i = 0; i<250; i++){
+      for(i = 0; i<10; i++){
         if(speed === 0){
           speed = 1
         }else{
