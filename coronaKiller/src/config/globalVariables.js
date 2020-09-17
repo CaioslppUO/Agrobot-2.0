@@ -24,7 +24,7 @@ global.limit_auto = 50;
 global.correction_movements = 5;
 global.correction_factor = 15;
 
-global.serverIp_auto = "192.168.1.121";
+global.serverIp_auto = "192.168.1.125";
 global.port_auto = "8082";
 global.move_time_auto = 0;
 global.stop_time_auto = 0;
