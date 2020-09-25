@@ -91,25 +91,13 @@ class Comunication():
         const_pub_comunication.publish(self.command_standardizer.msg_handler(self.command_received))
         self.command_received = None
 
-    ## Método que escuta o tópico web_server_manual e executa a rotina necessária para tratar os dados.
-    def listen_web_server_manual(self):
-        rospy.Subscriber("web_server_manual", CompleteControl, self.callback, self.priorities.manual_app) 
-
-    ## Método que escuta o tópico computational_vision e executa a rotina necessária para tratar os dados.
-    def listen_computational_vision(self):
-        rospy.Subscriber("computational_vision", CompleteControl, self.callback, self.priorities.computaional_vision)
-
-    ## Método que escuta o tópico control_outdoors e executa a rotina necessária para tratar os dados.
-    def listen_outdoor_controls(self):
-        rospy.Subscriber("control_outdoors", CompleteControl, self.callback, self.priorities.rasp_lidar)
-
-    ## Método que escuta o tópico pc_manual e executa a rotina necessária para tratar os dados.
-    def listen_pc_manual(self):
-        rospy.Subscriber("pc_manual", CompleteControl, self.callback, self.priorities.manual_pc)
-   
     ## Método que escuta o tópico control_lidar e executa a rotina necessária para tratar os dados.
     def listen_control_lidar(self):
         rospy.Subscriber("control_lidar", CompleteControl, self.callback, self.priorities.rasp_lidar)
+        
+    ## Método que escuta o topic e executa a rotina necessária para tratar os dados.    
+    def listen(topic,msg_type,priority):
+        rospy.Subscriber(topic,msg_type,self.callback,priority)
 
     ## Método que define qual comando será executado baseado na prioridade.
     def callback(self,command_received: CompleteControl,priority: int):
@@ -129,11 +117,9 @@ class Comunication():
     ## Método que executa as rotinas de listen e envio dos comandos ao programa.
     def listen_commands(self):
         self.command_received = None
-        self.listen_web_server_manual()
-        self.listen_outdoor_controls()
-        self.listen_computational_vision()
-        self.listen_pc_manual()
-        self.listen_control_lidar()
+        self.listen("web_server_manual",CompleteControl,self.priorities.manual_app)
+        self.listen("pc_manual",CompleteControl,self.priorities.manual_pc)
+        self.listen("control_lidar",CompleteControl,self.priorities.rasp_lidar)
         rospy.Subscriber("shutdown", String, callback_shutdown)
         rospy.spin()
 
