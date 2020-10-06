@@ -35,10 +35,22 @@ rospy.init_node('control_mini_robot', anonymous=True)
 
 # Configurando o GPIO
 gpio.setmode(gpio.BOARD)
+gpio.setwarnings(False)
 gpio.setup(const_left_wheel_1, gpio.OUT)
 gpio.setup(const_left_wheel_2, gpio.OUT)
 gpio.setup(const_right_wheel_1, gpio.OUT)
 gpio.setup(const_right_wheel_2, gpio.OUT)
+
+# Configurando o PWM
+const_left_wheel_1_pwm = gpio.PWM(const_left_wheel_1, 100)
+const_left_wheel_2_pwm = gpio.PWM(const_left_wheel_2, 100)
+const_right_wheel_1_pwm = gpio.PWM(const_right_wheel_1, 100)
+const_right_wheel_2_pwm = gpio.PWM(const_right_wheel_2, 100)
+
+const_left_wheel_1_pwm.start(0)
+const_left_wheel_2_pwm.start(0)
+const_right_wheel_1_pwm.start(0)
+const_right_wheel_2_pwm.start(0)
 
 # ------------- #
 # -> Classes <- #
@@ -51,72 +63,74 @@ class Control_mini_robot():
         self.movement = "forward"
         ## Variável utilizada controlar o movimento para esquerda e para direita.
         self.direction = "none"
+        ## Variável utilizada controlar o limite de velocidade.
+        self.limit = 100
 
     ## Movimenta o robô para frente.
     def go_forward(self):
-        gpio.output(const_left_wheel_1, gpio.LOW)
-        gpio.output(const_left_wheel_2, gpio.LOW)
-        gpio.output(const_right_wheel_1,gpio.HIGH)
-        gpio.output(const_right_wheel_2,gpio.HIGH)
+        const_left_wheel_1_pwm.ChangeDutyCycle(0)
+        const_left_wheel_2_pwm.ChangeDutyCycle(0)
+        const_right_wheel_1_pwm.ChangeDutyCycle(self.limit)
+        const_right_wheel_2_pwm.ChangeDutyCycle(self.limit)
 
     ## Movimenta o robô para trás.
     def go_back(self):
-        gpio.output(const_left_wheel_1, gpio.HIGH)
-        gpio.output(const_left_wheel_2, gpio.HIGH)
-        gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        const_left_wheel_1_pwm.ChangeDutyCycle(self.limit)
+        const_left_wheel_2_pwm.ChangeDutyCycle(self.limit)
+        const_right_wheel_1_pwm.ChangeDutyCycle(0)
+        const_right_wheel_2_pwm.ChangeDutyCycle(0)
     
     ## Movimenta o robô para frente e esquerda.
     def turn_left_forward(self):
-        gpio.output(const_left_wheel_1, gpio.LOW)
-        gpio.output(const_left_wheel_2, gpio.LOW)
-        gpio.output(const_right_wheel_1,gpio.HIGH)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        const_left_wheel_1_pwm.ChangeDutyCycle(0)
+        const_left_wheel_2_pwm.ChangeDutyCycle(0)
+        const_right_wheel_1_pwm.ChangeDutyCycle(self.limit)
+        const_right_wheel_2_pwm.ChangeDutyCycle(0)
 
     ## Movimenta o robô para frente e direita.
     def turn_right_forward(self):
-        gpio.output(const_left_wheel_1, gpio.LOW)
-        gpio.output(const_left_wheel_2, gpio.LOW)
-        gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.HIGH)
+        const_left_wheel_1_pwm.ChangeDutyCycle(0)
+        const_left_wheel_2_pwm.ChangeDutyCycle(0)
+        const_right_wheel_1_pwm.ChangeDutyCycle(0)
+        const_right_wheel_2_pwm.ChangeDutyCycle(self.limit)
 
     ## Movimenta o robô para trás e esquerda.
     def turn_left_back(self):
-        gpio.output(const_left_wheel_1, gpio.HIGH)
-        gpio.output(const_left_wheel_2, gpio.LOW)
-        gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        const_left_wheel_1_pwm.ChangeDutyCycle(self.limit)
+        const_left_wheel_2_pwm.ChangeDutyCycle(0)
+        const_right_wheel_1_pwm.ChangeDutyCycle(0)
+        const_right_wheel_2_pwm.ChangeDutyCycle(0)
 
     ## Movimenta o robô para trás e direita.
     def turn_right_back(self):
-        gpio.output(const_left_wheel_1, gpio.LOW)
-        gpio.output(const_left_wheel_2, gpio.HIGH)
-        gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        const_left_wheel_1_pwm.ChangeDutyCycle(0)
+        const_left_wheel_2_pwm.ChangeDutyCycle(self.limit)
+        const_right_wheel_1_pwm.ChangeDutyCycle(0)
+        const_right_wheel_2_pwm.ChangeDutyCycle(0)
 
     ## Para o robô.
     def stop(self):
-        gpio.output(const_left_wheel_1, gpio.LOW)
-        gpio.output(const_left_wheel_2, gpio.LOW)
-        gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        const_left_wheel_1_pwm.ChangeDutyCycle(0)
+        const_left_wheel_2_pwm.ChangeDutyCycle(0)
+        const_right_wheel_1_pwm.ChangeDutyCycle(0)
+        const_right_wheel_2_pwm.ChangeDutyCycle(0)
 
     ## Movimenta o robô para a esquerda.
     def turn_all_left(self):
-        gpio.output(const_left_wheel_1, gpio.LOW)
-        gpio.output(const_left_wheel_2, gpio.HIGH)
-        gpio.output(const_right_wheel_1,gpio.HIGH)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        const_left_wheel_1_pwm.ChangeDutyCycle(0)
+        const_left_wheel_2_pwm.ChangeDutyCycle(self.limit)
+        const_right_wheel_1_pwm.ChangeDutyCycle(self.limit)
+        const_right_wheel_2_pwm.ChangeDutyCycle(0)
 
     ## Movimenta o robô para a direita.
     def turn_all_right(self):
-        gpio.output(const_left_wheel_1, gpio.HIGH)
-        gpio.output(const_left_wheel_2, gpio.LOW)
-        gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.HIGH)
+        const_left_wheel_1_pwm.ChangeDutyCycle(self.limit)
+        const_left_wheel_2_pwm.ChangeDutyCycle(0)
+        const_right_wheel_1_pwm.ChangeDutyCycle(0)
+        const_right_wheel_2_pwm.ChangeDutyCycle(self.limit)
 
     ## Método que seta os valores das variáveis recebidas.
-    def set_values(self,speed,steer):
+    def set_values(self,speed,steer,limit):
         if(speed < -35):
             self.movement = "reverse"
         elif(speed > 35):
@@ -130,6 +144,8 @@ class Control_mini_robot():
             self.direction = "right"
         else:
             self.direction = "none"
+        
+        self.limit = limit
         print("--------")
         print("Movement: " + self.movement)
         print("Direction: " + self.direction)
@@ -161,10 +177,11 @@ class Control_mini_robot():
     def callback_set_values(self,msg):
         info = str(msg.data).split("$")
         try:
-            self.set_values(int(info[0]),int(info[1]))
+            self.set_values(int(info[0]),int(info[1]),int(info[2]))
         except:
             self.movement = "none"
             self.direction = "none"
+            self.limit = 100
         
         self.move()
 
