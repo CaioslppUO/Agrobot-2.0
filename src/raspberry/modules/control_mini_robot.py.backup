@@ -45,7 +45,7 @@ gpio.setup(const_right_wheel_2, gpio.OUT)
 # ------------- #
 
 ## Classe que gerência a comunicação com os arduinos.
-class Control_mini_robot():
+class Control_min_robot():
     def __init__(self):
         ## Variável utilizada controlar o movimento para frente e para trás.
         self.movement = "forward"
@@ -54,17 +54,17 @@ class Control_mini_robot():
 
     ## Movimenta o robô para frente.
     def go_forward(self):
-        gpio.output(const_left_wheel_1, gpio.LOW)
+        gpio.output(const_left_wheel_1, gpio.HIGH)
         gpio.output(const_left_wheel_2, gpio.LOW)
         gpio.output(const_right_wheel_1,gpio.HIGH)
-        gpio.output(const_right_wheel_2,gpio.HIGH)
+        gpio.output(const_right_wheel_2,gpio.LOW)
 
     ## Movimenta o robô para trás.
     def go_back(self):
-        gpio.output(const_left_wheel_1, gpio.HIGH)
+        gpio.output(const_left_wheel_1, gpio.LOW)
         gpio.output(const_left_wheel_2, gpio.HIGH)
         gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        gpio.output(const_right_wheel_2,gpio.HIGH)
     
     ## Movimenta o robô para frente e esquerda.
     def turn_left_forward(self):
@@ -82,10 +82,10 @@ class Control_mini_robot():
 
     ## Movimenta o robô para trás e esquerda.
     def turn_left_back(self):
-        gpio.output(const_left_wheel_1, gpio.HIGH)
+        gpio.output(const_left_wheel_1, gpio.LOW)
         gpio.output(const_left_wheel_2, gpio.LOW)
         gpio.output(const_right_wheel_1,gpio.LOW)
-        gpio.output(const_right_wheel_2,gpio.LOW)
+        gpio.output(const_right_wheel_2,gpio.HIGH)
 
     ## Movimenta o robô para trás e direita.
     def turn_right_back(self):
@@ -117,23 +117,19 @@ class Control_mini_robot():
 
     ## Método que seta os valores das variáveis recebidas.
     def set_values(self,speed,steer):
-        if(speed < -35):
+        if(speed < 10):
             self.movement = "reverse"
-        elif(speed > 35):
+        elif(speed > 10):
             self.movement = "forward"
         else:
             self.movement = "none"
 
-        if(steer < -35):
+        if(steer < 10):
             self.direction = "left"
-        elif(steer > 35):
+        elif(steer > 10):
             self.direction = "right"
         else:
             self.direction = "none"
-        print("--------")
-        print("Movement: " + self.movement)
-        print("Direction: " + self.direction)
-        print("--------")
 
     ## Movimenta o robô baseado no valor da variável direction.
     def move(self):
@@ -177,7 +173,10 @@ class Control_mini_robot():
 # ------------------------- #
 
 if __name__ == '__main__':
-    control = Control_mini_robot()
-    const_pub_log.publish('startedFile$control_mini_robot.py')
-    control.listen_values()
-    rospy.spin()
+    try: 
+        control = Control_mini_robot()
+        const_pub_log.publish('startedFile$control_mini_robot.py')
+        control.listen_values()
+        rospy.spin()
+    except:
+        const_pub_log.publish("error$Fatal$Could not run control_mini_robot.py.")
