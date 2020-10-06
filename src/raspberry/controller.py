@@ -68,6 +68,7 @@ def main_loop():
     launch_msg = run_py3 + "comunication/web_server.py " + server_ip + "& "
     launch_msg += run_py3 + "comunication/command_priority_decider.py& "
     launch_msg += run_py3 + "modules/command_assembler.py& "
+    launch_msg += run_py3 + "modules/control_mini_robot.py& "
     
     # Módulos opcionais.
     if(enable_relay == "True"):
