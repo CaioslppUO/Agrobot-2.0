@@ -1,5 +1,0 @@
-<launch>
-    <node pkg="agrobot" type="kill.py" name="kill" output="screen"/>
-    <arg name="node" default="roscore"/> 
-    <param name="param_to_kill" value="$(arg node)"/>
-</launch>

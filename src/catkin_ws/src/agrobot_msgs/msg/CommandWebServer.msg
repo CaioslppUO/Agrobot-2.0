@@ -1,9 +1,0 @@
-int8 limitDefault
-int8 tickDefault
-int8 steerDefault
-int8 speedDefault
-int8 shiftDirection
-int8 uv
-float32 detectDistance
-int32 walkTime
-int32 stopTime

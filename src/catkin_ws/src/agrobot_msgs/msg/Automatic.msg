@@ -1,2 +1,0 @@
-int64 correction_magnitude
-string walk_permission

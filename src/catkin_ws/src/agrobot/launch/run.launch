@@ -1,3 +1,0 @@
-<launch>
-    <node pkg="agrobot" type="controller.py" name="controller" output="screen"/>
-</launch>

@@ -1,3 +1,0 @@
-<launch>
-    <node pkg="agrobot" type="controller_lidar.py" name="controller" output="screen"/>
-</launch>
